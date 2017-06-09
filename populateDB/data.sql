@@ -6,7 +6,7 @@ insert into floods.person (id, first_name, last_name) values
 alter sequence floods.person_id_seq restart with 2;
 
 insert into floods_private.person_account (person_id, email, password_hash) values
-  (1, 'srv@double.trouble', '$2a$06$.Ryt.S6xCN./QmTx3r9Meu/nsk.4Ypfuj.o9qIqv4p3iipCWY45Bi'); -- Password: 'iFbWWlc'
+  (1, 'srv@double.trouble', '$2a$06$27dmM8dNyqSCPQqQ8/tSTuEF/Re1Hh0kNQVYLAl4NXfbiCQI9CBQy'); -- Password: 'texasfloods'
 
 insert into floods.crossing (id, name) values
   (1, 'Crossing at the park'),
