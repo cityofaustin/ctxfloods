@@ -170,6 +170,10 @@ grant select on table floods.status_update to floods_anonymous, floods_person;
 grant insert, update, delete on table floods.status_update to floods_person;
 grant usage on sequence floods.status_update_id_seq to floods_person;
 
+grant select on table floods.crossing to floods_anonymous, floods_person;
+grant insert, update, delete on table floods.crossing to floods_person;
+grant usage on sequence floods.crossing_id_seq to floods_person;
+
 grant execute on function floods.crossing_latest_status(floods.crossing) to floods_anonymous, floods_person;
 grant execute on function floods.authenticate(text, text) to floods_anonymous, floods_person;
 grant execute on function floods.current_person() to floods_anonymous, floods_person;

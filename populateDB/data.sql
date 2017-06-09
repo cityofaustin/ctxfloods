@@ -1,12 +1,8 @@
 begin;
 
-insert into floods.person (id, first_name, last_name) values
-  (1, 'Stevie', 'Ray');
-
+alter sequence floods.person_id_seq restart with 1;
+SELECT floods.register_person(text 'Stevie',text 'Ray',text 'srv@double.trouble',text 'texasfloods');
 alter sequence floods.person_id_seq restart with 2;
-
-insert into floods_private.person_account (person_id, email, password_hash) values
-  (1, 'srv@double.trouble', '$2a$06$27dmM8dNyqSCPQqQ8/tSTuEF/Re1Hh0kNQVYLAl4NXfbiCQI9CBQy'); -- Password: 'texasfloods'
 
 insert into floods.crossing (id, name) values
   (1, 'Crossing at the park'),

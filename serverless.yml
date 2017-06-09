@@ -1,4 +1,4 @@
-service: serverless-postgraphql
+service: serverless-postgraphql-floods
 
 provider:
   name: aws
@@ -66,7 +66,7 @@ functions:
                 }
 
     environment:
-      PGCON: postgresql://floods_postgraphql:xyz@spny9q346s4odo.cg5ybcpnkj4u.us-east-1.rds.amazonaws.com:5432/floods
+      PGCON: postgresql://floods_postgraphql:xyz@sps6sm77hn0u7w.cg5ybcpnkj4u.us-east-1.rds.amazonaws.com:5432/floods
       JWT_SECRET: keyboard_kitten
 
 # For a pgDB inside a VPC look e.g. here:

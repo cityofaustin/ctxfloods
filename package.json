@@ -1,10 +1,10 @@
 {
-  "name": "serverless-postgraphql",
+  "name": "serverless-postgraphql-floods",
   "version": "0.0.1",
   "description": "postgraphql test on serverless",
   "main": "handler.js",
   "config": {
-    "PGCON": "postgresql://example:serverless@spny9q346s4odo.cg5ybcpnkj4u.us-east-1.rds.amazonaws.com:5432/floods"
+    "PGCON": "postgresql://example:serverless@sps6sm77hn0u7w.cg5ybcpnkj4u.us-east-1.rds.amazonaws.com:5432/floods"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
