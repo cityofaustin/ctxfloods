@@ -1,6 +1,6 @@
 begin;
 
-insert into floods.person (id, first_name, last_name, created_at) values
+insert into floods.person (id, first_name, last_name) values
   (1, 'Stevie', 'Ray');
 
 alter sequence floods.person_id_seq restart with 2;
