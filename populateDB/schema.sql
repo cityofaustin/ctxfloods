@@ -27,7 +27,7 @@ comment on column floods.person.created_at is 'The time this person was created.
 
 create table floods.crossing (
   id               serial primary key,
-  name             text not null check (char_length(first_name) < 80)
+  name             text not null check (char_length(name) < 80)
 );
 
 comment on table floods.crossing is 'A road crossing that might flood.';
@@ -57,7 +57,7 @@ comment on column floods.status_update.created_at is 'The time this update was m
 create function floods.crossing_latest_status(crossing floods.crossing) returns floods.status_update as $$
   select status_update.*
   from floods.status_update as status_update
-  where post.crossing_id = crossing.id
+  where status_update.crossing_id = crossing.id
   order by created_at desc
   limit 1
 $$ language sql stable;
@@ -166,22 +166,22 @@ grant usage on schema floods to floods_anonymous, floods_person;
 grant select on table floods.person to floods_anonymous, floods_person;
 grant update, delete on table floods.person to floods_person;
 
-grant select on table floods.post to floods_anonymous, floods_person;
-grant insert, update, delete on table floods.post to floods_person;
-grant usage on sequence floods.post_id_seq to floods_person;
+grant select on table floods.status_update to floods_anonymous, floods_person;
+grant insert, update, delete on table floods.status_update to floods_person;
+grant usage on sequence floods.status_update_id_seq to floods_person;
 
-grant execute on function floods.crossing_latest_update(floods.crossing) to floods_anonymous, floods_person;
+grant execute on function floods.crossing_latest_status(floods.crossing) to floods_anonymous, floods_person;
 grant execute on function floods.authenticate(text, text) to floods_anonymous, floods_person;
 grant execute on function floods.current_person() to floods_anonymous, floods_person;
 grant execute on function floods.register_person(text, text, text, text) to floods_anonymous;
 
 alter table floods.person enable row level security;
-alter table floods.post enable row level security;
+alter table floods.status_update enable row level security;
 
 create policy select_person on floods.person for select
   using (true);
 
-create policy select_post on floods.post for select
+create policy select_status_update on floods.status_update for select
   using (true);
 
 create policy update_person on floods.person for update to floods_person
