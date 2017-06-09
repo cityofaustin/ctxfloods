@@ -9,89 +9,65 @@
 begin;
 
 
-create schema forum_example;
-create schema forum_example_private;
+create schema floods;
+create schema floods_private;
 
-create table forum_example.person (
+create table floods.person (
   id               serial primary key,
   first_name       text not null check (char_length(first_name) < 80),
   last_name        text check (char_length(last_name) < 80),
-  about            text,
   created_at       timestamp default now()
 );
 
-comment on table forum_example.person is 'A user of the forum.';
-comment on column forum_example.person.id is 'The primary unique identifier for the person.';
-comment on column forum_example.person.first_name is 'The person’s first name.';
-comment on column forum_example.person.last_name is 'The person’s last name.';
-comment on column forum_example.person.about is 'A short description about the user, written by the user.';
-comment on column forum_example.person.created_at is 'The time this person was created.';
+comment on table floods.person is 'A user of the flood tracking applicaiton.';
+comment on column floods.person.id is 'The primary unique identifier for the person.';
+comment on column floods.person.first_name is 'The person’s first name.';
+comment on column floods.person.last_name is 'The person’s last name.';
+comment on column floods.person.created_at is 'The time this person was created.';
 
-create type forum_example.post_topic as enum (
-  'discussion',
-  'inspiration',
-  'help',
-  'showcase'
-);
-
-create table forum_example.post (
+create table floods.crossing (
   id               serial primary key,
-  author_id        integer not null references forum_example.person(id),
-  headline         text not null check (char_length(headline) < 280),
-  body             text,
-  topic            forum_example.post_topic,
+  name             text not null check (char_length(first_name) < 80)
+);
+
+comment on table floods.crossing is 'A road crossing that might flood.';
+comment on column floods.crossing.id is 'The primary unique identifier for the crossing.';
+comment on column floods.crossing.name is 'The name of the crossing.';
+
+create type floods.status as enum (
+  'open',
+  'closed'
+);
+
+create table floods.status_update (
+  id               serial primary key,
+  author_id        integer not null references floods.person(id),
+  crossing_id      integer not null references floods.crossing(id),
+  status           floods.status,
   created_at       timestamp default now()
 );
 
-comment on table forum_example.post is 'A forum post written by a user.';
-comment on column forum_example.post.id is 'The primary key for the post.';
-comment on column forum_example.post.headline is 'The title written by the user.';
-comment on column forum_example.post.author_id is 'The id of the author user.';
-comment on column forum_example.post.topic is 'The topic this has been posted in.';
-comment on column forum_example.post.body is 'The main body text of our post.';
-comment on column forum_example.post.created_at is 'The time this post was created.';
+comment on table floods.status_update is 'A status update of a crossing.';
+comment on column floods.status_update.id is 'The primary key for the status update.';
+comment on column floods.status_update.author_id is 'The id of the author user.';
+comment on column floods.status_update.crossing_id is 'The id of the crossing.';
+comment on column floods.status_update.status is 'The status of the crossing.';
+comment on column floods.status_update.created_at is 'The time this update was made.';
 
-create function forum_example.person_full_name(person forum_example.person) returns text as $$
-  select person.first_name || ' ' || person.last_name
-$$ language sql stable;
-
-comment on function forum_example.person_full_name(forum_example.person) is 'A person’s full name which is a concatenation of their first and last name.';
-
-create function forum_example.post_summary(
-  post forum_example.post,
-  length int default 50,
-  omission text default '…'
-) returns text as $$
-  select case
-    when post.body is null then null
-    else substr(post.body, 0, length) || omission
-  end
-$$ language sql stable;
-
-comment on function forum_example.post_summary(forum_example.post, int, text) is 'A truncated version of the body for summaries.';
-
-create function forum_example.person_latest_post(person forum_example.person) returns forum_example.post as $$
-  select post.*
-  from forum_example.post as post
-  where post.author_id = person.id
+create function floods.crossing_latest_status(crossing floods.crossing) returns floods.status_update as $$
+  select status_update.*
+  from floods.status_update as status_update
+  where post.crossing_id = crossing.id
   order by created_at desc
   limit 1
 $$ language sql stable;
 
-comment on function forum_example.person_latest_post(forum_example.person) is 'Get’s the latest post written by the person.';
+comment on function floods.crossing_latest_status(floods.crossing) is 'Gets the latest status of a given crossing.';
 
-create function forum_example.search_posts(search text) returns setof forum_example.post as $$
-  select post.*
-  from forum_example.post as post
-  where post.headline ilike ('%' || search || '%') or post.body ilike ('%' || search || '%')
-$$ language sql stable;
+alter table floods.person add column updated_at timestamp default now();
+alter table floods.status_update add column updated_at timestamp default now();
 
-comment on function forum_example.search_posts(text) is 'Returns posts containing a given search term.';
-
-alter table forum_example.person add column updated_at timestamp default now();
-alter table forum_example.post add column updated_at timestamp default now();
-
-create function forum_example_private.set_updated_at() returns trigger as $$
+create function floods_private.set_updated_at() returns trigger as $$
 begin
   new.updated_at := current_timestamp;
   return new;
@@ -99,133 +75,128 @@ end;
 $$ language plpgsql;
 
 create trigger person_updated_at before update
-  on forum_example.person
+  on floods.person
   for each row
-  execute procedure forum_example_private.set_updated_at();
+  execute procedure floods_private.set_updated_at();
 
-create trigger post_updated_at before update
-  on forum_example.post
+create trigger status_update_updated_at before update
+  on floods.status_update
   for each row
-  execute procedure forum_example_private.set_updated_at();
+  execute procedure floods_private.set_updated_at();
 
-create table forum_example_private.person_account (
-  person_id        integer primary key references forum_example.person(id) on delete cascade,
+create table floods_private.person_account (
+  person_id        integer primary key references floods.person(id) on delete cascade,
   email            text not null unique check (email ~* '^.+@.+\..+$'),
   password_hash    text not null
 );
 
-comment on table forum_example_private.person_account is 'Private information about a person’s account.';
-comment on column forum_example_private.person_account.person_id is 'The id of the person associated with this account.';
-comment on column forum_example_private.person_account.email is 'The email address of the person.';
-comment on column forum_example_private.person_account.password_hash is 'An opaque hash of the person’s password.';
+comment on table floods_private.person_account is 'Private information about a person’s account.';
+comment on column floods_private.person_account.person_id is 'The id of the person associated with this account.';
+comment on column floods_private.person_account.email is 'The email address of the person.';
+comment on column floods_private.person_account.password_hash is 'An opaque hash of the person’s password.';
 
 create extension if not exists "pgcrypto";
 
-create function forum_example.register_person(
+create function floods.register_person(
   first_name text,
   last_name text,
   email text,
   password text
-) returns forum_example.person as $$
+) returns floods.person as $$
 declare
-  person forum_example.person;
+  person floods.person;
 begin
-  insert into forum_example.person (first_name, last_name) values
+  insert into floods.person (first_name, last_name) values
     (first_name, last_name)
     returning * into person;
 
-  insert into forum_example_private.person_account (person_id, email, password_hash) values
+  insert into floods_private.person_account (person_id, email, password_hash) values
     (person.id, email, crypt(password, gen_salt('bf')));
 
   return person;
 end;
 $$ language plpgsql strict security definer;
 
-comment on function forum_example.register_person(text, text, text, text) is 'Registers a single user and creates an account in our forum.';
+comment on function floods.register_person(text, text, text, text) is 'Registers a single user and creates an account.';
 
-create role forum_example_postgraphql login password 'xyz';
+create role floods_postgraphql login password 'xyz';
 
-create role forum_example_anonymous;
-grant forum_example_anonymous to forum_example_postgraphql;
+create role floods_anonymous;
+grant floods_anonymous to floods_postgraphql;
 
-create role forum_example_person;
-grant forum_example_person to forum_example_postgraphql;
+create role floods_person;
+grant floods_person to floods_postgraphql;
 
-create type forum_example.jwt_token as (
+create type floods.jwt_token as (
   role text,
   person_id integer
 );
 
-create function forum_example.authenticate(
+create function floods.authenticate(
   email text,
   password text
-) returns forum_example.jwt_token as $$
+) returns floods.jwt_token as $$
 declare
-  account forum_example_private.person_account;
+  account floods_private.person_account;
 begin
   select a.* into account
-  from forum_example_private.person_account as a
+  from floods_private.person_account as a
   where a.email = $1;
 
   if account.password_hash = crypt(password, account.password_hash) then
-    return ('forum_example_person', account.person_id)::forum_example.jwt_token;
+    return ('floods_person', account.person_id)::floods.jwt_token;
   else
     return null;
   end if;
 end;
 $$ language plpgsql strict security definer;
 
-comment on function forum_example.authenticate(text, text) is 'Creates a JWT token that will securely identify a person and give them certain permissions.';
+comment on function floods.authenticate(text, text) is 'Creates a JWT token that will securely identify a person and give them certain permissions.';
 
-create function forum_example.current_person() returns forum_example.person as $$
+create function floods.current_person() returns floods.person as $$
   select *
-  from forum_example.person
+  from floods.person
   where id = current_setting('jwt.claims.person_id')::integer
 $$ language sql stable;
 
-comment on function forum_example.current_person() is 'Gets the person who was identified by our JWT.';
+comment on function floods.current_person() is 'Gets the person who was identified by our JWT.';
 
-grant usage on schema forum_example to forum_example_anonymous, forum_example_person;
+grant usage on schema floods to floods_anonymous, floods_person;
 
-grant select on table forum_example.person to forum_example_anonymous, forum_example_person;
-grant update, delete on table forum_example.person to forum_example_person;
+grant select on table floods.person to floods_anonymous, floods_person;
+grant update, delete on table floods.person to floods_person;
 
-grant select on table forum_example.post to forum_example_anonymous, forum_example_person;
-grant insert, update, delete on table forum_example.post to forum_example_person;
-grant usage on sequence forum_example.post_id_seq to forum_example_person;
+grant select on table floods.post to floods_anonymous, floods_person;
+grant insert, update, delete on table floods.post to floods_person;
+grant usage on sequence floods.post_id_seq to floods_person;
 
-grant execute on function forum_example.person_full_name(forum_example.person) to forum_example_anonymous, forum_example_person;
-grant execute on function forum_example.post_summary(forum_example.post, integer, text) to forum_example_anonymous, forum_example_person;
-grant execute on function forum_example.person_latest_post(forum_example.person) to forum_example_anonymous, forum_example_person;
-grant execute on function forum_example.search_posts(text) to forum_example_anonymous, forum_example_person;
-grant execute on function forum_example.authenticate(text, text) to forum_example_anonymous, forum_example_person;
-grant execute on function forum_example.current_person() to forum_example_anonymous, forum_example_person;
+grant execute on function floods.crossing_latest_update(floods.crossing) to floods_anonymous, floods_person;
+grant execute on function floods.authenticate(text, text) to floods_anonymous, floods_person;
+grant execute on function floods.current_person() to floods_anonymous, floods_person;
+grant execute on function floods.register_person(text, text, text, text) to floods_anonymous;
 
-grant execute on function forum_example.register_person(text, text, text, text) to forum_example_anonymous;
+alter table floods.person enable row level security;
+alter table floods.post enable row level security;
 
-alter table forum_example.person enable row level security;
-alter table forum_example.post enable row level security;
-
-create policy select_person on forum_example.person for select
+create policy select_person on floods.person for select
   using (true);
 
-create policy select_post on forum_example.post for select
+create policy select_post on floods.post for select
   using (true);
 
-create policy update_person on forum_example.person for update to forum_example_person
+create policy update_person on floods.person for update to floods_person
   using (id = current_setting('jwt.claims.person_id')::integer);
 
-create policy delete_person on forum_example.person for delete to forum_example_person
+create policy delete_person on floods.person for delete to floods_person
   using (id = current_setting('jwt.claims.person_id')::integer);
 
-create policy insert_post on forum_example.post for insert to forum_example_person
+create policy insert_status_update on floods.status_update for insert to floods_person
   with check (author_id = current_setting('jwt.claims.person_id')::integer);
 
-create policy update_post on forum_example.post for update to forum_example_person
+create policy update_status_update on floods.status_update for update to floods_person
   using (author_id = current_setting('jwt.claims.person_id')::integer);
 
-create policy delete_post on forum_example.post for delete to forum_example_person
+create policy delete_status_update on floods.status_update for delete to floods_person
   using (author_id = current_setting('jwt.claims.person_id')::integer);
-
 
 commit;
