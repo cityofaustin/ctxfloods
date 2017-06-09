@@ -100,7 +100,7 @@ resources:
       Tags:
         -
           Key: "Name"
-          Value: "forum_example"
+          Value: "floods"
     DeletionPolicy: "Snapshot"
  Outputs:
     pgEndpoint:

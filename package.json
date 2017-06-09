@@ -11,8 +11,8 @@
     "populate-schema": "psql $npm_package_config_PGCON -f ./populateDB/schema.sql",
     "populate-data": "psql $npm_package_config_PGCON -f ./populateDB/data.sql",
     "drop-data": "psql $npm_package_config_PGCON -f ./populateDB/drop.sql",
-    "build-schema": "node ./pgCatalog/buildPgCatalog.js $npm_package_config_PGCON forum_example",
-    "postgraphql-local": "postgraphql --connection $npm_package_config_PGCON --schema forum_example --default-role forum_example_anonymous --secret keyboard_kitten --token forum_example.jwt_token"
+    "build-schema": "node ./pgCatalog/buildPgCatalog.js $npm_package_config_PGCON floods",
+    "postgraphql-local": "postgraphql --connection $npm_package_config_PGCON --schema floods --default-role floods_anonymous --secret keyboard_kitten --token floods.jwt_token"
   },
   "author": "Richard",
   "license": "MIT",
