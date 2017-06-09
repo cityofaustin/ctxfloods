@@ -4,7 +4,7 @@
   "description": "postgraphql test on serverless",
   "main": "handler.js",
   "config": {
-    "PGCON": "postgresql://example:serverless@pgEndpoint:5432/forumexample"
+    "PGCON": "postgresql://example:serverless@sp1dvxw4zeu2vhq.cg5ybcpnkj4u.us-east-1.rds.amazonaws.com:5432/forumexample"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
