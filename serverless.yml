@@ -17,6 +17,7 @@ functions:
       - http:
           method: post
           path: graphql
+          cors: true
           integration: lambda
           request:
             template:
@@ -44,6 +45,7 @@ functions:
           method: get
           path: graphql
           integration: lambda
+          cors: true
           request:
             parameters:
               querystrings:
