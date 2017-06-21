@@ -1,6 +1,5 @@
 begin;
 
-
 create schema floods;
 create schema floods_private;
 
@@ -26,16 +25,20 @@ comment on table floods.crossing is 'A road crossing that might flood.';
 comment on column floods.crossing.id is 'The primary unique identifier for the crossing.';
 comment on column floods.crossing.name is 'The name of the crossing.';
 
-create type floods.status as enum (
-  'open',
-  'closed'
+create table floods.status (
+  id               serial primary key,
+  name             text not null check (char_length(name) < 80)
 );
+
+comment on table floods.crossing is 'A status a crossing might be in.';
+comment on column floods.crossing.id is 'The primary unique identifier for the status.';
+comment on column floods.crossing.name is 'The name of the status.';
 
 create table floods.status_update (
   id               serial primary key,
   author_id        integer not null references floods.person(id),
   crossing_id      integer not null references floods.crossing(id),
-  status           floods.status,
+  status_id        integer not null references floods.status(id),
   created_at       timestamp default now()
 );
 
@@ -43,7 +46,7 @@ comment on table floods.status_update is 'A status update of a crossing.';
 comment on column floods.status_update.id is 'The primary key for the status update.';
 comment on column floods.status_update.author_id is 'The id of the author user.';
 comment on column floods.status_update.crossing_id is 'The id of the crossing.';
-comment on column floods.status_update.status is 'The status of the crossing.';
+comment on column floods.status_update.status_id is 'The id of the status.';
 comment on column floods.status_update.created_at is 'The time this update was made.';
 
 create function floods.crossing_latest_status(crossing floods.crossing) returns floods.status_update as $$
@@ -157,6 +160,9 @@ grant usage on schema floods to floods_anonymous, floods_person;
 
 grant select on table floods.person to floods_anonymous, floods_person;
 grant update, delete on table floods.person to floods_person;
+
+grant select on table floods.status to floods_anonymous, floods_person;
+grant update, delete on table floods.status to floods_person;
 
 grant select on table floods.status_update to floods_anonymous, floods_person;
 grant insert, update, delete on table floods.status_update to floods_person;
