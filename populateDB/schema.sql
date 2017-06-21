@@ -178,7 +178,7 @@ grant execute on function floods.current_person() to floods_anonymous, floods_pe
 grant execute on function floods.register_person(text, text, text, text) to floods_anonymous;
 
 alter table floods.person enable row level security;
-alter table floods.status_update enable row level security;
+-- alter table floods.status_update enable row level security;
 
 create policy select_person on floods.person for select
   using (true);
@@ -192,8 +192,8 @@ create policy update_person on floods.person for update to floods_person
 create policy delete_person on floods.person for delete to floods_person
   using (id = current_setting('jwt.claims.person_id')::integer);
 
-create policy insert_status_update on floods.status_update for insert to floods_person
-  with check (author_id = current_setting('jwt.claims.person_id')::integer);
+-- create policy insert_status_update on floods.status_update for insert to floods_person
+--   with check (author_id = current_setting('jwt.claims.person_id')::integer);
 
 create policy update_status_update on floods.status_update for update to floods_person
   using (author_id = current_setting('jwt.claims.person_id')::integer);
