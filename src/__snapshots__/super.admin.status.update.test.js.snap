@@ -10,6 +10,16 @@ exports[`As a super admin when updating the status of a crossing To CLOSED with 
 
 exports[`As a super admin when updating the status of a crossing To CLOSED with no REASON or DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Closed]`;
 
+exports[`As a super admin when updating the status of a crossing To LONG TERM CLOSURE with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
+
+exports[`As a super admin when updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION should update the status 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
+
+exports[`As a super admin when updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION the new status should show up in the DB 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
+
+exports[`As a super admin when updating the status of a crossing To LONG TERM CLOSURE with REASON should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are required for status:  Long-Term Closure]`;
+
+exports[`As a super admin when updating the status of a crossing To LONG TERM CLOSURE with no REASON or DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
+
 exports[`As a super admin when updating the status of a crossing To OPEN with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Open]`;
 
 exports[`As a super admin when updating the status of a crossing To OPEN with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;

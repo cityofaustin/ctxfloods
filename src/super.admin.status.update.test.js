@@ -189,6 +189,24 @@ describe('As a super admin', async () => {
         shouldFail(superAdminEmail, superAdminPassword, 2, 3, 'CLOSED with REASON and DURATION', 1, 1);
       });
     });
+
+    describe('To LONG TERM CLOSURE', () => {
+      describe('with no REASON or DURATION', async () => {
+        shouldFail(superAdminEmail, superAdminPassword, 4, 3, 'LONG TERM CLOSURE with no REASON or DURATION');
+      });
+
+      describe('with REASON', () => {
+        shouldFail(superAdminEmail, superAdminPassword, 4, 3, 'LONG TERM CLOSURE with REASON', 1);
+      });
+
+      describe('with DURATION', () => {
+        shouldFail(superAdminEmail, superAdminPassword, 4, 3, 'LONG TERM CLOSURE with DURATION', null, 1);
+      });
+
+      describe('with REASON and DURATION', async () => {
+        shouldWork(superAdminEmail, superAdminPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1);
+      });
+    });
   });
 
 
