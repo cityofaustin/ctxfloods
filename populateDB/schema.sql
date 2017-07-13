@@ -3,52 +3,126 @@ begin;
 create schema floods;
 create schema floods_private;
 
-create table floods.person (
+-- Make sure that we need to define permissions around functions
+-- so we don't accidentally make something public.
+alter default privileges revoke execute on functions from public;
+
+-- Create the Communities table
+create table floods.community (
   id               serial primary key,
-  first_name       text not null check (char_length(first_name) < 80),
-  last_name        text check (char_length(last_name) < 80),
-  created_at       timestamp default now()
+  name             text not null check (char_length(name) < 200)
 );
 
-comment on table floods.person is 'A user of the flood tracking applicaiton.';
-comment on column floods.person.id is 'The primary unique identifier for the person.';
-comment on column floods.person.first_name is 'The person’s first name.';
-comment on column floods.person.last_name is 'The person’s last name.';
-comment on column floods.person.created_at is 'The time this person was created.';
+comment on table floods.community is 'A community defined by a geospatial area.';
+comment on column floods.community.id is 'The primary unique identifier for the community.';
+comment on column floods.community.name is 'The name of the community.';
 
+-- Create the users table
+create table floods.user (
+  id               serial primary key,
+  first_name       text not null check (char_length(first_name) < 80),
+  last_name        text not null check (char_length(last_name) < 80),
+  job_title        text not null check (char_length(job_title) < 200),
+  community_id     integer references floods.community(id),
+  email_address    text check (char_length(email_address) < 200),
+  phone_number     text check (char_length(phone_number) < 15),
+  active           boolean default true
+);
+
+comment on table floods.user is 'A user of the flood tracking applicaiton.';
+comment on column floods.user.id is 'The primary unique identifier for the user.';
+comment on column floods.user.first_name is 'The user’s first name.';
+comment on column floods.user.last_name is 'The user’s last name.';
+comment on column floods.user.job_title is 'The user’s job title.';
+comment on column floods.user.community_id is 'The id of the user’s community.';
+comment on column floods.user.email_address is 'The user’s email address.';
+comment on column floods.user.phone_number is 'The user’s phone number.';
+
+-- Create the Crossings table
 create table floods.crossing (
   id               serial primary key,
-  name             text not null check (char_length(name) < 80)
+  name             text not null check (char_length(name) < 80),
+  human_address    text not null check (char_length(human_address) < 800),
+  description      text not null check (char_length(description) < 800)
 );
 
 comment on table floods.crossing is 'A road crossing that might flood.';
 comment on column floods.crossing.id is 'The primary unique identifier for the crossing.';
 comment on column floods.crossing.name is 'The name of the crossing.';
+comment on column floods.crossing.human_address is 'The human readable address of the crossing.';
+comment on column floods.crossing.description is 'The description of the crossing.';
 
+-- Create the Community Crossing relation table
+create table floods.community_crossing (
+  id               serial primary key,
+  community_id     integer not null references floods.community(id),
+  crossing_id      integer not null references floods.crossing(id)
+);
+
+comment on table floods.community_crossing is 'A relation between a crossing and a community.';
+comment on column floods.community_crossing.id is 'The primary key for the community crossing relation.';
+comment on column floods.community_crossing.community_id is 'The id of the community.';
+comment on column floods.community_crossing.crossing_id is 'The id of the crossing.';
+
+-- Create the Status table
 create table floods.status (
   id               serial primary key,
   name             text not null check (char_length(name) < 80)
 );
 
-comment on table floods.crossing is 'A status a crossing might be in.';
-comment on column floods.crossing.id is 'The primary unique identifier for the status.';
-comment on column floods.crossing.name is 'The name of the status.';
+comment on table floods.status is 'A status a crossing might be in.';
+comment on column floods.status.id is 'The primary unique identifier for the status.';
+comment on column floods.status.name is 'The name of the status.';
 
-create table floods.status_update (
+-- Create the Status Reason table
+create table floods.status_reason (
   id               serial primary key,
-  author_id        integer not null references floods.person(id),
-  crossing_id      integer not null references floods.crossing(id),
   status_id        integer not null references floods.status(id),
-  created_at       timestamp default now()
+  name             text not null check (char_length(name) < 80)
+);
+
+comment on table floods.status_reason is 'A reason a crossing might be in a given status.';
+comment on column floods.status_reason.id is 'The primary unique identifier for the status reason.';
+comment on column floods.status_reason.status_id is 'The id of the status the reason applies to.';
+comment on column floods.status_reason.name is 'The name of the status reason.';
+
+-- Create the Status Duration table
+create table floods.status_duration (
+  id               serial primary key,
+  status_id        integer not null references floods.status(id),
+  name             text not null check (char_length(name) < 80),
+  timespan         interval not null
+);
+
+comment on table floods.status_duration is 'The amount of time a crossing might be in a given status.';
+comment on column floods.status_duration.id is 'The primary unique identifier for the status duration.';
+comment on column floods.status_duration.status_id is 'The id of the status the duration applies to.';
+comment on column floods.status_duration.name is 'The name of the status reason.';
+comment on column floods.status_duration.timespan is 'The timespan of the status reason.';
+
+-- Create the Status Update table
+create table floods.status_update (
+  id                  serial primary key,
+  status_id           integer not null references floods.status(id),
+  creator_id          integer not null references floods.user(id),
+  crossing_id         integer not null references floods.crossing(id),
+  status_reason_id    integer references floods.status_reason(id),
+  status_duration_id  integer references floods.status_duration(id),
+  notes               text not null check (char_length(notes) < 800),
+  created_at          timestamp default now()
 );
 
 comment on table floods.status_update is 'A status update of a crossing.';
 comment on column floods.status_update.id is 'The primary key for the status update.';
-comment on column floods.status_update.author_id is 'The id of the author user.';
-comment on column floods.status_update.crossing_id is 'The id of the crossing.';
 comment on column floods.status_update.status_id is 'The id of the status.';
+comment on column floods.status_update.creator_id is 'The id of the user who created the status update.';
+comment on column floods.status_update.crossing_id is 'The id of the crossing.';
+comment on column floods.status_update.status_reason_id is 'The id of the status reason.';
+comment on column floods.status_update.status_duration_id is 'The id of the status duration.';
+comment on column floods.status_update.notes is 'Notes about the status update.';
 comment on column floods.status_update.created_at is 'The time this update was made.';
 
+-- Create the function to get the latest status for a given crossing
 create function floods.crossing_latest_status(crossing floods.crossing) returns floods.status_update as $$
   select status_update.*
   from floods.status_update as status_update
@@ -59,146 +133,581 @@ $$ language sql stable;
 
 comment on function floods.crossing_latest_status(floods.crossing) is 'Gets the latest status of a given crossing.';
 
-alter table floods.person add column updated_at timestamp default now();
-alter table floods.status_update add column updated_at timestamp default now();
-
-create function floods_private.set_updated_at() returns trigger as $$
-begin
-  new.updated_at := current_timestamp;
-  return new;
-end;
-$$ language plpgsql;
-
-create trigger person_updated_at before update
-  on floods.person
-  for each row
-  execute procedure floods_private.set_updated_at();
-
-create trigger status_update_updated_at before update
-  on floods.status_update
-  for each row
-  execute procedure floods_private.set_updated_at();
-
-create table floods_private.person_account (
-  person_id        integer primary key references floods.person(id) on delete cascade,
+-- Create the private account table
+create table floods_private.user_account (
+  user_id          integer primary key references floods.user(id) on delete cascade,
   email            text not null unique check (email ~* '^.+@.+\..+$'),
+  role             text not null,
+  community_id     integer references floods.community(id),
   password_hash    text not null
 );
 
-comment on table floods_private.person_account is 'Private information about a person’s account.';
-comment on column floods_private.person_account.person_id is 'The id of the person associated with this account.';
-comment on column floods_private.person_account.email is 'The email address of the person.';
-comment on column floods_private.person_account.password_hash is 'An opaque hash of the person’s password.';
+comment on table floods_private.user_account is 'Private information about a user’s account.';
+comment on column floods_private.user_account.user_id is 'The id of the user associated with this account.';
+comment on column floods_private.user_account.email is 'The email address of the user.';
+comment on column floods_private.user_account.role is 'The role of the user.';
+comment on column floods_private.user_account.password_hash is 'An opaque hash of the user’s password.';
 
+-- Create function to register new users
 create extension if not exists "pgcrypto";
 
-create function floods.register_person(
+create function floods.register_user(
   first_name text,
   last_name text,
+  job_title text,
+  community_id integer,
+  phone_number text,
   email text,
-  password text
-) returns floods.person as $$
+  password text,
+  role text
+) returns floods.user as $$
 declare
-  person floods.person;
+  floods_user floods.user;
 begin
-  insert into floods.person (first_name, last_name) values
-    (first_name, last_name)
-    returning * into person;
+  -- If we aren't a super admin
+  if current_setting('jwt.claims.role') != 'floods_super_admin' then
+    -- and we are a community admin
+    if current_setting('jwt.claims.role') = 'floods_community_admin' then
+      -- and we're trying to add a user to a different community
+      if current_setting('jwt.claims.community_id')::integer != community_id then
+        raise exception 'Community administrators can only add editors to the communities they administrate';
+      end if;
+      -- and we're trying to add someone other than a community editor
+      if role != 'floods_community_editor' then
+        raise exception 'Community administrators can only add editors to the communities they administrate';
+      end if;
+    -- all other roles shouldn't be here
+    else
+      raise exception 'Only administrators can add new users';
+    end if;
+  end if;
 
-  insert into floods_private.person_account (person_id, email, password_hash) values
-    (person.id, email, crypt(password, gen_salt('bf')));
+  insert into floods.user (first_name, last_name, job_title, community_id, email_address, phone_number) values
+    (first_name, last_name, job_title, community_id, email, phone_number)
+    returning * into floods_user;
 
-  return person;
+  insert into floods_private.user_account (user_id, email, role, community_id, password_hash) values
+    (floods_user.id, email, role, community_id, crypt(password, gen_salt('bf')));
+
+  return floods_user;
 end;
 $$ language plpgsql strict security definer;
 
-comment on function floods.register_person(text, text, text, text) is 'Registers a single user and creates an account.';
+comment on function floods.register_user(text, text, text, integer, text, text, text, text) is 'Registers a single user and creates an account.';
 
+-- Create function to delete users
+create function floods.deactivate_user(
+  user_id integer
+) returns floods.user as $$
+declare
+  floods_user floods.user;
+  deactivated_user floods.user;
+begin
+  -- Get the user
+  select * from floods.user where id = user_id into floods_user;
+
+  -- If we aren't a super admin
+  if current_setting('jwt.claims.role') != 'floods_super_admin' then
+    -- and we are a community admin
+    if current_setting('jwt.claims.role') = 'floods_community_admin' then
+      -- and we're trying to delete a user in a different community
+      if current_setting('jwt.claims.community_id')::integer != floods_user.community_id then
+        raise exception 'Community administrators can only deactivate users in their community';
+      end if;
+    end if;
+
+    -- and we are a community editor
+    if current_setting('jwt.claims.role') = 'floods_community_editor' then
+      -- and we're trying to delete a user other than ourselves
+      if current_setting('jwt.claims.user_id')::integer != floods_user.id then
+        raise exception 'Community editors can only deactivate themselves';
+      end if;
+    end if;
+    
+  end if;
+
+  delete from floods_private.user_account where floods_private.user_account.user_id = deactivate_user.user_id;
+
+  update floods.user
+    set active = false
+    where id = user_id
+    returning * into deactivated_user;
+
+  return deactivated_user;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.deactivate_user(integer) is 'Deactivates a user and deletes their accountfrom the database.';
+
+-- Create function to reactivate users
+create function floods.reactivate_user(
+  user_id integer,
+  email text,
+  password text,
+  role text
+) returns floods.user as $$
+declare
+  deactivated_user floods.user;
+  floods_user floods.user;
+begin
+  -- Get the deactivated user
+  select * from floods.user where id = user_id into deactivated_user;
+
+  -- If we aren't a super admin
+  if current_setting('jwt.claims.role') != 'floods_super_admin' then
+    -- and we are a community admin
+    if current_setting('jwt.claims.role') = 'floods_community_admin' then
+      -- and we're trying to add a user to a different community
+      if current_setting('jwt.claims.community_id')::integer != deactivated_user.community_id then
+        raise exception 'Community administrators can only reactivate editors in communities they administrate';
+      end if;
+      -- and we're trying to add someone other than a community editor
+      if role != 'floods_community_editor' then
+        raise exception 'Community administrators can only reactivate editors in communities they administrate';
+      end if;
+    -- all other roles shouldn't be here
+    else
+      raise exception 'Only administrators can reactivate users';
+    end if;
+  end if;
+
+  insert into floods_private.user_account (user_id, email, role, community_id, password_hash) values
+    (deactivated_user.id, email, role, deactivated_user.community_id, crypt(password, gen_salt('bf')));
+
+  update floods.user
+    set active = true
+    where id = user_id
+    returning * into floods_user;
+
+  return floods_user;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.reactivate_user(integer, text, text, text) is 'Reactivates a user and creates an account.';
+
+-- Create function to update status
+-- TODO: Logic behind status reason etc.
+create function floods.new_status_update(
+  status_id integer,
+  crossing_id integer,
+  notes text
+) returns floods.status_update as $$
+declare
+  floods_status_update floods.status_update;
+begin
+  -- If we aren't a super admin
+  if current_setting('jwt.claims.role') != 'floods_super_admin' then
+    -- and we're trying to update the status of a crossing in a different community
+    if current_setting('jwt.claims.community_id')::integer != (select community_id from floods.community_crossing where floods.community_crossing.crossing_id = new_status_update.crossing_id) then
+      raise exception 'Users can only update the status of crossings within their communities';
+    end if;
+  end if;
+
+  insert into floods.status_update (status_id, creator_id, crossing_id, notes) values
+    (status_id, current_setting('jwt.claims.user_id')::integer, crossing_id, notes)
+    returning * into floods_status_update;
+
+  return floods_status_update;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.new_status_update(integer, integer, text) is 'Updates the status of a crossing.';
+
+-- Create function to create new crossings
+create function floods.new_crossing(
+  name text,
+  human_address text,
+  description text,
+  community_id integer
+) returns floods.crossing as $$
+declare
+  floods_crossing floods.crossing;
+begin
+  -- If we aren't a super admin
+  if current_setting('jwt.claims.role') != 'floods_super_admin' then
+    -- and we're trying to add a crossing to a different community
+    if current_setting('jwt.claims.community_id')::integer != community_id then
+      raise exception 'Users can only add crossings to their communities';
+    end if;
+  end if;
+
+  insert into floods.crossing (name, human_address, description) values
+    (name, human_address, description)
+    returning * into floods_crossing;
+
+  insert into floods.community_crossing (community_id, crossing_id) values
+    (community_id, floods_crossing.id);
+
+  return floods_crossing;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.new_crossing(text, text, text, integer) is 'Adds a crossing.';
+
+-- Create function to delete crossings
+-- TODO: all permissions stuff around this
+create function floods.remove_crossing(
+  crossing_id integer
+) returns floods.crossing as $$
+declare
+  floods_community_crossing floods.community_crossing;
+  deleted_crossing floods.crossing;
+begin
+  -- Get the community from the crossing
+  select * from floods.community_crossing where floods.community_crossing.crossing_id = remove_crossing.crossing_id into floods_community_crossing;
+
+  -- If we aren't a super admin
+  if current_setting('jwt.claims.role') != 'floods_super_admin' then
+    -- and we are a community admin
+    if current_setting('jwt.claims.role') = 'floods_community_admin' then
+      -- and we're trying to delete a user in a different community
+      if current_setting('jwt.claims.community_id')::integer != floods_community_crossing.community_id then
+        raise exception 'Community administrators can only delete crossings in their community';
+      end if;
+    -- all other roles shouldn't be here
+    else
+      raise exception 'Only administrators can delete crossings';
+    end if;
+  end if;
+
+  delete from floods.community_crossing where floods.community_crossing.crossing_id = remove_crossing.crossing_id;
+  
+  delete from floods.crossing where id = crossing_id returning * into deleted_crossing;
+
+  return deleted_crossing;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.remove_crossing(integer) is 'Removes a crossing from the database.';
+
+-- Create function to create new statuses
+create function floods.new_status(
+  name text
+) returns floods.status as $$
+declare
+  floods_status floods.status;
+begin
+  insert into floods.status (name) values
+    (name)
+    returning * into floods_status;
+
+  return floods_status;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.new_status(text) is 'Adds a status.';
+
+-- Create function to change status names
+create function floods.change_status_name(
+  status_id integer,
+  name text
+) returns floods.status as $$
+declare
+  floods_status floods.status;
+begin
+  update floods.status
+    set name = change_status_name.name
+    where id = status_id
+    returning * into floods_status;
+
+  return floods_status;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.change_status_name(integer, text) is 'Changes the name of a status.';
+
+-- Create function to delete status
+create function floods.delete_status(
+  status_id integer
+) returns floods.status as $$
+declare
+  floods_status floods.status;
+begin
+  delete from floods.status where id = status_id
+    returning * into floods_status;
+
+  return floods_status;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.delete_status(integer) is 'Deletes a status.';
+
+-- Create function to create new status reasons
+create function floods.new_status_reason(
+  status_id integer,
+  name text
+) returns floods.status_reason as $$
+declare
+  floods_status_reason floods.status_reason;
+begin
+  insert into floods.status_reason (status_id, name) values
+    (status_id, name)
+    returning * into floods_status_reason;
+
+  return floods_status_reason;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.new_status_reason(integer, text) is 'Adds a status reason.';
+
+-- Create function to change status names
+create function floods.change_status_reason_name(
+  status_reason_id integer,
+  name text
+) returns floods.status_reason as $$
+declare
+  floods_status_reason floods.status_reason;
+begin
+  update floods.status_reason
+    set name = change_status_reason_name.name
+    where id = status_reason_id
+    returning * into floods_status_reason;
+
+  return floods_status_reason;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.change_status_reason_name(integer, text) is 'Changes the name of a status reason.';
+
+-- Create function to delete status reason
+create function floods.delete_status_reason(
+  status_reason_id integer
+) returns floods.status_reason as $$
+declare
+  floods_status_reason floods.status_reason;
+begin
+  delete from floods.status_reason where id = status_reason_id
+    returning * into floods_status_reason;
+
+  return floods_status_reason;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.delete_status_reason(integer) is 'Deletes a status reason.';
+
+-- Create function to create new status durations
+create function floods.new_status_duration(
+  status_id integer,
+  name text,
+  timespan interval
+) returns floods.status_duration as $$
+declare
+  floods_status_duration floods.status_duration;
+begin
+  insert into floods.status_duration (status_id, name, timespan) values
+    (status_id, name, timespan)
+    returning * into floods_status_duration;
+
+  return floods_status_duration;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.new_status_duration(integer, text, interval) is 'Adds a status duration.';
+
+-- Create function to change status names
+create function floods.change_status_duration_name(
+  status_duration_id integer,
+  name text
+) returns floods.status_duration as $$
+declare
+  floods_status_duration floods.status_duration;
+begin
+  update floods.status_duration
+    set name = change_status_duration_name.name
+    where id = status_duration_id
+    returning * into floods_status_duration;
+
+  return floods_status_duration;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.change_status_duration_name(integer, text) is 'Changes the name of a status duration.';
+
+-- Create function to delete status duration
+create function floods.delete_status_duration(
+  status_duration_id integer
+) returns floods.status_duration as $$
+declare
+  floods_status_duration floods.status_duration;
+begin
+  delete from floods.status_duration where id = status_duration_id
+    returning * into floods_status_duration;
+
+  return floods_status_duration;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.delete_status_duration(integer) is 'Deletes a status duration.';
+
+-- Create function to create new communities
+create function floods.new_community(
+  name text
+) returns floods.community as $$
+declare
+  floods_community floods.community;
+begin
+  insert into floods.community (name) values
+    (name)
+    returning * into floods_community;
+
+  return floods_community;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.new_community(text) is 'Adds a community.';
+
+-- Create function to change community names
+create function floods.change_community_name(
+  community_id integer,
+  name text
+) returns floods.community as $$
+declare
+  floods_community floods.community;
+begin
+  update floods.community
+    set name = change_community_name.name
+    where id = community_id
+    returning * into floods_community;
+
+  return floods_community;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.change_community_name(integer, text) is 'Changes the name of a community.';
+
+-- Create function to delete community
+create function floods.delete_community(
+  community_id integer
+) returns floods.community as $$
+declare
+  floods_community floods.community;
+begin
+  delete from floods.community where id = community_id
+    returning * into floods_community;
+
+  return floods_community;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.delete_community(integer) is 'Deletes a community.';
+
+-- Define roles
 create role floods_postgraphql login password 'xyz';
 
 create role floods_anonymous;
-grant floods_anonymous to floods_postgraphql;
+create role floods_community_editor;
+grant floods_anonymous to floods_community_editor;
 
-create role floods_person;
-grant floods_person to floods_postgraphql;
+create role floods_community_admin;
+grant floods_community_editor to floods_community_admin;
 
+create role floods_super_admin;
+grant floods_community_admin to floods_super_admin;
+grant floods_super_admin to floods_postgraphql;
+
+-- Create JWT token type for authentication
 create type floods.jwt_token as (
   role text,
-  person_id integer
+  user_id integer,
+  community_id integer
 );
 
+-- Create function to authenticate users by email and password, returning a jwt token
 create function floods.authenticate(
   email text,
   password text
 ) returns floods.jwt_token as $$
 declare
-  account floods_private.person_account;
+  account floods_private.user_account;
 begin
   select a.* into account
-  from floods_private.person_account as a
+  from floods_private.user_account as a
   where a.email = $1;
 
   if account.password_hash = crypt(password, account.password_hash) then
-    return ('floods_person', account.person_id)::floods.jwt_token;
+    return (account.role, account.user_id, account.community_id)::floods.jwt_token;
   else
     return null;
   end if;
 end;
 $$ language plpgsql strict security definer;
 
-comment on function floods.authenticate(text, text) is 'Creates a JWT token that will securely identify a person and give them certain permissions.';
+comment on function floods.authenticate(text, text) is 'Creates a JWT token that will securely identify a user and give them certain permissions.';
 
-create function floods.current_person() returns floods.person as $$
+-- Create a function to get the current user
+create function floods.current_user() returns floods.user as $$
   select *
-  from floods.person
-  where id = current_setting('jwt.claims.person_id')::integer
+  from floods.user
+  where id = current_setting('jwt.claims.user_id')::integer
 $$ language sql stable;
 
-comment on function floods.current_person() is 'Gets the person who was identified by our JWT.';
+comment on function floods.current_user() is 'Gets the user who was identified by our JWT.';
 
-grant usage on schema floods to floods_anonymous, floods_person;
+-- Define permissions for roles
+grant usage on schema floods to floods_anonymous;
 
-grant select on table floods.person to floods_anonymous, floods_person;
-grant update, delete on table floods.person to floods_person;
+-- Allow all users to view some data
+-- TODO: Column Level Security, PostgraphQL doesn't currently support it (https://github.com/postgraphql/postgraphql/issues/151)
+grant select on table floods.user to floods_anonymous;
+grant select on table floods.community to floods_anonymous;
+grant select on table floods.status to floods_anonymous;
+grant select on table floods.status_update to floods_anonymous;
+grant select on table floods.status_reason to floods_anonymous;
+grant select on table floods.status_duration to floods_anonymous;
+grant select on table floods.crossing to floods_anonymous;
+grant select on table floods.community_crossing to floods_anonymous;
 
-grant select on table floods.status to floods_anonymous, floods_person;
-grant update, delete on table floods.status to floods_person;
+-- Allow all users to log in and get an auth token
+grant execute on function floods.authenticate(text, text) to floods_anonymous;
 
-grant select on table floods.status_update to floods_anonymous, floods_person;
-grant insert, update, delete on table floods.status_update to floods_person;
-grant usage on sequence floods.status_update_id_seq to floods_person;
+-- Allow all users to get the latest status of a crossing
+grant execute on function floods.crossing_latest_status(floods.crossing) to floods_anonymous;
 
-grant select on table floods.crossing to floods_anonymous, floods_person;
-grant insert, update, delete on table floods.crossing to floods_person;
-grant usage on sequence floods.crossing_id_seq to floods_person;
+-- Allow community admins and up to register new users
+-- NOTE: Extra logic around permissions in function
+grant execute on function floods.register_user(text, text, text, integer, text, text, text, text) to floods_community_admin;
 
-grant execute on function floods.crossing_latest_status(floods.crossing) to floods_anonymous, floods_person;
-grant execute on function floods.authenticate(text, text) to floods_anonymous, floods_person;
-grant execute on function floods.current_person() to floods_anonymous, floods_person;
-grant execute on function floods.register_person(text, text, text, text) to floods_anonymous;
+-- Allow community admins and up to remove users
+-- NOTE: Extra logic around permissions in function
+grant execute on function floods.deactivate_user(integer) to floods_community_editor;
 
-alter table floods.person enable row level security;
--- alter table floods.status_update enable row level security;
+-- Allow community admins and up to reactivate users
+-- NOTE: Extra logic around permissions in function
+grant execute on function floods.reactivate_user(integer, text, text, text) to floods_community_admin;
 
-create policy select_person on floods.person for select
-  using (true);
+-- Allow community editors and up to get the current logged in user
+grant execute on function floods.current_user() to floods_community_editor;
 
-create policy select_status_update on floods.status_update for select
-  using (true);
+-- Allow community editors and up to update the status of crossings
+-- NOTE: Extra logic around permissions in function
+grant execute on function floods.new_status_update(integer, integer, text) to floods_community_editor;
 
-create policy update_person on floods.person for update to floods_person
-  using (id = current_setting('jwt.claims.person_id')::integer);
+-- Allow community editors and up to add crossings
+-- NOTE: Extra logic around permissions in function
+grant execute on function floods.new_crossing(text, text, text, integer) to floods_community_editor;
 
-create policy delete_person on floods.person for delete to floods_person
-  using (id = current_setting('jwt.claims.person_id')::integer);
+-- Allow community admins and up to remove crossings
+-- NOTE: Extra logic around permissions in function
+grant execute on function floods.remove_crossing(integer) to floods_community_admin;
 
--- create policy insert_status_update on floods.status_update for insert to floods_person
---   with check (author_id = current_setting('jwt.claims.person_id')::integer);
+-- Allow super admins to create/edit/delete communities
+grant execute on function floods.new_community(text) to floods_super_admin;
+grant execute on function floods.change_community_name(integer, text) to floods_super_admin;
+grant execute on function floods.delete_community(integer) to floods_super_admin;
 
-create policy update_status_update on floods.status_update for update to floods_person
-  using (author_id = current_setting('jwt.claims.person_id')::integer);
+-- Allow super admins to create/edit/delete statuses
+grant execute on function floods.new_status(text) to floods_super_admin;
+grant execute on function floods.change_status_name(integer, text) to floods_super_admin;
+grant execute on function floods.delete_status(integer) to floods_super_admin;
 
-create policy delete_status_update on floods.status_update for delete to floods_person
-  using (author_id = current_setting('jwt.claims.person_id')::integer);
+-- Allow super admins to create/edit/delete status reasons
+grant execute on function floods.new_status_reason(integer, text) to floods_super_admin;
+grant execute on function floods.change_status_reason_name(integer, text) to floods_super_admin;
+grant execute on function floods.delete_status_reason(integer) to floods_super_admin;
+
+-- Allow super admins to create/edit/delete status reasons
+grant execute on function floods.new_status_duration(integer, text, interval) to floods_super_admin;
+grant execute on function floods.change_status_duration_name(integer, text) to floods_super_admin;
+grant execute on function floods.delete_status_duration(integer) to floods_super_admin;
 
 commit;

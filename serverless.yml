@@ -24,7 +24,7 @@ functions:
               application/json: |
                 {
                   "query" : "$util.escapeJavaScript($input.path('$.query'))",
-                  "variables" : "$util.escapeJavaScript($input.path('$.variables'))",
+                  "variables" : $input.json('$.variables'),
                   "operationName" : "$util.escapeJavaScript($input.path('$.operationName'))",
                   "headers" : {
                      #if( $input.params().header.get('Authorization').toString() != "" )
@@ -68,7 +68,7 @@ functions:
                 }
 
     environment:
-      PGCON: postgresql://floods_postgraphql:xyz@sp1g0rduwe6fbzd.cg5ybcpnkj4u.us-east-1.rds.amazonaws.com:5432/floods
+      PGCON: postgresql://floods_postgraphql:xyz@*******************************************:5432/floods
       JWT_SECRET: keyboard_kitten
 
 # For a pgDB inside a VPC look e.g. here:

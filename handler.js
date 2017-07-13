@@ -22,7 +22,8 @@ module.exports.graphql = (event, context, cb) => {
     pgDefaultRole: "floods_anonymous",
     jwtSecret: process.env.JWT_SECRET,
     jwtPgTypeIdentifier: "floods.jwt_token",
-    pgDefaultRole: "floods_anonymous"
+    pgDefaultRole: "floods_anonymous",
+    disableDefaultMutations: true
   }
   let gqlSchema
   createPostGraphQLSchema.default(pgClient, PgCatalog, options)
