@@ -100,6 +100,32 @@ comment on column floods.status_duration.status_id is 'The id of the status the 
 comment on column floods.status_duration.name is 'The name of the status reason.';
 comment on column floods.status_duration.timespan is 'The timespan of the status reason.';
 
+-- Create status detail type
+create type floods.status_detail as enum (
+  'reason',
+  'duration'
+);
+
+-- Create status rule type
+create type floods.status_rule as enum (
+  'disabled',
+  'enabled',
+  'required'
+);
+
+-- Create the Status Associations table
+create table floods.status_association (
+  id               serial primary key,
+  status_id        integer not null references floods.status(id),
+  detail           floods.status_detail not null,
+  rule             floods.status_rule not null
+);
+
+comment on table floods.status_association is 'An association of a status to a rule about status details.';
+comment on column floods.status_association.id is 'The primary unique identifier for the status association.';
+comment on column floods.status_association.detail is 'The type of detailed information in the association.';
+comment on column floods.status_association.rule is 'The rule about the permissions in the association.';
+
 -- Create the Status Update table
 create table floods.status_update (
   id                  serial primary key,
@@ -654,6 +680,7 @@ grant select on table floods.status to floods_anonymous;
 grant select on table floods.status_update to floods_anonymous;
 grant select on table floods.status_reason to floods_anonymous;
 grant select on table floods.status_duration to floods_anonymous;
+grant select on table floods.status_association to floods_anonymous;
 grant select on table floods.crossing to floods_anonymous;
 grant select on table floods.community_crossing to floods_anonymous;
 
