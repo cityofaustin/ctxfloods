@@ -190,6 +190,24 @@ describe('As a super admin', async () => {
       });
     });
 
+    describe('To CAUTION', () => {
+      describe('with no REASON or DURATION', async () => {
+        shouldWork(superAdminEmail, superAdminPassword, 3, 3, 'CAUTION with no REASON or DURATION');
+      });
+
+      describe('with REASON', () => {
+        shouldFail(superAdminEmail, superAdminPassword, 3, 3, 'CAUTION with REASON', 1);
+      });
+
+      describe('with DURATION', () => {
+        shouldFail(superAdminEmail, superAdminPassword, 3, 3, 'CAUTION with DURATION', null, 1);
+      });
+
+      describe('with REASON and DURATION', async () => {
+        shouldFail(superAdminEmail, superAdminPassword, 3, 3, 'CAUTION with REASON and DURATION', 1, 1);
+      });
+    });
+
     describe('To LONG TERM CLOSURE', () => {
       describe('with no REASON or DURATION', async () => {
         shouldFail(superAdminEmail, superAdminPassword, 4, 3, 'LONG TERM CLOSURE with no REASON or DURATION');
