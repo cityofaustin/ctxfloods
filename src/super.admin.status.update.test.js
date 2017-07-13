@@ -226,34 +226,4 @@ describe('As a super admin', async () => {
       });
     });
   });
-
-
-
-  // describe('To CLOSED', () => {
-  //   describe('with no REASON or DURATION', () => {
-  //     it('should fail to update the status', () => {
-
-  //     });
-  //   });
-
-  //   describe('with REASON', () => {
-  //     it('should fail to update the status', () => {
-
-  //     });
-  //   });
-
-  //   describe('with DURATION', () => {
-  //     it('should fail to update the status', () => {
-
-  //     });
-  //   });
-
-  //   describe('with REASON and DURATION', () => {
-  //     it('should fail to update the status', () => {
-
-  //     });
-  //   });
-  // });
-
-
 });
