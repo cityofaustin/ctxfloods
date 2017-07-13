@@ -312,15 +312,27 @@ $$ language plpgsql strict security definer;
 comment on function floods.reactivate_user(integer, text, text, text) is 'Reactivates a user and creates an account.';
 
 -- Create function to update status
--- TODO: Logic behind status reason etc.
+-- TODO: Figure out how to make reason and duration dynamic
 create function floods.new_status_update(
   status_id integer,
   crossing_id integer,
-  notes text
+  notes text default null,
+  status_reason_id integer default null,
+  status_duration_id integer default null
 ) returns floods.status_update as $$
 declare
   floods_status_update floods.status_update;
 begin
+  -- TODO: Remove this hacky fix and redefine as strict after
+    -- https://github.com/postgraphql/postgraphql/issues/438 is closed
+  if status_id = null then
+    raise exception 'Status is required';
+  end if;
+
+  if crossing_id = null then
+    raise exception 'Crossing is required';
+  end if;
+
   -- If we aren't a super admin
   if current_setting('jwt.claims.role') != 'floods_super_admin' then
     -- and we're trying to update the status of a crossing in a different community
@@ -329,15 +341,51 @@ begin
     end if;
   end if;
 
-  insert into floods.status_update (status_id, creator_id, crossing_id, notes) values
-    (status_id, current_setting('jwt.claims.user_id')::integer, crossing_id, notes)
+  -- If the status reason is not null
+  if status_reason_id != null then
+    -- but the association says it should be disabled
+    if (select rule from floods.status_association where floods.status_association.status_id = new_status_update.status_id and detail = 'reason') = 'disabled' then
+      -- we shouldn't be here, throw
+      raise exception 'Status reasons are disabled for this status';
+    end if;
+  end if;
+
+  -- If the status reason is null
+  if status_reason_id = null then
+    -- but the association says it is required
+    if (select rule from floods.status_association where floods.status_association.status_id = new_status_update.status_id and detail = 'reason') = 'required' then
+      -- we shouldn't be here, throw
+      raise exception 'Status reasons are required for this status';
+    end if;
+  end if;
+
+  -- If the status duration is not null
+  if status_duration_id != null then
+    -- but the association says it should be disabled
+    if (select rule from floods.status_association where floods.status_association.status_id = new_status_update.status_id and detail = 'duration') = 'disabled' then
+      -- we shouldn't be here, throw
+      raise exception 'Status durations are disabled for this status';
+    end if;
+  end if;
+
+  -- If the status reason is null
+  if status_duration_id = null then
+    -- but the association says it is required
+    if (select rule from floods.status_association where floods.status_association.status_id = new_status_update.status_id and detail = 'duration') = 'required' then
+      -- we shouldn't be here, throw
+      raise exception 'Status durations are required for this status';
+    end if;
+  end if;
+
+  insert into floods.status_update (status_id, creator_id, crossing_id, notes, status_reason_id, status_duration_id) values
+    (status_id, current_setting('jwt.claims.user_id')::integer, crossing_id, notes, status_reason_id, status_duration_id)
     returning * into floods_status_update;
 
   return floods_status_update;
 end;
-$$ language plpgsql strict security definer;
+$$ language plpgsql security definer;
 
-comment on function floods.new_status_update(integer, integer, text) is 'Updates the status of a crossing.';
+comment on function floods.new_status_update(integer, integer, text, integer, integer) is 'Updates the status of a crossing.';
 
 -- Create function to create new crossings
 create function floods.new_crossing(
@@ -707,7 +755,7 @@ grant execute on function floods.current_user() to floods_community_editor;
 
 -- Allow community editors and up to update the status of crossings
 -- NOTE: Extra logic around permissions in function
-grant execute on function floods.new_status_update(integer, integer, text) to floods_community_editor;
+grant execute on function floods.new_status_update(integer, integer, text, integer, integer) to floods_community_editor;
 
 -- Allow community editors and up to add crossings
 -- NOTE: Extra logic around permissions in function
