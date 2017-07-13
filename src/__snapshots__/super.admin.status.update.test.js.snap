@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`As a super admin when updating the status of a crossing To OPEN with no REASON or DURATION should update the status 1`] = `"OPEN with no REASON or DURATION"`;
+
+exports[`As a super admin when updating the status of a crossing To OPEN with no REASON or DURATION the new status should show up in the DB 1`] = `"OPEN with no REASON or DURATION"`;
