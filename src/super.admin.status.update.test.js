@@ -4,9 +4,6 @@ import queryPublicData from './queryPublicData';
 import authenticate from './authenticate';
 
 const anonLokka = new Lokka({transport: new HttpTransport('http://localhost:5000/graphql')});
-const superAdminEmail = 'superadmin@flo.ods';
-const superAdminPassword = 'texasfloods';
-
 async function getToken(email, password) {
   const response = await anonLokka.send(`
     mutation($email:String!, $password:String!) {
@@ -23,7 +20,7 @@ async function getToken(email, password) {
   return response.authenticate.jwtToken;
 }
 
-async function shouldWork(username, password, status, crossing, notes, reason, duration) {
+function shouldWork(username, password, status, crossing, notes, reason, duration) {
   var originalStatusId;
   var newStatusId;
   var lokka;
@@ -106,10 +103,55 @@ async function shouldWork(username, password, status, crossing, notes, reason, d
   });
 }
 
+function shouldFail(username, password, status, crossing, notes, reason, duration) {
+  var originalStatusId;
+  var newStatusId;
+  var lokka;
+
+  beforeAll(async (done) => {
+    getToken(username, password).then((token) => {
+      const headers = {
+        'Authorization': 'Bearer '+ token
+      };
+      lokka = new Lokka({transport: new HttpTransport('http://localhost:5000/graphql', {headers})});
+      done();
+    });
+  });
+
+  it('should fail to update the status', async () => {
+    try {
+      const response = await lokka.send(`
+        mutation($status:Int,$crossing:Int,$notes:String,$reason:Int,$duration:Int) {
+          newStatusUpdate(input: {
+            statusId: $status,
+            crossingId: $crossing,
+            notes: $notes,
+            statusReasonId: $reason,
+            statusDurationId: $duration
+          }) {
+            statusUpdate {
+              id
+              notes
+            }
+          }
+        }
+      `,
+      {
+        status: status,
+        crossing: crossing,
+        notes: notes,
+        reason: reason,
+        duration: duration
+      });
+    } catch(e) {
+      expect(e).toMatchSnapshot();
+    }
+  });
+}
+
 describe('As a super admin', async () => {
-  
-
-
+  const superAdminEmail = 'superadmin@flo.ods';
+  const superAdminPassword = 'texasfloods';
 
   describe('when updating the status of a crossing', () => {
     describe('To OPEN', () => {
@@ -117,23 +159,35 @@ describe('As a super admin', async () => {
         shouldWork(superAdminEmail, superAdminPassword, 1, 3, 'OPEN with no REASON or DURATION');
       });
 
-      // describe('with REASON', () => {
-      //   it('should fail to update the status', () => {
+      describe('with REASON', () => {
+        shouldFail(superAdminEmail, superAdminPassword, 1, 3, 'OPEN with REASON', 1);
+      });
 
-      //   });
-      // });
+      describe('with DURATION', () => {
+        shouldFail(superAdminEmail, superAdminPassword, 1, 3, 'OPEN with DURATION', null, 1);
+      });
 
-      // describe('with DURATION', () => {
-      //   it('should fail to update the status', () => {
+      describe('with REASON and DURATION', async () => {
+        shouldFail(superAdminEmail, superAdminPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
+      });
+    });
 
-      //   });
-      // });
+    describe('To CLOSED', () => {
+      describe('with no REASON or DURATION', async () => {
+        shouldFail(superAdminEmail, superAdminPassword, 2, 3, 'CLOSED with no REASON or DURATION');
+      });
 
-      // describe('with REASON and DURATION', () => {
-      //   it('should fail to update the status', () => {
+      describe('with REASON', () => {
+        shouldWork(superAdminEmail, superAdminPassword, 2, 3, 'CLOSED with REASON', 1);
+      });
 
-      //   });
-      // });
+      describe('with DURATION', () => {
+        shouldFail(superAdminEmail, superAdminPassword, 2, 3, 'CLOSED with DURATION', null, 1);
+      });
+
+      describe('with REASON and DURATION', async () => {
+        shouldFail(superAdminEmail, superAdminPassword, 2, 3, 'CLOSED with REASON and DURATION', 1, 1);
+      });
     });
   });
 

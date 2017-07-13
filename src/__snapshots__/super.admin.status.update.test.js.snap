@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`As a super admin when updating the status of a crossing To CLOSED with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Closed]`;
+
+exports[`As a super admin when updating the status of a crossing To CLOSED with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Closed]`;
+
+exports[`As a super admin when updating the status of a crossing To CLOSED with REASON should update the status 1`] = `"CLOSED with REASON"`;
+
+exports[`As a super admin when updating the status of a crossing To CLOSED with REASON the new status should show up in the DB 1`] = `"CLOSED with REASON"`;
+
+exports[`As a super admin when updating the status of a crossing To CLOSED with no REASON or DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Closed]`;
+
+exports[`As a super admin when updating the status of a crossing To OPEN with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Open]`;
+
+exports[`As a super admin when updating the status of a crossing To OPEN with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
+
+exports[`As a super admin when updating the status of a crossing To OPEN with REASON should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
+
 exports[`As a super admin when updating the status of a crossing To OPEN with no REASON or DURATION should update the status 1`] = `"OPEN with no REASON or DURATION"`;
 
 exports[`As a super admin when updating the status of a crossing To OPEN with no REASON or DURATION the new status should show up in the DB 1`] = `"OPEN with no REASON or DURATION"`;

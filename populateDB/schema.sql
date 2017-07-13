@@ -316,20 +316,20 @@ comment on function floods.reactivate_user(integer, text, text, text) is 'Reacti
 create function floods.new_status_update(
   status_id integer,
   crossing_id integer,
-  notes text default null,
-  status_reason_id integer default null,
-  status_duration_id integer default null
+  notes text,
+  status_reason_id integer,
+  status_duration_id integer
 ) returns floods.status_update as $$
 declare
   floods_status_update floods.status_update;
 begin
   -- TODO: Remove this hacky fix and redefine as strict after
     -- https://github.com/postgraphql/postgraphql/issues/438 is closed
-  if status_id = null then
+  if status_id is null then
     raise exception 'Status is required';
   end if;
 
-  if crossing_id = null then
+  if crossing_id is null then
     raise exception 'Crossing is required';
   end if;
 
@@ -342,38 +342,38 @@ begin
   end if;
 
   -- If the status reason is not null
-  if status_reason_id != null then
+  if status_reason_id is not null then
     -- but the association says it should be disabled
     if (select rule from floods.status_association where floods.status_association.status_id = new_status_update.status_id and detail = 'reason') = 'disabled' then
       -- we shouldn't be here, throw
-      raise exception 'Status reasons are disabled for this status';
+      raise exception 'Status reasons are disabled for status:  %', (select name from floods.status where id = status_id);
     end if;
   end if;
 
   -- If the status reason is null
-  if status_reason_id = null then
+  if status_reason_id is null then
     -- but the association says it is required
     if (select rule from floods.status_association where floods.status_association.status_id = new_status_update.status_id and detail = 'reason') = 'required' then
       -- we shouldn't be here, throw
-      raise exception 'Status reasons are required for this status';
+      raise exception 'Status reasons are required for status:  %', (select name from floods.status where id = status_id);
     end if;
   end if;
 
   -- If the status duration is not null
-  if status_duration_id != null then
+  if status_duration_id is not null then
     -- but the association says it should be disabled
     if (select rule from floods.status_association where floods.status_association.status_id = new_status_update.status_id and detail = 'duration') = 'disabled' then
       -- we shouldn't be here, throw
-      raise exception 'Status durations are disabled for this status';
+      raise exception 'Status durations are disabled for status:  %', (select name from floods.status where id = status_id);
     end if;
   end if;
 
   -- If the status reason is null
-  if status_duration_id = null then
+  if status_duration_id is null then
     -- but the association says it is required
     if (select rule from floods.status_association where floods.status_association.status_id = new_status_update.status_id and detail = 'duration') = 'required' then
       -- we shouldn't be here, throw
-      raise exception 'Status durations are required for this status';
+      raise exception 'Status durations are required for status:  %', (select name from floods.status where id = status_id);
     end if;
   end if;
 
