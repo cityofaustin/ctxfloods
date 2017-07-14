@@ -5,5 +5,13 @@ addons:
   postgresql: 9.4
 services:
   - postgresql
-before_script: yarn run init-local-db; yarn run local-drop-rebuild
-script: yarn run postgraphql-local & yarn run test
+
+jobs:
+  include:
+    - stage: initialize database
+      script: yarn init-local-db
+      script: yarn local-drop-rebuild
+    - stage: test
+      script: yarn postgraphql-local & yarn test
+    - stage: deploy
+      script: yarn rebuild-and-deploy
