@@ -2,7 +2,7 @@ import HttpTransport from 'lokka-transport-http';
 import Lokka from 'lokka';
 import _ from 'lodash';
 import queryPublicData from './queryPublicData';
-import authenticate from './authenticate';
+ 
 
 const anonLokka = new Lokka({transport: new HttpTransport('http://localhost:5000/graphql')});
 const communityAdminEmail = 'admin@community.floods';

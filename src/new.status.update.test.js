@@ -1,7 +1,6 @@
 import HttpTransport from 'lokka-transport-http';
 import Lokka from 'lokka';
 import queryPublicData from './queryPublicData';
-import authenticate from './authenticate';
 
 const superAdminEmail = 'superadmin@flo.ods';
 const communityAdminEmail = 'admin@community.floods';
