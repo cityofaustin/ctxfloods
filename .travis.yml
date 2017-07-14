@@ -9,8 +9,7 @@ services:
 jobs:
   include:
     - stage: initialize database
-      script: yarn init-local-db
-      script: yarn local-drop-rebuild
+      script: yarn init-local-db; yarn local-drop-rebuild
     - stage: test
       script: yarn postgraphql-local & yarn test
     - stage: deploy
