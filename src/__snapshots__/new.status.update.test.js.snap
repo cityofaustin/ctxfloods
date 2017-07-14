@@ -34,7 +34,11 @@ exports[`When updating the status of a crossing To OPEN with DURATION should fai
 
 exports[`When updating the status of a crossing To OPEN with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
 
-exports[`When updating the status of a crossing To OPEN with REASON should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
+exports[`When updating the status of a crossing To OPEN with REASON as a community admin should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
+
+exports[`When updating the status of a crossing To OPEN with REASON as a community editor should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
+
+exports[`When updating the status of a crossing To OPEN with REASON as a super admin should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
 
 exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as a community admin In another community without the crossing should fail to update the status 1`] = `[Error: GraphQL Error: Users can only update the status of crossings within their communities]`;
 

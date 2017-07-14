@@ -179,7 +179,15 @@ describe('When updating the status of a crossing', () => {
     });
 
     describe('with REASON', () => {
-      shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
+      describe('as a super admin', () => {
+        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
+      });
+      describe('as a community admin', () => {
+        shouldFail(communityAdminEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
+      });
+      describe('as a community editor', () => {
+        shouldFail(communityEditorEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
+      });
     });
 
     describe('with DURATION', () => {
