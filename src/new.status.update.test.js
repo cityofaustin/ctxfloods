@@ -168,6 +168,14 @@ describe('When updating the status of a crossing', () => {
           shouldFail(communityAdminEmail, everyPassword, 1, 7, 'OPEN with no REASON or DURATION');
         });
       });
+      describe('as a community editor', () => {
+        describe('In the same community as the crossing', () => {
+          shouldWork(communityEditorEmail, everyPassword, 1, 3, 'OPEN with no REASON or DURATION');
+        });
+        describe('In another community without the crossing', () => {
+          shouldFail(communityEditorEmail, everyPassword, 1, 7, 'OPEN with no REASON or DURATION');
+        });
+      });
     });
 
     describe('with REASON', () => {
