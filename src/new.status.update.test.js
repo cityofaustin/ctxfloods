@@ -169,57 +169,49 @@ describe('When updating the status of a crossing', () => {
     });
 
     describe('with REASON', () => {
-      describe('as a super admin', () => {
-        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
-      });
-      describe('as a community admin', () => {
-        shouldFail(communityAdminEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
-      });
-      describe('as a community editor', () => {
-        shouldFail(communityEditorEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
-      });
+      shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
+      shouldFail(communityAdminEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
+      shouldFail(communityEditorEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
     });
 
     describe('with DURATION', () => {
-      describe('as a super admin', () => {
-        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
-      });
-      describe('as a community admin', () => {
-        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
-      });
-      describe('as a community editor', () => {
-        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
-      });
+      shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
+      shouldFail(communityAdminEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
+      shouldFail(communityEditorEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
     });
 
     describe('with REASON and DURATION', () => {
-      describe('as a super admin', () => {
-        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
-      });
-      describe('as a community admin', () => {
-        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
-      });
-      describe('as a community editor', () => {
-        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
-      });
+      shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
+      shouldFail(communityAdminEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
+      shouldFail(communityEditorEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
     });
   });
 
   describe('To CLOSED', () => {
     describe('with no REASON or DURATION', () => {
       shouldFail(superAdminEmail, everyPassword, 2, 3, 'CLOSED with no REASON or DURATION');
+      shouldFail(communityAdminEmail, everyPassword, 2, 3, 'CLOSED with no REASON or DURATION');
+      shouldFail(communityEditorEmail, everyPassword, 2, 3, 'CLOSED with no REASON or DURATION');
     });
 
     describe('with REASON', () => {
       shouldWork(superAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1);
+      shouldWork(communityAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1,null,null,'In the same community as the crossing'); 
+      shouldWork(communityAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1,null,null,'In another community without the crossing');
+      shouldWork(communityEditorEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1,null,null,'In the same community as the crossing'); 
+      shouldWork(communityEditorEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1,null,null,'In another community without the crossing');
     });
 
     describe('with DURATION', () => {
       shouldFail(superAdminEmail, everyPassword, 2, 3, 'CLOSED with DURATION', null, 1);
+      shouldFail(communityAdminEmail, everyPassword, 2, 3, 'CLOSED with DURATION', null, 1);
+      shouldFail(communityEditorEmail, everyPassword, 2, 3, 'CLOSED with DURATION', null, 1);
     });
 
     describe('with REASON and DURATION', () => {
       shouldFail(superAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON and DURATION', 1, 1);
+      shouldFail(communityAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON and DURATION', 1, 1);
+      shouldFail(communityEditorEmail, everyPassword, 2, 3, 'CLOSED with REASON and DURATION', 1, 1);
     });
   });
 
