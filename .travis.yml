@@ -5,8 +5,6 @@ addons:
   postgresql: 9.4
 services:
   - postgresql
-install:
-  - npm install -g serverless
 
 jobs:
   include:
@@ -14,4 +12,5 @@ jobs:
       before_script: yarn init-local-db; yarn local-drop-rebuild
       script: yarn postgraphql-local & yarn test
     - stage: deploy
+      script: npm install -g serverless
       script: ./travisDeploy.sh
