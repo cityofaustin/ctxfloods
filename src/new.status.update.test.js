@@ -196,10 +196,10 @@ describe('When updating the status of a crossing', () => {
 
     describe('with REASON', () => {
       shouldWork(superAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1);
-      shouldWork(communityAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1,null,null,'In the same community as the crossing'); 
-      shouldWork(communityAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1,null,null,'In another community without the crossing');
-      shouldWork(communityEditorEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1,null,null,'In the same community as the crossing'); 
-      shouldWork(communityEditorEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1,null,null,'In another community without the crossing');
+      shouldWork(communityAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1, null, 'In the same community as the crossing'); 
+      shouldFail(communityAdminEmail, everyPassword, 2, 7, 'CLOSED with REASON', 1, null, 'In another community without the crossing');
+      shouldWork(communityEditorEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1, null, 'In the same community as the crossing'); 
+      shouldFail(communityEditorEmail, everyPassword, 2, 7, 'CLOSED with REASON', 1, null, 'In another community without the crossing');
     });
 
     describe('with DURATION', () => {
@@ -218,36 +218,56 @@ describe('When updating the status of a crossing', () => {
   describe('To CAUTION', () => {
     describe('with no REASON or DURATION', () => {
       shouldWork(superAdminEmail, everyPassword, 3, 3, 'CAUTION with no REASON or DURATION');
+      shouldWork(communityAdminEmail, everyPassword, 3, 3, 'CAUTION with no REASON or DURATION',null,null,'In the same community as the crossing');
+      shouldFail(communityAdminEmail, everyPassword, 3, 7, 'CAUTION with no REASON or DURATION',null,null,'In another community without the crossing');
+      shouldWork(communityEditorEmail, everyPassword, 3, 3, 'CAUTION with no REASON or DURATION',null,null,'In the same community as the crossing');
+      shouldFail(communityEditorEmail, everyPassword, 3, 7, 'CAUTION with no REASON or DURATION',null,null,'In another community without the crossing');
     });
 
     describe('with REASON', () => {
       shouldFail(superAdminEmail, everyPassword, 3, 3, 'CAUTION with REASON', 1);
+      shouldFail(communityEditorEmail, everyPassword, 3, 3, 'CAUTION with REASON', 1);
+      shouldFail(communityAdminEmail, everyPassword, 3, 3, 'CAUTION with REASON', 1);
     });
 
     describe('with DURATION', () => {
       shouldFail(superAdminEmail, everyPassword, 3, 3, 'CAUTION with DURATION', null, 1);
+      shouldFail(communityAdminEmail, everyPassword, 3, 3, 'CAUTION with DURATION', null, 1);
+      shouldFail(communityEditorEmail, everyPassword, 3, 3, 'CAUTION with DURATION', null, 1);
     });
 
     describe('with REASON and DURATION', () => {
       shouldFail(superAdminEmail, everyPassword, 3, 3, 'CAUTION with REASON and DURATION', 1, 1);
+      shouldFail(communityAdminEmail, everyPassword, 3, 3, 'CAUTION with REASON and DURATION', 1, 1);
+      shouldFail(communityEditorEmail, everyPassword, 3, 3, 'CAUTION with REASON and DURATION', 1, 1);
     });
   });
 
   describe('To LONG TERM CLOSURE', () => {
     describe('with no REASON or DURATION', () => {
       shouldFail(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with no REASON or DURATION');
+      shouldFail(communityAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with no REASON or DURATION');
+      shouldFail(communityEditorEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with no REASON or DURATION');
     });
 
     describe('with REASON', () => {
       shouldFail(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON', 1);
+      shouldFail(communityAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON', 1);
+      shouldFail(communityEditorEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON', 1);
     });
 
     describe('with DURATION', () => {
       shouldFail(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with DURATION', null, 1);
+      shouldFail(communityEditorEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with DURATION', null, 1);
+      shouldFail(communityEditorEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with DURATION', null, 1);
     });
 
     describe('with REASON and DURATION', () => {
       shouldWork(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1);
+      shouldWork(communityAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In the same community as the crossing');
+      shouldFail(communityAdminEmail, everyPassword, 4, 7, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In another community without the crossing');
+      shouldWork(communityEditorEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In the same community as the crossing');
+      shouldFail(communityEditorEmail, everyPassword, 4, 7, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In another community without the crossing');
     });
   });
 });

@@ -1,10 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`When updating the status of a crossing To CAUTION with DURATION as admin@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Caution]`;
+
+exports[`When updating the status of a crossing To CAUTION with DURATION as editor@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Caution]`;
+
 exports[`When updating the status of a crossing To CAUTION with DURATION as superadmin@flo.ods  should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Caution]`;
+
+exports[`When updating the status of a crossing To CAUTION with REASON and DURATION as admin@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Caution]`;
+
+exports[`When updating the status of a crossing To CAUTION with REASON and DURATION as editor@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Caution]`;
 
 exports[`When updating the status of a crossing To CAUTION with REASON and DURATION as superadmin@flo.ods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Caution]`;
 
+exports[`When updating the status of a crossing To CAUTION with REASON as admin@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Caution]`;
+
+exports[`When updating the status of a crossing To CAUTION with REASON as editor@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Caution]`;
+
 exports[`When updating the status of a crossing To CAUTION with REASON as superadmin@flo.ods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Caution]`;
+
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as admin@community.floods In another community without the crossing should fail to update the status 1`] = `[Error: GraphQL Error: Users can only update the status of crossings within their communities]`;
+
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as admin@community.floods In the same community as the crossing should update the status 1`] = `"CAUTION with no REASON or DURATION"`;
+
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as admin@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"CAUTION with no REASON or DURATION"`;
+
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as editor@community.floods In another community without the crossing should fail to update the status 1`] = `[Error: GraphQL Error: Users can only update the status of crossings within their communities]`;
+
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as editor@community.floods In the same community as the crossing should update the status 1`] = `"CAUTION with no REASON or DURATION"`;
+
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as editor@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"CAUTION with no REASON or DURATION"`;
 
 exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as superadmin@flo.ods  should update the status 1`] = `"CAUTION with no REASON or DURATION"`;
 
@@ -22,21 +46,17 @@ exports[`When updating the status of a crossing To CLOSED with REASON and DURATI
 
 exports[`When updating the status of a crossing To CLOSED with REASON and DURATION as superadmin@flo.ods  should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Closed]`;
 
-exports[`When updating the status of a crossing To CLOSED with REASON as admin@community.floods  should update the status 1`] = `"CLOSED with REASON"`;
+exports[`When updating the status of a crossing To CLOSED with REASON as admin@community.floods In another community without the crossing should fail to update the status 1`] = `[Error: GraphQL Error: Users can only update the status of crossings within their communities]`;
 
-exports[`When updating the status of a crossing To CLOSED with REASON as admin@community.floods  should update the status 2`] = `"CLOSED with REASON"`;
+exports[`When updating the status of a crossing To CLOSED with REASON as admin@community.floods In the same community as the crossing should update the status 1`] = `"CLOSED with REASON"`;
 
-exports[`When updating the status of a crossing To CLOSED with REASON as admin@community.floods  the new status should show up in the DB 1`] = `"CLOSED with REASON"`;
+exports[`When updating the status of a crossing To CLOSED with REASON as admin@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"CLOSED with REASON"`;
 
-exports[`When updating the status of a crossing To CLOSED with REASON as admin@community.floods  the new status should show up in the DB 2`] = `"CLOSED with REASON"`;
+exports[`When updating the status of a crossing To CLOSED with REASON as editor@community.floods In another community without the crossing should fail to update the status 1`] = `[Error: GraphQL Error: Users can only update the status of crossings within their communities]`;
 
-exports[`When updating the status of a crossing To CLOSED with REASON as editor@community.floods  should update the status 1`] = `"CLOSED with REASON"`;
+exports[`When updating the status of a crossing To CLOSED with REASON as editor@community.floods In the same community as the crossing should update the status 1`] = `"CLOSED with REASON"`;
 
-exports[`When updating the status of a crossing To CLOSED with REASON as editor@community.floods  should update the status 2`] = `"CLOSED with REASON"`;
-
-exports[`When updating the status of a crossing To CLOSED with REASON as editor@community.floods  the new status should show up in the DB 1`] = `"CLOSED with REASON"`;
-
-exports[`When updating the status of a crossing To CLOSED with REASON as editor@community.floods  the new status should show up in the DB 2`] = `"CLOSED with REASON"`;
+exports[`When updating the status of a crossing To CLOSED with REASON as editor@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"CLOSED with REASON"`;
 
 exports[`When updating the status of a crossing To CLOSED with REASON as superadmin@flo.ods  should update the status 1`] = `"CLOSED with REASON"`;
 
@@ -48,13 +68,37 @@ exports[`When updating the status of a crossing To CLOSED with no REASON or DURA
 
 exports[`When updating the status of a crossing To CLOSED with no REASON or DURATION as superadmin@flo.ods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Closed]`;
 
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with DURATION as editor@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with DURATION as editor@community.floods  should fail to update the status 2`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
+
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with DURATION as superadmin@flo.ods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION as admin@community.floods In another community without the crossing should fail to update the status 1`] = `[Error: GraphQL Error: Users can only update the status of crossings within their communities]`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION as admin@community.floods In the same community as the crossing should update the status 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION as admin@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION as editor@community.floods In another community without the crossing should fail to update the status 1`] = `[Error: GraphQL Error: Users can only update the status of crossings within their communities]`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION as editor@community.floods In the same community as the crossing should update the status 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION as editor@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
 
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION as superadmin@flo.ods  should update the status 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
 
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION as superadmin@flo.ods  the new status should show up in the DB 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
 
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON as admin@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are required for status:  Long-Term Closure]`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON as editor@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are required for status:  Long-Term Closure]`;
+
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON as superadmin@flo.ods  should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are required for status:  Long-Term Closure]`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with no REASON or DURATION as admin@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with no REASON or DURATION as editor@community.floods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
 
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with no REASON or DURATION as superadmin@flo.ods  should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
 
