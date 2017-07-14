@@ -56,7 +56,6 @@ function shouldWork(email, password, communityId, extra_description) {
       `,
       {
         communityId: communityId,
-
       });
 
       newCrossingId = response.newCrossing.crossing.id;
@@ -88,7 +87,7 @@ function shouldWork(email, password, communityId, extra_description) {
   }); 
 }
 
-function shouldFail(email="", password="", extra_description) {
+function shouldFail(email="", password="", communityId, extra_description) {
   describe('as ' + email + ' ' + (extra_description || ''), () => {  
     var lokka;
 
@@ -108,11 +107,33 @@ function shouldFail(email="", password="", extra_description) {
       });
     });
 
-    // TESTS THAT SHOULD FAIL GO HERE
-    
+    it('should fail to add the crossing', async () => {
+      try {
+        const response = await lokka.send(`
+          mutation($communityId:Int!) {
+            newCrossing(input: {
+              name: "New Crossing"
+              humanAddress: "In test land"
+              description: "TEST LAND IS MAGIC!"
+              communityId: $communityId
+            }) {
+              crossing {
+                id
+              }
+            }
+          }
+        `,
+        {
+          communityId: communityId,
+        });
+      } catch(e) {
+        expect(e).toMatchSnapshot();
+      }
+    });
   });
 }
 
 describe('When adding a new crossing', () => {
   shouldWork(superAdminEmail, everyPassword, 1);
+  shouldFail(superAdminEmail, everyPassword);
 });

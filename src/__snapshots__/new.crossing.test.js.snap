@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`When adding a new crossing as superadmin@flo.ods  should fail to add the crossing 1`] = `[Error: Invalid status code: 500]`;
+
 exports[`When adding a new crossing as superadmin@flo.ods  the new crossing should show up in the DB 1`] = `
 Object {
   "crossingById": Object {
