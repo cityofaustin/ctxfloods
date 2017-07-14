@@ -34,7 +34,7 @@ describe('As a super admin', async () => {
     });
   });
 
-  describe('When adding a crossing', () => {
+  describe('When deleting a crossing', () => {
     var newCrossingId;
 
     it('should add the crossing', async () => {
@@ -45,84 +45,6 @@ describe('As a super admin', async () => {
             humanAddress: "Near the barn"
             description: "Describe!"
             communityId: 1
-          }) {
-            crossing {
-              id
-            }
-          }
-        }
-      `);
-
-      newCrossingId = response.newCrossing.crossing.id;
-      expect(response).not.toBeNull();
-    });
-
-    it('the new crossing should show up in the DB', async () => {
-      const response = await lokka.send(`
-        query ($id: Int!) {
-          crossingById(id: $id) {
-            name
-            humanAddress
-            description
-            communityCrossingsByCrossingId {
-              nodes {
-                communityId
-              }
-            }
-          }
-        }
-      `,
-      {
-        id: newCrossingId
-      });
-
-      expect(response).toMatchSnapshot();
-    });
-
-    it('should delete the new crossing', async () => {
-      const response = await lokka.send(`
-      mutation ($id: Int!) {
-        removeCrossing(input: {crossingId: $id}) {
-          crossing {
-            id
-          }
-        }
-      }      
-      `,
-      {
-        id: newCrossingId
-      });
-
-      expect(response.removeCrossing.crossing.id).toEqual(newCrossingId);
-    });
-
-    it('the new crossing should no longer show up in the DB', async () => {
-      const response = await lokka.send(`
-        query ($id: Int!) {
-          crossingById(id: $id) {
-            id
-          }
-        }
-      `,
-      {
-        id: newCrossingId
-      });
-
-      expect(response.crossingById).toBeNull();
-    });
-  });
-
-  describe('When adding a crossing to a different community', () => {
-    var newCrossingId;
-
-    it('should add the crossing', async () => {
-      const response = await lokka.send(`
-        mutation {
-          newCrossing(input: {
-            name: "New Crossing"
-            humanAddress: "Near the barn"
-            description: "Describe!"
-            communityId: 2
           }) {
             crossing {
               id

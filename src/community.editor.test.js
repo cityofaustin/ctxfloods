@@ -34,9 +34,7 @@ describe('As a community editor', async () => {
     });
   });
 
-  describe('When adding a crossing', () => {
-
-    describe('to the same community as the user', () => {
+  describe('When deleting a crossing', () => {
       var newCrossingId;
 
       it('before updating it should get the current crossings', async () => {
@@ -114,43 +112,6 @@ describe('As a community editor', async () => {
           expect(e).toMatchSnapshot();
         }
       });
-    });
-
-    describe('NOT to the same community as the user', () => {
-      it('should fail to add the crossing', async () => {
-        try {
-          const response = await lokka.send(`
-            mutation {
-              newCrossing(input: {
-                name: "New Crossing"
-                humanAddress: "Near the barn"
-                description: "Describe!"
-                communityId: 2
-              }) {
-                crossing {
-                  id
-                }
-              }
-            }
-        `);
-        } catch(e) {
-          expect(e).toMatchSnapshot();
-        }
-      });
-    });
-
-  });
-
-  it('should get the correct current user', async () => {
-    const response = await lokka.send(`
-      {
-        currentUser {
-          id
-        }
-      }
-    `);
-
-    expect(response).toMatchSnapshot();
   });
 
   it('should fail to register a new user', async () => {

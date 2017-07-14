@@ -4,20 +4,6 @@ import Lokka from 'lokka';
 const anonLokka = new Lokka({transport: new HttpTransport('http://localhost:5000/graphql')});
 
 describe('As an anonymous user', () => {
-  it('should fail to get the current user', async () => {
-    try {
-      const response = await anonLokka.send(`
-      {
-        currentUser {
-          id
-        }
-      }
-    `);
-    } catch(e) {
-      expect(e).toMatchSnapshot();
-    }
-  });
-
   it('should fail to register a new user', async () => {
     try {
       const response = await anonLokka.send(`

@@ -87,17 +87,11 @@ function shouldWork(email, password, communityId, extra_description) {
   }); 
 }
 
-function shouldFail(email="", password="", communityId, extra_description) {
+function shouldFail(email, password, communityId, extra_description) {
   describe('as ' + email + ' ' + (extra_description || ''), () => {  
     var lokka;
 
     beforeAll(async (done) => {
-
-      if(!(email & password)) {
-        lokka = anonLokka;
-        done();
-      }
-
       getToken(email, password).then((token) => {
         const headers = {
           'Authorization': 'Bearer '+ token
@@ -135,5 +129,9 @@ function shouldFail(email="", password="", communityId, extra_description) {
 
 describe('When adding a new crossing', () => {
   shouldWork(superAdminEmail, everyPassword, 1);
-  shouldFail(superAdminEmail, everyPassword);
+  shouldWork(superAdminEmail, everyPassword, 2);
+  shouldWork(communityAdminEmail, everyPassword, 1);
+  shouldFail(communityAdminEmail, everyPassword, 2, "to a different community");
+  shouldWork(communityEditorEmail, everyPassword, 1);
+  shouldFail(communityEditorEmail, everyPassword, 2, "to a different community");
 });

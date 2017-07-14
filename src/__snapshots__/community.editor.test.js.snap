@@ -1,10 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`As a community editor When adding a crossing NOT to the same community as the user should fail to add the crossing 1`] = `[Error: GraphQL Error: Users can only add crossings to their communities]`;
+exports[`As a community editor When deleting a crossing should fail to delete the new crossing 1`] = `[Error: GraphQL Error: permission denied for function remove_crossing]`;
 
-exports[`As a community editor When adding a crossing to the same community as the user should fail to delete the new crossing 1`] = `[Error: GraphQL Error: permission denied for function remove_crossing]`;
-
-exports[`As a community editor When adding a crossing to the same community as the user the new crossing should show up in the DB 1`] = `
+exports[`As a community editor When deleting a crossing the new crossing should show up in the DB 1`] = `
 Object {
   "crossingById": Object {
     "communityCrossingsByCrossingId": Object {
@@ -22,11 +20,3 @@ Object {
 `;
 
 exports[`As a community editor should fail to register a new user 1`] = `[Error: GraphQL Error: permission denied for function register_user]`;
-
-exports[`As a community editor should get the correct current user 1`] = `
-Object {
-  "currentUser": Object {
-    "id": 3,
-  },
-}
-`;
