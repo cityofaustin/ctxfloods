@@ -3,6 +3,11 @@ import Lokka from 'lokka';
 import queryPublicData from './queryPublicData';
 import authenticate from './authenticate';
 
+const superAdminEmail = 'superadmin@flo.ods';
+const communityAdminEmail = 'admin@community.floods';
+const communityEditorEmail = 'editor@community.floods';
+const everyPassword = 'texasfloods';
+
 const anonLokka = new Lokka({transport: new HttpTransport('http://localhost:5000/graphql')});
 async function getToken(email, password) {
   const response = await anonLokka.send(`
@@ -20,9 +25,10 @@ async function getToken(email, password) {
   return response.authenticate.jwtToken;
 }
 
-function shouldWork(username, password, status, crossing, notes, reason, duration, extra_description) {
+function shouldWork(username, password, status, notes, reason, duration, extra_description) {
   var originalStatusId;
   var newStatusId;
+  var crossing;
   var lokka;
 
   describe('as ' + username + ' ' + (extra_description || ''), () => {
@@ -36,22 +42,65 @@ function shouldWork(username, password, status, crossing, notes, reason, duratio
       });
     });
 
-    it('before updating it should get the current status', async () => {
-      const response = await lokka.send(`
-        query($crossing:Int!) {
-          crossingById(id:$crossing) {
-            latestStatus {
-              id
+    describe('before updating', () => {
+      it('should add a new crossing', async () => {
+        const response = await lokka.send(`
+          mutation {
+            newCrossing(input: {
+              name: "New Crossing"
+              humanAddress: "Near the barn"
+              description: "Describe!"
+              communityId: 1
+            }) {
+              crossing {
+                id
+              }
             }
           }
-        }
-      `,
-      {
-        crossing: crossing
+        `);
+
+        crossing = response.newCrossing.crossing.id;
+        expect(response).not.toBeNull();
       });
 
-      originalStatusId = response.crossingById.latestStatus.id;
-      expect(response).not.toBeNull();
+      it('should give it a status', async () => {
+        const response = await lokka.send(`
+          mutation($crossing:Int) {
+            newStatusUpdate(input: {
+              statusId: 1,
+              crossingId: $crossing,
+              notes: "New"
+            }) {
+              statusUpdate {
+                notes
+              }
+            }
+          }
+        `,
+        {
+          crossing: crossing
+        });
+
+        expect(response.newStatusUpdate.statusUpdate.notes).toMatchSnapshot();
+      });
+
+      it('it should get the current status', async () => {
+        const response = await lokka.send(`
+          query($crossing:Int!) {
+            crossingById(id:$crossing) {
+              latestStatus {
+                id
+              }
+            }
+          }
+        `,
+        {
+          crossing: crossing
+        });
+
+        originalStatusId = response.crossingById.latestStatus.id;
+        expect(response).not.toBeNull();
+      });
     });
 
     it('should update the status', async () => {
@@ -153,18 +202,13 @@ function shouldFail(username, password, status, crossing, notes, reason, duratio
   });
 }
 
-const superAdminEmail = 'superadmin@flo.ods';
-const communityAdminEmail = 'admin@community.floods';
-const communityEditorEmail = 'editor@community.floods';
-const everyPassword = 'texasfloods';
-
 describe('When updating the status of a crossing', () => {
   describe('To OPEN', () => {
     describe('with no REASON or DURATION', () => {
-      shouldWork(superAdminEmail, everyPassword, 1, 3, 'OPEN with no REASON or DURATION');
-      shouldWork(communityAdminEmail, everyPassword, 1, 3, 'OPEN with no REASON or DURATION',null,null,'In the same community as the crossing'); 
+      shouldWork(superAdminEmail, everyPassword, 1, 'OPEN with no REASON or DURATION');
+      shouldWork(communityAdminEmail, everyPassword, 1, 'OPEN with no REASON or DURATION',null,null,'In the same community as the crossing'); 
       shouldFail(communityAdminEmail, everyPassword, 1, 7, 'OPEN with no REASON or DURATION',null,null,'In another community without the crossing');
-      shouldWork(communityEditorEmail, everyPassword, 1, 3, 'OPEN with no REASON or DURATION',null,null,'In the same community as the crossing'); 
+      shouldWork(communityEditorEmail, everyPassword, 1, 'OPEN with no REASON or DURATION',null,null,'In the same community as the crossing'); 
       shouldFail(communityEditorEmail, everyPassword, 1, 7, 'OPEN with no REASON or DURATION',null,null,'In another community without the crossing');
     });
 
@@ -195,10 +239,10 @@ describe('When updating the status of a crossing', () => {
     });
 
     describe('with REASON', () => {
-      shouldWork(superAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1);
-      shouldWork(communityAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1, null, 'In the same community as the crossing'); 
+      shouldWork(superAdminEmail, everyPassword, 2, 'CLOSED with REASON', 1);
+      shouldWork(communityAdminEmail, everyPassword, 2, 'CLOSED with REASON', 1, null, 'In the same community as the crossing'); 
       shouldFail(communityAdminEmail, everyPassword, 2, 7, 'CLOSED with REASON', 1, null, 'In another community without the crossing');
-      shouldWork(communityEditorEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1, null, 'In the same community as the crossing'); 
+      shouldWork(communityEditorEmail, everyPassword, 2, 'CLOSED with REASON', 1, null, 'In the same community as the crossing'); 
       shouldFail(communityEditorEmail, everyPassword, 2, 7, 'CLOSED with REASON', 1, null, 'In another community without the crossing');
     });
 
@@ -217,10 +261,10 @@ describe('When updating the status of a crossing', () => {
 
   describe('To CAUTION', () => {
     describe('with no REASON or DURATION', () => {
-      shouldWork(superAdminEmail, everyPassword, 3, 3, 'CAUTION with no REASON or DURATION');
-      shouldWork(communityAdminEmail, everyPassword, 3, 3, 'CAUTION with no REASON or DURATION',null,null,'In the same community as the crossing');
+      shouldWork(superAdminEmail, everyPassword, 3, 'CAUTION with no REASON or DURATION');
+      shouldWork(communityAdminEmail, everyPassword, 3, 'CAUTION with no REASON or DURATION',null,null,'In the same community as the crossing');
       shouldFail(communityAdminEmail, everyPassword, 3, 7, 'CAUTION with no REASON or DURATION',null,null,'In another community without the crossing');
-      shouldWork(communityEditorEmail, everyPassword, 3, 3, 'CAUTION with no REASON or DURATION',null,null,'In the same community as the crossing');
+      shouldWork(communityEditorEmail, everyPassword, 3, 'CAUTION with no REASON or DURATION',null,null,'In the same community as the crossing');
       shouldFail(communityEditorEmail, everyPassword, 3, 7, 'CAUTION with no REASON or DURATION',null,null,'In another community without the crossing');
     });
 
@@ -263,23 +307,11 @@ describe('When updating the status of a crossing', () => {
     });
 
     describe('with REASON and DURATION', () => {
-      shouldWork(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1);
-      shouldWork(communityAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In the same community as the crossing');
+      shouldWork(superAdminEmail, everyPassword, 4, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1);
+      shouldWork(communityAdminEmail, everyPassword, 4, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In the same community as the crossing');
       shouldFail(communityAdminEmail, everyPassword, 4, 7, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In another community without the crossing');
-      shouldWork(communityEditorEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In the same community as the crossing');
+      shouldWork(communityEditorEmail, everyPassword, 4, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In the same community as the crossing');
       shouldFail(communityEditorEmail, everyPassword, 4, 7, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In another community without the crossing');
     });
   });
 });
-
-
-
-      // describe('as a super admin', () => {
-
-      // });
-      // describe('as a community admin', () => {
-
-      // });
-      // describe('as a community editor', () => {
-
-      // });
