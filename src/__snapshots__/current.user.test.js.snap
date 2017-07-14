@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When getting current user as admin@community.floods  should get the correct current user 1`] = `
+Object {
+  "currentUser": Object {
+    "id": 2,
+  },
+}
+`;
+
+exports[`When getting current user as editor@community.floods  should get the correct current user 1`] = `
+Object {
+  "currentUser": Object {
+    "id": 3,
+  },
+}
+`;
+
+exports[`When getting current user as superadmin@flo.ods  should get the correct current user 1`] = `
+Object {
+  "currentUser": Object {
+    "id": 1,
+  },
+}
+`;
