@@ -42,17 +42,11 @@ function shouldWork(email, password, extra_description) {
   }); 
 }
 
-function shouldFail(email="", password="", extra_description) {
+function shouldFail(email, password, extra_description) {
   describe('as ' + email + ' ' + (extra_description || ''), () => {  
     var lokka;
 
     beforeAll(async (done) => {
-
-      if(!(email & password)) {
-        lokka = anonLokka;
-        done();
-      }
-
       getToken(email, password).then((token) => {
         const headers = {
           'Authorization': 'Bearer '+ token

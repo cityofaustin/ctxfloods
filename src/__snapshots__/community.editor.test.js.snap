@@ -1,22 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`As a community editor When deleting a crossing should fail to delete the new crossing 1`] = `[Error: GraphQL Error: permission denied for function remove_crossing]`;
-
-exports[`As a community editor When deleting a crossing the new crossing should show up in the DB 1`] = `
-Object {
-  "crossingById": Object {
-    "communityCrossingsByCrossingId": Object {
-      "nodes": Array [
-        Object {
-          "communityId": 1,
-        },
-      ],
-    },
-    "description": "Describe!",
-    "humanAddress": "Near the barn",
-    "name": "New Crossing",
-  },
-}
-`;
-
 exports[`As a community editor should fail to register a new user 1`] = `[Error: GraphQL Error: permission denied for function register_user]`;

@@ -118,17 +118,11 @@ function shouldWork(email, password, communityId, extra_description) {
   }); 
 }
 
-function shouldFail(email="", password="", extra_description) {
+function shouldFail(email, password, communityId, extra_description) {
   describe('as ' + email + ' ' + (extra_description || ''), () => {  
     var lokka;
 
     beforeAll(async (done) => {
-
-      if(!(email & password)) {
-        lokka = anonLokka;
-        done();
-      }
-
       getToken(email, password).then((token) => {
         const headers = {
           'Authorization': 'Bearer '+ token
@@ -138,12 +132,78 @@ function shouldFail(email="", password="", extra_description) {
       });
     });
 
-    // TESTS THAT SHOULD FAIL GO HERE
-    
+    var newCrossingId;
+
+    it('should add the crossing', async () => {
+      const response = await lokka.send(`
+        mutation($communityId:Int!) {
+          newCrossing(input: {
+            name: "New Crossing"
+            humanAddress: "In test land"
+            description: "TEST LAND IS MAGIC!"
+            communityId: $communityId
+          }) {
+            crossing {
+              id
+            }
+          }
+        }
+      `,
+      {
+        communityId: communityId,
+      });
+
+      newCrossingId = response.newCrossing.crossing.id;
+      expect(response).not.toBeNull();
+    });
+
+    it('the new crossing should show up in the DB', async () => {
+      const response = await lokka.send(`
+        query ($id: Int!) {
+          crossingById(id: $id) {
+            name
+            humanAddress
+            description
+            communityCrossingsByCrossingId {
+              nodes {
+                communityId
+              }
+            }
+          }
+        }
+      `,
+      {
+        id: newCrossingId
+      });
+
+      expect(response).toMatchSnapshot();
+    });
+
+    it('should fail to delete the new crossing', async () => {
+      var err;
+      try {
+        const response = await lokka.send(`
+          mutation ($id: Int!) {
+            removeCrossing(input: {crossingId: $id}) {
+              crossing {
+                id
+              }
+            }
+          }      
+          `,
+          {
+            id: newCrossingId
+          });
+      } catch(e) {
+        expect(e).toMatchSnapshot();
+      }
+    });    
   });
 }
 
 describe('When removing a crossing', () => {
   shouldWork(superAdminEmail, everyPassword, 1);
   shouldWork(superAdminEmail, everyPassword, 2);
+  shouldWork(communityAdminEmail, everyPassword, 1);
+  shouldFail(communityEditorEmail, everyPassword, 1);
 });

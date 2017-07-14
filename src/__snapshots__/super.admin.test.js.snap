@@ -63,20 +63,3 @@ Object {
   },
 }
 `;
-
-exports[`As a super admin When deleting a crossing the new crossing should show up in the DB 1`] = `
-Object {
-  "crossingById": Object {
-    "communityCrossingsByCrossingId": Object {
-      "nodes": Array [
-        Object {
-          "communityId": 1,
-        },
-      ],
-    },
-    "description": "Describe!",
-    "humanAddress": "Near the barn",
-    "name": "New Crossing",
-  },
-}
-`;
