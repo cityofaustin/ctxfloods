@@ -24,7 +24,7 @@
     "init-local-db": "psql $npm_package_config_PGLOCALINITCON -f ./populateDB/initLocal.sql",
     "build-schema": "node ./pgCatalog/buildPgCatalog.js $npm_package_config_PGCON floods",
     "build-local-schema": "node ./pgCatalog/buildPgCatalog.js $npm_package_config_PGLOCALCON floods",
-    "postgraphql-local": "postgraphql --connection $npm_package_config_PGLOCALRUNCON --schema floods --default-role floods_anonymous --secret keyboard_kitten --token floods.jwt_token --cors --disable-default-mutations --max-pool-size 100"
+    "postgraphql-local": "postgraphql --connection $npm_package_config_PGLOCALRUNCON --schema floods --default-role floods_anonymous --secret keyboard_kitten --token floods.jwt_token --cors --disable-default-mutations"
   },
   "author": "Richard",
   "license": "MIT",
