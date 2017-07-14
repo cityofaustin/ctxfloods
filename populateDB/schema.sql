@@ -348,6 +348,12 @@ begin
       -- we shouldn't be here, throw
       raise exception 'Status reasons are disabled for status:  %', (select name from floods.status where id = status_id);
     end if;
+
+    -- but the status reason is for a different status
+    if (select floods.status_reason.status_id from floods.status_reason where id = status_reason_id) != new_status_update.status_id then
+      -- we shouldn't be here, throw
+      raise exception 'This status reason is not for status:  %', (select name from floods.status where id = new_status_update.status_id);
+    end if;
   end if;
 
   -- If the status reason is null
@@ -365,6 +371,12 @@ begin
     if (select rule from floods.status_association where floods.status_association.status_id = new_status_update.status_id and detail = 'duration') = 'disabled' then
       -- we shouldn't be here, throw
       raise exception 'Status durations are disabled for status:  %', (select name from floods.status where id = status_id);
+    end if;
+
+    -- but the status duration is for a different status
+    if (select floods.status_duration.status_id from floods.status_duration where id = status_duration_id) != new_status_update.status_id then
+      -- we shouldn't be here, throw
+      raise exception 'This status duration is not for status:  %', (select name from floods.status where id = new_status_update.status_id);
     end if;
   end if;
 
