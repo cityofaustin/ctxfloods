@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`When getting current user as   should fail to get the current user 1`] = `[Error: GraphQL Error: permission denied for function current_user]`;
+
 exports[`When getting current user as admin@community.floods  should get the correct current user 1`] = `
 Object {
   "currentUser": Object {

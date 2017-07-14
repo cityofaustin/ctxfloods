@@ -54,17 +54,13 @@ function shouldWork(email, password, extra_description) {
   }); 
 }
 
-function shouldFail(email, password, extra_description) {
-      console.log("BKARG")
-      console.log(email & password)
-
+function shouldFail(email="", password="", extra_description) {
   describe('as ' + email + ' ' + (extra_description || ''), () => {  
     var lokka;
 
     beforeAll(async (done) => {
 
       if(!(email & password)) {
-        console.log("ANON");
         lokka = anonLokka;
         done();
       }
@@ -95,7 +91,7 @@ function shouldFail(email, password, extra_description) {
 }
 
 describe('When getting current user', () => {
-  // shouldFail();
+  shouldFail();
   shouldWork(superAdminEmail, everyPassword);
   //shouldFail(superAdminEmail, wrongPassword);
   shouldWork(communityAdminEmail, everyPassword);
