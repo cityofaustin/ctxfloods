@@ -1,13 +1,9 @@
 import HttpTransport from 'lokka-transport-http';
 import Lokka from 'lokka';
-import queryPublicData from './queryPublicData';
- 
 
 const anonLokka = new Lokka({transport: new HttpTransport('http://localhost:5000/graphql')});
 
 describe('As an anonymous user', () => {
-  queryPublicData(anonLokka);
-
   it('should fail to get the current user', async () => {
     try {
       const response = await anonLokka.send(`

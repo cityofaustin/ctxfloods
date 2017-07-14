@@ -97,21 +97,3 @@ Object {
   },
 }
 `;
-
-exports[`As a super admin When updating the status of a crossing the new status should show up in the DB 1`] = `
-Object {
-  "crossingById": Object {
-    "latestStatus": Object {
-      "notes": "THIS IS A STATUS UPDATE TEST",
-    },
-  },
-}
-`;
-
-exports[`As a super admin should get the correct current user 1`] = `
-Object {
-  "currentUser": Object {
-    "id": 1,
-  },
-}
-`;
