@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When adding a new crossing as superadmin@flo.ods  the new crossing should show up in the DB 1`] = `
+Object {
+  "crossingById": Object {
+    "communityCrossingsByCrossingId": Object {
+      "nodes": Array [
+        Object {
+          "communityId": 1,
+        },
+      ],
+    },
+    "description": "TEST LAND IS MAGIC!",
+    "humanAddress": "In test land",
+    "name": "New Crossing",
+  },
+}
+`;
