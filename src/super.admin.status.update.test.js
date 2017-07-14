@@ -149,81 +149,93 @@ function shouldFail(username, password, status, crossing, notes, reason, duratio
   });
 }
 
-describe('As a super admin', async () => {
-  const superAdminEmail = 'superadmin@flo.ods';
-  const superAdminPassword = 'texasfloods';
+const superAdminEmail = 'superadmin@flo.ods';
+const communityAdminEmail = 'admin@community.floods';
+const communityEditorEmail = 'editor@community.floods';
+const everyPassword = 'texasfloods';
 
-  describe('when updating the status of a crossing', () => {
-    describe('To OPEN', () => {
-      describe('with no REASON or DURATION', async () => {
-        shouldWork(superAdminEmail, superAdminPassword, 1, 3, 'OPEN with no REASON or DURATION');
+describe('When updating the status of a crossing', () => {
+  describe('To OPEN', () => {
+    describe('with no REASON or DURATION', () => {
+      describe('as a super admin', () => {
+        shouldWork(superAdminEmail, everyPassword, 1, 3, 'OPEN with no REASON or DURATION');
       });
-
-      describe('with REASON', () => {
-        shouldFail(superAdminEmail, superAdminPassword, 1, 3, 'OPEN with REASON', 1);
-      });
-
-      describe('with DURATION', () => {
-        shouldFail(superAdminEmail, superAdminPassword, 1, 3, 'OPEN with DURATION', null, 1);
-      });
-
-      describe('with REASON and DURATION', async () => {
-        shouldFail(superAdminEmail, superAdminPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
+      describe('as a community admin', () => {
+        describe('In the same community as the crossing', () => {
+          shouldWork(communityAdminEmail, everyPassword, 1, 3, 'OPEN with no REASON or DURATION');
+        });
+        describe('In another community without the crossing', () => {
+          shouldFail(communityAdminEmail, everyPassword, 1, 7, 'OPEN with no REASON or DURATION');
+        });
       });
     });
 
-    describe('To CLOSED', () => {
-      describe('with no REASON or DURATION', async () => {
-        shouldFail(superAdminEmail, superAdminPassword, 2, 3, 'CLOSED with no REASON or DURATION');
-      });
-
-      describe('with REASON', () => {
-        shouldWork(superAdminEmail, superAdminPassword, 2, 3, 'CLOSED with REASON', 1);
-      });
-
-      describe('with DURATION', () => {
-        shouldFail(superAdminEmail, superAdminPassword, 2, 3, 'CLOSED with DURATION', null, 1);
-      });
-
-      describe('with REASON and DURATION', async () => {
-        shouldFail(superAdminEmail, superAdminPassword, 2, 3, 'CLOSED with REASON and DURATION', 1, 1);
-      });
+    describe('with REASON', () => {
+      shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON', 1);
     });
 
-    describe('To CAUTION', () => {
-      describe('with no REASON or DURATION', async () => {
-        shouldWork(superAdminEmail, superAdminPassword, 3, 3, 'CAUTION with no REASON or DURATION');
-      });
-
-      describe('with REASON', () => {
-        shouldFail(superAdminEmail, superAdminPassword, 3, 3, 'CAUTION with REASON', 1);
-      });
-
-      describe('with DURATION', () => {
-        shouldFail(superAdminEmail, superAdminPassword, 3, 3, 'CAUTION with DURATION', null, 1);
-      });
-
-      describe('with REASON and DURATION', async () => {
-        shouldFail(superAdminEmail, superAdminPassword, 3, 3, 'CAUTION with REASON and DURATION', 1, 1);
-      });
+    describe('with DURATION', () => {
+      shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
     });
 
-    describe('To LONG TERM CLOSURE', () => {
-      describe('with no REASON or DURATION', async () => {
-        shouldFail(superAdminEmail, superAdminPassword, 4, 3, 'LONG TERM CLOSURE with no REASON or DURATION');
-      });
+    describe('with REASON and DURATION', () => {
+      shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
+    });
 
-      describe('with REASON', () => {
-        shouldFail(superAdminEmail, superAdminPassword, 4, 3, 'LONG TERM CLOSURE with REASON', 1);
-      });
+    
+  });
 
-      describe('with DURATION', () => {
-        shouldFail(superAdminEmail, superAdminPassword, 4, 3, 'LONG TERM CLOSURE with DURATION', null, 1);
-      });
+  describe('To CLOSED', () => {
+    describe('with no REASON or DURATION', () => {
+      shouldFail(superAdminEmail, everyPassword, 2, 3, 'CLOSED with no REASON or DURATION');
+    });
 
-      describe('with REASON and DURATION', async () => {
-        shouldWork(superAdminEmail, superAdminPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1);
-      });
+    describe('with REASON', () => {
+      shouldWork(superAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON', 1);
+    });
+
+    describe('with DURATION', () => {
+      shouldFail(superAdminEmail, everyPassword, 2, 3, 'CLOSED with DURATION', null, 1);
+    });
+
+    describe('with REASON and DURATION', () => {
+      shouldFail(superAdminEmail, everyPassword, 2, 3, 'CLOSED with REASON and DURATION', 1, 1);
+    });
+  });
+
+  describe('To CAUTION', () => {
+    describe('with no REASON or DURATION', () => {
+      shouldWork(superAdminEmail, everyPassword, 3, 3, 'CAUTION with no REASON or DURATION');
+    });
+
+    describe('with REASON', () => {
+      shouldFail(superAdminEmail, everyPassword, 3, 3, 'CAUTION with REASON', 1);
+    });
+
+    describe('with DURATION', () => {
+      shouldFail(superAdminEmail, everyPassword, 3, 3, 'CAUTION with DURATION', null, 1);
+    });
+
+    describe('with REASON and DURATION', () => {
+      shouldFail(superAdminEmail, everyPassword, 3, 3, 'CAUTION with REASON and DURATION', 1, 1);
+    });
+  });
+
+  describe('To LONG TERM CLOSURE', () => {
+    describe('with no REASON or DURATION', () => {
+      shouldFail(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with no REASON or DURATION');
+    });
+
+    describe('with REASON', () => {
+      shouldFail(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON', 1);
+    });
+
+    describe('with DURATION', () => {
+      shouldFail(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with DURATION', null, 1);
+    });
+
+    describe('with REASON and DURATION', () => {
+      shouldWork(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1);
     });
   });
 });

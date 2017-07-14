@@ -1,41 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`As a super admin when updating the status of a crossing To CAUTION with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Caution]`;
+exports[`When updating the status of a crossing To CAUTION with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Caution]`;
 
-exports[`As a super admin when updating the status of a crossing To CAUTION with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Caution]`;
+exports[`When updating the status of a crossing To CAUTION with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Caution]`;
 
-exports[`As a super admin when updating the status of a crossing To CAUTION with REASON should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Caution]`;
+exports[`When updating the status of a crossing To CAUTION with REASON should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Caution]`;
 
-exports[`As a super admin when updating the status of a crossing To CAUTION with no REASON or DURATION should update the status 1`] = `"CAUTION with no REASON or DURATION"`;
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION should update the status 1`] = `"CAUTION with no REASON or DURATION"`;
 
-exports[`As a super admin when updating the status of a crossing To CAUTION with no REASON or DURATION the new status should show up in the DB 1`] = `"CAUTION with no REASON or DURATION"`;
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION the new status should show up in the DB 1`] = `"CAUTION with no REASON or DURATION"`;
 
-exports[`As a super admin when updating the status of a crossing To CLOSED with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Closed]`;
+exports[`When updating the status of a crossing To CLOSED with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Closed]`;
 
-exports[`As a super admin when updating the status of a crossing To CLOSED with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Closed]`;
+exports[`When updating the status of a crossing To CLOSED with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Closed]`;
 
-exports[`As a super admin when updating the status of a crossing To CLOSED with REASON should update the status 1`] = `"CLOSED with REASON"`;
+exports[`When updating the status of a crossing To CLOSED with REASON should update the status 1`] = `"CLOSED with REASON"`;
 
-exports[`As a super admin when updating the status of a crossing To CLOSED with REASON the new status should show up in the DB 1`] = `"CLOSED with REASON"`;
+exports[`When updating the status of a crossing To CLOSED with REASON the new status should show up in the DB 1`] = `"CLOSED with REASON"`;
 
-exports[`As a super admin when updating the status of a crossing To CLOSED with no REASON or DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Closed]`;
+exports[`When updating the status of a crossing To CLOSED with no REASON or DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Closed]`;
 
-exports[`As a super admin when updating the status of a crossing To LONG TERM CLOSURE with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
 
-exports[`As a super admin when updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION should update the status 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION should update the status 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
 
-exports[`As a super admin when updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION the new status should show up in the DB 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION the new status should show up in the DB 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
 
-exports[`As a super admin when updating the status of a crossing To LONG TERM CLOSURE with REASON should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are required for status:  Long-Term Closure]`;
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are required for status:  Long-Term Closure]`;
 
-exports[`As a super admin when updating the status of a crossing To LONG TERM CLOSURE with no REASON or DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with no REASON or DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
 
-exports[`As a super admin when updating the status of a crossing To OPEN with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Open]`;
+exports[`When updating the status of a crossing To OPEN with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Open]`;
 
-exports[`As a super admin when updating the status of a crossing To OPEN with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
+exports[`When updating the status of a crossing To OPEN with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
 
-exports[`As a super admin when updating the status of a crossing To OPEN with REASON should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
+exports[`When updating the status of a crossing To OPEN with REASON should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
 
-exports[`As a super admin when updating the status of a crossing To OPEN with no REASON or DURATION should update the status 1`] = `"OPEN with no REASON or DURATION"`;
+exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as a community admin In another community without the crossing should fail to update the status 1`] = `[Error: GraphQL Error: Users can only update the status of crossings within their communities]`;
 
-exports[`As a super admin when updating the status of a crossing To OPEN with no REASON or DURATION the new status should show up in the DB 1`] = `"OPEN with no REASON or DURATION"`;
+exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as a community admin In the same community as the crossing should update the status 1`] = `"OPEN with no REASON or DURATION"`;
+
+exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as a community admin In the same community as the crossing the new status should show up in the DB 1`] = `"OPEN with no REASON or DURATION"`;
+
+exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as a super admin should update the status 1`] = `"OPEN with no REASON or DURATION"`;
+
+exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as a super admin the new status should show up in the DB 1`] = `"OPEN with no REASON or DURATION"`;
