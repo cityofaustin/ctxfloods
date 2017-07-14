@@ -314,11 +314,28 @@ describe('When updating the status of a crossing', () => {
     });
 
     describe('with REASON and DURATION', () => {
-      shouldWork(superAdminEmail, everyPassword, 4, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1);
-      shouldWork(communityAdminEmail, everyPassword, 4, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In the same community as the crossing');
-      shouldFail(communityAdminEmail, everyPassword, 4, 7, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In another community without the crossing');
-      shouldWork(communityEditorEmail, everyPassword, 4, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In the same community as the crossing');
-      shouldFail(communityEditorEmail, everyPassword, 4, 7, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1,'In another community without the crossing');
+      describe('and both match status', () => {
+        shouldWork(superAdminEmail, everyPassword, 4, 'LONG TERM CLOSURE with REASON and DURATION', 2, 2);
+        shouldWork(communityAdminEmail, everyPassword, 4, 'LONG TERM CLOSURE with REASON and DURATION', 2, 2,'In the same community as the crossing');
+        shouldFail(communityAdminEmail, everyPassword, 4, 7, 'LONG TERM CLOSURE with REASON and DURATION', 2, 2,'In another community without the crossing');
+        shouldWork(communityEditorEmail, everyPassword, 4, 'LONG TERM CLOSURE with REASON and DURATION', 2, 2,'In the same community as the crossing');
+        shouldFail(communityEditorEmail, everyPassword, 4, 7, 'LONG TERM CLOSURE with REASON and DURATION', 2, 2,'In another community without the crossing');
+      });
+      describe('and reason matches status', () => {
+        shouldFail(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 2, 1);
+        shouldFail(communityAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 2, 1);
+        shouldFail(communityEditorEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 2, 1);
+      });
+      describe('and duration matches status', () => {
+        shouldFail(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 2);
+        shouldFail(communityAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 2);
+        shouldFail(communityEditorEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 2);
+      });
+      describe('and neither matches status', () => {
+        shouldFail(superAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1);
+        shouldFail(communityAdminEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1);
+        shouldFail(communityEditorEmail, everyPassword, 4, 3, 'LONG TERM CLOSURE with REASON and DURATION', 1, 1);
+      });
     });
   });
 });
