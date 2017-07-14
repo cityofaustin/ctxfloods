@@ -30,9 +30,17 @@ exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON
 
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with no REASON or DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are required for status:  Long-Term Closure]`;
 
-exports[`When updating the status of a crossing To OPEN with DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Open]`;
+exports[`When updating the status of a crossing To OPEN with DURATION as a community admin should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Open]`;
 
-exports[`When updating the status of a crossing To OPEN with REASON and DURATION should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
+exports[`When updating the status of a crossing To OPEN with DURATION as a community editor should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Open]`;
+
+exports[`When updating the status of a crossing To OPEN with DURATION as a super admin should fail to update the status 1`] = `[Error: GraphQL Error: Status durations are disabled for status:  Open]`;
+
+exports[`When updating the status of a crossing To OPEN with REASON and DURATION as a community admin should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
+
+exports[`When updating the status of a crossing To OPEN with REASON and DURATION as a community editor should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
+
+exports[`When updating the status of a crossing To OPEN with REASON and DURATION as a super admin should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
 
 exports[`When updating the status of a crossing To OPEN with REASON as a community admin should fail to update the status 1`] = `[Error: GraphQL Error: Status reasons are disabled for status:  Open]`;
 

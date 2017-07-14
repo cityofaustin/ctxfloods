@@ -191,14 +191,28 @@ describe('When updating the status of a crossing', () => {
     });
 
     describe('with DURATION', () => {
-      shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
+      describe('as a super admin', () => {
+        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
+      });
+      describe('as a community admin', () => {
+        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
+      });
+      describe('as a community editor', () => {
+        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with DURATION', null, 1);
+      });
     });
 
     describe('with REASON and DURATION', () => {
-      shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
+      describe('as a super admin', () => {
+        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
+      });
+      describe('as a community admin', () => {
+        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
+      });
+      describe('as a community editor', () => {
+        shouldFail(superAdminEmail, everyPassword, 1, 3, 'OPEN with REASON and DURATION', 1, 1);
+      });
     });
-
-    
   });
 
   describe('To CLOSED', () => {
@@ -255,3 +269,15 @@ describe('When updating the status of a crossing', () => {
     });
   });
 });
+
+
+
+      // describe('as a super admin', () => {
+
+      // });
+      // describe('as a community admin', () => {
+
+      // });
+      // describe('as a community editor', () => {
+
+      // });
