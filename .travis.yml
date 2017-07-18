@@ -13,6 +13,6 @@ jobs:
       script: cd backend; yarn postgraphql-local & yarn test
     - stage: Deploy Backend to AWS
       before_script: npm install -g serverless
-      script: cd backend; ./travisDeploy.sh
+      script: cd backend; yarn; ./travisDeploy.sh
     - stage: Test against AWS endpoint
       script: cd backend; yarn; yarn test-on-aws
