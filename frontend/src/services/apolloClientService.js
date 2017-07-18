@@ -1,4 +1,5 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import { isTokenExpired } from './jwtHelper';
 
 const networkInterface = createNetworkInterface({
   uri: `http://localhost:5000/graphql`,
@@ -9,8 +10,15 @@ networkInterface.use([{
     if (!req.options.headers) {
       req.options.headers = {};  // Create the header object if needed.
     }
-    if (localStorage.getItem('jwt_user_token')) {
-      req.options.headers.Authorization = `Bearer ${localStorage.getItem('jwt_user_token')}`;
+
+    var token = localStorage.getItem('jwt_user_token');
+
+    if (token) {
+      if (!isTokenExpired(token)) {
+        req.options.headers.Authorization = `Bearer ${localStorage.getItem('jwt_user_token')}`;  
+      } else {
+        req.options.headers = {};
+      }
     }
     next();
   },

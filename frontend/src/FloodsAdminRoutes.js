@@ -12,8 +12,6 @@ import CrossingList from './CrossingList';
 import UserList from './UserList';
 import NewStatusUpdate from './NewStatusUpdate';
 import auth from './services/gqlAuth';
-import ApolloClient, { createNetworkInterface } from 'apollo-client';
-import { ApolloProvider } from 'react-apollo';
 
 const Protected = () => <h3>Protected</h3>;
 

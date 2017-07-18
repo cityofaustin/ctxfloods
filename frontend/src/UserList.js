@@ -10,7 +10,7 @@ class UserList extends React.Component {
       return (<div>Loading</div>)
     }
 
-    if (this.props.data.allPeople == null) {
+    if (this.props.data.allUsers == null) {
       // TODO: add error logging
       return (<div>Error Loading Users</div>);
     }
@@ -18,7 +18,7 @@ class UserList extends React.Component {
     return (
       <div className='w-100 flex justify-center'>
         <div className='w-100' style={{ maxWidth: 400 }}>
-          {this.props.data.allPeople.nodes.map((user) =>
+          {this.props.data.allUsers.nodes.map((user) =>
             <User 
               key={user.id}
               user={user}
@@ -32,9 +32,9 @@ class UserList extends React.Component {
 
 }
 
-const allPeople = gql`
+const allUsers = gql`
   {
-    allPeople {
+    allUsers {
       nodes {
         id
         firstName
@@ -44,4 +44,4 @@ const allPeople = gql`
   }
 `;
 
-export default graphql(allPeople)(UserList);
+export default graphql(allUsers)(UserList);
