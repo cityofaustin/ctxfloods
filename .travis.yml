@@ -8,10 +8,8 @@ services:
 
 jobs:
   include:
-    - stage: Install Backend
-      script: cd backend; yarn
     - stage: Test Backend Locally
-      before_script: cd backend; yarn init-local-db; yarn local-drop-rebuild
+      before_script: cd backend; yarn; yarn init-local-db; yarn local-drop-rebuild
       script: cd backend; yarn postgraphql-local & yarn test
     - stage: Deploy Backend to AWS
       before_script: npm install -g serverless
