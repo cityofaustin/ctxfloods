@@ -1,7 +1,7 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 const networkInterface = createNetworkInterface({
-  uri: `https://df3yrm54i8.execute-api.us-east-1.amazonaws.com/dev/graphql`,
+  uri: `http://localhost:5000/graphql`,
 });
 
 networkInterface.use([{
