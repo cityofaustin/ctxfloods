@@ -8,14 +8,13 @@ services:
 
 jobs:
   include:
-    - stage: Backend
-      - stage: Install Backend
-        script: cd backend; yarn
-      - stage: Test Backend Locally
-        before_script: cd backend; yarn init-local-db; yarn local-drop-rebuild
-        script: cd backend; yarn postgraphql-local & yarn test
-      - stage: Deploy Backend to AWS
-        before_script: npm install -g serverless
-        script: ./backend/travisDeploy.sh
-      - stage: Test against AWS endpoint
-        script: cd backend; yarn test-on-aws
+    - stage: Install Backend
+      script: cd backend; yarn
+    - stage: Test Backend Locally
+      before_script: cd backend; yarn init-local-db; yarn local-drop-rebuild
+      script: cd backend; yarn postgraphql-local & yarn test
+    - stage: Deploy Backend to AWS
+      before_script: npm install -g serverless
+      script: ./backend/travisDeploy.sh
+    - stage: Test against AWS endpoint
+      script: cd backend; yarn test-on-aws
