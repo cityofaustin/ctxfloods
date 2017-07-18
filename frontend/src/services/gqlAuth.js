@@ -3,7 +3,7 @@ import { isTokenExpired } from './jwtHelper'
 module.exports = {
   isAuthenticated() {
     var token = localStorage.getItem('jwt_user_token');
-    if(token == null) return false;
+    if(token == null || token == "null") return false;
     return !isTokenExpired(token);
   },
 

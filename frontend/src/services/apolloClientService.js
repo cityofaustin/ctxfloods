@@ -13,9 +13,9 @@ networkInterface.use([{
 
     var token = localStorage.getItem('jwt_user_token');
 
-    if (token) {
+    if (token != null && token != "null") {
       if (!isTokenExpired(token)) {
-        req.options.headers.Authorization = `Bearer ${localStorage.getItem('jwt_user_token')}`;  
+        req.options.headers.Authorization = `Bearer ${token}`;  
       } else {
         req.options.headers = {};
       }

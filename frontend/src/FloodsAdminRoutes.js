@@ -23,7 +23,7 @@ class FloodsAdminRoutes extends Component {
           <ul>
             <li><Link to="/public">Public Page</Link></li>
             <li><Link to="/crossings">List Crossings (Public)</Link></li>
-            <li><Link to="/users">List Users (Public TODO: Make Private)</Link></li>
+            <li><Link to="/users">List Users</Link></li>
             <li><Link to="/protected">Protected Page</Link></li>
             <li><Link to="/createuser">Create User (Protected)</Link></li>
             <li><Link to="/updatestatus">Update Crossing Status (Protected)</Link></li>
