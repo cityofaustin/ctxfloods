@@ -27,6 +27,5 @@ jobs:
         bucket: $AWS_S3_BUCKET
         skip_cleanup: true
         local_dir: build
-        acl: public_read
         on:
           all_branches: true
