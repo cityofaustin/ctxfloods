@@ -3,6 +3,8 @@ import { MemoryRouter } from 'react-router';
 import renderer from 'react-test-renderer';
 import FloodsAdminRoutes from './FloodsAdminRoutes';
 import auth from './services/gqlAuth';
+import { ApolloProvider } from 'react-apollo';
+import client from './services/apolloClientService';
 
 jest.mock('./services/gqlAuth', () => {
   return {
@@ -17,9 +19,11 @@ describe('when the user is logged in', () => {
   
   it('should render the root page correctly', () => {
     const tree = renderer.create(
-      <MemoryRouter initialEntries={[ '/' ]}>
-        <FloodsAdminRoutes />
-      </MemoryRouter>
+      <ApolloProvider client={client}>
+        <MemoryRouter initialEntries={[ '/' ]}>
+          <FloodsAdminRoutes />
+        </MemoryRouter>
+      </ApolloProvider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -27,9 +31,11 @@ describe('when the user is logged in', () => {
 
   it('should render the public page correctly', () => {
     const tree = renderer.create(
-      <MemoryRouter initialEntries={[ '/public' ]}>
-        <FloodsAdminRoutes />
-      </MemoryRouter>
+      <ApolloProvider client={client}>
+        <MemoryRouter initialEntries={[ '/public' ]}>
+          <FloodsAdminRoutes />
+        </MemoryRouter>
+      </ApolloProvider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -37,9 +43,11 @@ describe('when the user is logged in', () => {
 
   it('should render the protected page correctly', () => {
    const tree = renderer.create(
-      <MemoryRouter initialEntries={[ '/protected' ]}>
-        <FloodsAdminRoutes />
-      </MemoryRouter>
+      <ApolloProvider client={client}>
+        <MemoryRouter initialEntries={[ '/protected' ]}>
+          <FloodsAdminRoutes />
+        </MemoryRouter>
+      </ApolloProvider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -47,9 +55,11 @@ describe('when the user is logged in', () => {
 
   it('should render the create user page correctly', () => {
    const tree = renderer.create(
-      <MemoryRouter initialEntries={[ '/createuser' ]}>
-        <FloodsAdminRoutes />
-      </MemoryRouter>
+      <ApolloProvider client={client}>
+        <MemoryRouter initialEntries={[ '/createuser' ]}>
+          <FloodsAdminRoutes />
+        </MemoryRouter>
+      </ApolloProvider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -64,9 +74,11 @@ describe('when the user is logged out', () => {
 
   it('should render the root page correctly', () => {
     const tree = renderer.create(
-      <MemoryRouter initialEntries={[ '/' ]}>
-        <FloodsAdminRoutes />
-      </MemoryRouter>
+      <ApolloProvider client={client}>
+        <MemoryRouter initialEntries={[ '/' ]}>
+          <FloodsAdminRoutes />
+        </MemoryRouter>
+      </ApolloProvider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -74,9 +86,11 @@ describe('when the user is logged out', () => {
 
   it('should render the public page correctly', () => {
     const tree = renderer.create(
-      <MemoryRouter initialEntries={[ '/public' ]}>
-        <FloodsAdminRoutes />
-      </MemoryRouter>
+      <ApolloProvider client={client}>
+        <MemoryRouter initialEntries={[ '/public' ]}>
+          <FloodsAdminRoutes />
+        </MemoryRouter>
+      </ApolloProvider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -84,9 +98,11 @@ describe('when the user is logged out', () => {
 
   it('should render the protected page correctly', () => {
     const tree = renderer.create(
-      <MemoryRouter initialEntries={[ '/protected' ]}>
-        <FloodsAdminRoutes />
-      </MemoryRouter>
+      <ApolloProvider client={client}>
+        <MemoryRouter initialEntries={[ '/protected' ]}>
+          <FloodsAdminRoutes />
+        </MemoryRouter>
+      </ApolloProvider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -94,9 +110,11 @@ describe('when the user is logged out', () => {
 
   it('should render the create user page correctly', () => {
     const tree = renderer.create(
-      <MemoryRouter initialEntries={[ '/createuser' ]}>
-        <FloodsAdminRoutes />
-      </MemoryRouter>
+      <ApolloProvider client={client}>
+        <MemoryRouter initialEntries={[ '/createuser' ]}>
+          <FloodsAdminRoutes />
+        </MemoryRouter>
+      </ApolloProvider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

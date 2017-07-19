@@ -17,6 +17,20 @@ exports[`when the user is logged in should render the create user page correctly
     </li>
     <li>
       <a
+        href="/crossings"
+        onClick={[Function]}>
+        List Crossings (Public)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/users"
+        onClick={[Function]}>
+        List Users
+      </a>
+    </li>
+    <li>
+      <a
         href="/protected"
         onClick={[Function]}>
         Protected Page
@@ -26,7 +40,14 @@ exports[`when the user is logged in should render the create user page correctly
       <a
         href="/createuser"
         onClick={[Function]}>
-        Create User
+        Create User (Protected)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/updatestatus"
+        onClick={[Function]}>
+        Update Crossing Status (Protected)
       </a>
     </li>
   </ul>
@@ -38,13 +59,23 @@ exports[`when the user is logged in should render the create user page correctly
       onSubmit={[Function]}>
       <input
         onChange={[Function]}
-        placeholder="Username"
+        placeholder="First Name"
+        type="text"
+        value="" />
+      <input
+        onChange={[Function]}
+        placeholder="Last Name"
         type="text"
         value="" />
       <input
         onChange={[Function]}
         placeholder="Email"
         type="text"
+        value="" />
+      <input
+        onChange={[Function]}
+        placeholder="Password"
+        type="password"
         value="" />
       <input
         type="submit" />
@@ -72,6 +103,20 @@ exports[`when the user is logged in should render the protected page correctly 1
     </li>
     <li>
       <a
+        href="/crossings"
+        onClick={[Function]}>
+        List Crossings (Public)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/users"
+        onClick={[Function]}>
+        List Users
+      </a>
+    </li>
+    <li>
+      <a
         href="/protected"
         onClick={[Function]}>
         Protected Page
@@ -81,7 +126,14 @@ exports[`when the user is logged in should render the protected page correctly 1
       <a
         href="/createuser"
         onClick={[Function]}>
-        Create User
+        Create User (Protected)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/updatestatus"
+        onClick={[Function]}>
+        Update Crossing Status (Protected)
       </a>
     </li>
   </ul>
@@ -110,6 +162,20 @@ exports[`when the user is logged in should render the public page correctly 1`] 
     </li>
     <li>
       <a
+        href="/crossings"
+        onClick={[Function]}>
+        List Crossings (Public)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/users"
+        onClick={[Function]}>
+        List Users
+      </a>
+    </li>
+    <li>
+      <a
         href="/protected"
         onClick={[Function]}>
         Protected Page
@@ -119,7 +185,14 @@ exports[`when the user is logged in should render the public page correctly 1`] 
       <a
         href="/createuser"
         onClick={[Function]}>
-        Create User
+        Create User (Protected)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/updatestatus"
+        onClick={[Function]}>
+        Update Crossing Status (Protected)
       </a>
     </li>
   </ul>
@@ -148,6 +221,20 @@ exports[`when the user is logged in should render the root page correctly 1`] = 
     </li>
     <li>
       <a
+        href="/crossings"
+        onClick={[Function]}>
+        List Crossings (Public)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/users"
+        onClick={[Function]}>
+        List Users
+      </a>
+    </li>
+    <li>
+      <a
         href="/protected"
         onClick={[Function]}>
         Protected Page
@@ -157,7 +244,14 @@ exports[`when the user is logged in should render the root page correctly 1`] = 
       <a
         href="/createuser"
         onClick={[Function]}>
-        Create User
+        Create User (Protected)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/updatestatus"
+        onClick={[Function]}>
+        Update Crossing Status (Protected)
       </a>
     </li>
   </ul>
@@ -179,6 +273,20 @@ exports[`when the user is logged out should render the create user page correctl
     </li>
     <li>
       <a
+        href="/crossings"
+        onClick={[Function]}>
+        List Crossings (Public)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/users"
+        onClick={[Function]}>
+        List Users
+      </a>
+    </li>
+    <li>
+      <a
         href="/protected"
         onClick={[Function]}>
         Protected Page
@@ -188,7 +296,14 @@ exports[`when the user is logged out should render the create user page correctl
       <a
         href="/createuser"
         onClick={[Function]}>
-        Create User
+        Create User (Protected)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/updatestatus"
+        onClick={[Function]}>
+        Update Crossing Status (Protected)
       </a>
     </li>
   </ul>
@@ -201,7 +316,7 @@ exports[`when the user is logged out should render the create user page correctl
       onSubmit={[Function]}>
       <input
         onChange={[Function]}
-        placeholder="Username"
+        placeholder="Email"
         type="text"
         value="" />
       <input
@@ -231,6 +346,20 @@ exports[`when the user is logged out should render the protected page correctly 
     </li>
     <li>
       <a
+        href="/crossings"
+        onClick={[Function]}>
+        List Crossings (Public)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/users"
+        onClick={[Function]}>
+        List Users
+      </a>
+    </li>
+    <li>
+      <a
         href="/protected"
         onClick={[Function]}>
         Protected Page
@@ -240,7 +369,14 @@ exports[`when the user is logged out should render the protected page correctly 
       <a
         href="/createuser"
         onClick={[Function]}>
-        Create User
+        Create User (Protected)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/updatestatus"
+        onClick={[Function]}>
+        Update Crossing Status (Protected)
       </a>
     </li>
   </ul>
@@ -253,7 +389,7 @@ exports[`when the user is logged out should render the protected page correctly 
       onSubmit={[Function]}>
       <input
         onChange={[Function]}
-        placeholder="Username"
+        placeholder="Email"
         type="text"
         value="" />
       <input
@@ -283,6 +419,20 @@ exports[`when the user is logged out should render the public page correctly 1`]
     </li>
     <li>
       <a
+        href="/crossings"
+        onClick={[Function]}>
+        List Crossings (Public)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/users"
+        onClick={[Function]}>
+        List Users
+      </a>
+    </li>
+    <li>
+      <a
         href="/protected"
         onClick={[Function]}>
         Protected Page
@@ -292,7 +442,14 @@ exports[`when the user is logged out should render the public page correctly 1`]
       <a
         href="/createuser"
         onClick={[Function]}>
-        Create User
+        Create User (Protected)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/updatestatus"
+        onClick={[Function]}>
+        Update Crossing Status (Protected)
       </a>
     </li>
   </ul>
@@ -317,6 +474,20 @@ exports[`when the user is logged out should render the root page correctly 1`] =
     </li>
     <li>
       <a
+        href="/crossings"
+        onClick={[Function]}>
+        List Crossings (Public)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/users"
+        onClick={[Function]}>
+        List Users
+      </a>
+    </li>
+    <li>
+      <a
         href="/protected"
         onClick={[Function]}>
         Protected Page
@@ -326,7 +497,14 @@ exports[`when the user is logged out should render the root page correctly 1`] =
       <a
         href="/createuser"
         onClick={[Function]}>
-        Create User
+        Create User (Protected)
+      </a>
+    </li>
+    <li>
+      <a
+        href="/updatestatus"
+        onClick={[Function]}>
+        Update Crossing Status (Protected)
       </a>
     </li>
   </ul>
