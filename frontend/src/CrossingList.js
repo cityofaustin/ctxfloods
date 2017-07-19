@@ -42,6 +42,7 @@ const allCrossings = gql`
           statusByStatusId {
             name
           }
+          notes
           userByCreatorId {
             id
             firstName

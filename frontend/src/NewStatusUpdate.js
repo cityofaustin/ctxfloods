@@ -5,7 +5,8 @@ class NewStatusUpdate extends Component {
   state = {
     redirectToReferrer: false,
     crossingId: '',
-    statusId: ''
+    statusId: '',
+    notes: ''
   }
 
   handleCrossingChange(e) {
@@ -16,10 +17,14 @@ class NewStatusUpdate extends Component {
     this.setState({statusId: e.target.value});
   }
 
+  handleNotesChange(e) {
+    this.setState({notes: e.target.value});
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.mutate({
-      variables: { statusId: this.state.statusId, crossingId: this.state.crossingId, authorId: 1 }
+      variables: { statusId: this.state.statusId, crossingId: this.state.crossingId, notes: this.state.notes }
     })
       .then(({ data }) => {
         console.log('got data', data);
@@ -41,6 +46,10 @@ class NewStatusUpdate extends Component {
             <option key={status.id} value={status.id}>{status.name}</option>
           )}
         </select>
+        <input type="text"
+          value={this.state.notes}
+          placeholder="Notes"
+          onChange={this.handleNotesChange.bind(this)}/>
         <input type="submit"/>
       </form>
     );
@@ -48,14 +57,13 @@ class NewStatusUpdate extends Component {
 }
 
 const createStatusUpdate = gql`
-  mutation($statusId: Int!, $crossingId: Int!, $authorId: Int!) {
-    createStatusUpdate(input: {statusUpdate: 
+  mutation($statusId: Int!, $crossingId: Int!, $notes: String!) {
+    newStatusUpdate(input:
       {
         statusId: $statusId,
         crossingId: $crossingId,
-        authorId: $authorId
-      }
-    }) {
+        notes: $notes
+      }) {
       statusUpdate {
         id
       }
