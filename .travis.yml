@@ -17,9 +17,7 @@ jobs:
       before_script: npm install -g serverless
       script: cd backend; yarn; ./travisDeploy.sh
     - stage: Test backend against AWS endpoint
-      before_script: npm install -g serverless
       script: cd backend; yarn; yarn test-on-aws
-      after_script: cd backend; yarn; ./travisDeploy.sh
     - stage: Deploy frontend to s3
       script: cd frontend; yarn; yarn build
       deploy:
