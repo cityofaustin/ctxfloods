@@ -1,3 +1,10 @@
+exports[`Storyshots Admin Crossing List with text 1`] = `
+<button
+  onClick={[Function]}>
+  Hello Button
+</button>
+`;
+
 exports[`Storyshots Button with some emoji 1`] = `
 <button
   onClick={[Function]}>
