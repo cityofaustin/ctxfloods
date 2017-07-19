@@ -2,7 +2,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { isTokenExpired } from './jwtHelper';
 
 const networkInterface = createNetworkInterface({
-  uri: process.env.AWS_ENDPOINT,
+  uri: process.env.REACT_APP_AWS_ENDPOINT,
 });
 
 networkInterface.use([{
