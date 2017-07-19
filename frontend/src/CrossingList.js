@@ -42,7 +42,7 @@ const allCrossings = gql`
           statusByStatusId {
             name
           }
-          personByAuthorId {
+          userByCreatorId {
             id
             firstName
             lastName
