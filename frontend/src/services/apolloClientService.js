@@ -2,7 +2,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { isTokenExpired } from './jwtHelper';
 
 const networkInterface = createNetworkInterface({
-  uri: `http://localhost:5000/graphql`,
+  uri: process.env.AWS_ENDPOINT,
 });
 
 networkInterface.use([{
