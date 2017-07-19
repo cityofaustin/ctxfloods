@@ -18,3 +18,11 @@ jobs:
       script: cd backend; yarn; ./travisDeploy.sh
     - stage: Test against backend AWS endpoint
       script: cd backend; yarn; yarn test-on-aws
+    - stage: Deploy frontend to gh-pages
+      script: cd frontend; yarn; yarn build
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+        on:
+          branch: gh-pages
