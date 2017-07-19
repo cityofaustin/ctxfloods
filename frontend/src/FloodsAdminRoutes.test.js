@@ -65,6 +65,8 @@ describe('when the user is logged in', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  // TODO: Figure out a good way to test loading data from GraphQL
+
 });
 
 describe('when the user is logged out', () => {
