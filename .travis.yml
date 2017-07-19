@@ -27,3 +27,4 @@ jobs:
         bucket: $AWS_S3_BUCKET
         skip_cleanup: true
         local_dir: frontend/build
+        all_branches: true
