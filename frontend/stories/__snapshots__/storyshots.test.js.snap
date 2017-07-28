@@ -1,20 +1,11 @@
-exports[`Storyshots Admin Crossing List with text 1`] = `
-<button
-  onClick={[Function]}>
-  Hello Button
-</button>
+exports[`Storyshots List Crossings List Crossings 1`] = `
+<div>
+  Loading
+</div>
 `;
 
-exports[`Storyshots Button with some emoji 1`] = `
-<button
-  onClick={[Function]}>
-  😀 😎 👍 💯
-</button>
-`;
-
-exports[`Storyshots Button with text 1`] = `
-<button
-  onClick={[Function]}>
-  Hello Button
-</button>
+exports[`Storyshots List Users List Users 1`] = `
+<div>
+  Loading
+</div>
 `;

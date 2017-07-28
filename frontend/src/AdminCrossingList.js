@@ -1,5 +1,5 @@
 import React from 'react';
-import Crossing from './Crossing';
+import AdminCrossingListItem from './AdminCrossingListItem';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 

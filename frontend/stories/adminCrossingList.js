@@ -1,52 +1,33 @@
-// import React from 'react';
-// import { storiesOf } from '@storybook/react';
-// import { withApolloProvider } from 'storybook-addon-apollo-graphql';
-// import { gql, graphql } from 'react-apollo';
-// import AdminCrossingList from '../src/AdminCrossingList';
-// import { action } from '@storybook/addon-actions';
-
-
-// storiesOf('Admin Crossing List', module)
-//   .add('with text', () => (
-//     <AdminCrossingList/>
-//   ));
-
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withApolloProvider } from 'storybook-addon-apollo-graphql';
 import { gql, graphql } from 'react-apollo';
- 
-const Component = ({ data: { random } }) => <div>{random}</div>;
-const ComponentWithGraphql = graphql(gql`{ random }`)(Component);
+import AdminCrossingList from '../src/AdminCrossingList';
+import schema from './schema/schema';
 
-const schema = `
-  query allCrossings {
-    allCrossings {
-      nodes {
-        id
-        name
-        latestStatus {
-          statusByStatusId {
-            name
-          }
-          notes
-          userByCreatorId {
-            id
-            firstName
-            lastName
-          }
-        }
+// fake db
+const crossingNodes = {
+  1: {
+    id: 1,
+    name: "Test Crossing",
+    latestStatus: {
+      statusByStatusId: {
+        name: "Test Status Name"
+      },
+      notes: "Test Notes",
+      userByCreatorId: {
+        id: 1,
+        firstName: "Test",
+        lastName: "User"
       }
     }
   }
-`;
- 
+};
+
 const root = {
-  random: () => Math.floor(Math.random() * 10),
+  allCrossings: () => ({ nodes: Object.values(crossingNodes) })
 };
- 
-export default () => {
-  storiesOf('Random Number', module)
-    .addDecorator(withApolloProvider({ schema, root }))
-    .add('A random number query', () => <ComponentWithGraphql />);
-};
+
+storiesOf('List Crossings', module)
+  .addDecorator(withApolloProvider({ schema, root }))
+  .add('List Crossings', () => <AdminCrossingList />);
