@@ -79,3 +79,12 @@ yarn storybook
 
 ## Using TravisCI to test and deploy
 // TODO: ALL OF THIS
+### Generate a new AWS Key
+* Go to your user in [IAM](https://console.aws.amazon.com/iam/home#/users)
+* Go to security credentials and generate an access key
+
+
+### Run the set up deploy script
+```
+./setUpTravisDeploy.sh
+```
