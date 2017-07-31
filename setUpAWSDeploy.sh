@@ -24,7 +24,7 @@ tput sgr0
 
 cd backend
 yarn
-sls deploy -v > out.tmp
+sls deploy -v | tee out.tmp
 export PGENDPOINT=$(grep "pgEndpoint" out.tmp | cut -f2- -d: | cut -c2-)
 rm out.tmp
 
@@ -41,4 +41,7 @@ tput bold
 echo "Deploying to AWS"
 tput sgr0
 
-yarn rebuild-and-deploy
+yarn rebuild-and-deploy | tee out.tmp
+export POSTGRAPHQL_ENDPOINT=$(grep "POST" out.tmp | cut -f2- -d- | cut -c2-)
+rm out.tmp
+travis encrypt POSTGRAPHQL_ENDPOINT=$POSTGRAPHQL_ENDPOINT --add
