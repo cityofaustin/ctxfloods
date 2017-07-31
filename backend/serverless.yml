@@ -104,6 +104,19 @@ resources:
           Key: "Name"
           Value: "floods"
     DeletionPolicy: "Snapshot"
+
+  frontendBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: ${env:S3_BUCKET}
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - "*"
+            AllowedMethods:
+              - GET
+            AllowedOrigins:
+              - "*"
  Outputs:
     pgEndpoint:
       Description: "JDBC connection string for database"
