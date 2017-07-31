@@ -15,6 +15,7 @@ jobs:
     script: cd backend; yarn postgraphql-local & cd ../frontend; yarn; yarn get-schema;
       yarn test
   - stage: Deploy Backend to AWS
+    before_script: skip
     before_script: npm install -g serverless
     script: cd backend; yarn; yarn rebuild-and-deploy
   - stage: Test backend against AWS endpoint
