@@ -1,5 +1,4 @@
 export CURRENT_FLOODS_BRANCH_NAME=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
-travis encrypt CURRENT_FLOODS_BRANCH_NAME=$CURRENT_FLOODS_BRANCH_NAME --add
 
 export npm_config_PGCON=""
 export npm_config_PGRUNCON=""
@@ -45,3 +44,5 @@ yarn rebuild-and-deploy | tee out.tmp
 export POSTGRAPHQL_ENDPOINT=$(grep "POST" out.tmp | cut -f2- -d- | cut -c2-)
 rm out.tmp
 travis encrypt POSTGRAPHQL_ENDPOINT=$POSTGRAPHQL_ENDPOINT --add
+cd ..
+echo "  - CURRENT_FLOODS_BRANCH_NAME=$CURRENT_FLOODS_BRANCH_NAME" >> .travis.yml
