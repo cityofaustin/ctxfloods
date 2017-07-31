@@ -1,3 +1,5 @@
+export CURRENT_FLOODS_BRANCH_NAME=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+
 export npm_config_PGCON=""
 export npm_config_PGRUNCON=""
 
@@ -15,7 +17,7 @@ tput sgr0
 
 cd backend
 yarn
-yarn rebuild-and-deploy > out.tmp
+sls deploy -v > out.tmp
 export PGENDPOINT=$(grep "pgEndpoint" out.tmp | cut -f2- -d: | cut -c2-)
 rm out.tmp
 
@@ -23,10 +25,7 @@ tput bold
 echo "Setting PGCON and PGRUNCON"
 tput sgr0
 
-echo postgresql://example:serverless@$PGENDPOINT:5432/forumexample
 export npm_config_PGCON=$(echo postgresql://example:serverless@$PGENDPOINT:5432/floods)
-
-echo postgresql://example:serverless@$PGENDPOINT:5432/forumexample
 export npm_config_PGRUNCON=$(echo postgresql://floods_postgraphql:xyz@$PGENDPOINT:5432/floods)
 
 tput bold 

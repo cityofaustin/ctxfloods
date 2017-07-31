@@ -1,4 +1,4 @@
-service: serverless-postgraphql-floods
+service: ctxfloods-${env:CURRENT_FLOODS_BRANCH_NAME}
 
 provider:
   name: aws
