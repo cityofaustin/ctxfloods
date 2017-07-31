@@ -31,6 +31,7 @@ jobs:
       skip_cleanup: true
       local_dir: build
       acl: public_read
+      all_branches: true
 env:
   global:
   - secure: sYuiqN8chkbs5QKBGQgCaw8pTzahLrrFs8K3BClq9qdxpkr1pFvJIemP8VrMLaR6wTzs9hJoSSHDCdaQ+hmsFp16HjiKiZD6Hiu9FnvY9AztPZCNBv887fc6gqgLORS7wbk77v1YaS5pLjoV4KPkS37YwerbnRaiWaXhryKft1kXdUVx4mhsXPqCGgMXsqlr9N7O4fNLw3VL62doCbH5sQAyB9UkYiYf6/wavwverMSA7dRZeVkEtE0RIJ3OZ9pfKw0TLVxraYHEcFkKwieYcvWggyZf+VWGxG7Ub7VTUb+b8c3gB6KMuyyIVP35i+T/yPVr5Z8qum9cMwq0vv1n/9K9U5wiFhLA+/AqzSUFwtktNAYzySV12l76jbRVaiqpLvakYPzx9+FiW7JN95SvChremnftSssWI5l9wmI3Z6etZRXSNEknIvGG7zixSb64XmUIqPyYEAEedfnS4d50c7n1Z3b+sHY37ydbn/ndlo1cR8aTjU+JoPy8lfcJyc7p1y8eLPFEWVGrsqxt3O2wRFCv3GpPOR1Mm1fp7/XEuIuLkrZmlVpNe0S5uRW2+to5Om7u/TvxtL/DPzEoJDD27tbED5fp4dxBPHgU4X3hCfuLj612ecT2OkAZdiqlyg2/pIhyJc6Yj2HsjjIkY3BhceXJJVOVNtT8O2BK5KUnPiw=
