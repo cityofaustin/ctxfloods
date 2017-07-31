@@ -1,4 +1,5 @@
 export CURRENT_FLOODS_BRANCH_NAME=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+travis encrypt CURRENT_FLOODS_BRANCH_NAME=$CURRENT_FLOODS_BRANCH_NAME --add
 
 export npm_config_PGCON=""
 export npm_config_PGRUNCON=""
