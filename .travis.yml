@@ -15,7 +15,8 @@ jobs:
     script: cd backend; yarn postgraphql-local & cd ../frontend; yarn; yarn get-schema;
       yarn test
   - stage: Deploy Backend to AWS
-    before_script: echo $AWS_ACCESS_KEY_ID; npm install -g serverless
+    allow_failure: ${[ -z "$AWS_ACCESS_KEY_ID" ] && echo true || echo false}
+    before_script: npm install -g serverless
     script: cd backend; yarn; yarn rebuild-and-deploy
   - stage: Test backend against AWS endpoint
     before_script: npm install -g serverless
