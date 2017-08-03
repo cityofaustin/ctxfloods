@@ -43,7 +43,8 @@ create table floods.crossing (
   id               serial primary key,
   name             text not null check (char_length(name) < 80),
   human_address    text not null check (char_length(human_address) < 800),
-  description      text not null check (char_length(description) < 800)
+  description      text not null check (char_length(description) < 800),
+  coordinates      text not null
 );
 
 comment on table floods.crossing is 'A road crossing that might flood.';
@@ -249,7 +250,7 @@ begin
         raise exception 'Community editors can only deactivate themselves';
       end if;
     end if;
-    
+
   end if;
 
   delete from floods_private.user_account where floods_private.user_account.user_id = deactivate_user.user_id;
@@ -457,7 +458,7 @@ begin
   end if;
 
   delete from floods.community_crossing where floods.community_crossing.crossing_id = remove_crossing.crossing_id;
-  
+
   delete from floods.crossing where id = crossing_id returning * into deleted_crossing;
 
   return deleted_crossing;

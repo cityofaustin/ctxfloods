@@ -24,7 +24,7 @@ async function getToken(email, password) {
   return response.authenticate.jwtToken;
 }
 
-function shouldWork(email, password, communityId, extra_description) {
+function shouldWork(email, password, communityId, coordinates, extra_description) {
   describe('as ' + email + ' ' + (extra_description || ''), () => {
     var lokka;
 
@@ -59,8 +59,10 @@ function shouldWork(email, password, communityId, extra_description) {
         communityId: communityId,
       });
 
+      console.log("look here", response.errors)
       newCrossingId = response.newCrossing.crossing.id;
       expect(response).not.toBeNull();
+      expect(response.errors).toBeNull();
     });
 
     it('the new crossing should show up in the DB', async () => {
@@ -85,11 +87,11 @@ function shouldWork(email, password, communityId, extra_description) {
       expect(response).toMatchSnapshot();
     });
 
-  }); 
+  });
 }
 
-function shouldFail(email, password, communityId, extra_description) {
-  describe('as ' + email + ' ' + (extra_description || ''), () => {  
+function shouldFail(email, password, communityId, coordinates, extra_description) {
+  describe('as ' + email + ' ' + (extra_description || ''), () => {
     var lokka;
 
     beforeAll(async (done) => {
@@ -129,10 +131,11 @@ function shouldFail(email, password, communityId, extra_description) {
 }
 
 describe('When adding a new crossing', () => {
-  shouldWork(superAdminEmail, everyPassword, 1);
-  shouldWork(superAdminEmail, everyPassword, 2);
-  shouldWork(communityAdminEmail, everyPassword, 1);
-  shouldFail(communityAdminEmail, everyPassword, 2, "to a different community");
-  shouldWork(communityEditorEmail, everyPassword, 1);
-  shouldFail(communityEditorEmail, everyPassword, 2, "to a different community");
+  shouldWork(superAdminEmail, everyPassword, 1, '666, 666');
+  shouldWork(superAdminEmail, everyPassword, 2, '100, 100');
+  shouldWork(communityAdminEmail, everyPassword, 1, '666, 666');
+  shouldFail(communityAdminEmail, everyPassword, 2, '666, 666', "to a different community");
+  shouldWork(communityEditorEmail, everyPassword, 1, '666, 666');
+  shouldFail(communityEditorEmail, everyPassword, 2, '666, 666', "to a different community");
+  shouldFail(communityEditorEmail, everyPassword, 2, null, "without coordinates");
 });
