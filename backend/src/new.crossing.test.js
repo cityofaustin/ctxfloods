@@ -7,6 +7,21 @@ const superAdminEmail = 'superadmin@flo.ods';
 const communityAdminEmail = 'admin@community.floods';
 const communityEditorEmail = 'editor@community.floods';
 const everyPassword = 'texasfloods';
+const newCrossingMutation = `
+  mutation($communityId:Int!) {
+    newCrossing(input: {
+      name: "New Crossing"
+      humanAddress: "In test land"
+      description: "TEST LAND IS MAGIC!"
+      communityId: $communityId
+      coordinates: "0,0"
+    }) {
+      crossing {
+        id
+      }
+    }
+  }
+`;
 
 async function getToken(email, password) {
   const response = await anonLokka.send(`
@@ -41,28 +56,14 @@ function shouldWork(email, password, communityId, coordinates, extra_description
     var newCrossingId;
 
     it('should add the crossing', async () => {
-      const response = await lokka.send(`
-        mutation($communityId:Int!) {
-          newCrossing(input: {
-            name: "New Crossing"
-            humanAddress: "In test land"
-            description: "TEST LAND IS MAGIC!"
-            communityId: $communityId
-          }) {
-            crossing {
-              id
-            }
-          }
-        }
-      `,
+      const response = await lokka.send(
+        newCrossingMutation,
       {
         communityId: communityId,
       });
 
-      console.log("look here", response.errors)
       newCrossingId = response.newCrossing.crossing.id;
       expect(response).not.toBeNull();
-      expect(response.errors).toBeNull();
     });
 
     it('the new crossing should show up in the DB', async () => {
@@ -106,20 +107,8 @@ function shouldFail(email, password, communityId, coordinates, extra_description
 
     it('should fail to add the crossing', async () => {
       try {
-        const response = await lokka.send(`
-          mutation($communityId:Int!) {
-            newCrossing(input: {
-              name: "New Crossing"
-              humanAddress: "In test land"
-              description: "TEST LAND IS MAGIC!"
-              communityId: $communityId
-            }) {
-              crossing {
-                id
-              }
-            }
-          }
-        `,
+        const response = await lokka.send(
+          newCrossingMutation,
         {
           communityId: communityId,
         });
