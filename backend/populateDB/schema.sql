@@ -405,7 +405,8 @@ create function floods.new_crossing(
   name text,
   human_address text,
   description text,
-  community_id integer
+  community_id integer,
+  coordinates text
 ) returns floods.crossing as $$
 declare
   floods_crossing floods.crossing;
@@ -418,8 +419,8 @@ begin
     end if;
   end if;
 
-  insert into floods.crossing (name, human_address, description) values
-    (name, human_address, description)
+  insert into floods.crossing (name, human_address, description, coordinates) values
+    (name, human_address, description, coordinates)
     returning * into floods_crossing;
 
   insert into floods.community_crossing (community_id, crossing_id) values
@@ -429,7 +430,7 @@ begin
 end;
 $$ language plpgsql strict security definer;
 
-comment on function floods.new_crossing(text, text, text, integer) is 'Adds a crossing.';
+comment on function floods.new_crossing(text, text, text, integer, text) is 'Adds a crossing.';
 
 -- Create function to delete crossings
 -- TODO: all permissions stuff around this
@@ -772,7 +773,7 @@ grant execute on function floods.new_status_update(integer, integer, text, integ
 
 -- Allow community editors and up to add crossings
 -- NOTE: Extra logic around permissions in function
-grant execute on function floods.new_crossing(text, text, text, integer) to floods_community_editor;
+grant execute on function floods.new_crossing(text, text, text, integer, text) to floods_community_editor;
 
 -- Allow community admins and up to remove crossings
 -- NOTE: Extra logic around permissions in function
