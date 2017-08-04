@@ -7,6 +7,7 @@ const superAdminEmail = 'superadmin@flo.ods';
 const communityAdminEmail = 'admin@community.floods';
 const communityEditorEmail = 'editor@community.floods';
 const everyPassword = 'texasfloods';
+const atxCoordinates = '(-97.755996, 30.30718)';
 const newCrossingMutation = `
   mutation($communityId:Int!) {
     newCrossing(input: {
@@ -14,7 +15,7 @@ const newCrossingMutation = `
       humanAddress: "In test land"
       description: "TEST LAND IS MAGIC!"
       communityId: $communityId
-      coordinates: "0,0"
+      coordinates: "${atxCoordinates}"
     }) {
       crossing {
         id
@@ -120,11 +121,11 @@ function shouldFail(email, password, communityId, coordinates, extra_description
 }
 
 describe('When adding a new crossing', () => {
-  shouldWork(superAdminEmail, everyPassword, 1, '666, 666');
-  shouldWork(superAdminEmail, everyPassword, 2, '100, 100');
-  shouldWork(communityAdminEmail, everyPassword, 1, '666, 666');
-  shouldFail(communityAdminEmail, everyPassword, 2, '666, 666', "to a different community");
-  shouldWork(communityEditorEmail, everyPassword, 1, '666, 666');
-  shouldFail(communityEditorEmail, everyPassword, 2, '666, 666', "to a different community");
+  shouldWork(superAdminEmail, everyPassword, 1, atxCoordinates);
+  shouldWork(superAdminEmail, everyPassword, 2, atxCoordinates);
+  shouldWork(communityAdminEmail, everyPassword, 1, atxCoordinates);
+  shouldFail(communityAdminEmail, everyPassword, 2, atxCoordinates, "to a different community");
+  shouldWork(communityEditorEmail, everyPassword, 1, atxCoordinates);
+  shouldFail(communityEditorEmail, everyPassword, 2, atxCoordinates, "to a different community");
   shouldFail(communityEditorEmail, everyPassword, 2, null, "without coordinates");
 });
