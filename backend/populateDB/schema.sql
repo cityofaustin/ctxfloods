@@ -7,6 +7,9 @@ create schema floods_private;
 -- so we don't accidentally make something public.
 alter default privileges revoke execute on functions from public;
 
+-- Add geospatial column types and functions
+create extension if not exists "postgis";
+
 -- Create the Communities table
 create table floods.community (
   id               serial primary key,
@@ -420,7 +423,7 @@ begin
   end if;
 
   insert into floods.crossing (name, human_address, description, coordinates) values
-    (name, human_address, description, coordinates)
+    (name, human_address, description, ST_PointFromText('POINT(' || coordinates || ')',4326))
     returning * into floods_crossing;
 
   insert into floods.community_crossing (community_id, crossing_id) values
