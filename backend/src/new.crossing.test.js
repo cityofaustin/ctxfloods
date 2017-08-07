@@ -7,7 +7,7 @@ const superAdminEmail = 'superadmin@flo.ods';
 const communityAdminEmail = 'admin@community.floods';
 const communityEditorEmail = 'editor@community.floods';
 const everyPassword = 'texasfloods';
-const atxCoordinates = '(-97.755996, 30.30718)';
+const atxCoordinates = '-97.755996 30.30718';
 const newCrossingMutation = `
   mutation($communityId:Int!) {
     newCrossing(input: {
