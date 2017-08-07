@@ -133,7 +133,7 @@ describe('When adding a new crossing', () => {
   shouldFail(communityAdminEmail, everyPassword, 2, longitude, latitude, "to a different community");
   shouldWork(communityEditorEmail, everyPassword, 1, longitude, latitude);
   shouldFail(communityEditorEmail, everyPassword, 2, longitude, latitude, "to a different community");
-  shouldFail(communityEditorEmail, everyPassword, 2, null, latitude, "without longitude");
-  shouldFail(communityEditorEmail, everyPassword, 2, longitude, null, "without latitude");
-  shouldFail(communityEditorEmail, everyPassword, 2,  null, null, "without either coordinates");
+  shouldFail(superAdminEmail, everyPassword, 2, null, latitude, "without longitude");
+  shouldFail(superAdminEmail, everyPassword, 2, longitude, null, "without latitude");
+  shouldFail(superAdminEmail, everyPassword, 2,  null, null, "without either coordinates");
 });
