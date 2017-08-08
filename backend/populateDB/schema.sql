@@ -43,11 +43,12 @@ comment on column floods.user.phone_number is 'The user’s phone number.';
 
 -- Create the Crossings table
 create table floods.crossing (
-  id               serial primary key,
-  name             text not null check (char_length(name) < 80),
-  human_address    text not null check (char_length(human_address) < 800),
-  description      text not null check (char_length(description) < 800),
-  coordinates      geometry not null
+  id                serial primary key,
+  name              text not null check (char_length(name) < 80),
+  human_address     text not null check (char_length(human_address) < 800),
+  description       text not null check (char_length(description) < 800),
+  coordinates       geometry not null,
+  human_coordinates text not null
 );
 
 comment on table floods.crossing is 'A road crossing that might flood.';
@@ -55,6 +56,8 @@ comment on column floods.crossing.id is 'The primary unique identifier for the c
 comment on column floods.crossing.name is 'The name of the crossing.';
 comment on column floods.crossing.human_address is 'The human readable address of the crossing.';
 comment on column floods.crossing.description is 'The description of the crossing.';
+comment on column floods.crossing.coordinates is 'The GIS coordinates of the crossing created with ST_MakePoint.';
+comment on column floods.crossing.human_coordinates is 'The human readable coordinates of the crossing in degrees, minutes, seconds.';
 
 -- Create the Community Crossing relation table
 create table floods.community_crossing (
@@ -423,8 +426,8 @@ begin
     end if;
   end if;
 
-  insert into floods.crossing (name, human_address, description, coordinates) values
-    (name, human_address, description, ST_MakePoint(longitude, latitude))
+  insert into floods.crossing (name, human_address, description, coordinates, human_coordinates) values
+    (name, human_address, description, ST_MakePoint(longitude, latitude), ST_AsLatLonText(ST_MakePoint(longitude, latitude)))
     returning * into floods_crossing;
 
   insert into floods.community_crossing (community_id, crossing_id) values
