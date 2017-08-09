@@ -445,6 +445,10 @@ begin
     end if;
   end if;
 
+  insert into floods.crossing (name, human_address, description, coordinates) values
+    (name, human_address, description, ST_MakePoint(longitude, latitude))
+    returning * into floods_crossing;
+
   insert into floods.community_crossing (community_id, crossing_id) values
     (community_id, floods_crossing.id);
 
