@@ -40,6 +40,10 @@ const allUsers = gql`
         id
         firstName
         lastName
+        role
+        communityByCommunityId {
+          name
+        }
       }
     }
   }
