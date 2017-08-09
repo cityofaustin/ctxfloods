@@ -5,6 +5,32 @@ import { endpoint } from './endpoints';
 const anonLokka = new Lokka({transport: new HttpTransport(endpoint)});
 const superAdminEmail = 'superadmin@flo.ods';
 const superAdminPassword = 'texasfloods';
+const gjstring = `
+{
+  "type": "Polygon",
+  "coordinates": [
+    [
+      [
+        -92.949165344238,
+        43.648616790771
+      ],
+      [
+        -92.96110534668,
+        43.647731781006
+      ],
+      [
+        -92.971603393555,
+        43.650184631348
+      ],
+      [
+        -92.984436035156,
+        43.655681610107
+      ]
+    ]
+  ]
+}
+`;
+
 
 async function getToken(email, password) {
   const response = await anonLokka.send(`
@@ -40,16 +66,20 @@ describe('As a super admin', async () => {
 
     it('should add the community', async () => {
       const response = await lokka.send(`
-        mutation {
+        mutation ($geojson: String!) {
           newCommunity(input: {
             name: "New Community"
+            geojson: $geojson
           }) {
             community {
               id
             }
           }
         }
-      `);
+      `,
+      {
+        geojson: gjstring
+      });
 
       newCommunityId = response.newCommunity.community.id;
       expect(response).not.toBeNull();
@@ -60,6 +90,8 @@ describe('As a super admin', async () => {
         query ($id: Int!) {
           communityById(id: $id) {
             name
+            shape
+            geojson
           }
         }
       `,

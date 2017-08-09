@@ -3,7 +3,9 @@
 exports[`As a super admin When adding and editing a community the new community should show up in the DB 1`] = `
 Object {
   "communityById": Object {
+    "geojson": "{\\"type\\":\\"Polygon\\",\\"coordinates\\":[[[-92.949165344238,43.648616790771],[-92.96110534668,43.647731781006],[-92.971603393555,43.650184631348],[-92.984436035156,43.655681610107]]]}",
     "name": "New Community",
+    "shape": "01030000000100000004000000ECFFFF1FBF3C57C0BCFFFFDF05D34540160000C0823D57C0140000E0E8D24540160000C02E3E57C03000004039D34540EEFFFFFF003F57C0C5FFFF5FEDD34540",
   },
 }
 `;

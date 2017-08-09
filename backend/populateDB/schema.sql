@@ -29,7 +29,6 @@ $$ language sql stable security definer;
 
 comment on function floods.community_geojson(floods.community) is 'Gets the geojson of a given community.';
 
-
 -- Create the users table
 create table floods.user (
   id               serial primary key,
