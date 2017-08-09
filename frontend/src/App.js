@@ -10,7 +10,7 @@ class App extends Component {
     return (
         <ApolloProvider client={client}>
           <Router>
-            <FloodsAdminRoutes />
+            <FloodsAdminRoutes/>
           </Router>
         </ApolloProvider>
     );

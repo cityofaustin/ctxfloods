@@ -16,7 +16,11 @@ class Header extends React.Component {
     const { pathname } = this.props.location;
     return (
       <div className="header">
+        <span>This site is a work in progress. If you can't find what you need, visit <a href="#whatever">placeholder.gov</a>.</span>
+
         <h1>{this.getTitleByPathname(pathname)}</h1>
+
+        <AuthButton/>
 
         <ul>
           <li><Link to="/public">Public Page</Link></li>
@@ -26,7 +30,6 @@ class Header extends React.Component {
           <li><Link to="/createuser">Create User (Protected)</Link></li>
           <li><Link to="/updatestatus">Update Crossing Status (Protected)</Link></li>
         </ul>
-        <AuthButton/>
 
       </div>
     );
