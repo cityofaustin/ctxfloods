@@ -47,8 +47,7 @@ create table floods.crossing (
   name              text not null check (char_length(name) < 80),
   human_address     text not null check (char_length(human_address) < 800),
   description       text not null check (char_length(description) < 800),
-  coordinates       geometry not null,
-  human_coordinates text not null
+  coordinates       geometry not null
 );
 
 comment on table floods.crossing is 'A road crossing that might flood.';
@@ -57,7 +56,6 @@ comment on column floods.crossing.name is 'The name of the crossing.';
 comment on column floods.crossing.human_address is 'The human readable address of the crossing.';
 comment on column floods.crossing.description is 'The description of the crossing.';
 comment on column floods.crossing.coordinates is 'The GIS coordinates of the crossing created with ST_MakePoint.';
-comment on column floods.crossing.human_coordinates is 'The human readable coordinates of the crossing in degrees, minutes, seconds.';
 
 -- Create the Community Crossing relation table
 create table floods.community_crossing (
@@ -447,10 +445,6 @@ begin
     end if;
   end if;
 
-  insert into floods.crossing (name, human_address, description, coordinates, human_coordinates) values
-    (name, human_address, description, ST_MakePoint(longitude, latitude), ST_AsLatLonText(ST_MakePoint(longitude, latitude)))
-    returning * into floods_crossing;
-
   insert into floods.community_crossing (community_id, crossing_id) values
     (community_id, floods_crossing.id);
 
@@ -460,8 +454,8 @@ $$ language plpgsql strict security definer;
 
 comment on function floods.new_crossing(text, text, text, integer, decimal, decimal) is 'Adds a crossing.';
 
-create function floods.human_cooordinates(crossing floods.crossing) returns text as $$
-  select ST_AsLatLonText(floods.crossing.coordinates) from floods.crossing
+create function floods.human_coordinates(crossing floods.crossing) returns text as $$
+  select ST_AsLatLonText(crossing.coordinates) from floods.crossing
 $$ language sql stable;
 
 
@@ -836,6 +830,6 @@ grant execute on function floods.change_status_duration_name(integer, text) to f
 grant execute on function floods.delete_status_duration(integer) to floods_super_admin;
 
 -- Allow all users to get the human coordinates of a crossing
-grant execute on function floods.human_cooordinates(floods.crossing) to floods_anonymous;
+grant execute on function floods.human_coordinates(floods.crossing) to floods_anonymous;
 
 commit;
