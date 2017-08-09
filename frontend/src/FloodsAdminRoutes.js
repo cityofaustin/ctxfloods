@@ -20,7 +20,7 @@ class FloodsAdminRoutes extends Component {
           <Route path="/public" component={Public}/>
           <Route path="/crossings" component={AdminCrossingList}/>
           <Route path="/login" component={Login}/>
-          <Route path="/dashboard/users" component={UserList}/>
+          <PrivateRoute path="/dashboard/users" component={UserList} authenticated={auth.isAuthenticated()} />
           <PrivateRoute path="/protected" component={Protected} authenticated={auth.isAuthenticated()}/>
           <PrivateRoute path="/updatestatus" component={NewStatusUpdate} authenticated={auth.isAuthenticated()}/>
           <PrivateRoute path="/createuser" component={CreateUser} authenticated={auth.isAuthenticated()}/>
