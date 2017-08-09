@@ -1,5 +1,6 @@
 import React from 'react';
 import User from './User';
+import Header from './Header';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -19,7 +20,7 @@ class UserList extends React.Component {
       <div className='w-100 flex justify-center'>
         <div className='w-100' style={{ maxWidth: 400 }}>
           {this.props.data.allUsers.nodes.map((user) =>
-            <User 
+            <User
               key={user.id}
               user={user}
               refresh={() => this.props.data.refetch()}
