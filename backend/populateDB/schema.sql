@@ -462,6 +462,7 @@ create function floods.crossing_human_coordinates(crossing floods.crossing) retu
   select ST_AsLatLonText(crossing.coordinates);
 $$ language sql stable security definer;
 
+comment on function floods.crossing_human_coordinates(floods.crossing) is 'Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.';
 
 -- Create function to delete crossings
 -- TODO: all permissions stuff around this
