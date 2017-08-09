@@ -26,11 +26,11 @@
   "scripts": {
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "start-local": "REACT_APP_AWS_ENDPOINT='http://localhost:5000/graphql' react-scripts start",
+    "start-local": "REACT_APP_AWS_ENDPOINT='http://localhost:5000/graphql' npm run start",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "get-schema": "./stories/schema/getSchema.sh",
-    "build": "npm run build-css && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9001 -c .storybook"
