@@ -2,37 +2,14 @@ begin;
 
 -- Load Austin's geojson into a variable to use when creating communities
 create temporary table temp_json (value text) on commit drop;
-create temporary table temp_geojson (geojson text);
 
 \copy temp_json from './geojson/austin.geojson';
-insert into temp_geojson (geojson)
-  select string_agg(value,' ') from temp_json;
-
--- select geojson from temp_geojson;
-
-do $$
-  declare gj text := (select string_agg(value,' ') from temp_json);
-  -- select geojson from temp_geojson into gj;
-  raise notice 'blarg';
-   -- '%', gj;
-end $$ language plpgsql;
-
-alter sequence floods.community_id_seq restart with 1;
-select floods.new_community(text 'All of Texas', );
-
--- select concat(select * from temp_json);
-
-
-
--- select f.* 
--- from   (select string_agg(value,' ') as geojson from temp_json) t, floods.new_community(text 'All of Texas', t.geojson) f
--- limit 1;
 
 -- Add communities
--- insert into floods.community (id, name) values
---   (1, 'All of Texas.'),
---   (2, 'Everywhere else.');
--- alter sequence floods.community_id_seq restart with 3;
+alter sequence floods.community_id_seq restart with 1;
+select floods.new_community(text 'All of Texas', (select string_agg(value,' ') from temp_json));
+alter sequence floods.community_id_seq restart with 2;
+select floods.new_community(text 'Everywhere Else', (select string_agg(value,' ') from temp_json));
 
 -- Add users
 
