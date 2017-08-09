@@ -454,9 +454,9 @@ $$ language plpgsql strict security definer;
 
 comment on function floods.new_crossing(text, text, text, integer, decimal, decimal) is 'Adds a crossing.';
 
-create function floods.human_coordinates(crossing floods.crossing) returns text as $$
-  select ST_AsLatLonText(crossing.coordinates) from floods.crossing
-$$ language sql stable;
+create function floods.crossing_human_coordinates(crossing floods.crossing) returns text as $$
+  select ST_AsLatLonText(crossing.coordinates);
+$$ language sql stable security definer;
 
 
 -- Create function to delete crossings
@@ -830,6 +830,6 @@ grant execute on function floods.change_status_duration_name(integer, text) to f
 grant execute on function floods.delete_status_duration(integer) to floods_super_admin;
 
 -- Allow all users to get the human coordinates of a crossing
-grant execute on function floods.human_coordinates(floods.crossing) to floods_anonymous;
+grant execute on function floods.crossing_human_coordinates(floods.crossing) to floods_anonymous;
 
 commit;

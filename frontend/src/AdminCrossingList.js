@@ -38,7 +38,7 @@ const allCrossings = gql`
       nodes {
         id
         name
-        humanCooordinates
+        humanCoordinates
         latestStatus {
           statusByStatusId {
             name
