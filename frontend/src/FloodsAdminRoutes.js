@@ -4,7 +4,7 @@ import Login from './Login';
 import Public from './Public';
 import PrivateRoute from './PrivateRoute';
 import Header from './Header';
-import ManageUsers from './ManageUsers';
+import ManageUsers from './ManageUsersPage/ManageUsers';
 import CreateUser from './CreateUser';
 import AdminCrossingList from './AdminCrossingList';
 import NewStatusUpdate from './NewStatusUpdate';
