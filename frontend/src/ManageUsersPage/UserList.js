@@ -1,9 +1,33 @@
 import React from 'react';
-import User from './User';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import Table from './Table';
+
+const manageUsersHeaders = [{
+  title: 'Name',
+  canFilter: true,
+  canSort: true,
+}, {
+  title: 'Role',
+  canFilter: true,
+  canSort: true,
+}, {
+  title: 'Community',
+  canFilter: true,
+  canSort: true,
+}, {
+  title: 'Last active',
+  canFilter: true,
+  canSort: true,
+}];
+
 
 class UserList extends React.Component {
+  parseRole(role) {
+    return role.split("_").map((word) => {
+      return (word.charAt(0).toUpperCase() + word.substr(1));
+    }).join(' ');
+  }
 
   render () {
     if (this.props.data.loading) {
@@ -15,18 +39,17 @@ class UserList extends React.Component {
       return (<div>Error Loading Users</div>);
     }
 
+    const userData = this.props.data.allUsers.nodes.map((user) => {
+    	return [
+        `${user.firstName} ${user.lastName}`,
+        this.parseRole(user.role),
+        user.communityByCommunityId.name,
+        'todo',
+      ]
+    });
+
     return (
-      <div className='w-100 flex justify-center'>
-        <div className='w-100' style={{ maxWidth: 400 }}>
-          {this.props.data.allUsers.nodes.map((user) =>
-            <User
-              key={user.id}
-              user={user}
-              refresh={() => this.props.data.refetch()}
-            />
-          )}
-        </div>
-      </div>
+      <Table data={userData} headers={manageUsersHeaders} />
     );
   }
 
