@@ -4,6 +4,9 @@ import gql from 'graphql-tag';
 import Table from './Table';
 
 const manageUsersHeaders = [{
+  title: '',
+  type: 'checkbox_select',
+}, {
   title: 'Name',
   canFilter: true,
   canSort: true,
@@ -49,7 +52,7 @@ class UserList extends React.Component {
     });
 
     return (
-      <Table data={userData} headers={manageUsersHeaders} />
+      <Table data={userData} headers={manageUsersHeaders} checkboxColumn={true} />
     );
   }
 

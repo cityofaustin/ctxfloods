@@ -1,14 +1,36 @@
 import React, { Component } from 'react';
-import TableHeader from './TableHeader'
-import TableBody from './TableBody'
+import './Table.css'
 
 class Table extends Component {
 
   render() {
+    const { data, checkboxColumn } = this.props;
+
     return (
-      <table>
-        <TableHeader headers={this.props.headers} {...this.props} />
-        <TableBody data={this.props.data} />
+      <table className="Table">
+        <thead>
+          <tr>
+            {this.props.headers.map((header, i) => {
+              return <th key={i} scope="col">{header.title}</th>
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            data.map((row, i) => {
+              return (
+                <tr key={i}>
+                  { checkboxColumn && <td><input type="checkbox" /></td> }
+                  { row.map((cell, i) => {
+                    return (
+                      <td key={i}>{cell}</td>
+                    )
+                  })}
+                </tr>
+              )
+            })
+          }
+        </tbody>
       </table>
     );
   }
