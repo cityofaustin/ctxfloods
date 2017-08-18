@@ -7,6 +7,7 @@ import Header from './Header';
 import ManageUsers from './ManageUsersPage/ManageUsers';
 import CreateUser from './CreateUser';
 import AdminCrossingList from './AdminCrossingList';
+import CrossingMap from './CrossingMap';
 import NewStatusUpdate from './NewStatusUpdate';
 import auth from './services/gqlAuth';
 
@@ -19,6 +20,7 @@ class FloodsAdminRoutes extends Component {
           <Route path="/" component={Header}/>
           <Route path="/public" component={Public}/>
           <Route path="/crossings" component={AdminCrossingList}/>
+          <Route path="/map" component={CrossingMap}/>
           <Route path="/login" component={Login}/>
           <PrivateRoute path="/dashboard/users" component={ManageUsers}
             authenticated={auth.isAuthenticated()}
