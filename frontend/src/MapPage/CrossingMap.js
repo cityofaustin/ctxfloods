@@ -1,9 +1,8 @@
 import React from 'react';
-import Crossing from './Crossing';
 import mapboxstyle from './mapboxstyle';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import ReactMapboxGl from "react-mapbox-gl";
+import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 
 const Map = ReactMapboxGl({ accessToken: null });
 
@@ -25,7 +24,15 @@ class CrossingMap extends React.Component {
         containerStyle={{
           height: "100vh",
           width: "100vw"
-        }}>
+        }}
+        center={[ -97.7237, 30.2328 ]}>
+        <Layer
+          type="symbol"
+          id="marker"
+          layout={{ 'icon-image': 'cross-15' }}
+          >
+          <Feature coordinates={[ -97.7237, 30.2328 ]}/>
+        </Layer>
       </Map>
     );
   }

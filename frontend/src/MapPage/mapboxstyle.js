@@ -1,7 +1,3 @@
-// import mapboxgl from 'mapbox-gl';
-
-// const mapboxglmap = new mapboxgl.Map(
-
 const mapboxstyle = {
   "version": 8,
   "name": "Positron",
@@ -26,10 +22,10 @@ const mapboxstyle = {
     "openmaptiles:mapbox:source:url": "mapbox://openmaptiles.4qljc88t"
   },
   "center": [
-    -97.747214,
-    30.264792
+    10.184401828277089,
+    -1.1368683772161603e-13
   ],
-  "zoom": 12,
+  "zoom": 0.8902641636539237,
   "bearing": 0,
   "pitch": 0,
   "sources": {
@@ -38,7 +34,7 @@ const mapboxstyle = {
       "url": "https://free.tilehosting.com/data/v3.json?key=cixEixjbC0T2QH4xgsM7"
     }
   },
-  "sprite": "https://openmaptiles.github.io/positron-gl-style/sprite",
+  "sprite": "https://briaguya.github.io/positron-gl-style/sprite",
   "glyphs": "https://free.tilehosting.com/fonts/{fontstack}/{range}.pbf?key={key}",
   "layers": [
     {
@@ -80,20 +76,7 @@ const mapboxstyle = {
       },
       "paint": {
         "fill-color": "rgb(194, 200, 202)",
-        "fill-antialias": true,
-        "fill-outline-color": {
-          "base": 1,
-          "stops": [
-            [
-              0,
-              "hsla(180, 6%, 63%, 0.82)"
-            ],
-            [
-              22,
-              "hsla(180, 6%, 63%, 0.18)"
-            ]
-          ]
-        }
+        "fill-antialias": true
       }
     },
     {
@@ -292,11 +275,6 @@ const mapboxstyle = {
       "source": "openmaptiles",
       "source-layer": "building",
       "minzoom": 12,
-      "filter": [
-        "==",
-        "$type",
-        "Polygon"
-      ],
       "paint": {
         "fill-color": "rgb(234, 234, 229)",
         "fill-outline-color": "rgb(219, 219, 218)",
@@ -548,6 +526,7 @@ const mapboxstyle = {
       "source": "openmaptiles",
       "source-layer": "aeroway",
       "minzoom": 11,
+      "maxzoom": 24,
       "filter": [
         "all",
         [
@@ -582,8 +561,7 @@ const mapboxstyle = {
           ]
         },
         "line-opacity": 1
-      },
-      "maxzoom": 24
+      }
     },
     {
       "id": "highway_path",
@@ -985,6 +963,88 @@ const mapboxstyle = {
       }
     },
     {
+      "id": "railway_transit",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5"
+      },
+      "source": "openmaptiles",
+      "source-layer": "transportation",
+      "minzoom": 16,
+      "filter": [
+        "all",
+        [
+          "==",
+          "$type",
+          "LineString"
+        ],
+        [
+          "all",
+          [
+            "==",
+            "class",
+            "transit"
+          ],
+          [
+            "!in",
+            "brunnel",
+            "tunnel"
+          ]
+        ]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#dddddd",
+        "line-width": 3
+      }
+    },
+    {
+      "id": "railway_transit_dashline",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5"
+      },
+      "source": "openmaptiles",
+      "source-layer": "transportation",
+      "minzoom": 16,
+      "filter": [
+        "all",
+        [
+          "==",
+          "$type",
+          "LineString"
+        ],
+        [
+          "all",
+          [
+            "==",
+            "class",
+            "transit"
+          ],
+          [
+            "!in",
+            "brunnel",
+            "tunnel"
+          ]
+        ]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#fafafa",
+        "line-width": 2,
+        "line-dasharray": [
+          3,
+          3
+        ]
+      }
+    },
+    {
       "id": "railway_service",
       "type": "line",
       "metadata": {
@@ -1113,30 +1173,10 @@ const mapboxstyle = {
     },
     {
       "id": "railway_dashline",
+      "type": "line",
       "metadata": {
         "mapbox:group": "b6371a3f2f5a9932464fa3867530a2e5"
       },
-      "paint": {
-        "line-color": "#fafafa",
-        "line-width": {
-          "base": 1.3,
-          "stops": [
-            [
-              16,
-              2
-            ],
-            [
-              20,
-              6
-            ]
-          ]
-        },
-        "line-dasharray": [
-          3,
-          3
-        ]
-      },
-      "type": "line",
       "source": "openmaptiles",
       "source-layer": "transportation",
       "minzoom": 13,
@@ -1163,6 +1203,26 @@ const mapboxstyle = {
       "layout": {
         "visibility": "visible",
         "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#fafafa",
+        "line-width": {
+          "base": 1.3,
+          "stops": [
+            [
+              16,
+              2
+            ],
+            [
+              20,
+              6
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ]
       }
     },
     {
@@ -2135,6 +2195,7 @@ const mapboxstyle = {
     }
   ],
   "id": "ciwf3o3u2008z2pmq7pmvm6xq"
-};
+}
+;
 
 export default mapboxstyle;

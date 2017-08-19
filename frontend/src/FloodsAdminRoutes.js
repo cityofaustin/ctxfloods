@@ -7,7 +7,7 @@ import Header from './Header';
 import ManageUsers from './ManageUsersPage/ManageUsers';
 import CreateUser from './CreateUser';
 import AdminCrossingList from './AdminCrossingList';
-import CrossingMap from './CrossingMap';
+import CrossingMap from './MapPage/CrossingMap';
 import NewStatusUpdate from './NewStatusUpdate';
 import auth from './services/gqlAuth';
 
