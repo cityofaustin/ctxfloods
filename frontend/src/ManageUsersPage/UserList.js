@@ -8,26 +8,29 @@ const manageUsersHeaders = [{
   type: 'checkbox_select',
 }, {
   title: 'Name',
-  canFilter: true,
-  canSort: true,
+  isFilterale: true,
+  isSortable: true,
 }, {
   title: 'Role',
-  canFilter: true,
-  canSort: true,
+  isFilterale: true,
+  isSortable: true,
 }, {
   title: 'Community',
-  canFilter: true,
-  canSort: true,
+  isFilterale: true,
+  isSortable: true,
 }, {
   title: 'Last active',
-  canFilter: true,
-  canSort: true,
+  isFilterale: true,
+  isSortable: true,
 }];
 
 
 class UserList extends React.Component {
   parseRole(role) {
-    return role.split("_").map((word) => {
+    const roleArray = role.split("_");
+    roleArray.splice(0, 1)
+
+    return roleArray.map((word) => {
       return (word.charAt(0).toUpperCase() + word.substr(1));
     }).join(' ');
   }
@@ -44,10 +47,10 @@ class UserList extends React.Component {
 
     const userData = this.props.data.allUsers.nodes.map((user) => {
     	return [
-        `${user.firstName} ${user.lastName}`,
+        { isLinked: true, link: `/user/${user.id}`, content: `${user.firstName} ${user.lastName}` },
         this.parseRole(user.role),
         user.communityByCommunityId.name,
-        'todo',
+        '',
       ]
     });
 

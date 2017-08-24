@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+html {
+  font-family: "Roboto", sans-serif;
+  font-size: 10px; }
+
+p, span {
+  font-size: 1.7rem; }
+
 .Table {
   border-spacing: 0;
   margin: 2em 0;
@@ -15,3 +23,18 @@
     background-color: #ffffff;
     border-bottom: 1px solid #5b616b;
     padding: 1.2rem; }
+
+.Table__header {
+  font-size: 1.5rem; }
+
+.Table__content {
+  font-size: 1.7rem; }
+
+.Table__content--linked {
+  font-size: 1.7rem; }
+  .Table__content--linked a {
+    color: #000000; }
+
+.Table__header-caret {
+  width: 20px;
+  margin: 6px 0 -7px -3px; }
