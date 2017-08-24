@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import './Button.css';
+import './LinkButton.css';
 
-class Button extends Component {
+class LinkButton extends Component {
 
   render() {
     return (
-      <Link to={this.props.linkTo} className="Button">
+      <Link to={this.props.url} className="LinkButton">
         {this.props.text}
       </Link>
     );
@@ -15,4 +15,4 @@ class Button extends Component {
 
 }
 
-export default Button;
+export default LinkButton;
