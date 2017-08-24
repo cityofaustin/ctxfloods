@@ -6,6 +6,12 @@ html {
 p, span {
   font-size: 1.7rem; }
 
+.flexcontainer {
+  display: flex; }
+
+.flexitem {
+  flex: 1; }
+
 body {
   margin: 0;
   padding: 0; }

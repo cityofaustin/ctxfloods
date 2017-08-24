@@ -5,3 +5,8 @@
 .ManageUsers__h1 {
   font-size: 4.4rem;
 }
+
+.ManageUsers__button {
+  align-self: center;
+  margin-left: auto;
+}
