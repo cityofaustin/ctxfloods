@@ -15,13 +15,15 @@ class ManageUsers extends Component {
       <div className="ManageUsers">
         <div className="flexcontainer">
           <h1 className="ManageUsers__h1">Manage Users</h1>
-          <div className="ManageUsers__button">
+          <div className="flexitem--pushed-right">
             <Button linkTo="/createuser" text="Add New" />
           </div>
         </div>
         <div className="flexcontainer">
           <BulkActionsDropdown />
-          <TableSearch />
+          <div className="flexitem--pushed-right">
+            <TableSearch />
+          </div>
         </div>
         <UserList {...this.props} />
       </div>

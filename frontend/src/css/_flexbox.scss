@@ -6,6 +6,7 @@
   flex: 1;
 }
 
-// .flexitem--1of2 {
-//   width: 50%;
-// }
+.flexitem--pushed-right {
+  align-self: center;
+  margin-left: auto;
+}

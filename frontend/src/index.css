@@ -12,6 +12,10 @@ p, span {
 .flexitem {
   flex: 1; }
 
+.flexitem--pushed-right {
+  align-self: center;
+  margin-left: auto; }
+
 body {
   margin: 0;
   padding: 0; }
