@@ -15,21 +15,6 @@ class Table extends Component {
   render() {
     const { data, checkboxColumn } = this.props;
 
-    function Td({ children, to }) {
-      // Conditionally wrapping content into a link
-      const content = to ? (
-        <Link to={to}>{children}</Link>
-      ) : (
-        <div>{children}</div>
-      );
-
-      return (
-        <td>
-          {content}
-        </td>
-      );
-    }
-
     return (
       <table className="Table">
         <thead>
