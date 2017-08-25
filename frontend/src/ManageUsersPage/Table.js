@@ -33,21 +33,15 @@ class Table extends Component {
                 <tr key={i}>
                   { checkboxColumn && <td><input type="checkbox" /></td> }
                   { row.map((cell, i) => {
-                     if (!cell.isLinked) {
-                       return (
-                         <td key={i} className="Table__content">
-                           { cell }
-                         </td>
-                       )
-                     }
-                     else {
-                       return (
-                         <td key={i} className="Table__content--linked">
+                     return cell.isLinked ? (
+                        <td key={i} className="Table__content--linked">
                            <Link to={cell.link}>{ cell.content }</Link>
                         </td>
+                       ) : (
+                         <td key={i} className="Table__content">{ cell }</td>
                        )
-                     }
-                  })}
+                    })
+                  }
                 </tr>
               )
             })

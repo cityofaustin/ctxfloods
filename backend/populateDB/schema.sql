@@ -7,6 +7,9 @@ create schema floods_private;
 -- so we don't accidentally make something public.
 alter default privileges revoke execute on functions from public;
 
+-- Add geospatial column types and functions
+create extension if not exists "postgis";
+
 -- Create the Communities table
 create table floods.community (
   id               serial primary key,
@@ -42,11 +45,11 @@ comment on column floods.user.role is 'The user’s authorization role.';
 
 -- Create the Crossings table
 create table floods.crossing (
-  id               serial primary key,
-  name             text not null check (char_length(name) < 80),
-  human_address    text not null check (char_length(human_address) < 800),
-  description      text not null check (char_length(description) < 800),
-  coordinates      text not null
+  id                serial primary key,
+  name              text not null check (char_length(name) < 80),
+  human_address     text not null check (char_length(human_address) < 800),
+  description       text not null check (char_length(description) < 800),
+  coordinates       geometry not null
 );
 
 comment on table floods.crossing is 'A road crossing that might flood.';
@@ -54,6 +57,7 @@ comment on column floods.crossing.id is 'The primary unique identifier for the c
 comment on column floods.crossing.name is 'The name of the crossing.';
 comment on column floods.crossing.human_address is 'The human readable address of the crossing.';
 comment on column floods.crossing.description is 'The description of the crossing.';
+comment on column floods.crossing.coordinates is 'The GIS coordinates of the crossing created with ST_MakePoint.';
 
 -- Create the Community Crossing relation table
 create table floods.community_crossing (
@@ -314,6 +318,27 @@ $$ language plpgsql strict security definer;
 
 comment on function floods.reactivate_user(integer, text, text, text) is 'Reactivates a user and creates an account.';
 
+-- Create function to search users
+-- TODO: plainto_tsquery probably won't do everything we need, so we'll need to implement something else to form a valid tsquery for search on the frontend
+create function floods.search_users(
+  search text
+) returns setof floods.user as $$
+  select resultuser
+  from (select
+      u as resultuser,
+      to_tsvector(u.first_name) ||
+      to_tsvector(u.last_name) ||
+      to_tsvector(c.name) as document
+    from
+      floods.user u,
+      floods.community c
+    where
+      u.community_id = c.id) user_search
+  where user_search.document @@ plainto_tsquery(search);
+$$ language sql stable security definer;
+
+comment on function floods.search_users(text) is 'Searches users.';
+
 -- Create function to update status
 -- TODO: Figure out how to make reason and duration dynamic
 create function floods.new_status_update(
@@ -408,7 +433,8 @@ create function floods.new_crossing(
   human_address text,
   description text,
   community_id integer,
-  coordinates text
+  longitude decimal,
+  latitude decimal
 ) returns floods.crossing as $$
 declare
   floods_crossing floods.crossing;
@@ -422,7 +448,7 @@ begin
   end if;
 
   insert into floods.crossing (name, human_address, description, coordinates) values
-    (name, human_address, description, coordinates)
+    (name, human_address, description, ST_MakePoint(longitude, latitude))
     returning * into floods_crossing;
 
   insert into floods.community_crossing (community_id, crossing_id) values
@@ -432,7 +458,13 @@ begin
 end;
 $$ language plpgsql strict security definer;
 
-comment on function floods.new_crossing(text, text, text, integer, text) is 'Adds a crossing.';
+comment on function floods.new_crossing(text, text, text, integer, decimal, decimal) is 'Adds a crossing.';
+
+create function floods.crossing_human_coordinates(crossing floods.crossing) returns text as $$
+  select ST_AsLatLonText(crossing.coordinates);
+$$ language sql stable security definer;
+
+comment on function floods.crossing_human_coordinates(floods.crossing) is 'Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.';
 
 -- Create function to delete crossings
 -- TODO: all permissions stuff around this
@@ -754,6 +786,9 @@ grant execute on function floods.authenticate(text, text) to floods_anonymous;
 -- Allow all users to get the latest status of a crossing
 grant execute on function floods.crossing_latest_status(floods.crossing) to floods_anonymous;
 
+-- Allow all users to search users
+grant execute on function floods.search_users(text) to floods_anonymous;
+
 -- Allow community admins and up to register new users
 -- NOTE: Extra logic around permissions in function
 grant execute on function floods.register_user(text, text, text, integer, text, text, text, text) to floods_community_admin;
@@ -775,7 +810,7 @@ grant execute on function floods.new_status_update(integer, integer, text, integ
 
 -- Allow community editors and up to add crossings
 -- NOTE: Extra logic around permissions in function
-grant execute on function floods.new_crossing(text, text, text, integer, text) to floods_community_editor;
+grant execute on function floods.new_crossing(text, text, text, integer, decimal, decimal) to floods_community_editor;
 
 -- Allow community admins and up to remove crossings
 -- NOTE: Extra logic around permissions in function
@@ -800,5 +835,8 @@ grant execute on function floods.delete_status_reason(integer) to floods_super_a
 grant execute on function floods.new_status_duration(integer, text, interval) to floods_super_admin;
 grant execute on function floods.change_status_duration_name(integer, text) to floods_super_admin;
 grant execute on function floods.delete_status_duration(integer) to floods_super_admin;
+
+-- Allow all users to get the human coordinates of a crossing
+grant execute on function floods.crossing_human_coordinates(floods.crossing) to floods_anonymous;
 
 commit;

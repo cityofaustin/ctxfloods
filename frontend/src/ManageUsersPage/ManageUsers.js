@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import Button from '../Button';
+import LinkButton from '../LinkButton';
 import BulkActionsDropdown from './BulkActionsDropdown';
 import TableSearch from './TableSearch';
 import UserList from './UserList';
@@ -15,8 +15,8 @@ class ManageUsers extends Component {
       <div className="ManageUsers">
         <div className="flexcontainer">
           <h1 className="ManageUsers__h1">Manage Users</h1>
-          <div className="ManageUsers__right-aligned-element">
-            <Button linkTo="/createuser" text="Add New" />
+          <div className="flexitem--pushed-right">
+            <LinkButton url="/createuser" text="Add New" />
           </div>
         </div>
         <div className="flexcontainer">
