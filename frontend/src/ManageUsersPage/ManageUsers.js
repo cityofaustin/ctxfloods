@@ -15,7 +15,7 @@ class ManageUsers extends Component {
       <div className="ManageUsers">
         <div className="flexcontainer">
           <h1 className="ManageUsers__h1">Manage Users</h1>
-          <div className="flexitem--pushed-right">
+          <div className="ManageUsers__right-aligned-element">
             <LinkButton url="/createuser" text="Add New" />
           </div>
         </div>
