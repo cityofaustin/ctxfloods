@@ -45,6 +45,7 @@ const currentUser = gql`
     {
       id
       communityId
+      role
     }
   }
 `
