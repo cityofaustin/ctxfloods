@@ -19,7 +19,7 @@ class FloodsAdminRoutes extends Component {
   render() {
     return (
         <div>
-          <Route path="/" component={Header}/>
+          <Route path="/" render={(props) => <Header currentUser={this.props.data.currentUser} {...props} />} />
           <Route path="/public" component={Public}/>
           <Route path="/crossings" component={AdminCrossingList}/>
           <Route path="/login" component={Login}/>
@@ -46,6 +46,8 @@ const currentUser = gql`
       id
       communityId
       role
+      firstName
+      lastName
     }
   }
 `
