@@ -24,7 +24,6 @@ const manageUsersHeaders = [{
   isSortable: true,
 }];
 
-
 class UserList extends React.Component {
   parseRole(role) {
     const roleArray = role.split("_");
@@ -36,7 +35,7 @@ class UserList extends React.Component {
   }
 
   render () {
-    if (this.props.data.loading) {
+    if (!this.props.data || this.props.data.loading) {
       return (<div>Loading</div>)
     }
 
@@ -61,15 +60,17 @@ class UserList extends React.Component {
 
 }
 
+
 const allUsers = gql`
-  {
-    allUsers {
+  query($communityId: Int!){
+    allUsers(condition: {communityId: $communityId}) {
       nodes {
         id
         firstName
         lastName
         role
         communityByCommunityId {
+          id
           name
         }
       }
@@ -77,4 +78,11 @@ const allUsers = gql`
   }
 `;
 
-export default graphql(allUsers)(UserList);
+export default graphql(allUsers, {
+  skip: (ownProps) => !ownProps.currentUser,
+  options: (ownProps) => ({
+    variables: {
+      communityId: ownProps.currentUser.communityId
+    }
+  }),
+})(UserList);

@@ -9,6 +9,9 @@ import CreateUser from './CreateUser';
 import AdminCrossingList from './AdminCrossingList';
 import NewStatusUpdate from './NewStatusUpdate';
 import auth from './services/gqlAuth';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
 
 const Protected = () => <h3>Protected</h3>;
 
@@ -23,6 +26,7 @@ class FloodsAdminRoutes extends Component {
           <PrivateRoute path="/dashboard/users" component={ManageUsers}
             authenticated={auth.isAuthenticated()}
             authorized={auth.roleAuthorized(['floods_community_admin', 'floods_super_admin'])}
+            currentUser={this.props.data.currentUser}
           />
           <PrivateRoute path="/protected" component={Protected} authenticated={auth.isAuthenticated()}/>
           <PrivateRoute path="/updatestatus" component={NewStatusUpdate} authenticated={auth.isAuthenticated()}/>
@@ -35,4 +39,14 @@ class FloodsAdminRoutes extends Component {
   }
 }
 
-export default FloodsAdminRoutes;
+const currentUser = gql`
+  {
+    currentUser
+    {
+      id
+      communityId
+    }
+  }
+`
+
+export default graphql(currentUser)(FloodsAdminRoutes);
