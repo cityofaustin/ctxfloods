@@ -32,7 +32,11 @@ class CrossingMap extends React.Component {
           id="marker"
           layout={{ 'icon-image': 'cross-15' }}
           >
-          <Feature coordinates={[ -97.7237, 30.2328 ]}/>
+          {this.props.data.allCrossings.nodes.map((crossing, i) => {
+            return(
+              <Feature key={i} coordinates={[ -97.7237, 30+i ]}/>
+            )}
+          )}
         </Layer>
       </Map>
     );
@@ -46,6 +50,7 @@ const allCrossings = gql`
       nodes {
         id
         name
+        coordinates
         latestStatus {
           statusByStatusId {
             name
