@@ -49,7 +49,8 @@ create table floods.crossing (
   name              text not null check (char_length(name) < 180),
   human_address     text not null check (char_length(human_address) < 800),
   description       text not null check (char_length(description) < 800),
-  coordinates       geometry not null
+  coordinates       geometry not null,
+  geojson           text not null check (char_length(geojson) < 100)
 );
 
 comment on table floods.crossing is 'A road crossing that might flood.';
@@ -58,6 +59,7 @@ comment on column floods.crossing.name is 'The name of the crossing.';
 comment on column floods.crossing.human_address is 'The human readable address of the crossing.';
 comment on column floods.crossing.description is 'The description of the crossing.';
 comment on column floods.crossing.coordinates is 'The GIS coordinates of the crossing created with ST_MakePoint.';
+comment on column floods.crossing.geojson is 'The GeoJSON coordinates of the crossing.';
 
 -- Create the Community Crossing relation table
 create table floods.community_crossing (
@@ -447,8 +449,8 @@ begin
     end if;
   end if;
 
-  insert into floods.crossing (name, human_address, description, coordinates) values
-    (name, human_address, description, ST_MakePoint(longitude, latitude))
+  insert into floods.crossing (name, human_address, description, coordinates, geojson) values
+    (name, human_address, description, ST_MakePoint(longitude, latitude), ST_AsGeoJSON(ST_MakePoint(longitude, latitude)))
     returning * into floods_crossing;
 
   insert into floods.community_crossing (community_id, crossing_id) values
@@ -465,12 +467,6 @@ create function floods.crossing_human_coordinates(crossing floods.crossing) retu
 $$ language sql stable security definer;
 
 comment on function floods.crossing_human_coordinates(floods.crossing) is 'Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.';
-
-create function floods.crossing_geojson(crossing floods.crossing) returns text as $$
-  select ST_AsGeoJSON(crossing.coordinates);
-$$ language sql stable security definer;
-
-comment on function floods.crossing_geojson(floods.crossing) is 'Returns the geojson for a given point.';
 
 -- Create function to delete crossings
 -- TODO: all permissions stuff around this
@@ -844,8 +840,5 @@ grant execute on function floods.delete_status_duration(integer) to floods_super
 
 -- Allow all users to get the human coordinates of a crossing
 grant execute on function floods.crossing_human_coordinates(floods.crossing) to floods_anonymous;
-
--- Allow all users to get the geojson coordinates of a crossing
-grant execute on function floods.crossing_geojson(floods.crossing) to floods_anonymous;
 
 commit;

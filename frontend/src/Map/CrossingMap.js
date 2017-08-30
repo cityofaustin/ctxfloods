@@ -51,17 +51,6 @@ const allCrossings = gql`
         id
         name
         geojson
-        latestStatus {
-          statusByStatusId {
-            name
-          }
-          notes
-          userByCreatorId {
-            id
-            firstName
-            lastName
-          }
-        }
       }
     }
   }
