@@ -30,7 +30,7 @@ class CrossingMap extends React.Component {
         <Layer
           type="symbol"
           id="marker"
-          layout={{ 'icon-image': 'cross-15' }}
+          layout={{ 'icon-image': 'cross-15', 'icon-allow-overlap': true }}
           >
           {this.props.data.allCrossings.nodes.map((crossing, i) => {
             // console.log(crossing.statusUpdateByLatestStatusId.statusId);
