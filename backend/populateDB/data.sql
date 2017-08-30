@@ -127,5 +127,6 @@ insert into floods.crossing_latest_status (id, crossing_id, status_update_id) va
   (6, 6, 24),
   (7, 7, 31),
   (8, 8, 32);
+alter sequence floods.crossing_latest_status_id_seq restart with 9;
 
 commit;
