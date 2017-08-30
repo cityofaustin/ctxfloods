@@ -1948,7 +1948,7 @@ insert into floods.crossing (id, name, human_address, description, coordinates, 
 alter sequence floods.crossing_id_seq restart with 2391;
 
 -- Add a community for the tons of crossings
-insert into floods.community (id, name) values (9001, 'Over 9000');
+insert into floods.community (id, name, viewportgeojson) values (9001, 'Over 9000', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
 
 -- Add the tons of crossings to the community
 insert into floods.community_crossing (id, community_id, crossing_id) values
