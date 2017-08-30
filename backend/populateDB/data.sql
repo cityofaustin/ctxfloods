@@ -118,15 +118,13 @@ insert into floods.status_update (id, status_id, creator_id, crossing_id, notes,
   (32, 1, 4, 8, 'notes', '2017-06-02T09:27:57Z');
 alter sequence floods.status_update_id_seq restart with 33;
 
-insert into floods.crossing_latest_status (id, crossing_id, status_update_id) values
-  (1, 1, 26),
-  (2, 2, 30),
-  (3, 3, 28),
-  (4, 4, 18),
-  (5, 5, 29),
-  (6, 6, 24),
-  (7, 7, 31),
-  (8, 8, 32);
-alter sequence floods.crossing_latest_status_id_seq restart with 9;
+update floods.crossing set latest_status_id = 26 where id = 1;
+update floods.crossing set latest_status_id = 30 where id = 2;
+update floods.crossing set latest_status_id = 28 where id = 3;
+update floods.crossing set latest_status_id = 18 where id = 4;
+update floods.crossing set latest_status_id = 29 where id = 5;
+update floods.crossing set latest_status_id = 24 where id = 6;
+update floods.crossing set latest_status_id = 31 where id = 7;
+update floods.crossing set latest_status_id = 32 where id = 8;
 
 commit;
