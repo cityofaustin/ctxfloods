@@ -33,6 +33,7 @@ class CrossingMap extends React.Component {
           layout={{ 'icon-image': 'cross-15' }}
           >
           {this.props.data.allCrossings.nodes.map((crossing, i) => {
+            console.log(crossing.crossingLatestStatusesByCrossingId.nodes[0].statusUpdateByStatusUpdateId.statusId);
             return(
               <Feature key={i} coordinates={JSON.parse(crossing.geojson).coordinates}/>
             )}
@@ -51,6 +52,13 @@ const allCrossings = gql`
         id
         name
         geojson
+        crossingLatestStatusesByCrossingId {
+          nodes {
+            statusUpdateByStatusUpdateId {
+              statusId
+            }
+          }
+        }
       }
     }
   }

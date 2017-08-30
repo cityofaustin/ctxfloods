@@ -157,16 +157,16 @@ comment on column floods.status_update.status_duration_id is 'The id of the stat
 comment on column floods.status_update.notes is 'Notes about the status update.';
 comment on column floods.status_update.created_at is 'The time this update was made.';
 
--- Create the function to get the latest status for a given crossing
-create function floods.crossing_latest_status(crossing floods.crossing) returns floods.status_update as $$
-  select status_update.*
-  from floods.status_update as status_update
-  where status_update.crossing_id = crossing.id
-  order by created_at desc
-  limit 1
-$$ language sql stable;
+-- Create the Crossing Latest Status Update table
+create table floods.crossing_latest_status (
+  id                  serial primary key,
+  crossing_id         integer not null references floods.crossing(id) unique,
+  status_update_id    integer not null references floods.status_update(id)
+);
 
-comment on function floods.crossing_latest_status(floods.crossing) is 'Gets the latest status of a given crossing.';
+comment on table floods.crossing_latest_status is 'The latest status of a given crossing.';
+comment on column floods.crossing_latest_status.crossing_id is 'The id of the crossing.';
+comment on column floods.crossing_latest_status.status_update_id is 'The id of the latest status update for this crossing.';
 
 -- Create the private account table
 create table floods_private.user_account (
@@ -422,6 +422,10 @@ begin
   insert into floods.status_update (status_id, creator_id, crossing_id, notes, status_reason_id, status_duration_id) values
     (status_id, current_setting('jwt.claims.user_id')::integer, crossing_id, notes, status_reason_id, status_duration_id)
     returning * into floods_status_update;
+
+  update floods.crossing_latest_status
+    set status_update_id = floods_status_update.id
+    where crossing_id = floods_super_admin.crossing_id;
 
   return floods_status_update;
 end;
@@ -781,12 +785,10 @@ grant select on table floods.status_duration to floods_anonymous;
 grant select on table floods.status_association to floods_anonymous;
 grant select on table floods.crossing to floods_anonymous;
 grant select on table floods.community_crossing to floods_anonymous;
+grant select on table floods.crossing_latest_status to floods_anonymous;
 
 -- Allow all users to log in and get an auth token
 grant execute on function floods.authenticate(text, text) to floods_anonymous;
-
--- Allow all users to get the latest status of a crossing
-grant execute on function floods.crossing_latest_status(floods.crossing) to floods_anonymous;
 
 -- Allow all users to search users
 grant execute on function floods.search_users(text) to floods_anonymous;

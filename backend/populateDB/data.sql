@@ -83,8 +83,6 @@ insert into floods.status_association (id, status_id, detail, rule) values
   (8, 4, 'duration', 'required');
 alter sequence floods.status_association_id_seq restart with 9;
 
-
--- Add status updates
 insert into floods.status_update (id, status_id, creator_id, crossing_id, notes, created_at) values
   (1, 1, 1, 1, 'notes', '2017-05-03T09:27:57Z'),
   (2, 2, 1, 1, 'notes', '2017-05-04T09:27:57Z'),
@@ -119,5 +117,15 @@ insert into floods.status_update (id, status_id, creator_id, crossing_id, notes,
   (31, 1, 4, 7, 'notes', '2017-06-02T09:27:57Z'),
   (32, 1, 4, 8, 'notes', '2017-06-02T09:27:57Z');
 alter sequence floods.status_update_id_seq restart with 33;
+
+insert into floods.crossing_latest_status (id, crossing_id, status_update_id) values
+  (1, 1, 26),
+  (2, 2, 30),
+  (3, 3, 28),
+  (4, 4, 18),
+  (5, 5, 29),
+  (6, 6, 24),
+  (7, 7, 31),
+  (8, 8, 32);
 
 commit;
