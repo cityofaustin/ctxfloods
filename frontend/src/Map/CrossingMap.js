@@ -22,8 +22,8 @@ class CrossingMap extends React.Component {
       <Map
         style={mapboxstyle}
         containerStyle={{
-          height: "80vh",
-          width: "80vw",
+          height: this.props.mapHeight,
+          width: this.props.mapWidth,
           display: "block"
         }}
         center={[ -97.7237, 30.2328 ]}>

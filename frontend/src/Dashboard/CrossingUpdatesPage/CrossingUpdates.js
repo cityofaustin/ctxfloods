@@ -26,7 +26,7 @@ class CrossingUpdates extends Component {
         </div>
         {this.state.activeTab === 'map' ? 
           <div className="CrossingUpdates__map-container">
-            <CrossingMap/>
+            <CrossingMap mapHeight="80vh" mapWidth="80vw"/>
           </div>
         :
           <div>LIST VIEW</div>
