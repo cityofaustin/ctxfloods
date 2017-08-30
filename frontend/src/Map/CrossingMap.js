@@ -29,7 +29,7 @@ class CrossingMap extends React.Component {
           width: this.props.mapWidth,
           display: "block"
         }}
-        center={[ -97.7237, 30.2328 ]}>
+        fitBounds={[[-97.785240, 30.259219],[-97.753574, 30.276096]]}>
 
         <Layer
           type="symbol"
