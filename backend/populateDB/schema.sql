@@ -46,7 +46,7 @@ comment on column floods.user.role is 'The user’s authorization role.';
 -- Create the Crossings table
 create table floods.crossing (
   id                serial primary key,
-  name              text not null check (char_length(name) < 80),
+  name              text not null check (char_length(name) < 180),
   human_address     text not null check (char_length(human_address) < 800),
   description       text not null check (char_length(description) < 800),
   coordinates       geometry not null
