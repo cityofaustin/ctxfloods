@@ -6,13 +6,11 @@ insert into floods.community (id, name) values
   (2, 'Everywhere else.');
 alter sequence floods.community_id_seq restart with 3;
 
--- Add users
-
 -- Set the jwt claim settings so the register user function works
 -- Make sure they're local so we actually use the token outside of this script
 select set_config('jwt.claims.community_id', '1', true);
 select set_config('jwt.claims.role', 'floods_super_admin', true);
-
+-- Add users
 alter sequence floods.user_id_seq restart with 1;
 select floods.register_user(text 'Super', text 'Admin', text 'Superhero, Administrator', integer '1', text '867-5309', text 'superadmin@flo.ods', text 'texasfloods', text 'floods_super_admin');
 alter sequence floods.user_id_seq restart with 2;
@@ -25,7 +23,6 @@ alter sequence floods.user_id_seq restart with 5;
 select floods.register_user(text 'Community', text 'Editor Too', text 'Community Editor Too', integer '1', text '867-5309', text 'editortoo@community.floods', text 'texasfloods', text 'floods_community_editor');
 alter sequence floods.user_id_seq restart with 6;
 select floods.register_user(text 'Inactive', text 'User', text 'Retired', integer '1', text '867-5309', text 'inactive@flo.ods', text 'texasfloods', text 'floods_community_editor');
-
 
 -- Add crossings
 insert into floods.crossing (id, name, human_address, description, coordinates, geojson) values
