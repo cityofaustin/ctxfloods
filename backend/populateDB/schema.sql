@@ -466,6 +466,12 @@ $$ language sql stable security definer;
 
 comment on function floods.crossing_human_coordinates(floods.crossing) is 'Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.';
 
+create function floods.crossing_geojson(crossing floods.crossing) returns text as $$
+  select ST_AsGeoJSON(crossing.coordinates);
+$$ language sql stable security definer;
+
+comment on function floods.crossing_geojson(floods.crossing) is 'Returns the geojson for a given point.';
+
 -- Create function to delete crossings
 -- TODO: all permissions stuff around this
 create function floods.remove_crossing(
@@ -838,5 +844,8 @@ grant execute on function floods.delete_status_duration(integer) to floods_super
 
 -- Allow all users to get the human coordinates of a crossing
 grant execute on function floods.crossing_human_coordinates(floods.crossing) to floods_anonymous;
+
+-- Allow all users to get the geojson coordinates of a crossing
+grant execute on function floods.crossing_geojson(floods.crossing) to floods_anonymous;
 
 commit;
