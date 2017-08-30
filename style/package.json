@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "mapbox-gl-style-lint": "^7.3.0"
+  }
+}
