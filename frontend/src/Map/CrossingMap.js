@@ -18,6 +18,9 @@ class CrossingMap extends React.Component {
       return (<div>Error Loading Crossings</div>);
     }
 
+    var openCrossings = this.props.data.allCrossings.nodes.filter((crossing) => crossing.statusUpdateByLatestStatusId.statusId === 1);
+    var closedCrossings = this.props.data.allCrossings.nodes.filter((crossing) => crossing.statusUpdateByLatestStatusId.statusId === 2);
+
     return (
       <Map
         style={mapboxstyle}
@@ -27,17 +30,32 @@ class CrossingMap extends React.Component {
           display: "block"
         }}
         center={[ -97.7237, 30.2328 ]}>
+
         <Layer
           type="symbol"
-          id="marker"
+          id="closedCrossings"
           layout={{ 'icon-image': 'cross-15', 'icon-allow-overlap': true }}
           >
-          {this.props.data.allCrossings.nodes.map((crossing, i) => {
-            // console.log(crossing.statusUpdateByLatestStatusId.statusId);
-            return(
-              <Feature key={i} coordinates={JSON.parse(crossing.geojson).coordinates}/>
-            )}
-          )}
+          {
+            closedCrossings.map((crossing, i) => {
+              return(
+                   <Feature key={i} coordinates={JSON.parse(crossing.geojson).coordinates}/>
+              )}
+            )
+          }
+        </Layer>
+        <Layer
+          type="symbol"
+          id="openCrossings"
+          layout={{ 'icon-image': 'circle-15', 'icon-allow-overlap': true }}
+          >
+          {
+            openCrossings.map((crossing, i) => {
+              return(
+                   <Feature key={i} coordinates={JSON.parse(crossing.geojson).coordinates}/>
+              )}
+            )
+          }
         </Layer>
       </Map>
     );
