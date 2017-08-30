@@ -19,10 +19,10 @@ class FloodsAdminRoutes extends Component {
   render() {
     return (
         <div>
-          <Route path="/" render={(props) => <Header currentUser={this.props.data.currentUser} {...props} />} />
+          <Route path="/dashboard" render={(props) => <Header currentUser={this.props.data.currentUser} {...props} />} />
           <Route path="/public" component={Public}/>
           <Route path="/crossings" component={AdminCrossingList}/>
-          <Route path="/map" component={CrossingMap}/>
+          <Route path="/dashboard/map" component={CrossingMap}/>
           <Route path="/login" component={Login}/>
           <PrivateRoute path="/dashboard/users" component={ManageUsers}
             authenticated={auth.isAuthenticated()}
