@@ -33,7 +33,7 @@
     "watch-css": "yarn run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "get-schema": "./stories/schema/getSchema.sh",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "yarn build-css; react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9001 -c .storybook"
   }
