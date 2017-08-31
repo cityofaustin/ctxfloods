@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import CrossingMap from '../../Map/CrossingMap'; 
 import './CrossingUpdates.css';
 
-
 class CrossingUpdates extends Component {
   state = {
     activeTab: 'list'
