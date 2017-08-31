@@ -14,7 +14,7 @@ create extension if not exists "postgis";
 create table floods.community (
   id               serial primary key,
   name             text not null check (char_length(name) < 200),
-  viewportgeojson  text not null
+  viewportgeojson  text
 );
 
 comment on table floods.community is 'A community defined by a geospatial area.';
