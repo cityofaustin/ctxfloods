@@ -3936,6 +3936,62 @@ insert into floods.community_crossing (id, community_id, crossing_id) values
 (2390, 9011, 2390);
 alter sequence floods.community_crossing_id_seq restart with 2391;
 
+-- Update community viewports based on crossings
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9001)
+  where id = 9001;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9002)
+  where id = 9002;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9003)
+  where id = 9003;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9004)
+  where id = 9004;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9005)
+  where id = 9005;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9001)
+  where id = 9006;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9007)
+  where id = 9007;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9008)
+  where id = 9008;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9009)
+  where id = 9009;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9010)
+  where id = 9010;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9011)
+  where id = 9011;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9012)
+  where id = 9012;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9013)
+  where id = 9013;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9014)
+  where id = 9014;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9015)
+  where id = 9015;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9016)
+  where id = 9016;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9017)
+  where id = 9017;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = 9018)
+  where id = 9018;
+
 -- Add status updates for the tons of crossings
 insert into floods.status_update (id, status_id, creator_id, crossing_id, notes, created_at) values
 (1001, 1, 1, 11, 'notes', '2017-09-03T09:27:57Z'),

@@ -456,6 +456,11 @@ begin
   insert into floods.community_crossing (community_id, crossing_id) values
     (community_id, floods_crossing.id);
 
+  -- Update the community viewport
+  update floods.community
+    set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = new_crossing.community_id)
+    where id = new_crossing.community_id;
+
   return floods_crossing;
 end;
 $$ language plpgsql strict security definer;
