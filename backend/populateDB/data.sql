@@ -1,10 +1,15 @@
 begin;
 
+-- Load Austin's geojson into a variable to use when creating communities
+create temporary table temp_json (value text) on commit drop;
+
+\copy temp_json from './geojson/austin.geojson';
+
 -- Add communities
-insert into floods.community (id, name) values
-  (1, 'All of Texas.'),
-  (2, 'Everywhere else.');
-alter sequence floods.community_id_seq restart with 3;
+alter sequence floods.community_id_seq restart with 1;
+select floods.new_community(text 'All of Texas', (select string_agg(value,' ') from temp_json));
+alter sequence floods.community_id_seq restart with 2;
+select floods.new_community(text 'Everywhere Else', (select string_agg(value,' ') from temp_json));
 
 -- Set the jwt claim settings so the register user function works
 -- Make sure they're local so we actually use the token outside of this script

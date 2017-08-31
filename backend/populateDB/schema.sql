@@ -13,12 +13,21 @@ create extension if not exists "postgis";
 -- Create the Communities table
 create table floods.community (
   id               serial primary key,
-  name             text not null check (char_length(name) < 200)
+  name             text not null check (char_length(name) < 200),
+  shape            geometry not null
 );
 
 comment on table floods.community is 'A community defined by a geospatial area.';
 comment on column floods.community.id is 'The primary unique identifier for the community.';
 comment on column floods.community.name is 'The name of the community.';
+comment on column floods.community.shape is 'The polygon representing the geographic area of the community.';
+
+-- Create the function to get the geojson for a given community
+create function floods.community_geojson(community floods.community) returns text as $$
+  select ST_AsGeoJSON(community.shape);
+$$ language sql stable security definer;
+
+comment on function floods.community_geojson(floods.community) is 'Gets the geojson of a given community.';
 
 -- Create the users table
 create table floods.user (
@@ -661,22 +670,24 @@ $$ language plpgsql strict security definer;
 
 comment on function floods.delete_status_duration(integer) is 'Deletes a status duration.';
 
--- Create function to create new communities
+-- comment on function floods.new_community(text, text) is 'Adds a community.';
 create function floods.new_community(
-  name text
+  name text,
+  geojson text
 ) returns floods.community as $$
 declare
   floods_community floods.community;
 begin
-  insert into floods.community (name) values
-    (name)
+  insert into floods.community (name, shape) values
+    (name, ST_GeomFromGeoJSON(geojson))
     returning * into floods_community;
 
   return floods_community;
 end;
 $$ language plpgsql strict security definer;
 
-comment on function floods.new_community(text) is 'Adds a community.';
+comment on function floods.new_community(text, text) is 'Adds a community.';
+
 
 -- Create function to change community names
 create function floods.change_community_name(
@@ -809,12 +820,15 @@ grant execute on function floods.new_status_update(integer, integer, text, integ
 -- NOTE: Extra logic around permissions in function
 grant execute on function floods.new_crossing(text, text, text, integer, decimal, decimal) to floods_community_editor;
 
+-- Allow all users to get the geojson of a community
+grant execute on function floods.community_geojson(floods.community) to floods_anonymous;
+
 -- Allow community admins and up to remove crossings
 -- NOTE: Extra logic around permissions in function
 grant execute on function floods.remove_crossing(integer) to floods_community_admin;
 
 -- Allow super admins to create/edit/delete communities
-grant execute on function floods.new_community(text) to floods_super_admin;
+grant execute on function floods.new_community(text, text) to floods_super_admin;
 grant execute on function floods.change_community_name(integer, text) to floods_super_admin;
 grant execute on function floods.delete_community(integer) to floods_super_admin;
 
