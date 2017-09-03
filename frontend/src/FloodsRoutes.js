@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import Login from './Login';
 import PrivateRoute from './PrivateRoute';
 import Header from './Dashboard/Header/Header';
@@ -14,20 +14,26 @@ import gql from 'graphql-tag';
 
 class FloodsRoutes extends Component {
   render() {
+    const currentUser = this.props.data && this.props.data.currentUser;
+    const redirectPath = auth.isAuthenticated() ? '/dashboard' : '/login';
     return (
         <div>
-          <Route path="/dashboard" render={(props) => <Header currentUser={this.props.data.currentUser} {...props} />} />
-          <Route path="/dashboard/map" component={CrossingMap} currentUser={this.props.data.currentUser}/>
+          <Route path="/" exact render={() => {
+            // TODO: Where do we redirect an authenticated non-admin?
+            return <Redirect to={{ pathname: redirectPath }} />
+          }}/>
+          <Route path="/dashboard" render={(props) => <Header currentUser={currentUser} {...props} />} />
+          <Route path="/dashboard/map" component={CrossingMap} currentUser={currentUser}/>
           <Route path="/login" component={Login}/>
           <PrivateRoute path="/dashboard/users" component={ManageUsers}
             authenticated={auth.isAuthenticated()}
             authorized={auth.roleAuthorized(['floods_community_admin', 'floods_super_admin'])}
-            currentUser={this.props.data.currentUser}
+            currentUser={currentUser}
           />
           <PrivateRoute path="/dashboard/crossings" component={CrossingUpdates}
             authenticated={auth.isAuthenticated()}
             authorized={auth.roleAuthorized(['floods_community_editor','floods_community_admin', 'floods_super_admin'])}
-            currentUser={this.props.data.currentUser}
+            currentUser={currentUser}
           />
         </div>
     );
@@ -49,4 +55,6 @@ const currentUser = gql`
   }
 `
 
-export default graphql(currentUser)(FloodsRoutes);
+export default graphql(currentUser, {
+  skip: (ownProps) => !auth.isAuthenticated()
+})(FloodsRoutes);
