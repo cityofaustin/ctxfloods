@@ -8,6 +8,9 @@ import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 const Map = ReactMapboxGl({ accessToken: null });
 
 class CrossingMap extends React.Component {
+  state = {
+    center: [null, null]
+  }
 
   onMapboxStyleLoad (map) {
     this.addGeoLocateControl(map);
@@ -24,6 +27,10 @@ class CrossingMap extends React.Component {
       watchPosition: true,
       showUserLocation: true
     }));
+  }
+
+  crossingClicked (crossing) {
+    this.setState({ center: crossing.feature.geometry.coordinates });
   }
 
   render () {
@@ -48,7 +55,8 @@ class CrossingMap extends React.Component {
           width: this.props.mapWidth,
           display: "block"
         }}
-        fitBounds={this.props.viewport}>
+        fitBounds={this.props.viewport}
+        center={this.state.center}>
 
         <Layer
           type="symbol"
@@ -58,7 +66,9 @@ class CrossingMap extends React.Component {
           {
             closedCrossings.map((crossing, i) => {
               return(
-                   <Feature key={i} coordinates={JSON.parse(crossing.geojson).coordinates}/>
+                   <Feature key={i}
+                            coordinates={JSON.parse(crossing.geojson).coordinates}
+                            onClick={this.crossingClicked.bind(this)}/>
               )}
             )
           }
@@ -71,7 +81,9 @@ class CrossingMap extends React.Component {
           {
             openCrossings.map((crossing, i) => {
               return(
-                   <Feature key={i} coordinates={JSON.parse(crossing.geojson).coordinates}/>
+                   <Feature key={i}
+                            coordinates={JSON.parse(crossing.geojson).coordinates}
+                            onClick={this.crossingClicked.bind(this)}/>
               )}
             )
           }
