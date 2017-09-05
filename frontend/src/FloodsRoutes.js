@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import Login from './Login';
 import PrivateRoute from './PrivateRoute';
 import Header from './Dashboard/Header/Header';
 import ManageUsers from './Dashboard/ManageUsersPage/ManageUsers';
@@ -23,7 +22,6 @@ class FloodsRoutes extends Component {
     return (
         <div>
           <Route path="/dashboard" render={(props) => <Header currentUser={currentUser} {...props} />} />
-          <Route path="/dashboard/login" component={Login}/>
           <PrivateRoute path="/dashboard/users" component={ManageUsers}
             authenticated={auth.isAuthenticated()}
             authorized={auth.roleAuthorized(['floods_community_admin', 'floods_super_admin'])}
