@@ -17,14 +17,6 @@ class CrossingMap extends React.Component {
     this.addGeoLocateControl(map);
   }
 
-  onMapClicked (map) {
-    if(this.state.selectedCrossingId) {
-      map.setFilter("selectedCrossing", ["==", "id", this.state.selectedCrossingId]);
-    }
-    
-    console.log("blarg");
-  }
-
   addGeoLocateControl (map) {
     map.addControl(new MapboxGl.GeolocateControl({
       positionOptions: {
@@ -55,13 +47,9 @@ class CrossingMap extends React.Component {
 
     const allCrossings = this.props.data.allCrossings.nodes;
 
-    var openCrossings = allCrossings.filter((crossing) => crossing.statusUpdateByLatestStatusId.statusId === 1);
-    var closedCrossings = allCrossings.filter((crossing) => crossing.statusUpdateByLatestStatusId.statusId === 2);
-
     return (
       <Map
         onStyleLoad={this.onMapboxStyleLoad.bind(this)}
-        onClick={this.onMapClicked.bind(this)}
         style={mapboxstyle}
         containerStyle={{
           height: this.props.mapHeight,
@@ -74,14 +62,21 @@ class CrossingMap extends React.Component {
           type="symbol"
           id="closedCrossings"
           layout={{ 'icon-image': 'cross-15', 'icon-allow-overlap': true }}
-          layerOptions={{"filter": ["!=", "id", this.state.selectedCrossingId]}}
+          layerOptions={{"filter":
+            [
+              "all",
+              ["!=", "id", this.state.selectedCrossingId],
+              ["==", "crossingStatus", 2]
+            ]
+          }}
           >
           {
-            closedCrossings.map((crossing, i) => {
+            allCrossings.map((crossing, i) => {
               return(
                    <Feature key={i}
                             coordinates={JSON.parse(crossing.geojson).coordinates}
-                            onClick={this.crossingClicked.bind(this)}/>
+                            onClick={this.crossingClicked.bind(this)}
+                            properties={{"crossingStatus": crossing.statusUpdateByLatestStatusId.statusId}}/>
               )}
             )
           }
@@ -90,14 +85,21 @@ class CrossingMap extends React.Component {
           type="symbol"
           id="openCrossings"
           layout={{ 'icon-image': 'circle-15', 'icon-allow-overlap': true }}
-          layerOptions={{"filter": ["!=", "id", this.state.selectedCrossingId]}}
+          layerOptions={{"filter":
+            [
+              "all",
+              ["!=", "id", this.state.selectedCrossingId],
+              ["==", "crossingStatus", 1]
+            ]
+          }}
           >
           {
-            openCrossings.map((crossing, i) => {
+            allCrossings.map((crossing, i) => {
               return(
                    <Feature key={i}
                             coordinates={JSON.parse(crossing.geojson).coordinates}
-                            onClick={this.crossingClicked.bind(this)}/>
+                            onClick={this.crossingClicked.bind(this)}
+                            properties={{"crossingStatus": crossing.statusUpdateByLatestStatusId.statusId}}/>
               )}
             )
           }
