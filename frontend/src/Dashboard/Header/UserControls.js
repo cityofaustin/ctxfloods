@@ -19,7 +19,7 @@ class UserControlsBase extends React.Component {
           }
           &nbsp; | &nbsp;
           <button
-            onClick={() => auth.signout(() => this.props.history.push('/login'))}
+            onClick={() => auth.signout(() => this.props.history.push('/dashboard/login'))}
             className="button-reset link"
           >
             Sign out
