@@ -8,6 +8,7 @@ import CreateUser from './CreateUser';
 import CrossingUpdates from './Dashboard/CrossingUpdatesPage/CrossingUpdates'
 import CrossingMap from './Map/CrossingMap';
 import NewStatusUpdate from './NewStatusUpdate';
+import PublicHomepage from './PublicHomepage';
 import auth from './services/gqlAuth';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -15,13 +16,10 @@ import gql from 'graphql-tag';
 class FloodsRoutes extends Component {
   render() {
     const currentUser = this.props.data && this.props.data.currentUser;
-    const redirectPath = auth.isAuthenticated() ? '/dashboard' : '/login';
+
     return (
         <div>
-          <Route path="/" exact render={() => {
-            // TODO: Where do we redirect an authenticated non-admin?
-            return <Redirect to={{ pathname: redirectPath }} />
-          }}/>
+          <Route path="/" exact component={PublicHomepage} />
           <Route path="/dashboard" render={(props) => <Header currentUser={currentUser} {...props} />} />
           <Route path="/dashboard/map" component={CrossingMap} currentUser={currentUser}/>
           <Route path="/login" component={Login}/>
