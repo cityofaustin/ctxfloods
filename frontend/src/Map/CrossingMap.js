@@ -17,6 +17,10 @@ class CrossingMap extends React.Component {
     this.addGeoLocateControl(map);
   }
 
+  onMapClick (map) {
+    this.setState({ selectedCrossingId: -1 });
+  }
+
   addGeoLocateControl (map) {
     map.addControl(new MapboxGl.GeolocateControl({
       positionOptions: {
@@ -30,7 +34,7 @@ class CrossingMap extends React.Component {
     }));
   }
 
-  crossingClicked (crossing) {
+  onCrossingClick (crossing) {
     this.setState({ selectedCrossingId: crossing.feature.properties.id });
     this.setState({ center: crossing.feature.geometry.coordinates });
   }
@@ -50,6 +54,7 @@ class CrossingMap extends React.Component {
     return (
       <Map
         onStyleLoad={this.onMapboxStyleLoad.bind(this)}
+        onClick={this.onMapClick.bind(this)}
         style={mapboxstyle}
         containerStyle={{
           height: this.props.mapHeight,
@@ -75,7 +80,7 @@ class CrossingMap extends React.Component {
               return(
                    <Feature key={i}
                             coordinates={JSON.parse(crossing.geojson).coordinates}
-                            onClick={this.crossingClicked.bind(this)}
+                            onClick={this.onCrossingClick.bind(this)}
                             properties={{"crossingStatus": crossing.statusUpdateByLatestStatusId.statusId}}/>
               )}
             )
@@ -98,7 +103,7 @@ class CrossingMap extends React.Component {
               return(
                    <Feature key={i}
                             coordinates={JSON.parse(crossing.geojson).coordinates}
-                            onClick={this.crossingClicked.bind(this)}
+                            onClick={this.onCrossingClick.bind(this)}
                             properties={{"crossingStatus": crossing.statusUpdateByLatestStatusId.statusId}}/>
               )}
             )
@@ -115,7 +120,7 @@ class CrossingMap extends React.Component {
               return(
                    <Feature key={i}
                             coordinates={JSON.parse(crossing.geojson).coordinates}
-                            onClick={this.crossingClicked.bind(this)}/>
+                            onClick={this.onCrossingClick.bind(this)}/>
               )}
             )
           }
