@@ -9,7 +9,7 @@ const Map = ReactMapboxGl({ accessToken: null });
 
 class CrossingMap extends React.Component {
   state = {
-    selectedCrossingId: -1,
+    selectedCrossingId: -1, // Mapbox filters don't support null values
     center: [null, null]
   }
 
