@@ -7,6 +7,10 @@ import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 
 const Map = ReactMapboxGl({ accessToken: null });
 
+const STATUS_OPEN = 1;
+const STATUS_CLOSED = 2;
+
+
 class CrossingMap extends React.Component {
   state = {
     selectedCrossingId: -1, // Mapbox filters don't support null values
@@ -71,7 +75,7 @@ class CrossingMap extends React.Component {
             [
               "all",
               ["!=", "id", this.state.selectedCrossingId],
-              ["==", "crossingStatus", 2]
+              ["==", "crossingStatus", STATUS_CLOSED]
             ]
           }}
           >
@@ -94,7 +98,7 @@ class CrossingMap extends React.Component {
             [
               "all",
               ["!=", "id", this.state.selectedCrossingId],
-              ["==", "crossingStatus", 1]
+              ["==", "crossingStatus", STATUS_OPEN]
             ]
           }}
           >
