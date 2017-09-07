@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Login from './Login';
 import PrivateRoute from './PrivateRoute';
 import Header from './Dashboard/Header/Header';
@@ -16,24 +16,27 @@ import gql from 'graphql-tag';
 class FloodsRoutes extends Component {
   render() {
     const currentUser = this.props.data && this.props.data.currentUser;
-
-    return (
-        <div>
-          <Route path="/" exact component={PublicHomepage} />
-          <Route path="/dashboard" render={(props) => <Header currentUser={currentUser} {...props} />} />
-          <Route path="/dashboard/map" component={CrossingMap} currentUser={currentUser}/>
-          <Route path="/login" component={Login}/>
-          <PrivateRoute path="/dashboard/users" component={ManageUsers}
-            authenticated={auth.isAuthenticated()}
-            authorized={auth.roleAuthorized(['floods_community_admin', 'floods_super_admin'])}
-            currentUser={currentUser}
-          />
-          <PrivateRoute path="/dashboard/crossings" component={CrossingUpdates}
-            authenticated={auth.isAuthenticated()}
-            authorized={auth.roleAuthorized(['floods_community_editor','floods_community_admin', 'floods_super_admin'])}
-            currentUser={currentUser}
-          />
-        </div>
+    
+    if (this.props.data && this.props.data.loading) {
+      return (<div>Loading</div>)
+    }
+              
+    <div>
+      <Route path="/" exact component={PublicHomepage} />
+      <Route path="/dashboard" render={(props) => <Header currentUser={currentUser} {...props} />} />
+      <Route path="/dashboard/map" component={CrossingMap} currentUser={currentUser}/>
+      <Route path="/login" component={Login}/>
+      <PrivateRoute path="/dashboard/users" component={ManageUsers}
+        authenticated={auth.isAuthenticated()}
+        authorized={auth.roleAuthorized(['floods_community_admin', 'floods_super_admin'])}
+        currentUser={currentUser}
+      />
+      <PrivateRoute path="/dashboard/crossings" component={CrossingUpdates}
+        authenticated={auth.isAuthenticated()}
+        authorized={auth.roleAuthorized(['floods_community_editor','floods_community_admin', 'floods_super_admin'])}
+        currentUser={currentUser}
+      />
+    </div>
     );
   }
 }
