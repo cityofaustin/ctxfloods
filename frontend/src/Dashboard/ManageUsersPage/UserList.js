@@ -41,18 +41,17 @@ class UserList extends React.Component {
       return (<div>Loading</div>)
     }
 
-    const { communityUsers, allUsers } = this.props.data;
+    const { communityUsers, allUsers, searchUsers } = this.props.data;
 
-    // if ((communityUsers == null) && (allUsers == null)) {
-    //   // TODO: add error logging
-    //   return (<div>Error Loading Users</div>);
-    // }
+    if ((communityUsers == null) && (allUsers == null) && (searchUsers == null)) {
+      // TODO: add error logging
+      return (<div>Error Loading Users</div>);
+    }
 
-    // const users = this.props.currentUser.role === "floods_super_admin"
-    //   ? allUsers
-    //   : communityUsers;
-
-    const users = searchUsers;
+    // TODO: Move this logic to backend. Have search_user query return only user within community.
+    const users = this.props.searchParam ? searchUsers :
+                  this.props.currentUser.role === "floods_super_admin" ? allUsers :
+                  communityUsers;
 
 
     const userData = users.nodes.map((user) => {
@@ -104,38 +103,31 @@ const searchUsers = gql`
     nodes {
       firstName
       lastName
+      role
       communityByCommunityId {
+        id
         name
       }
     }
   }
 }`;
 
-// export default compose(
-//   graphql(getUsers, {
-//     skip: (ownProps) => !ownProps.currentUser || ownProps.searchParam,
-//     options: (ownProps) => ({
-//       variables: {
-//         communityId: ownProps.currentUser.communityId,
-//         superUser: ownProps.currentUser.role === "floods_super_admin"
-//       }
-//     }),
-//   }),
-//   graphql(getFilteredUsers, {
-//     skip: (ownProps) => !ownProps.searchParam,
-//     options: {
-//       variables: {
-//         searchString: "super"
-//       }
-//     }
-//   })
-// )(UserList);
-
-export default graphql(searchUsers, {
-  skip: (ownProps) => !ownProps.searchParam,
-  options: {
-    variables: {
-      searchString: "super"
-    }
-  }
-})(UserList);
+export default compose(
+  graphql(getUsers, {
+    skip: (ownProps) => !ownProps.currentUser || ownProps.searchParam,
+    options: (ownProps) => ({
+      variables: {
+        communityId: ownProps.currentUser.communityId,
+        superUser: ownProps.currentUser.role === "floods_super_admin"
+      }
+    }),
+  }),
+  graphql(searchUsers, {
+    skip: (ownProps) => !ownProps.searchParam,
+    options: (ownProps) => ({
+      variables: {
+        searchString: ownProps.searchParam
+      }
+    })
+  })
+)(UserList);
