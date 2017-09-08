@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import Login from './Login';
+import { Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Header from './Dashboard/Header/Header';
 import ManageUsers from './Dashboard/ManageUsersPage/ManageUsers';
@@ -8,6 +7,7 @@ import CreateUser from './CreateUser';
 import CrossingUpdates from './Dashboard/CrossingUpdatesPage/CrossingUpdates'
 import CrossingMap from './Map/CrossingMap';
 import NewStatusUpdate from './NewStatusUpdate';
+import PublicHomepage from './PublicHomepage';
 import auth from './services/gqlAuth';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -15,27 +15,27 @@ import gql from 'graphql-tag';
 class FloodsRoutes extends Component {
   render() {
     const currentUser = this.props.data && this.props.data.currentUser;
-    const redirectPath = auth.isAuthenticated() ? '/dashboard' : '/login';
+
+    if (this.props.data && this.props.data.loading) {
+      return (<div>Loading</div>)
+    }
+
     return (
-        <div>
-          <Route path="/" exact render={() => {
-            // TODO: Where do we redirect an authenticated non-admin?
-            return <Redirect to={{ pathname: redirectPath }} />
-          }}/>
-          <Route path="/dashboard" render={(props) => <Header currentUser={currentUser} {...props} />} />
-          <Route path="/dashboard/map" component={CrossingMap} currentUser={currentUser}/>
-          <Route path="/login" component={Login}/>
-          <PrivateRoute path="/dashboard/users" component={ManageUsers}
-            authenticated={auth.isAuthenticated()}
-            authorized={auth.roleAuthorized(['floods_community_admin', 'floods_super_admin'])}
-            currentUser={currentUser}
-          />
-          <PrivateRoute path="/dashboard/crossings" component={CrossingUpdates}
-            authenticated={auth.isAuthenticated()}
-            authorized={auth.roleAuthorized(['floods_community_editor','floods_community_admin', 'floods_super_admin'])}
-            currentUser={currentUser}
-          />
-        </div>
+      <div>
+        <Route path="/" exact component={PublicHomepage} />
+        <Route path="/dashboard" render={(props) => <Header currentUser={currentUser} {...props} />} />
+        <Route path="/dashboard/map" component={CrossingMap} currentUser={currentUser}/>
+        <PrivateRoute path="/dashboard/users" component={ManageUsers}
+          authenticated={auth.isAuthenticated()}
+          authorized={auth.roleAuthorized(['floods_community_admin', 'floods_super_admin'])}
+          currentUser={currentUser}
+        />
+        <PrivateRoute path="/dashboard/crossings" component={CrossingUpdates}
+          authenticated={auth.isAuthenticated()}
+          authorized={auth.roleAuthorized(['floods_community_editor','floods_community_admin', 'floods_super_admin'])}
+          currentUser={currentUser}
+        />
+      </div>
     );
   }
 }
