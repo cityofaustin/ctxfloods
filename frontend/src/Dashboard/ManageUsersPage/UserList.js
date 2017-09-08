@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import Table from './Table';
 
@@ -42,16 +42,21 @@ class UserList extends React.Component {
     }
 
     const { communityUsers, allUsers } = this.props.data;
-    if ((communityUsers == null) && (allUsers == null)) {
-      // TODO: add error logging
-      return (<div>Error Loading Users</div>);
-    }
 
-    const users = this.props.currentUser.role === "floods_super_admin"
-      ? allUsers
-      : communityUsers;
+    // if ((communityUsers == null) && (allUsers == null)) {
+    //   // TODO: add error logging
+    //   return (<div>Error Loading Users</div>);
+    // }
+
+    // const users = this.props.currentUser.role === "floods_super_admin"
+    //   ? allUsers
+    //   : communityUsers;
+
+    const users = searchUsers;
+
 
     const userData = users.nodes.map((user) => {
+      console.log(user)
     	return [
         { isLinked: true, link: `/user/${user.id}`, content: `${user.firstName} ${user.lastName}` },
         this.parseRole(user.role),
@@ -93,12 +98,44 @@ const getUsers = gql`
   }
 `;
 
-export default graphql(getUsers, {
-  skip: (ownProps) => !ownProps.currentUser,
-  options: (ownProps) => ({
-    variables: {
-      communityId: ownProps.currentUser.communityId,
-      superUser: ownProps.currentUser.role === "floods_super_admin"
+const searchUsers = gql`
+  query searchUsers($searchString: String!) {
+  searchUsers(search: $searchString) {
+    nodes {
+      firstName
+      lastName
+      communityByCommunityId {
+        name
+      }
     }
-  }),
+  }
+}`;
+
+// export default compose(
+//   graphql(getUsers, {
+//     skip: (ownProps) => !ownProps.currentUser || ownProps.searchParam,
+//     options: (ownProps) => ({
+//       variables: {
+//         communityId: ownProps.currentUser.communityId,
+//         superUser: ownProps.currentUser.role === "floods_super_admin"
+//       }
+//     }),
+//   }),
+//   graphql(getFilteredUsers, {
+//     skip: (ownProps) => !ownProps.searchParam,
+//     options: {
+//       variables: {
+//         searchString: "super"
+//       }
+//     }
+//   })
+// )(UserList);
+
+export default graphql(searchUsers, {
+  skip: (ownProps) => !ownProps.searchParam,
+  options: {
+    variables: {
+      searchString: "super"
+    }
+  }
 })(UserList);
