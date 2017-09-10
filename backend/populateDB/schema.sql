@@ -319,7 +319,7 @@ comment on function floods.reactivate_user(integer, text, text, text) is 'Reacti
 -- Create function to search users
 -- TODO: plainto_tsquery probably won't do everything we need, so we'll need to implement something else to form a valid tsquery for search on the frontend
 create function floods.search_users(
-  search text,
+  search text default null,
   community integer default null
 ) returns setof floods.user as $$
   select resultuser
@@ -335,7 +335,7 @@ create function floods.search_users(
       u.community_id = c.id and
       (community is null or community = u.community_id)
   ) user_search
-  where user_search.document @@ plainto_tsquery(search);
+  where search is null or user_search.document @@ plainto_tsquery(search);
 $$ language sql stable security definer;
 
 comment on function floods.search_users(text, integer) is 'Searches users.';
