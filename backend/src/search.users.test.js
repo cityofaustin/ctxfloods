@@ -56,4 +56,38 @@ describe('When searching users', () => {
 
     expect(response.searchUsers.nodes).toMatchSnapshot();    
   });
+
+    it('should return all users when search string is null', async () => {
+    const response = await anonLokka.send(`
+      query($nullSearch:String) {
+        searchUsers(search: $nullSearch) {
+          nodes {
+            id
+          }
+        }
+      }
+    `,
+    {
+      nullSearch: null
+    });
+
+    expect(response.searchUsers.nodes).toMatchSnapshot();    
+  });
+
+  it('should filter by community correctly', async () => {
+    const response = await anonLokka.send(`
+      query($community:Int) {
+        searchUsers(community: $community) {
+          nodes {
+            id
+          }
+        }
+      }
+    `,
+    {
+      community: 2
+    });
+
+    expect(response.searchUsers.nodes).toMatchSnapshot();    
+  });
 });
