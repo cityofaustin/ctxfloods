@@ -41,21 +41,14 @@ class UserList extends React.Component {
       return (<div>Loading</div>)
     }
 
-    const { communityUsers, allUsers, searchUsers } = this.props.data;
+    const { searchUsers } = this.props.data;
 
-    if ((communityUsers == null) && (allUsers == null) && (searchUsers == null)) {
+    if (searchUsers == null) {
       // TODO: add error logging
       return (<div>Error Loading Users</div>);
     }
 
-    // TODO: Move this logic to backend. Have search_user query return only user within community.
-    const users = this.props.searchParam ? searchUsers :
-                  this.props.currentUser.role === "floods_super_admin" ? allUsers :
-                  communityUsers;
-
-
-    const userData = users.nodes.map((user) => {
-      console.log(user)
+    const userData = searchUsers.nodes.map((user) => {
     	return [
         { isLinked: true, link: `/user/${user.id}`, content: `${user.firstName} ${user.lastName}` },
         this.parseRole(user.role),
@@ -71,35 +64,9 @@ class UserList extends React.Component {
 
 }
 
-
-const getUsers = gql`
-  fragment UserData on User {
-    id
-    firstName
-    lastName
-    role
-    communityByCommunityId {
-      id
-      name
-    }
-  }
-  query allUsers($superUser: Boolean!, $communityId: Int!) {
-    allUsers @include(if: $superUser) {
-      nodes {
-        ...UserData
-      }
-    }
-    communityUsers: allUsers(condition: {communityId: $communityId}) @skip(if: $superUser) {
-      nodes {
-        ...UserData
-      }
-    }
-  }
-`;
-
 const searchUsers = gql`
-  query searchUsers($searchString: String!) {
-  searchUsers(search: $searchString) {
+  query searchUsers($searchString: String, $community: Int) {
+  searchUsers(search: $searchString, community: $community) {
     nodes {
       firstName
       lastName
@@ -112,22 +79,11 @@ const searchUsers = gql`
   }
 }`;
 
-export default compose(
-  graphql(getUsers, {
-    skip: (ownProps) => !ownProps.currentUser || ownProps.searchParam,
-    options: (ownProps) => ({
-      variables: {
-        communityId: ownProps.currentUser.communityId,
-        superUser: ownProps.currentUser.role === "floods_super_admin"
-      }
-    }),
-  }),
-  graphql(searchUsers, {
-    skip: (ownProps) => !ownProps.searchParam,
-    options: (ownProps) => ({
-      variables: {
-        searchString: ownProps.searchParam
-      }
-    })
+export default graphql(searchUsers, {
+  options: (ownProps) => ({
+    variables: {
+      searchString: ownProps.searchParam === "" ? null : ownProps.searchParam,
+      community: ownProps.currentUser.role === "floods_super_admin" ? null : ownProps.currentUser.communityId
+    }
   })
-)(UserList);
+})(UserList);
