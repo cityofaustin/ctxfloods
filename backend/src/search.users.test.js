@@ -96,7 +96,7 @@ describe('When searching users', () => {
       query($community:Int) {
         searchUsers(community: $community) {
           nodes {
-            id
+            communityId
           }
         }
       }
@@ -105,6 +105,7 @@ describe('When searching users', () => {
       community: 2
     });
 
-    expect(response.searchUsers.nodes).toMatchSnapshot();    
+    expect(response.searchUsers.nodes).toContainEqual({ communityId: 2 });
+    expect(response.searchUsers.nodes).not.toContainEqual({ communityId: 1 });     
   });
 });
