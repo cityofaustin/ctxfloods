@@ -34,7 +34,7 @@ const mapboxstyle = {
       "url": "https://free.tilehosting.com/data/v3.json?key=cixEixjbC0T2QH4xgsM7"
     }
   },
-  "sprite": "https://briaguya.github.io/positron-gl-style/sprite",
+  "sprite": "http://localhost:3000/mapboxstyle/sprite",
   "glyphs": "https://free.tilehosting.com/fonts/{fontstack}/{range}.pbf?key={key}",
   "layers": [
     {

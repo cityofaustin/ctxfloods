@@ -21,7 +21,7 @@ var adjustStyle = function(opts) {
   }
 
   if(opts.needSprite) {
-    style.sprite = "https://"+"TODO"+".github.io/"+"TODO"+"/sprite";
+    style.sprite = "http://localhost:3000/mapboxstyle/sprite";
   } else {
     delete style.sprite;
   }
