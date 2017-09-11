@@ -53,11 +53,11 @@ adjustStyle({
   needSprite: needSprite,
   langCfg: langCfg
 });
-fs.writeFileSync('public/mapboxstyle/style.json', JSON.stringify(style, null, 2), 'utf8');
+fs.writeFileSync('src/Map/mapboxstyle.json', JSON.stringify(style, null, 2), 'utf8');
 
 var style = JSON.parse(styleStr);
 adjustStyle({
   style: style,
   needSprite: needSprite
 });
-fs.writeFileSync('public/mapboxstyle/style-undecorated.json', JSON.stringify(style, null, 2), 'utf8');
+fs.writeFileSync('src/Map/mapboxstyle-undecorated.json', JSON.stringify(style, null, 2), 'utf8');
