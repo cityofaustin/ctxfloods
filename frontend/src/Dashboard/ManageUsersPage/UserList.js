@@ -35,8 +35,6 @@ class UserList extends React.Component {
   }
 
   render () {
-    console.log('inside UserList', this.props.searchParam)
-
     if (!this.props.data || this.props.data.loading) {
       return (<div>Loading</div>)
     }
