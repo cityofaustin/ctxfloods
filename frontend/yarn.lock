@@ -6554,7 +6554,7 @@ react-dom@15.5.4:
     object-assign "^4.1.0"
     prop-types "~15.5.7"
 
-react-dom@^16:
+react-dom@^16.0.0-rc.3:
   version "16.0.0-rc.3"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.0.0-rc.3.tgz#bd4e4d2abd464df5149a062b45fe796bbb804c2c"
   dependencies:
@@ -6720,7 +6720,7 @@ react-style-proptype@^3.0.0:
   dependencies:
     prop-types "^15.5.4"
 
-react-test-renderer@^16:
+react-test-renderer@^16.0.0-rc.3:
   version "16.0.0-rc.3"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.0.0-rc.3.tgz#1b9c8fa6743489602e27e5adae7d8c7468b01a45"
   dependencies:
@@ -6757,7 +6757,7 @@ react@15.5.4:
     object-assign "^4.1.0"
     prop-types "^15.5.7"
 
-react@^16:
+react@^16.0.0-rc.3:
   version "16.0.0-rc.3"
   resolved "https://registry.yarnpkg.com/react/-/react-16.0.0-rc.3.tgz#4a9df996326ba7185903d9fbed3149765e237e26"
   dependencies:
