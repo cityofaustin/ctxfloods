@@ -6,7 +6,7 @@ class CrossingMapPage extends Component {
 
   render() {
     const envelope = JSON.parse(this.props.currentUser.communityByCommunityId.viewportgeojson);
-    var viewport = [
+    const viewport = [
       [Math.min(...envelope.coordinates[0].map(arr => arr[0])), Math.min(...envelope.coordinates[0].map(arr => arr[1]))],
       [Math.max(...envelope.coordinates[0].map(arr => arr[0])), Math.max(...envelope.coordinates[0].map(arr => arr[1]))]
     ];
