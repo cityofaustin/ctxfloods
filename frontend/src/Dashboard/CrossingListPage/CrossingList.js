@@ -41,14 +41,14 @@ class CrossingList extends React.Component {
     if (!this.props.data || this.props.data.loading) {
       return (<div>Loading</div>)
     }
-    const allCrossings = this.props.data.allCrossings;
+    const allCrossings = this.props.data.allCrossings.nodes;
 
     if (allCrossings == null) {
       // TODO: add error logging
       return (<div>Error Loading Crossings</div>);
     }
 
-    const crossingData = allCrossings.nodes.map((crossing) => {
+    const crossingData = allCrossings.map((crossing) => {
       return [
         { isLinked: true, link: `#link`, content: crossing.name },
         crossing.statusUpdateByLatestStatusId.statusByStatusId.name,
@@ -90,4 +90,4 @@ const allCrossings = gql`
 `;
 
 
-export default graphql(allCrossings, {})(CrossingList);
+export default graphql(allCrossings)(CrossingList);
