@@ -3,9 +3,9 @@ import LinkButton from '../../LinkButton';
 import BulkActionsDropdown from '../Table/BulkActionsDropdown';
 import TableSearch from '../Table/TableSearch';
 import CrossingList from './CrossingList';
-import './ManageCrossings.css';
+import './CrossingListPage.css';
 
-class ManageCrossings extends Component {
+class CrossingListPage extends Component {
   constructor(props) {
     super(props);
     this.state = { searchParam: '' };
@@ -21,12 +21,6 @@ class ManageCrossings extends Component {
     return (
       <div className="ManageCrossings">
         <div className="flexcontainer">
-          <h1 className="ManageCrossings__h1">Manage Crossings</h1>
-          <div className="ManageCrossings__right-aligned-element">
-            <LinkButton url="/createcrossing" text="Add New" />
-          </div>
-        </div>
-        <div className="flexcontainer">
           <BulkActionsDropdown />
           <div className="ManageCrossings__right-aligned-element">
             <TableSearch handleSubmit={this.handleSubmit} />
@@ -40,4 +34,4 @@ class ManageCrossings extends Component {
 }
 
 
-export default ManageCrossings;
+export default CrossingListPage;
