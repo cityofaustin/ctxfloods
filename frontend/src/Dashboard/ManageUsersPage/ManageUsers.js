@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LinkButton from '../../LinkButton';
-import BulkActionsDropdown from './BulkActionsDropdown';
-import TableSearch from './TableSearch';
+import BulkActionsDropdown from '../Table/BulkActionsDropdown';
+import TableSearch from '../Table/TableSearch';
 import UserList from './UserList';
 import './ManageUsers.css';
 
