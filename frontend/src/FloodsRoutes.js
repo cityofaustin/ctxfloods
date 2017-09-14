@@ -6,6 +6,7 @@ import ManageUsers from './Dashboard/ManageUsersPage/ManageUsers';
 import CreateUser from './CreateUser';
 import CrossingUpdates from './Dashboard/CrossingUpdatesPage/CrossingUpdates'
 import CrossingMap from './Map/CrossingMap';
+import CrossingList from './List/CrossingList';
 import NewStatusUpdate from './NewStatusUpdate';
 import PublicHomepage from './PublicHomepage';
 import auth from './services/gqlAuth';

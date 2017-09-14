@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import CrossingMap from '../../Map/CrossingMap'; 
+import CrossingMap from '../../Map/CrossingMap';
+import CrossingList from '../../List/CrossingList';
 import './CrossingUpdates.css';
 
 class CrossingUpdates extends Component {
@@ -33,12 +34,14 @@ class CrossingUpdates extends Component {
           <div className="CrossingUpdates__tab--header"> | </div>
           <div className={this.getTabClass('map')} onClick={this.changeTab.bind(this,'map')}>MAP</div>
         </div>
-        {this.state.activeTab === 'map' ? 
+        {this.state.activeTab === 'map' ?
           <div className="CrossingUpdates__map-container">
             <CrossingMap mapHeight="80vh" mapWidth="80vw" viewport={viewport}/>
           </div>
         :
-          <div>LIST VIEW</div>
+          <div className="CrossingUpdates__list-container">LIST VIEW
+            <CrossingList/>
+          </div>
         }
       </div>
     );
