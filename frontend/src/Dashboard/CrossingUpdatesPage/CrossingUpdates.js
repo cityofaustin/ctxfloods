@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CrossingMap from '../../Map/CrossingMap';
-import CrossingList from '../../List/CrossingList';
+import ManageCrossings from '../List/ManageCrossings';
 import './CrossingUpdates.css';
 
 class CrossingUpdates extends Component {
@@ -39,8 +39,8 @@ class CrossingUpdates extends Component {
             <CrossingMap mapHeight="80vh" mapWidth="80vw" viewport={viewport}/>
           </div>
         :
-          <div className="CrossingUpdates__list-container">LIST VIEW
-            <CrossingList/>
+          <div className="CrossingUpdates__list-container">
+            <ManageCrossings/>
           </div>
         }
       </div>
