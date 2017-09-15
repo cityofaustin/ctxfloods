@@ -3,8 +3,10 @@ import { Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Header from './Dashboard/Header/Header';
 import ManageUsers from './Dashboard/ManageUsersPage/ManageUsers';
-import CrossingUpdates from './Dashboard/CrossingUpdatesPage/CrossingUpdates'
-import CrossingMap from './Map/CrossingMap';
+
+import CrossingMapPage from './Dashboard/CrossingMapPage/CrossingMapPage'
+import CrossingListPage from './Dashboard/CrossingListPage/CrossingListPage';
+
 import PublicHomepage from './PublicHomepage';
 import auth from './services/gqlAuth';
 import { graphql } from 'react-apollo';
@@ -22,13 +24,17 @@ class FloodsRoutes extends Component {
       <div>
         <Route path="/" exact component={PublicHomepage} />
         <Route path="/dashboard" render={(props) => <Header currentUser={currentUser} {...props} />} />
-        <Route path="/dashboard/map" component={CrossingMap} currentUser={currentUser}/>
         <PrivateRoute path="/dashboard/users" component={ManageUsers}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized(['floods_community_admin', 'floods_super_admin'])}
           currentUser={currentUser}
         />
-        <PrivateRoute path="/dashboard/crossings" component={CrossingUpdates}
+        <PrivateRoute path="/dashboard/crossings/map" component={CrossingMapPage}
+          authenticated={auth.isAuthenticated()}
+          authorized={auth.roleAuthorized(['floods_community_editor','floods_community_admin', 'floods_super_admin'])}
+          currentUser={currentUser}
+        />
+        <PrivateRoute path="/dashboard/crossings/list" component={CrossingListPage}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized(['floods_community_editor','floods_community_admin', 'floods_super_admin'])}
           currentUser={currentUser}
