@@ -1,3 +1,7 @@
+// This is used to generate the style.json for the map, 
+// for now it's just pointing to localhost for the sprites,
+// but in the future it will be updated to work correctly with AWS hosting
+
 // Forked from https://github.com/klokantech/gl-style-package-spec/blob/master/task/deploy.js
 // and https://github.com/klokantech/gl-style-package-spec/blob/master/task/transform.js
 
