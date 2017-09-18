@@ -32,7 +32,7 @@
     "start-local": "REACT_APP_AWS_ENDPOINT='http://localhost:5000/graphql' yarn run start",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "yarn run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "get-schema": "./stories/schema/getSchema.sh",
+    "get-schema": "./src/stories/schema/getSchema.sh",
     "build": "react-scripts build",
     "test": "yarn build-css; react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

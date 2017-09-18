@@ -1,4 +1,4 @@
-get-graphql-schema http://localhost:5000/graphql > ./stories/schema/schema.graphql;
-echo "const schema = \`" > ./stories/schema/schema.js;
-sed "s/\`/\'/g" ./stories/schema/schema.graphql >> ./stories/schema/schema.js;
-echo "\`; export default schema;" >> ./stories/schema/schema.js;
+get-graphql-schema http://localhost:5000/graphql > ./src/stories/schema/schema.graphql;
+echo "const schema = \`" > ./src/stories/schema/schema.js;
+sed "s/\`/\'/g" ./src/stories/schema/schema.graphql >> ./src/stories/schema/schema.js;
+echo "\`; export default schema;" >> ./src/stories/schema/schema.js;
