@@ -46,6 +46,7 @@ $closed-color: #FFCEC6;
 
 .StatusToggle__caution {
   @extend .StatusToggle;
+  font-size: 1.8em;
 }
 
 .StatusToggle__caution--selected {
@@ -56,12 +57,15 @@ $closed-color: #FFCEC6;
 
 .StatusToggle__closed {
   @extend .StatusToggle;
+  -webkit-text-stroke: 1px white;
+  font-size: 2.5em;
 }
 
 .StatusToggle__closed--selected {
   @extend .StatusToggle__closed;
   @extend .StatusToggle--selected;
   background-color: $closed-color;
+  -webkit-text-stroke: 1px $closed-color;
 }
 
 .StatusToggle__longterm {

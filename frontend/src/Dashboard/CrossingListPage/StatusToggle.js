@@ -39,7 +39,7 @@ class StatusToggle extends React.Component {
          <FontAwesome name='circle-o' />
         </div>
         <div className={"StatusToggle__caution" + (this.state.selectedStatus === STATUS_CAUTION ? "--selected" : "")}>
-         Δ 
+          <FontAwesome name='exclamation-triangle' />
         </div>
         <div className={"StatusToggle__closed" + (this.state.selectedStatus === STATUS_CLOSED ? "--selected" : "")}>
           <FontAwesome name='times' />
