@@ -1,6 +1,9 @@
 @import "../../css/flexbox";
 
 $container-height: 46px;
+$open-color: #ACF6EA;
+$caution-color: #F6F3AC;
+$closed-color: #FFCEC6;
 
 .StatusToggleContainer {
   @include flexcontainer;
@@ -20,18 +23,33 @@ $container-height: 46px;
 
 .StatusToggle__open--selected {
   @extend .StatusToggle__open;
-  background-color: #ACF6EA;
+  background-color: $open-color;
 }
 
 .StatusToggle__caution {
   @extend .StatusToggle;
 }
 
+.StatusToggle__caution--selected {
+  @extend .StatusToggle__caution;
+  background-color: $caution-color;
+}
+
 .StatusToggle__closed {
   @extend .StatusToggle;
+}
+
+.StatusToggle__closed--selected {
+  @extend .StatusToggle__closed;
+  background-color: $closed-color;
 }
 
 .StatusToggle__longterm {
   @extend .StatusToggle;
   text-decoration: underline;
+}
+
+.StatusToggle__longterm--selected {
+  @extend .StatusToggle__longterm;
+  background-color: $closed-color;
 }

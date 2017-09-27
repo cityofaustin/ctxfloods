@@ -7,6 +7,24 @@ const STATUS_CLOSED = Symbol("closed");
 const STATUS_LONGTERM = Symbol("longterm");
 
 class StatusToggle extends React.Component {
+  constructor(props) {
+    super(props);
+    switch (props.status) {
+      case 'open':
+        this.state = { selectedStatus: STATUS_OPEN }
+        break;
+      case 'caution':
+        this.state = { selectedStatus: STATUS_CAUTION }
+        break;
+      case 'closed':
+        this.state = { selectedStatus: STATUS_CLOSED }
+        break;
+      case 'longterm':
+        this.state = { selectedStatus: STATUS_LONGTERM }
+        break;
+    }
+  }
+
   state = {
     selectedStatus: STATUS_OPEN,
   }
