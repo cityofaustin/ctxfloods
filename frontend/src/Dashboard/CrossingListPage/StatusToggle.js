@@ -5,10 +5,10 @@ class StatusToggle extends React.Component {
 
   render () {
     return (
-      <div className="flexcontainer">
+      <div className="StatusToggleContainer">
         <div className="StatusToggle__open"> O </div>
         <div className="StatusToggle__caution"> Δ </div>
-        <div className="StatusToggle__closed"> x </div>
+        <div className="StatusToggle__closed"> X </div>
         <div className="StatusToggle__longterm"> X </div>
       </div>
     );
