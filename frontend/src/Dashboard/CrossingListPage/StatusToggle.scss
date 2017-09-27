@@ -1,0 +1,22 @@
+@import "../../css/flexbox";
+
+.StatusToggle {
+  @include flexitem;
+}
+
+.StatusToggle__open {
+  @extend .StatusToggle;
+  background-color: green;
+}
+
+.StatusToggle__caution {
+  @extend .StatusToggle;
+}
+
+.StatusToggle__closed {
+  @extend .StatusToggle;
+}
+
+.StatusToggle__longterm {
+  @extend .StatusToggle;
+}
