@@ -31,11 +31,14 @@ class StatusToggle extends React.Component {
 
   render () {
     return (
+      <div>
+      <img src={require('./example.png')} style={{width: "266px"}}/>
       <div className="StatusToggleContainer">
         <div className={"StatusToggle__open" + (this.state.selectedStatus === STATUS_OPEN ? "--selected" : "")}> O </div>
         <div className={"StatusToggle__caution" + (this.state.selectedStatus === STATUS_CAUTION ? "--selected" : "")}> Δ </div>
         <div className={"StatusToggle__closed" + (this.state.selectedStatus === STATUS_CLOSED ? "--selected" : "")}> X </div>
         <div className={"StatusToggle__longterm" + (this.state.selectedStatus === STATUS_LONGTERM ? "--selected" : "")}> X </div>
+      </div>
       </div>
     );
 

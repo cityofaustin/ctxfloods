@@ -3,6 +3,8 @@
 $container-height: 46px;
 
 $border-color: #D0CED7;
+$text-color: #D0CED7;
+$selected-text-color: #11022F;
 
 $open-color: #ACF6EA;
 $caution-color: #F6F3AC;
@@ -10,7 +12,7 @@ $closed-color: #FFCEC6;
 
 .StatusToggleContainer {
   @include flexcontainer;
-  width: 272px;
+  width: 258px;
   height: $container-height;
 }
 
@@ -19,44 +21,52 @@ $closed-color: #FFCEC6;
   text-align: center;
   line-height: $container-height;
   border: 1px solid $border-color;
+  border-right-style: none;
+  color: $text-color;
+}
+
+.StatusToggle--selected {
+  color: $selected-text-color;
 }
 
 .StatusToggle__open {
   @extend .StatusToggle;
-  border-right-style: none;
 }
 
 .StatusToggle__open--selected {
   @extend .StatusToggle__open;
+  @extend .StatusToggle--selected;
   background-color: $open-color;
 }
 
 .StatusToggle__caution {
   @extend .StatusToggle;
-  border-right-style: none;
 }
 
 .StatusToggle__caution--selected {
   @extend .StatusToggle__caution;
+  @extend .StatusToggle--selected;
   background-color: $caution-color;
 }
 
 .StatusToggle__closed {
   @extend .StatusToggle;
-  border-right-style: none;
 }
 
 .StatusToggle__closed--selected {
   @extend .StatusToggle__closed;
+  @extend .StatusToggle--selected;
   background-color: $closed-color;
 }
 
 .StatusToggle__longterm {
   @extend .StatusToggle;
   text-decoration: underline;
+  border-right-style: solid;
 }
 
 .StatusToggle__longterm--selected {
   @extend .StatusToggle__longterm;
+  @extend .StatusToggle--selected;
   background-color: $closed-color;
 }
