@@ -36,13 +36,13 @@ class StatusToggle extends React.Component {
       <img src={require('./example.png')} style={{width: "266px"}}/>
       <div className="StatusToggleContainer">
         <div className={"StatusToggle__open" + (this.state.selectedStatus === STATUS_OPEN ? "--selected" : "")}>
-         <FontAwesome name='circle-o' size='2x' />
+         <FontAwesome name='circle-o' />
         </div>
         <div className={"StatusToggle__caution" + (this.state.selectedStatus === STATUS_CAUTION ? "--selected" : "")}>
          Δ 
         </div>
         <div className={"StatusToggle__closed" + (this.state.selectedStatus === STATUS_CLOSED ? "--selected" : "")}>
-          <FontAwesome name='times' size='2x' />
+          <FontAwesome name='times' />
         </div>
         <div className={"StatusToggle__longterm" + (this.state.selectedStatus === STATUS_LONGTERM ? "--selected" : "")}>
          X 

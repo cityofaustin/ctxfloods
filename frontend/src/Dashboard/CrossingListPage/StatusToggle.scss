@@ -20,6 +20,7 @@ $closed-color: #FFCEC6;
 .StatusToggle {
   @include flexitem;
   text-align: center;
+  vertical-align: bottom;
   line-height: $container-height;
   border: 1px solid $border-color;
   border-right-style: none;
@@ -33,6 +34,8 @@ $closed-color: #FFCEC6;
 .StatusToggle__open {
   @extend .StatusToggle;
   border-radius: 8px 0px 0px 8px;
+  -webkit-text-stroke-width: 1.5px;
+  font-size: 1.8em;
 }
 
 .StatusToggle__open--selected {
