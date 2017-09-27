@@ -80,3 +80,7 @@ $closed-color: #FFCEC6;
   @extend .StatusToggle--selected;
   background-color: $closed-color;
 }
+
+.hover {
+  color: $selected-text-color;
+}
