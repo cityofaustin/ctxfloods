@@ -1,6 +1,9 @@
 @import "../../css/flexbox";
 
 $container-height: 46px;
+
+$border-color: #D0CED7;
+
 $open-color: #ACF6EA;
 $caution-color: #F6F3AC;
 $closed-color: #FFCEC6;
@@ -15,10 +18,12 @@ $closed-color: #FFCEC6;
   @include flexitem;
   text-align: center;
   line-height: $container-height;
+  border: 1px solid $border-color;
 }
 
 .StatusToggle__open {
   @extend .StatusToggle;
+  border-right-style: none;
 }
 
 .StatusToggle__open--selected {
@@ -28,6 +33,7 @@ $closed-color: #FFCEC6;
 
 .StatusToggle__caution {
   @extend .StatusToggle;
+  border-right-style: none;
 }
 
 .StatusToggle__caution--selected {
@@ -37,6 +43,7 @@ $closed-color: #FFCEC6;
 
 .StatusToggle__closed {
   @extend .StatusToggle;
+  border-right-style: none;
 }
 
 .StatusToggle__closed--selected {
