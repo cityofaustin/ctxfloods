@@ -26,23 +26,28 @@ class StatusToggle extends React.Component {
     }
   }
 
-  state = {
-    selectedStatus: STATUS_OPEN,
+  statusClicked(status) {
+    this.setState({ selectedStatus: status });
   }
 
   render () {
     return (
       <div className="StatusToggleContainer">
-        <div className={"StatusToggle__open" + (this.state.selectedStatus === STATUS_OPEN ? "--selected" : "")}>
-         <FontAwesome name='circle-o' />
+        <div 
+          className={"StatusToggle__open" + (this.state.selectedStatus === STATUS_OPEN ? "--selected" : "")}
+          onClick={this.statusClicked.bind(this, STATUS_OPEN)}>
+          <FontAwesome name='circle-o' />
         </div>
-        <div className={"StatusToggle__caution" + (this.state.selectedStatus === STATUS_CAUTION ? "--selected" : "")}>
+        <div className={"StatusToggle__caution" + (this.state.selectedStatus === STATUS_CAUTION ? "--selected" : "")}
+          onClick={this.statusClicked.bind(this, STATUS_CAUTION)}>
           <FontAwesome name='exclamation-triangle' />
         </div>
-        <div className={"StatusToggle__closed" + (this.state.selectedStatus === STATUS_CLOSED ? "--selected" : "")}>
+        <div className={"StatusToggle__closed" + (this.state.selectedStatus === STATUS_CLOSED ? "--selected" : "")}
+          onClick={this.statusClicked.bind(this, STATUS_CLOSED)}>
           <FontAwesome name='times' />
         </div>
-        <div className={"StatusToggle__longterm" + (this.state.selectedStatus === STATUS_LONGTERM ? "--selected" : "")}>
+        <div className={"StatusToggle__longterm" + (this.state.selectedStatus === STATUS_LONGTERM ? "--selected" : "")}
+          onClick={this.statusClicked.bind(this, STATUS_LONGTERM)}>
           <FontAwesome name='times' style={{ textDecoration: 'underline' }} />
         </div>
       </div>
