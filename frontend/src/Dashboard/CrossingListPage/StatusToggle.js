@@ -32,8 +32,6 @@ class StatusToggle extends React.Component {
 
   render () {
     return (
-      <div>
-      <img src={require('./example.png')} style={{width: "266px"}}/>
       <div className="StatusToggleContainer">
         <div className={"StatusToggle__open" + (this.state.selectedStatus === STATUS_OPEN ? "--selected" : "")}>
          <FontAwesome name='circle-o' />
@@ -48,11 +46,8 @@ class StatusToggle extends React.Component {
           <FontAwesome name='times' style={{ textDecoration: 'underline' }} />
         </div>
       </div>
-      </div>
     );
-
   }
-
 }
 
 export default StatusToggle;
