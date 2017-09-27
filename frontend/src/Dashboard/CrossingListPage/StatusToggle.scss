@@ -70,9 +70,9 @@ $closed-color: #FFCEC6;
 
 .StatusToggle__longterm {
   @extend .StatusToggle;
-  text-decoration: underline;
   border-right-style: solid;
   border-radius: 0px 8px 8px 0px;
+  font-size: 2em;
 }
 
 .StatusToggle__longterm--selected {

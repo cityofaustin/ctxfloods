@@ -45,7 +45,7 @@ class StatusToggle extends React.Component {
           <FontAwesome name='times' />
         </div>
         <div className={"StatusToggle__longterm" + (this.state.selectedStatus === STATUS_LONGTERM ? "--selected" : "")}>
-         X 
+          <FontAwesome name='times' style={{ textDecoration: 'underline' }} />
         </div>
       </div>
       </div>
