@@ -19,8 +19,6 @@ class CrossingListPage extends Component {
 
   render() {
     return (
-      <img src={'./example.png'}/>
-
       <div className="ManageCrossings">
         <div className="flexcontainer">
           <BulkActionsDropdown />
