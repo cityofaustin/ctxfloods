@@ -3,6 +3,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,200,200i,300,300i,400,400i,500,500i');
 
 .CrossingListItemContainer {
+  width: 1280px;
+  margin-top: 50px;
+}
+
+.CrossingListItemFlexContainer {
   @include flexcontainer;
   margin-left: 85px;
   margin-right: 85px;

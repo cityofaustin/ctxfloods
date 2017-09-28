@@ -10,14 +10,15 @@ class CrossingListItem extends React.Component {
 
   render () {
     return (
-      <div style={{width: "1280px"}}>
-        <img src={require('./example.png')} style={{"height":"348px"}} />
-          <div className="CrossingListItemContainer">
+      <div>
+      <img src={require('./example.png')} style={{"height":"348px"}} />
+      <div className="CrossingListItemContainer">
+          <div className="CrossingListItemFlexContainer">
             <div className="CrossingName">Spurlock Valley</div>
             <Location />
             <DateTime />
           </div>
-          <div className="CrossingListItemContainer">
+          <div className="CrossingListItemFlexContainer">
             <div className="flexitem">
               <div className="ControlLabel">Status: Open</div>
               <StatusToggle status={this.props.status} />
@@ -31,6 +32,7 @@ class CrossingListItem extends React.Component {
               <input className="NotesTextBox" type="text" />
             </div>
           </div>
+      </div>
       </div>
     );
   }
