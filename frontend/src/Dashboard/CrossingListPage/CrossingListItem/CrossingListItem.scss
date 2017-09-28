@@ -1,10 +1,11 @@
 @import "../../../css/flexbox";
 @import "../../../css/font-awesome/font-awesome.scss";
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,200,200i,300,300i,400,400i,500,500i');
 
 .CrossingListItemContainer {
   @include flexcontainer;
-  margin-left: 75px;
-  margin-right: 75px;
+  margin-left: 85px;
+  margin-right: 85px;
 }
 
 .CrossingName {
@@ -13,5 +14,5 @@
   color: #055eff;
   text-decoration: underline;
   font-family: "Roboto";
-  font-weight: 500;
+  letter-spacing: .2pt;
 }
