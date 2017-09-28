@@ -26,7 +26,10 @@ class CrossingListItem extends React.Component {
               <div className="ControlLabel">Reason</div>
               <Dropdown />
             </div>
-            <div className="flexitem">NOTES</div>
+            <div className="flexitem">
+              <div className="ControlLabel">Notes to the public</div>
+              <input className="NotesTextBox" type="text" />
+            </div>
           </div>
       </div>
     );
