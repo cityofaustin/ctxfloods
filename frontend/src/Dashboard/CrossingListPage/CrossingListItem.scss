@@ -1,0 +1,17 @@
+@import "../../css/flexbox";
+@import "../../css/font-awesome/font-awesome.scss";
+
+.CrossingListItemContainer {
+  @include flexcontainer;
+  margin-left: 75px;
+  margin-right: 75px;
+}
+
+.CrossingName {
+  @include flexitem;
+  font-size: 12pt;
+  color: #055eff;
+  text-decoration: underline;
+  font-family: "Roboto";
+  font-weight: 500;
+}
