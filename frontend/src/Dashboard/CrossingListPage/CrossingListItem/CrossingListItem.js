@@ -2,6 +2,7 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import Location from './Location';
 import DateTime from './DateTime';
+import StatusToggle from './StatusToggle';
 import './CrossingListItem.css';
 
 class CrossingListItem extends React.Component {
@@ -16,7 +17,10 @@ class CrossingListItem extends React.Component {
             <DateTime />
           </div>
           <div className="CrossingListItemContainer">
-            <div className="flexitem">STATUS</div>
+            <div className="flexitem">
+              <div className="StatusText">Status: Open</div>
+              <StatusToggle status={this.props.status} />
+            </div>
             <div className="flexitem">REASON</div>
             <div className="flexitem">NOTES</div>
           </div>
