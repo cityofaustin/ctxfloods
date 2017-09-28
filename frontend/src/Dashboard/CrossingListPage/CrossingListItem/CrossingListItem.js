@@ -1,6 +1,7 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import Location from './Location';
+import DateTime from './DateTime';
 import './CrossingListItem.css';
 
 class CrossingListItem extends React.Component {
@@ -12,7 +13,7 @@ class CrossingListItem extends React.Component {
           <div className="CrossingListItemContainer">
             <div className="CrossingName">Spurlock Valley</div>
             <Location />
-            <div className="flexitem">DATETIME</div>
+            <DateTime />
           </div>
           <div className="CrossingListItemContainer">
             <div className="flexitem">STATUS</div>
