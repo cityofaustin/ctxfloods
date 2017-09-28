@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import StatusToggle from '../Dashboard/CrossingListPage/StatusToggle'
+import StatusToggle from '../Dashboard/CrossingListPage/CrossingListItem/StatusToggle'
 
 storiesOf('Toggle Crossing Status', module)
   .add('Open', () => <StatusToggle status='open'/>)

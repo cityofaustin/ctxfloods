@@ -1,0 +1,5 @@
+@import "../../../css/flexbox";
+
+.Location {
+  @include flexitem;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import CrossingListItem from '../Dashboard/CrossingListPage/CrossingListItem'
+import CrossingListItem from '../Dashboard/CrossingListPage/CrossingListItem/CrossingListItem'
 
 storiesOf('Crossing List Item', module)
   .add('Open', () => <CrossingListItem status='open'/>)
