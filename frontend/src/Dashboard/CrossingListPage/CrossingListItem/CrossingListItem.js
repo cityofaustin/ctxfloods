@@ -3,6 +3,7 @@ import FontAwesome from 'react-fontawesome';
 import Location from './Location';
 import DateTime from './DateTime';
 import StatusToggle from './StatusToggle';
+import Dropdown from './Dropdown';
 import './CrossingListItem.css';
 
 class CrossingListItem extends React.Component {
@@ -18,10 +19,13 @@ class CrossingListItem extends React.Component {
           </div>
           <div className="CrossingListItemContainer">
             <div className="flexitem">
-              <div className="StatusText">Status: Open</div>
+              <div className="ControlLabel">Status: Open</div>
               <StatusToggle status={this.props.status} />
             </div>
-            <div className="flexitem">REASON</div>
+            <div className="flexitem">
+              <div className="ControlLabel">Reason</div>
+              <Dropdown />
+            </div>
             <div className="flexitem">NOTES</div>
           </div>
       </div>
