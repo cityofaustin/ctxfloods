@@ -32,6 +32,19 @@ class CrossingListItem extends React.Component {
               <input className="NotesTextBox" type="text" />
             </div>
           </div>
+          <div className="CrossingListItemFlexContainer">
+            <div className="flexitem" />
+            <div className="flexitem">
+              <div className="ControlLabel">Duration</div>
+              <Dropdown />
+            </div>
+            <div className="flexitem">
+              <div className="flexcontainer">
+                <div className="CancelButton">Cancel</div>
+                <div className="SaveButton">Save</div>
+              </div>
+            </div>
+          </div>
       </div>
       </div>
     );
