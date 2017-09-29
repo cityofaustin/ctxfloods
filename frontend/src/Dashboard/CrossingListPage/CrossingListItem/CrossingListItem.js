@@ -9,6 +9,20 @@ import './CrossingListItem.css';
 class CrossingListItem extends React.Component {
 
   render () {
+    var show = [];
+    switch(this.props.status) {
+      case 'open':
+        show = this.props.dirty ? ['cancelSave'] : [];
+        break;
+      case 'caution':
+      case 'closed':
+        show = this.props.dirty ? ['reason', 'cancelSave'] : ['reason'];
+        break;
+      case 'longterm':
+        show = this.props.dirty ? ['reason', 'duration', 'cancelSave'] : ['reason', 'duration'];
+        break;  
+    }
+
     return (
       <div>
       <img src={require('./example.png')} style={{"height":"348px"}} />
@@ -24,8 +38,13 @@ class CrossingListItem extends React.Component {
               <StatusToggle status={this.props.status} />
             </div>
             <div className="flexitem">
-              <div className="ControlLabel">Reason</div>
-              <Dropdown />
+              <div className={show.includes('reason') ? "" : "hidden"}>
+                <div className="ControlLabelContainer">
+                  <div className="ControlLabel">Reason</div>
+                  <div className="required">{this.props.dirty ? "Required" : ""}</div>
+                </div>
+                <Dropdown />
+              </div>
             </div>
             <div className="flexitem">
               <div className="ControlLabel">Notes to the public</div>
@@ -35,13 +54,17 @@ class CrossingListItem extends React.Component {
           <div className="CrossingListItemFlexContainer">
             <div className="flexitem" />
             <div className="flexitem">
-              <div className="ControlLabel">Duration</div>
-              <Dropdown />
+              <div className={show.includes('duration') ? "" : "hidden"}>
+                <div className="ControlLabel">Duration</div>
+                <Dropdown />
+              </div>
             </div>
             <div className="flexitem">
-              <div className="flexcontainer">
-                <div className="CancelButton">Cancel</div>
-                <div className="SaveButton">Save</div>
+              <div className={show.includes('cancelSave') ? "" : "hidden"}>
+                <div className="flexcontainer">              
+                  <div className="CancelButton">Cancel</div>
+                  <div className="SaveButton">Save</div>
+                </div>
               </div>
             </div>
           </div>
