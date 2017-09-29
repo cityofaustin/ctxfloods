@@ -11,14 +11,14 @@ class CrossingListItem extends React.Component {
   render () {
     var show = [];
     switch(this.props.status) {
-      case 'open':
+      case 'Open':
         show = this.props.dirty ? ['cancelSave'] : [];
         break;
-      case 'caution':
-      case 'closed':
+      case 'Caution':
+      case 'Closed':
         show = this.props.dirty ? ['reason', 'cancelSave'] : ['reason'];
         break;
-      case 'longterm':
+      case 'Long Term Closure':
         show = this.props.dirty ? ['reason', 'duration', 'cancelSave'] : ['reason', 'duration'];
         break;  
     }
@@ -34,7 +34,7 @@ class CrossingListItem extends React.Component {
           </div>
           <div className="CrossingListItemFlexContainer">
             <div className="flexitem">
-              <div className="ControlLabel">Status: Open</div>
+              <div className="ControlLabel">Status: {this.props.status}</div>
               <StatusToggle status={this.props.status} />
             </div>
             <div className="flexitem">
@@ -55,7 +55,10 @@ class CrossingListItem extends React.Component {
             <div className="flexitem" />
             <div className="flexitem">
               <div className={show.includes('duration') ? "" : "hidden"}>
-                <div className="ControlLabel">Duration</div>
+                <div className="ControlLabelContainer">
+                  <div className="ControlLabel">Duration</div>
+                  <div className="required">{this.props.dirty ? "Required" : ""}</div>
+                </div>
                 <Dropdown />
               </div>
             </div>
