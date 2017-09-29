@@ -26,7 +26,8 @@ class CrossingListItem extends React.Component {
     return (
       <div>
       <div style={{height: '12px', backgroundColor: '#f5f3f7'}}></div>
-      <div className="CrossingListItemContainer">
+      <div className={this.props.dirty ? "DirtyBorder" : ""}>
+        <div className="CrossingListItemContainer">
           <div className="CrossingListItemFlexContainer">
             <div className="CrossingName">Spurlock Valley</div>
             <Location />
@@ -51,7 +52,7 @@ class CrossingListItem extends React.Component {
               <input className="NotesTextBox" type="text" />
             </div>
           </div>
-          <div className="CrossingListItemFlexContainer">
+          <div className={show.includes('duration') || show.includes('cancelSave') ? "CrossingListItemFlexContainer" : ""}>
             <div className="flexitem" />
             <div className="flexitem">
               <div className={show.includes('duration') ? "" : "hidden"}>
@@ -71,6 +72,7 @@ class CrossingListItem extends React.Component {
               </div>
             </div>
           </div>
+        </div>
       </div>
       <div style={{height: '12px', backgroundColor: '#f5f3f7'}}></div>
       </div>

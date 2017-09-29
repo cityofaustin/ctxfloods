@@ -2,9 +2,14 @@
 @import "../../../css/font-awesome/font-awesome.scss";
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,200,200i,300,300i,400,400i,500,500i');
 
+.DirtyBorder {
+  border: 4px solid #40B3FF
+}
+
 .CrossingListItemContainer {
   width: 1280px;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .CrossingListItemFlexContainer {
