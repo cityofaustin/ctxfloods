@@ -1,30 +1,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import Table from '../Table/Table';
-
-
-const manageCrossingsHeaders = [{
-  title: '',
-  type: 'checkbox_select',
-}, {
-  title: 'Name',
-  isFilterale: true,
-  isSortable: true,
-}, {
-  title: 'Status',
-  isFilterale: true,
-  isSortable: true,
-}, {
-  title: 'Address',
-  isFilterale: false,
-  isSortable: false,
-}, {
-  title: 'Last Updated',
-  isFilterale: false,
-  isSortable: false,
-}];
-
+import CrossingListItem from './CrossingListItem/CrossingListItem'
 
 class CrossingList extends React.Component {
   // methods here
@@ -48,17 +25,10 @@ class CrossingList extends React.Component {
       return (<div>Error Loading Crossings</div>);
     }
 
-    const crossingData = allCrossings.map((crossing) => {
-      return [
-        { isLinked: true, link: `#link`, content: crossing.name },
-        crossing.statusUpdateByLatestStatusId.statusByStatusId.name,
-        crossing.humanAddress,
-        this.parseLastUpdate(crossing.statusUpdateByLatestStatusId)
-      ]
-    });
-
     return (
-      <Table data={crossingData} headers={manageCrossingsHeaders} checkboxColumn={true} />
+      <div>
+        {allCrossings.map(crossing => <CrossingListItem crossing={crossing} />)}
+      </div>
     );
 
   }
