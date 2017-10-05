@@ -16,14 +16,14 @@ statusStrings.set(statusConstants.LONGTERM, 'Long Term Closure');
 class CrossingListItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selectedStatus: props.savedStatus };
+    this.state = { selectedStatus: props.crossing.statusUpdateByLatestStatusId.statusId };
   }
 
   isDirty() {
     // Temporary fix for storybook
     if(this.props.dirty) return true;
 
-    return (this.props.savedStatus !== this.state.selectedStatus);
+    return (this.props.crossing.statusUpdateByLatestStatusId.statusId !== this.state.selectedStatus);
   }
 
   openClicked = () => { this.setState({ selectedStatus: statusConstants.OPEN }) };
@@ -32,6 +32,10 @@ class CrossingListItem extends React.Component {
   longtermClicked = () => { this.setState({ selectedStatus: statusConstants.LONGTERM }) };
 
   render () {
+    // console.log(this.props.crossing.statusUpdateByLatestStatusId.statusId);
+    // console.log(this.props.crossing);
+    // debugger;
+
     var show = [];
     switch(this.state.selectedStatus) {
       case statusConstants.OPEN:

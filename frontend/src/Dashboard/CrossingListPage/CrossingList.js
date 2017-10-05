@@ -44,10 +44,7 @@ const allCrossings = gql`
         description
         humanAddress
         statusUpdateByLatestStatusId {
-          statusByStatusId {
-            id
-            name
-          }
+          statusId
           createdAt
           userByCreatorId {
             firstName
