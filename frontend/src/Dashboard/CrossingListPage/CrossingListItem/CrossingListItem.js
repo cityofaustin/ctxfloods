@@ -5,20 +5,30 @@ import DateTime from './DateTime';
 import StatusToggle from './StatusToggle';
 import Dropdown from './Dropdown';
 import './CrossingListItem.css';
+import * as statusConstants from './StatusConstants';
 
 class CrossingListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { selectedStatus: props.savedStatus };
+  }
+
+  openClicked = () => { this.setState({ selectedStatus: statusConstants.OPEN }) };
+  cautionClicked = () => { this.setState({ selectedStatus: statusConstants.CAUTION }) };
+  closedClicked = () => { this.setState({ selectedStatus: statusConstants.CLOSED }) };
+  longtermClicked = () => { this.setState({ selectedStatus: statusConstants.LONGTERM }) };
 
   render () {
     var show = [];
-    switch(this.props.status) {
-      case 'Open':
+    switch(this.state.selectedStatus) {
+      case statusConstants.OPEN:
         show = this.props.dirty ? ['cancelSave'] : [];
         break;
-      case 'Caution':
-      case 'Closed':
+      case statusConstants.CAUTION:
+      case statusConstants.CLOSED:
         show = this.props.dirty ? ['reason', 'cancelSave'] : ['reason'];
         break;
-      case 'Long Term Closure':
+      case statusConstants.LONGTERM:
         show = this.props.dirty ? ['reason', 'duration', 'cancelSave'] : ['reason', 'duration'];
         break;  
     }
@@ -36,7 +46,12 @@ class CrossingListItem extends React.Component {
           <div className="CrossingListItemFlexContainer">
             <div className="flexitem">
               <div className="ControlLabel">Status: {this.props.status}</div>
-              <StatusToggle status={this.props.status} />
+              <StatusToggle 
+                status={this.state.selectedStatus}
+                openClicked={this.openClicked}
+                cautionClicked={this.cautionClicked}
+                closedClicked={this.closedClicked}
+                longtermClicked={this.longtermClicked} />
             </div>
             <div className="flexitem">
               <div className={show.includes('reason') ? "" : "hidden"}>
