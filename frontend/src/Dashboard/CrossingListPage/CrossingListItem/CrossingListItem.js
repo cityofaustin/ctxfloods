@@ -7,6 +7,12 @@ import Dropdown from './Dropdown';
 import './CrossingListItem.css';
 import * as statusConstants from './StatusConstants';
 
+const statusStrings = new Map();
+statusStrings.set(statusConstants.OPEN, 'Open');
+statusStrings.set(statusConstants.CAUTION, 'Caution');
+statusStrings.set(statusConstants.CLOSED, 'Closed');
+statusStrings.set(statusConstants.LONGTERM, 'Long Term Closure');
+
 class CrossingListItem extends React.Component {
   constructor(props) {
     super(props);
@@ -52,7 +58,7 @@ class CrossingListItem extends React.Component {
           </div>
           <div className="CrossingListItemFlexContainer">
             <div className="flexitem">
-              <div className="ControlLabel">Status: {this.props.status}</div>
+              <div className="ControlLabel">Status: {statusStrings.get(this.state.selectedStatus)}</div>
               <StatusToggle 
                 status={this.state.selectedStatus}
                 openClicked={this.openClicked}
