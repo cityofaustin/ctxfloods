@@ -13,6 +13,13 @@ class CrossingListItem extends React.Component {
     this.state = { selectedStatus: props.savedStatus };
   }
 
+  isDirty() {
+    // Temporary fix for storybook
+    if(this.props.dirty) return true;
+
+    return (this.props.savedStatus !== this.state.selectedStatus);
+  }
+
   openClicked = () => { this.setState({ selectedStatus: statusConstants.OPEN }) };
   cautionClicked = () => { this.setState({ selectedStatus: statusConstants.CAUTION }) };
   closedClicked = () => { this.setState({ selectedStatus: statusConstants.CLOSED }) };
@@ -22,21 +29,21 @@ class CrossingListItem extends React.Component {
     var show = [];
     switch(this.state.selectedStatus) {
       case statusConstants.OPEN:
-        show = this.props.dirty ? ['cancelSave'] : [];
+        show = this.isDirty() ? ['cancelSave'] : [];
         break;
       case statusConstants.CAUTION:
       case statusConstants.CLOSED:
-        show = this.props.dirty ? ['reason', 'cancelSave'] : ['reason'];
+        show = this.isDirty() ? ['reason', 'cancelSave'] : ['reason'];
         break;
       case statusConstants.LONGTERM:
-        show = this.props.dirty ? ['reason', 'duration', 'cancelSave'] : ['reason', 'duration'];
+        show = this.isDirty() ? ['reason', 'duration', 'cancelSave'] : ['reason', 'duration'];
         break;  
     }
 
     return (
       <div>
       <div style={{height: '12px', backgroundColor: '#f5f3f7'}}></div>
-      <div className={this.props.dirty ? "DirtyBorder" : ""}>
+      <div className={this.isDirty() ? "DirtyBorder" : ""}>
         <div className="CrossingListItemContainer">
           <div className="CrossingListItemFlexContainer">
             <div className="CrossingName">Spurlock Valley</div>
@@ -57,7 +64,7 @@ class CrossingListItem extends React.Component {
               <div className={show.includes('reason') ? "" : "hidden"}>
                 <div className="ControlLabelContainer">
                   <div className="ControlLabel">Reason</div>
-                  <div className="required">{this.props.dirty ? "Required" : ""}</div>
+                  <div className="required">{this.isDirty() ? "Required" : ""}</div>
                 </div>
                 <Dropdown />
               </div>
@@ -73,7 +80,7 @@ class CrossingListItem extends React.Component {
               <div className={show.includes('duration') ? "" : "hidden"}>
                 <div className="ControlLabelContainer">
                   <div className="ControlLabel">Duration</div>
-                  <div className="required">{this.props.dirty ? "Required" : ""}</div>
+                  <div className="required">{this.isDirty() ? "Required" : ""}</div>
                 </div>
                 <Dropdown />
               </div>
