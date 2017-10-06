@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import CrossingListItem from './CrossingListItem/CrossingListItem'
 
@@ -15,19 +15,25 @@ class CrossingList extends React.Component {
   state = {}
 
   render () {
-    if (!this.props.data || this.props.data.loading) {
+    if ( !this.props.crossingsQuery ||
+          this.props.crossingsQuery.loading ||
+         !this.props.statusReasonsQuery ||
+          this.props.statusReasonsQuery.loading) {
       return (<div>Loading</div>)
     }
-    const allCrossings = this.props.data.allCrossings.nodes;
 
-    if (allCrossings == null) {
+    // debugger;
+    const crossings = this.props.crossingsQuery.allCrossings.nodes;
+    const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
+
+    if (crossings == null || statusReasons == null) {
       // TODO: add error logging
       return (<div>Error Loading Crossings</div>);
     }
 
     return (
       <div>
-        {allCrossings.map(crossing => <CrossingListItem crossing={crossing} />)}
+        {crossings.map(crossing => <CrossingListItem crossing={crossing} />)}
       </div>
     );
 
@@ -35,7 +41,7 @@ class CrossingList extends React.Component {
 
 }
 
-const allCrossings = gql`
+const crossingsQuery = gql`
   query allCrossings {
     allCrossings {
       nodes {
@@ -63,5 +69,18 @@ const allCrossings = gql`
   }
 `;
 
+const statusReasonsQuery = gql`
+  query allStatusReasons {
+    allStatusReasons {
+      nodes {
+        id
+        name
+      }
+    }
+  }
+`;
 
-export default graphql(allCrossings)(CrossingList);
+export default compose(
+  graphql(crossingsQuery, { name: 'crossingsQuery' }),
+  graphql(statusReasonsQuery, { name: 'statusReasonsQuery' })
+)(CrossingList);

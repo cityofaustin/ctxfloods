@@ -7,7 +7,6 @@ class DateTime extends React.Component {
   render () {
     const { update } = this.props;
     const user = update.userByCreatorId;
-    debugger;
 
     return (
       <div className="DateTimeContainer">
