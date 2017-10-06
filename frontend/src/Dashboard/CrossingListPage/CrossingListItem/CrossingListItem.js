@@ -56,7 +56,7 @@ class CrossingListItem extends React.Component {
       <div className={this.isDirty() ? "DirtyBorder" : ""}>
         <div className="CrossingListItemContainer">
           <div className="CrossingListItemFlexContainer">
-            <div className="CrossingName">Spurlock Valley</div>
+            <div className="CrossingName">{this.props.crossing.name}</div>
             <Location />
             <DateTime />
           </div>
