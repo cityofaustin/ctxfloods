@@ -26,7 +26,11 @@ class CrossingListItem extends React.Component {
     // Temporary fix for storybook
     if(this.props.dirty) return true;
 
-    return (this.props.crossing.statusUpdateByLatestStatusId.statusId !== this.state.selectedStatus);
+    const savedStatus = this.props.crossing.statusUpdateByLatestStatusId.statusId;
+    const savedReason = this.props.crossing.statusUpdateByLatestStatusId.statusReasonId;
+
+    return (savedStatus != this.state.selectedStatus ||
+            savedReason != this.state.selectedReason);
   }
 
   openClicked = () => { this.setState({ selectedStatus: statusConstants.OPEN }) };
@@ -34,7 +38,7 @@ class CrossingListItem extends React.Component {
   closedClicked = () => { this.setState({ selectedStatus: statusConstants.CLOSED }) };
   longtermClicked = () => { this.setState({ selectedStatus: statusConstants.LONGTERM }) };
 
-  reasonChanged = () => { console.log('blarg') };
+  reasonChanged = (e) => { this.setState({ selectedReason: e.target.value }) };
 
   render () {
     // console.log(this.props.crossing.statusUpdateByLatestStatusId.statusId);
