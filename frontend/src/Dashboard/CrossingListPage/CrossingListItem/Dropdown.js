@@ -5,7 +5,6 @@ class Dropdown extends Component {
 
   render() {
     const { selected, options } = this.props;
-    if(selected == null) return "blarg";
     // debugger;
 
     return (

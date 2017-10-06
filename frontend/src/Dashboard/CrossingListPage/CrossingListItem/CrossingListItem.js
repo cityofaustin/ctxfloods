@@ -18,7 +18,8 @@ class CrossingListItem extends React.Component {
     super(props);
     this.state = {
       selectedStatus: props.crossing.statusUpdateByLatestStatusId.statusId,
-      selectedReason: props.crossing.statusUpdateByLatestStatusId.statusReasonId
+      selectedReason: props.crossing.statusUpdateByLatestStatusId.statusReasonId,
+      selectedDuration: props.crossing.statusUpdateByLatestStatusId.statusDurationId
     };
   }
 
@@ -28,9 +29,11 @@ class CrossingListItem extends React.Component {
 
     const savedStatus = this.props.crossing.statusUpdateByLatestStatusId.statusId;
     const savedReason = this.props.crossing.statusUpdateByLatestStatusId.statusReasonId;
+    const savedDuration = this.props.crossing.statusUpdateByLatestStatusId.statusDurationId;
 
     return (savedStatus != this.state.selectedStatus ||
-            savedReason != this.state.selectedReason);
+            savedReason != this.state.selectedReason ||
+            savedDuration != this.state.selectedDuration);
   }
 
   openClicked = () => { this.setState({ selectedStatus: statusConstants.OPEN }) };
@@ -45,7 +48,7 @@ class CrossingListItem extends React.Component {
     // console.log(this.props.crossing);
     // debugger;
 
-    const { crossing, reasons } = this.props;
+    const { crossing, reasons, durations } = this.props;
     // debugger;
 
     var show = [];
@@ -107,7 +110,10 @@ class CrossingListItem extends React.Component {
                   <div className="ControlLabel">Duration</div>
                   <div className="required">{this.isDirty() ? "Required" : ""}</div>
                 </div>
-                <Dropdown />
+                <Dropdown
+                  options={durations}
+                  selected={this.state.selectedDuration}
+                  onChange={this.durationChanged} />
               </div>
             </div>
             <div className="flexitem">

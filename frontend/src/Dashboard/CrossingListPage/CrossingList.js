@@ -18,15 +18,18 @@ class CrossingList extends React.Component {
     if ( !this.props.crossingsQuery ||
           this.props.crossingsQuery.loading ||
          !this.props.statusReasonsQuery ||
-          this.props.statusReasonsQuery.loading) {
+          this.props.statusReasonsQuery.loading ||
+         !this.props.statusDurationsQuery ||
+          this.props.statusDurationsQuery.loading) {
       return (<div>Loading</div>)
     }
 
     // debugger;
     const crossings = this.props.crossingsQuery.allCrossings.nodes;
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
+    const statusDurations = this.props.statusDurationsQuery.allStatusDurations.nodes;
 
-    if (crossings == null || statusReasons == null) {
+    if (crossings == null || statusReasons == null || statusDurations == null) {
       // TODO: add error logging
       return (<div>Error Loading Crossings</div>);
     }
@@ -36,7 +39,8 @@ class CrossingList extends React.Component {
         {crossings.map(crossing => 
           <CrossingListItem
             crossing={crossing}
-            reasons={statusReasons} />
+            reasons={statusReasons} 
+            durations={statusDurations} />
         )}
       </div>
     );
@@ -56,6 +60,7 @@ const crossingsQuery = gql`
         statusUpdateByLatestStatusId {
           statusId
           statusReasonId
+          statusDurationId
           createdAt
           userByCreatorId {
             firstName
@@ -85,7 +90,19 @@ const statusReasonsQuery = gql`
   }
 `;
 
+const statusDurationsQuery = gql`
+  query allStatusDurations {
+    allStatusDurations {
+      nodes {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export default compose(
   graphql(crossingsQuery, { name: 'crossingsQuery' }),
-  graphql(statusReasonsQuery, { name: 'statusReasonsQuery' })
+  graphql(statusReasonsQuery, { name: 'statusReasonsQuery' }),
+  graphql(statusDurationsQuery, { name: 'statusDurationsQuery' })
 )(CrossingList);
