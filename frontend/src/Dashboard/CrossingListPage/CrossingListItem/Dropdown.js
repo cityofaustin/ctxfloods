@@ -4,6 +4,10 @@ import './Dropdown.css'
 class Dropdown extends Component {
 
   render() {
+    const { selected, options } = this.props;
+    if(selected == null) return "blarg";
+    debugger;
+
     return (
       <div className="Dropdown">
         <select 
@@ -11,9 +15,11 @@ class Dropdown extends Component {
           name=""
           id=""
           onChange={this.props.onChange}>
-          <option value="" disabled>Options</option>
-          <option value="1">First</option>
-          <option value="2">Second</option>
+          {options.map(opt => 
+            <option value={opt.id} selected={opt.id === selected}>
+              {opt.name}
+            </option>
+          )}
         </select>
       </div>
     );

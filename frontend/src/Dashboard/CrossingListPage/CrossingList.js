@@ -33,7 +33,11 @@ class CrossingList extends React.Component {
 
     return (
       <div>
-        {crossings.map(crossing => <CrossingListItem crossing={crossing} />)}
+        {crossings.map(crossing => 
+          <CrossingListItem
+            crossing={crossing}
+            reasons={statusReasons} />
+        )}
       </div>
     );
 
@@ -51,6 +55,7 @@ const crossingsQuery = gql`
         humanAddress
         statusUpdateByLatestStatusId {
           statusId
+          statusReasonId
           createdAt
           userByCreatorId {
             firstName
