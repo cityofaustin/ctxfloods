@@ -51,6 +51,13 @@ const allCrossings = gql`
             lastName
           }
         }
+        communityCrossingsByCrossingId {
+          nodes {
+            communityByCommunityId {
+              name
+            }
+          }
+        }
       }
     }
   }

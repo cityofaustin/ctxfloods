@@ -36,6 +36,9 @@ class CrossingListItem extends React.Component {
     // console.log(this.props.crossing);
     // debugger;
 
+    const { crossing } = this.props;
+    // debugger;
+
     var show = [];
     switch(this.state.selectedStatus) {
       case statusConstants.OPEN:
@@ -56,8 +59,8 @@ class CrossingListItem extends React.Component {
       <div className={this.isDirty() ? "DirtyBorder" : ""}>
         <div className="CrossingListItemContainer">
           <div className="CrossingListItemFlexContainer">
-            <div className="CrossingName">{this.props.crossing.name}</div>
-            <Location />
+            <div className="CrossingName">{crossing.name}</div>
+            <Location crossing={ crossing } />
             <DateTime />
           </div>
           <div className="CrossingListItemFlexContainer">

@@ -26,7 +26,7 @@ select floods.register_user(text 'Inactive', text 'User', text 'Retired', intege
 
 -- Add crossings
 insert into floods.crossing (id, name, human_address, description, coordinates, geojson) values
-  (1, 'park', 'at the park', 'Crossing at the park', ST_MakePoint(-97.768, 30.267), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.267))),
+  (1, 'Spurlock Valley', '605 Spurlock Valley · West Lake Hills, TX 78746', 'E of Intersection w/ Clifford', ST_MakePoint(-97.768, 30.267), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.267))),
   (2, 'school', 'at the school', 'Crossing at the school', ST_MakePoint(-97.768, 30.267), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.267))),
   (3, 'library', 'at the library', 'Crossing at the library', ST_MakePoint(-97.768, 30.267), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.267))),
   (4, 'capitol', 'at the capitol', 'Crossing at the capitol', ST_MakePoint(-97.768, 30.267), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.267))),
