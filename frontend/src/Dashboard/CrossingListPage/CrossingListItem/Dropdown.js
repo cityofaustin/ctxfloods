@@ -6,7 +6,11 @@ class Dropdown extends Component {
   render() {
     return (
       <div className="Dropdown">
-        <select className="Dropdown__select" name="" id="">
+        <select 
+          className="Dropdown__select"
+          name=""
+          id=""
+          onChange={this.props.onChange}>
           <option value="" disabled>Options</option>
           <option value="1">First</option>
           <option value="2">Second</option>

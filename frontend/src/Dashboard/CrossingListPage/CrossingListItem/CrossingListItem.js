@@ -31,6 +31,8 @@ class CrossingListItem extends React.Component {
   closedClicked = () => { this.setState({ selectedStatus: statusConstants.CLOSED }) };
   longtermClicked = () => { this.setState({ selectedStatus: statusConstants.LONGTERM }) };
 
+  reasonChanged = () => { console.log('blarg') };
+
   render () {
     // console.log(this.props.crossing.statusUpdateByLatestStatusId.statusId);
     // console.log(this.props.crossing);
@@ -79,7 +81,7 @@ class CrossingListItem extends React.Component {
                   <div className="ControlLabel">Reason</div>
                   <div className="required">{this.isDirty() ? "Required" : ""}</div>
                 </div>
-                <Dropdown />
+                <Dropdown onChange={this.reasonChanged} />
               </div>
             </div>
             <div className="flexitem">
