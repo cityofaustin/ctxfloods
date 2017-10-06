@@ -61,7 +61,7 @@ class CrossingListItem extends React.Component {
           <div className="CrossingListItemFlexContainer">
             <div className="CrossingName">{crossing.name}</div>
             <Location crossing={ crossing } />
-            <DateTime />
+            <DateTime update={ crossing.statusUpdateByLatestStatusId } />
           </div>
           <div className="CrossingListItemFlexContainer">
             <div className="flexitem">
