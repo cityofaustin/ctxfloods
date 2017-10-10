@@ -19,7 +19,8 @@ class CrossingListItem extends React.Component {
     this.state = {
       selectedStatus: props.crossing.statusUpdateByLatestStatusId.statusId,
       selectedReason: props.crossing.statusUpdateByLatestStatusId.statusReasonId,
-      selectedDuration: props.crossing.statusUpdateByLatestStatusId.statusDurationId
+      selectedDuration: props.crossing.statusUpdateByLatestStatusId.statusDurationId,
+      notes: props.crossing.statusUpdateByLatestStatusId.notes
     };
   }
 
@@ -30,10 +31,12 @@ class CrossingListItem extends React.Component {
     const savedStatus = this.props.crossing.statusUpdateByLatestStatusId.statusId;
     const savedReason = this.props.crossing.statusUpdateByLatestStatusId.statusReasonId;
     const savedDuration = this.props.crossing.statusUpdateByLatestStatusId.statusDurationId;
+    const savedNotes = this.props.crossing.statusUpdateByLatestStatusId.notes;
 
     return (savedStatus != this.state.selectedStatus ||
             savedReason != this.state.selectedReason ||
-            savedDuration != this.state.selectedDuration);
+            savedDuration != this.state.selectedDuration ||
+            savedNotes != this.state.notes);
   }
 
   openClicked = () => { this.setState({ selectedStatus: statusConstants.OPEN }) };
@@ -100,7 +103,7 @@ class CrossingListItem extends React.Component {
             </div>
             <div className="flexitem">
               <div className="ControlLabel">Notes to the public</div>
-              <input className="NotesTextBox" type="text" />
+              <input className="NotesTextBox" type="text" value={this.state.notes} onChange={this.notesChanged}/>
             </div>
           </div>
           <div className={show.includes('duration') || show.includes('cancelSave') ? "CrossingListItemFlexContainer" : ""}>

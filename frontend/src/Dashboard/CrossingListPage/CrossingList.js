@@ -62,6 +62,7 @@ const crossingsQuery = gql`
           statusReasonId
           statusDurationId
           createdAt
+          notes
           userByCreatorId {
             firstName
             lastName
