@@ -42,6 +42,7 @@ class CrossingListItem extends React.Component {
   longtermClicked = () => { this.setState({ selectedStatus: statusConstants.LONGTERM }) };
 
   reasonChanged = (e) => { this.setState({ selectedReason: e.target.value }) };
+  durationChanged = (e) => { this.setState({ selectedDuration: e.target.value }) };
 
   render () {
     // console.log(this.props.crossing.statusUpdateByLatestStatusId.statusId);
