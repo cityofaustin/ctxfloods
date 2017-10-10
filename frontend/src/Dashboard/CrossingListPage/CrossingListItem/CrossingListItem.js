@@ -49,12 +49,7 @@ class CrossingListItem extends React.Component {
   notesChanged = (e) => { this.setState({ notes: e.target.value }) };
 
   render () {
-    // console.log(this.props.crossing.statusUpdateByLatestStatusId.statusId);
-    // console.log(this.props.crossing);
-    // debugger;
-
     const { crossing, reasons, durations } = this.props;
-    // debugger;
 
     var show = [];
     switch(this.state.selectedStatus) {
