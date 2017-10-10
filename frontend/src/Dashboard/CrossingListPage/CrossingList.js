@@ -4,14 +4,6 @@ import gql from 'graphql-tag';
 import CrossingListItem from './CrossingListItem/CrossingListItem'
 
 class CrossingList extends React.Component {
-  // methods here
-  parseLastUpdate(update) {
-    const timestamp = update.createdAt
-    // format date/time
-    const actor = update.userByCreatorId.firstName + " " + update.userByCreatorId.lastName
-
-    return (timestamp + " by " + actor);
-  }
   state = {}
 
   render () {
@@ -24,7 +16,6 @@ class CrossingList extends React.Component {
       return (<div>Loading</div>)
     }
 
-    // debugger;
     const crossings = this.props.crossingsQuery.allCrossings.nodes;
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
     const statusDurations = this.props.statusDurationsQuery.allStatusDurations.nodes;
