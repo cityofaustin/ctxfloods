@@ -22,6 +22,8 @@ exports[`When updating the status of a crossing To CAUTION with no REASON or DUR
 
 exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as admin@community.floods In the same community as the crossing before updating should give it a status 1`] = `"New"`;
 
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as admin@community.floods In the same community as the crossing before updating should give it a status 2`] = `"Second"`;
+
 exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as admin@community.floods In the same community as the crossing should update the status 1`] = `"CAUTION with no REASON or DURATION"`;
 
 exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as admin@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"CAUTION with no REASON or DURATION"`;
@@ -30,11 +32,15 @@ exports[`When updating the status of a crossing To CAUTION with no REASON or DUR
 
 exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as editor@community.floods In the same community as the crossing before updating should give it a status 1`] = `"New"`;
 
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as editor@community.floods In the same community as the crossing before updating should give it a status 2`] = `"Second"`;
+
 exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as editor@community.floods In the same community as the crossing should update the status 1`] = `"CAUTION with no REASON or DURATION"`;
 
 exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as editor@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"CAUTION with no REASON or DURATION"`;
 
 exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as superadmin@flo.ods  before updating should give it a status 1`] = `"New"`;
+
+exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as superadmin@flo.ods  before updating should give it a status 2`] = `"Second"`;
 
 exports[`When updating the status of a crossing To CAUTION with no REASON or DURATION as superadmin@flo.ods  should update the status 1`] = `"CAUTION with no REASON or DURATION"`;
 
@@ -62,6 +68,8 @@ exports[`When updating the status of a crossing To CLOSED with REASON that match
 
 exports[`When updating the status of a crossing To CLOSED with REASON that matches status as admin@community.floods In the same community as the crossing before updating should give it a status 1`] = `"New"`;
 
+exports[`When updating the status of a crossing To CLOSED with REASON that matches status as admin@community.floods In the same community as the crossing before updating should give it a status 2`] = `"Second"`;
+
 exports[`When updating the status of a crossing To CLOSED with REASON that matches status as admin@community.floods In the same community as the crossing should update the status 1`] = `"CLOSED with REASON"`;
 
 exports[`When updating the status of a crossing To CLOSED with REASON that matches status as admin@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"CLOSED with REASON"`;
@@ -70,11 +78,15 @@ exports[`When updating the status of a crossing To CLOSED with REASON that match
 
 exports[`When updating the status of a crossing To CLOSED with REASON that matches status as editor@community.floods In the same community as the crossing before updating should give it a status 1`] = `"New"`;
 
+exports[`When updating the status of a crossing To CLOSED with REASON that matches status as editor@community.floods In the same community as the crossing before updating should give it a status 2`] = `"Second"`;
+
 exports[`When updating the status of a crossing To CLOSED with REASON that matches status as editor@community.floods In the same community as the crossing should update the status 1`] = `"CLOSED with REASON"`;
 
 exports[`When updating the status of a crossing To CLOSED with REASON that matches status as editor@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"CLOSED with REASON"`;
 
 exports[`When updating the status of a crossing To CLOSED with REASON that matches status as superadmin@flo.ods  before updating should give it a status 1`] = `"New"`;
+
+exports[`When updating the status of a crossing To CLOSED with REASON that matches status as superadmin@flo.ods  before updating should give it a status 2`] = `"Second"`;
 
 exports[`When updating the status of a crossing To CLOSED with REASON that matches status as superadmin@flo.ods  should update the status 1`] = `"CLOSED with REASON"`;
 
@@ -96,6 +108,8 @@ exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON
 
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as admin@community.floods In the same community as the crossing before updating should give it a status 1`] = `"New"`;
 
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as admin@community.floods In the same community as the crossing before updating should give it a status 2`] = `"Second"`;
+
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as admin@community.floods In the same community as the crossing should update the status 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
 
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as admin@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
@@ -104,11 +118,15 @@ exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON
 
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as editor@community.floods In the same community as the crossing before updating should give it a status 1`] = `"New"`;
 
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as editor@community.floods In the same community as the crossing before updating should give it a status 2`] = `"Second"`;
+
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as editor@community.floods In the same community as the crossing should update the status 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
 
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as editor@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
 
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as superadmin@flo.ods  before updating should give it a status 1`] = `"New"`;
+
+exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as superadmin@flo.ods  before updating should give it a status 2`] = `"Second"`;
 
 exports[`When updating the status of a crossing To LONG TERM CLOSURE with REASON and DURATION and both match status as superadmin@flo.ods  should update the status 1`] = `"LONG TERM CLOSURE with REASON and DURATION"`;
 
@@ -166,6 +184,8 @@ exports[`When updating the status of a crossing To OPEN with no REASON or DURATI
 
 exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as admin@community.floods In the same community as the crossing before updating should give it a status 1`] = `"New"`;
 
+exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as admin@community.floods In the same community as the crossing before updating should give it a status 2`] = `"Second"`;
+
 exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as admin@community.floods In the same community as the crossing should update the status 1`] = `"OPEN with no REASON or DURATION"`;
 
 exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as admin@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"OPEN with no REASON or DURATION"`;
@@ -174,11 +194,15 @@ exports[`When updating the status of a crossing To OPEN with no REASON or DURATI
 
 exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as editor@community.floods In the same community as the crossing before updating should give it a status 1`] = `"New"`;
 
+exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as editor@community.floods In the same community as the crossing before updating should give it a status 2`] = `"Second"`;
+
 exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as editor@community.floods In the same community as the crossing should update the status 1`] = `"OPEN with no REASON or DURATION"`;
 
 exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as editor@community.floods In the same community as the crossing the new status should show up in the DB 1`] = `"OPEN with no REASON or DURATION"`;
 
 exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as superadmin@flo.ods  before updating should give it a status 1`] = `"New"`;
+
+exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as superadmin@flo.ods  before updating should give it a status 2`] = `"Second"`;
 
 exports[`When updating the status of a crossing To OPEN with no REASON or DURATION as superadmin@flo.ods  should update the status 1`] = `"OPEN with no REASON or DURATION"`;
 
