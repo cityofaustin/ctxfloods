@@ -1208,7 +1208,7 @@ exports[`Storyshots Crossing List Item DateTime DateTime 1`] = `
     className="DateTimeText"
   >
     <div>
-      7/17/17, 12:01am
+      10/10/17, 4:35 am
     </div>
     <div
       style={
@@ -1217,7 +1217,7 @@ exports[`Storyshots Crossing List Item DateTime DateTime 1`] = `
         }
       }
     >
-      L. Leopold
+      S. Admin
     </div>
   </div>
 </div>
@@ -1251,7 +1251,7 @@ exports[`Storyshots Crossing List Item Location Location 1`] = `
       E of Intersection w/ Clifford
     </div>
     <div>
-      City of Austin, Travis County
+      All of Texas.
     </div>
   </div>
 </div>
