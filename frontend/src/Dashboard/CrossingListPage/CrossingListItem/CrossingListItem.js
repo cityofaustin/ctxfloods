@@ -48,6 +48,13 @@ class CrossingListItem extends React.Component {
   durationChanged = (e) => { this.setState({ selectedDuration: e.target.value }) };
   notesChanged = (e) => { this.setState({ notes: e.target.value }) };
 
+  cancelClicked = () => { 
+    this.setState({ selectedStatus: this.props.crossing.statusUpdateByLatestStatusId.statusId });
+    this.setState({ selectedReason: this.props.crossing.statusUpdateByLatestStatusId.statusReasonId });
+    this.setState({ selectedDuration: this.props.crossing.statusUpdateByLatestStatusId.statusDurationId });
+    this.setState({ notes: this.props.crossing.statusUpdateByLatestStatusId.notes });
+  };
+
   render () {
     const { crossing, reasons, durations } = this.props;
 
@@ -119,7 +126,7 @@ class CrossingListItem extends React.Component {
             <div className="flexitem">
               <div className={show.includes('cancelSave') ? "" : "hidden"}>
                 <div className="flexcontainer">              
-                  <div className="CancelButton">Cancel</div>
+                  <div className="CancelButton" onClick={this.cancelClicked}>Cancel</div>
                   <div className="SaveButton">Save</div>
                 </div>
               </div>
