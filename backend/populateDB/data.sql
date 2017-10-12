@@ -63,9 +63,9 @@ insert into floods.status_reason (id, status_id, name) values
 alter sequence floods.status_reason_id_seq restart with 3;
 
 -- Add status durations
-insert into floods.status_duration (id, status_id, name, timespan) values
-  (1, 2, 'A Minute', interval '1 minute'),
-  (2, 4, 'A Week', interval '1 week');
+insert into floods.status_duration (id, name, timespan) values
+  (1, 'A Minute', interval '1 minute'),
+  (2, 'A Week', interval '1 week');
 alter sequence floods.status_duration_id_seq restart with 3;
 
 -- Add status associations
