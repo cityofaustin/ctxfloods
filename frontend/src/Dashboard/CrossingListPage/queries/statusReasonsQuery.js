@@ -5,6 +5,7 @@ const statusReasonsQuery = gql`
     allStatusReasons {
       nodes {
         id
+        statusId
         name
       }
     }

@@ -143,7 +143,7 @@ class CrossingListItem extends React.Component {
                   <div className="required">{this.isDirty() ? "Required" : ""}</div>
                 </div>
                 <Dropdown
-                  options={reasons}
+                  options={reasons.filter(reason => reason.statusId === this.state.selectedStatus)}
                   selected={this.state.selectedReason}
                   onChange={this.reasonChanged} />
               </div>
