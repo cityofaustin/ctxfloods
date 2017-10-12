@@ -8,8 +8,11 @@
 
 .CrossingListItemContainer {
   width: 1280px;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
+  border-bottom: 20px solid white;
+  border-top: 20px solid white;
+  background-color: white;
+  box-shadow: 0px 1px 3px grey;
 }
 
 .CrossingListItemFlexContainer {
