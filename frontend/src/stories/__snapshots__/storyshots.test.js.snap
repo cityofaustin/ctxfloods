@@ -2043,20 +2043,7 @@ exports[`Storyshots Crossing List Item Open 1`] = `
                 id=""
                 name=""
                 onChange={[Function]}
-              >
-                <option
-                  selected={false}
-                  value={1}
-                >
-                  Flooded
-                </option>
-                <option
-                  selected={false}
-                  value={2}
-                >
-                  Bridge Broken
-                </option>
-              </select>
+              />
             </div>
           </div>
         </div>
@@ -2343,20 +2330,7 @@ exports[`Storyshots Crossing List Item Open Dirty 1`] = `
                 id=""
                 name=""
                 onChange={[Function]}
-              >
-                <option
-                  selected={false}
-                  value={1}
-                >
-                  Flooded
-                </option>
-                <option
-                  selected={false}
-                  value={2}
-                >
-                  Bridge Broken
-                </option>
-              </select>
+              />
             </div>
           </div>
         </div>
