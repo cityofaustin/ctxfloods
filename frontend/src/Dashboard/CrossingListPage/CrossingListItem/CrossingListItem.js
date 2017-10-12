@@ -28,14 +28,13 @@ class CrossingListItem extends React.Component {
   }
 
   newStatusUpdate(e) {
-    debugger;
     this.props.newStatusUpdateMutation({
       variables: {
-        crossingId: 1,
-        statusId: 1,
-        reasonId: null,
-        durationId: null,
-        notes: "notes"
+        crossingId: this.props.crossing.id,
+        statusId: this.state.selectedStatus,
+        reasonId: (this.state.selectedStatus !== statusConstants.OPEN ? this.state.selectedReason : null),
+        durationId: (this.state.selectedStatus === statusConstants.LONGTERM ? this.state.selectedDuration : null),
+        notes: this.state.notes
       },
       refetchQueries: [{ query: crossingsQuery }]
     })
@@ -64,10 +63,30 @@ class CrossingListItem extends React.Component {
             savedNotes != this.state.notes);
   }
 
-  openClicked = () => { this.setState({ selectedStatus: statusConstants.OPEN }) };
-  cautionClicked = () => { this.setState({ selectedStatus: statusConstants.CAUTION }) };
-  closedClicked = () => { this.setState({ selectedStatus: statusConstants.CLOSED }) };
-  longtermClicked = () => { this.setState({ selectedStatus: statusConstants.LONGTERM }) };
+  openClicked = () => { 
+    this.setState({ selectedStatus: statusConstants.OPEN });
+    this.setState({ notes: '' });
+    this.setState({ selectedReason: null });
+    this.setState({ selectedDuration: null });
+  };
+  cautionClicked = () => {
+    this.setState({ selectedStatus: statusConstants.CAUTION });
+    this.setState({ notes: '' });
+    this.setState({ selectedReason: this.props.reasons[0].id });
+    this.setState({ selectedDuration: null });
+  };
+  closedClicked = () => { 
+    this.setState({ selectedStatus: statusConstants.CLOSED });
+    this.setState({ notes: '' });
+    this.setState({ selectedReason: this.props.reasons[0].id });
+    this.setState({ selectedDuration: null });
+  };
+  longtermClicked = () => {
+    this.setState({ selectedStatus: statusConstants.LONGTERM });
+    this.setState({ notes: '' });
+    this.setState({ selectedReason: this.props.reasons[0].id });
+    this.setState({ selectedDuration: this.props.durations[0].id });
+  };
 
   reasonChanged = (e) => { this.setState({ selectedReason: e.target.value }) };
   durationChanged = (e) => { this.setState({ selectedDuration: e.target.value }) };
