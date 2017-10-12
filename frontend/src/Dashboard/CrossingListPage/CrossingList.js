@@ -1,7 +1,9 @@
 import React from 'react';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import CrossingListItem from './CrossingListItem/CrossingListItem'
+import crossingsQuery from './queries/crossingsQuery'
+
+import gql from 'graphql-tag';
 
 class CrossingList extends React.Component {
   state = {}
@@ -40,36 +42,7 @@ class CrossingList extends React.Component {
 
 }
 
-const crossingsQuery = gql`
-  query allCrossings {
-    allCrossings {
-      nodes {
-        id
-        name
-        description
-        humanAddress
-        statusUpdateByLatestStatusId {
-          statusId
-          statusReasonId
-          statusDurationId
-          createdAt
-          notes
-          userByCreatorId {
-            firstName
-            lastName
-          }
-        }
-        communityCrossingsByCrossingId {
-          nodes {
-            communityByCommunityId {
-              name
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+
 
 const statusReasonsQuery = gql`
   query allStatusReasons {
@@ -92,6 +65,8 @@ const statusDurationsQuery = gql`
     }
   }
 `;
+
+
 
 export default compose(
   graphql(crossingsQuery, { name: 'crossingsQuery' }),

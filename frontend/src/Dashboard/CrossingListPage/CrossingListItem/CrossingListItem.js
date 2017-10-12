@@ -1,11 +1,14 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
+import { graphql } from 'react-apollo';
 import Location from './Location';
 import DateTime from './DateTime';
 import StatusToggle from './StatusToggle';
 import Dropdown from './Dropdown';
 import './CrossingListItem.css';
 import * as statusConstants from './StatusConstants';
+import newStatusUpdateMutation from '../queries/newStatusUpdateMutation';
+import crossingsQuery from '../queries/crossingsQuery';
 
 const statusStrings = new Map();
 statusStrings.set(statusConstants.OPEN, 'Open');
@@ -22,6 +25,28 @@ class CrossingListItem extends React.Component {
       selectedDuration: props.crossing.statusUpdateByLatestStatusId.statusDurationId,
       notes: props.crossing.statusUpdateByLatestStatusId.notes
     };
+  }
+
+  newStatusUpdate(e) {
+    debugger;
+    this.props.newStatusUpdateMutation({
+      variables: {
+        crossingId: 1,
+        statusId: 1,
+        reasonId: null,
+        durationId: null,
+        notes: "notes"
+      },
+      refetchQueries: [{ query: crossingsQuery }]
+    })
+    .then(({ data }) => {
+      this.setState({ selectedStatus: data.newStatusUpdate.statusUpdate.statusId });
+      this.setState({ selectedReason: data.newStatusUpdate.statusUpdate.statusReasonId });
+      this.setState({ selectedDuration: data.newStatusUpdate.statusUpdate.statusDurationId });
+      this.setState({ notes: data.newStatusUpdate.statusUpdate.notes });
+    }).catch((error) => {
+      console.log('there was an error sending the query', error);
+    });
   }
 
   isDirty() {
@@ -127,7 +152,7 @@ class CrossingListItem extends React.Component {
               <div className={show.includes('cancelSave') ? "" : "hidden"}>
                 <div className="flexcontainer">              
                   <div className="CancelButton" onClick={this.cancelClicked}>Cancel</div>
-                  <div className="SaveButton">Save</div>
+                  <div className="SaveButton" onClick={this.newStatusUpdate.bind(this)}>Save</div>
                 </div>
               </div>
             </div>
@@ -140,4 +165,4 @@ class CrossingListItem extends React.Component {
   }
 }
 
-export default CrossingListItem;
+export default graphql(newStatusUpdateMutation, { name: 'newStatusUpdateMutation' })(CrossingListItem);
