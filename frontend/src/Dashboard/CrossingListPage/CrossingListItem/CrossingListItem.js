@@ -72,19 +72,19 @@ class CrossingListItem extends React.Component {
   cautionClicked = () => {
     this.setState({ selectedStatus: statusConstants.CAUTION });
     this.setState({ notes: '' });
-    this.setState({ selectedReason: this.props.reasons[0].id });
+    this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CAUTION).id });
     this.setState({ selectedDuration: null });
   };
   closedClicked = () => { 
     this.setState({ selectedStatus: statusConstants.CLOSED });
     this.setState({ notes: '' });
-    this.setState({ selectedReason: this.props.reasons[0].id });
+    this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CLOSED).id });
     this.setState({ selectedDuration: null });
   };
   longtermClicked = () => {
     this.setState({ selectedStatus: statusConstants.LONGTERM });
     this.setState({ notes: '' });
-    this.setState({ selectedReason: this.props.reasons[0].id });
+    this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.LONGTERM).id });
     this.setState({ selectedDuration: this.props.durations[0].id });
   };
 

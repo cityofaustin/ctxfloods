@@ -5,8 +5,6 @@ import crossingsQuery from './queries/crossingsQuery'
 import statusReasonsQuery from './queries/statusReasonsQuery'
 import statusDurationsQuery from './queries/statusDurationsQuery'
 
-import gql from 'graphql-tag';
-
 class CrossingList extends React.Component {
   state = {}
 
