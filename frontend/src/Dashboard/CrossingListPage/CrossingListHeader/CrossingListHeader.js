@@ -5,9 +5,11 @@ class CrossingListHeader extends Component {
   render() {
     return (
       <div className="CrossingListHeader">
-      	<div className="CrossingListSearch">SEARCH</div>
+      	<input type="text" className="CrossingListSearch" placeholder="Search your crossings"/>
       	<div className="CrossingListSortToggle">SORT</div>
-      	<div className="CrossingListFilter">FILTER</div>
+      	<div className="CrossingListFilter">
+      		FILTER
+      	</div>
       </div>
     );
   }
