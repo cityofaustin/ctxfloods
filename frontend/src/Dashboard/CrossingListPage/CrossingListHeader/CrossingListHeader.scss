@@ -1,13 +1,15 @@
 .CrossingListHeader.fullsize {
   height: 65px;
   background: #0C0333;
+  display: flex;
 }
 
 .CrossingListSearch.fullsize {
   height: 100%;
   margin-left: 5%;
   width: 30%;
-  display: inline-block; 
+  display: inline-flex;
+  flex: auto;
 }
 
 .CrossingListSearchInput.fullsize {
@@ -34,7 +36,14 @@
 }
 
 .CrossingListSortToggle.fullsize {
-  display: inline-block;
+  display: inline-flex; 
+  flex: auto;
+  color: white;
+}
+
+.CrossingListFilter.fullsize {
+  display: inline-flex;
+  flex: auto;
   color: white;
 }
 

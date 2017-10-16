@@ -25,7 +25,10 @@ class CrossingListHeader extends Component {
               LAST UPDATED <FontAwesome name="caret-up" />
             </div>
             <div className={classnames(params, 'CrossingListFilter')}>
-              FILTER
+              <input type='checkbox'/>Open
+              <input type='checkbox'/>Caution
+              <input type='checkbox'/>Closed
+              <input type='checkbox'/>Long Term Closure
             </div>
           </div>
         )}
