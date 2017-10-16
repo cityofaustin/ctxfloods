@@ -7,6 +7,7 @@
   height: 100%;
   margin-left: 5%;
   width: 30%;
+  display: inline-block; 
 }
 
 .CrossingListSearchInput.fullsize {
@@ -15,12 +16,14 @@
   margin-top: 10px;
   font-size: 1.4em;
   padding-left: 1em;
+  margin-right: -26px;
 }
 
 .CrossingListSearchButton.fullsize {
   background: #1764F6;
   display: inline-block;
   width: 9%;
+  min-width: 26px;
   height: 45px;
   margin-top: 10px;
   vertical-align: top;
@@ -28,6 +31,11 @@
   font-size: 1.6em;
   text-align: center;
   line-height: 45px;
+}
+
+.CrossingListSortToggle.fullsize {
+  display: inline-block;
+  color: white;
 }
 
 .CrossingListHeader.smallsize {
