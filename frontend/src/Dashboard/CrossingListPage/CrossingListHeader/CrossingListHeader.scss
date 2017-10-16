@@ -5,9 +5,8 @@
 }
 
 .CrossingListHeader.smallsize {
-  height: 300px;
   background: #0C0333;
-  display: block;
+  min-width: 240px;
 }
 
 .CrossingListSearch.fullsize {
@@ -59,6 +58,30 @@
   font-size: 1.3em;
 }
 
+.CrossingListSortToggle.smallsize {
+  flex: auto;
+  color: white;
+}
+
+.CrossingListSortToggleText.smallsize {
+  line-height: 65px;
+  text-align: center;
+  margin-left: -30%;
+  font-size: 1.3em;
+}
+
+.CrossingListFilterToggle.smallsize {
+  flex: auto;
+  color: white;
+}
+
+.CrossingListFilterToggle.smallsize {
+  line-height: 65px;
+  text-align: center;
+  margin-left: -30%;
+  font-size: 1.3em;
+}
+
 .CrossingListFilter.fullsize {
   color: white;
   display: flex;
@@ -76,4 +99,8 @@
 .CrossingListFilterCheckbox.fullsize {
   width: 1.5em;
   height: 1.3em;
+}
+
+.smallflex {
+  display: flex;
 }
