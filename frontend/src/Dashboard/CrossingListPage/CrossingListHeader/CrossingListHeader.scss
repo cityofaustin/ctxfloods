@@ -6,7 +6,7 @@
 
 .CrossingListSearch.fullsize {
   margin-left: 5%;
-  flex: 2;
+  flex: 1;
   display: flex;
 }
 
@@ -16,6 +16,7 @@
   margin-top: 10px;
   font-size: 1.4em;
   padding-left: 1em;
+  min-width: 155px;
 }
 
 .CrossingListSearchButton.fullsize {
@@ -36,8 +37,22 @@
 }
 
 .CrossingListFilter.fullsize {
-  flex: initial;
   color: white;
+  display: flex;
+  justify-content: space-between;
+  min-width: 340px;
+  font-size: 1.3em;
+  line-height: 65px;
+  flex: 1.5;
+}
+
+.CrossingListFilterItem.fullsize {
+  flex: auto;
+}
+
+.CrossingListFilterCheckbox.fullsize {
+  width: 1.5em;
+  height: 1.3em;
 }
 
 .CrossingListHeader.smallsize {
