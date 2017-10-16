@@ -1,16 +1,36 @@
 .CrossingListHeader.fullsize {
-	height: 65px;
-	background: #0C0333;
+  height: 65px;
+  background: #0C0333;
+}
+
+.CrossingListSearch.fullsize {
+  height: 100%;
+  margin-left: 5%;
+  width: 30%;
+}
+
+.CrossingListSearchInput.fullsize {
+  height: 60%;
+  width: 85%;
+  margin-top: 10px;
+  font-size: 1.4em;
+  padding-left: 1em;
+}
+
+.CrossingListSearchButton.fullsize {
+  background: #1764F6;
+  display: inline-block;
+  width: 9%;
+  height: 45px;
+  margin-top: 10px;
+  vertical-align: top;
+  color: white;
+  font-size: 1.6em;
+  text-align: center;
+  line-height: 45px;
 }
 
 .CrossingListHeader.smallsize {
   background: red;
-}
+}  
 
-
-.CrossingListSearch {
-  height: 60%;
-  margin-top: 10px;
-  margin-left: 5%;
-  width: 25%;
-}
