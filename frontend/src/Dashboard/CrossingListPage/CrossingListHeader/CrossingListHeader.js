@@ -22,7 +22,7 @@ class CrossingListHeader extends Component {
               </div>
             </div>
             <div className={classnames(params, 'CrossingListSortToggle')}>
-              LAST UPDATED <FontAwesome name="caret-up" />
+              <div className={classnames(params, 'CrossingListSortToggleText')}>LAST UPDATED <FontAwesome name="caret-up" /></div>
             </div>
             <div className={classnames(params, 'CrossingListFilter')}>
               <div className={classnames(params, 'CrossingListFilterItem')}>
