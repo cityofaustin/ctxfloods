@@ -6,8 +6,7 @@
 
 .CrossingListSearch.fullsize {
   margin-left: 5%;
-  width: 25%;
-  flex: auto;
+  flex: 2;
   display: flex;
 }
 
@@ -22,7 +21,7 @@
 .CrossingListSearchButton.fullsize {
   background: #1764F6;
   width: 9%;
-  min-width: 26px;
+  min-width: 30px;
   height: 45px;
   margin-top: 10px;
   color: white;
@@ -37,7 +36,7 @@
 }
 
 .CrossingListFilter.fullsize {
-  flex: auto;
+  flex: initial;
   color: white;
 }
 
