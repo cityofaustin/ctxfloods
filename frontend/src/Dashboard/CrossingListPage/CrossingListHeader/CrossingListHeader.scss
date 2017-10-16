@@ -5,11 +5,10 @@
 }
 
 .CrossingListSearch.fullsize {
-  height: 100%;
   margin-left: 5%;
-  width: 30%;
-  display: inline-flex;
+  width: 25%;
   flex: auto;
+  display: flex;
 }
 
 .CrossingListSearchInput.fullsize {
@@ -18,17 +17,14 @@
   margin-top: 10px;
   font-size: 1.4em;
   padding-left: 1em;
-  margin-right: -26px;
 }
 
 .CrossingListSearchButton.fullsize {
   background: #1764F6;
-  display: inline-block;
   width: 9%;
   min-width: 26px;
   height: 45px;
   margin-top: 10px;
-  vertical-align: top;
   color: white;
   font-size: 1.6em;
   text-align: center;
@@ -36,13 +32,11 @@
 }
 
 .CrossingListSortToggle.fullsize {
-  display: inline-flex; 
   flex: auto;
   color: white;
 }
 
 .CrossingListFilter.fullsize {
-  display: inline-flex;
   flex: auto;
   color: white;
 }
