@@ -159,8 +159,8 @@ comment on column floods.status_update.created_at is 'The time this update was m
 
 -- Update the Crossings table and Add the Latest Status Update
 alter table floods.crossing
-  add column latest_status_id integer references floods.status_update(id);
-comment on column floods.crossing.latest_status_id is 'The latest status of the crossing.';
+  add column latest_status_update_id integer references floods.status_update(id);
+comment on column floods.crossing.latest_status_update_id is 'The latest status of the crossing.';
 
 -- Create the private account table
 create table floods_private.user_account (
@@ -415,7 +415,7 @@ begin
     returning * into floods_status_update;
 
   update floods.crossing
-    set latest_status_id = floods_status_update.id
+    set latest_status_update_id = floods_status_update.id
     where id = floods_status_update.crossing_id;
 
   return floods_status_update;
