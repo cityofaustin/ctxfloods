@@ -78,8 +78,12 @@
   text-align: center;
   margin-left: -30%;
   font-size: 1.3em;
-  background-color: #3C298D;
   flex: 1;
+  cursor: pointer;
+}
+
+.CrossingListFilterToggle.smallsize.selected {
+  background-color: #3C298D;
 }
 
 .CrossingListFilter.fullsize {
@@ -100,6 +104,10 @@
   padding-bottom: 2%;
   font-size: 1.2em;
   line-height: 2em;
+}
+
+.CrossingListFilter.smallsize.hidden {
+  display: none;
 }
 
 .CrossingListFilterItem.fullsize {

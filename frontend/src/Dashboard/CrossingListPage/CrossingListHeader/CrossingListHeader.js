@@ -10,6 +10,15 @@ const query = {
 };
 
 class CrossingListHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showFilterDrawer: false
+    };
+  }
+
+  toggleFilterDropdown = () => { this.setState({ showFilterDrawer: !this.state.showFilterDrawer }) }
+
   render() {
     return (
       <ContainerQuery query={query}>
@@ -30,9 +39,9 @@ class CrossingListHeader extends Component {
                     LAST UPDATED <FontAwesome name="caret-up" />
                   </div>
                 </div>
-                <div className={classnames(params, 'CrossingListFilterToggle')}>
+                <div className={classnames(params, 'CrossingListFilterToggle', {'selected': this.state.showFilterDrawer})} onClick={this.toggleFilterDropdown}>
                   <div className={classnames(params, 'CrossingListFilterToggleText')}>
-                    FILTER <FontAwesome name="plus" />
+                    FILTER {this.state.showFilterDrawer ? <FontAwesome name="minus" /> : <FontAwesome name="plus" />}
                   </div>
                 </div>
               </div>
@@ -44,7 +53,7 @@ class CrossingListHeader extends Component {
               </div>
             )}
 
-            <div className={classnames(params, 'CrossingListFilter')}>
+            <div className={classnames(params, 'CrossingListFilter', {'hidden': (params.smallsize && !this.state.showFilterDrawer)})}>
               <div className={classnames(params, 'CrossingListFilterItem')}>
                 <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
                 Open
