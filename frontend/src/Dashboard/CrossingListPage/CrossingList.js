@@ -6,6 +6,7 @@ import statusReasonsQuery from './queries/statusReasonsQuery';
 import statusDurationsQuery from './queries/statusDurationsQuery';
 import './CrossingList.css';
 import * as statusConstants from './CrossingListItem/StatusConstants';
+import classnames from 'classnames';
 
 class CrossingList extends React.Component {
   state = {}
@@ -23,13 +24,12 @@ class CrossingList extends React.Component {
     const { showOpen, showClosed, showCaution, showLongterm } = this.props;
 
     const crossings = this.props.crossingsQuery.allCrossings.nodes;
-    let filteredCrossings = crossings.filter(crossing => crossing.latestStatusId == statusConstants.OPEN);
-    // let filteredCrossings = crossings.filter(crossing => 
-    //   crossing.latestStatusId == statusConstants.OPEN && showOpen ||
-    //   crossing.latestStatusId == statusConstants.CLOSED && showClosed ||
-    //   crossing.latestStatusId == statusConstants.CAUTION && showCaution ||
-    //   crossing.latestStatusId == statusConstants.LONGTERM && showLongterm
-    // );
+    let crossingIdsToShow = crossings.filter(crossing => 
+      crossing.latestStatusId == statusConstants.OPEN && showOpen ||
+      crossing.latestStatusId == statusConstants.CLOSED && showClosed ||
+      crossing.latestStatusId == statusConstants.CAUTION && showCaution ||
+      crossing.latestStatusId == statusConstants.LONGTERM && showLongterm
+    ).map(filteredCrossing => filteredCrossing.id);
 
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
     const statusDurations = this.props.statusDurationsQuery.allStatusDurations.nodes;
@@ -41,11 +41,13 @@ class CrossingList extends React.Component {
 
     return (
       <div className='CrossingListContainer'>
-        {filteredCrossings.map(crossing => 
-          <CrossingListItem
-            crossing={crossing}
-            reasons={statusReasons} 
-            durations={statusDurations} />
+        {crossings.map(crossing => 
+          <div className={classnames({'hiddenCrossing': !crossingIdsToShow.includes(crossing.id)})}>
+            <CrossingListItem
+              crossing={crossing}
+              reasons={statusReasons} 
+              durations={statusDurations} />
+          </div>
         )}
       </div>
     );
