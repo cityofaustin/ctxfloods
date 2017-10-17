@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import FontAwesome from 'react-fontawesome';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import statusCountsQuery from '../queries/statusCountsQuery';
 
 const containerQuery = {
   'fullsize': { minWidth: 768 },
@@ -89,21 +90,4 @@ class CrossingListHeader extends Component {
   }
 }
 
-const crossingStatusCountQuery = gql`
-  {
-    openCrossings: allCrossings(condition: {latestStatusId: 1}) {
-      totalCount
-    }
-    closedCrossings: allCrossings(condition: {latestStatusId: 2}) {
-      totalCount
-    }
-    cautionCrossings: allCrossings(condition: {latestStatusId: 3}) {
-      totalCount
-    }
-    longtermCrossings: allCrossings(condition: {latestStatusId: 4}) {
-      totalCount
-    }
-  }
-`;
-
-export default graphql(crossingStatusCountQuery)(CrossingListHeader);
+export default graphql(statusCountsQuery)(CrossingListHeader);
