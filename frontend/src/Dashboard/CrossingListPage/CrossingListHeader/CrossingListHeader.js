@@ -13,11 +13,13 @@ class CrossingListHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showFilterDrawer: false
+      showFilterDrawer: false,
+      invertSort: false
     };
   }
 
-  toggleFilterDropdown = () => { this.setState({ showFilterDrawer: !this.state.showFilterDrawer }) }
+  toggleFilterDropdown = () => { this.setState({ showFilterDrawer: !this.state.showFilterDrawer }) };
+  toggleSortDirection = () => { this.setState({ invertSort: !this.state.invertSort }) };
 
   render() {
     return (
@@ -34,9 +36,9 @@ class CrossingListHeader extends Component {
 
             {params.smallsize ? (
               <div className='smallflex'>
-                <div className={classnames(params, 'CrossingListSortToggle')}>
+                <div className={classnames(params, 'CrossingListSortToggle')} onClick={this.toggleSortDirection}>
                   <div className={classnames(params, 'CrossingListSortToggleText')}>
-                    LAST UPDATED <FontAwesome name="caret-up" />
+                    LAST UPDATED {this.state.invertSort ? <FontAwesome name="caret-up" /> : <FontAwesome name="caret-down" />}
                   </div>
                 </div>
                 <div className={classnames(params, 'CrossingListFilterToggle', {'selected': this.state.showFilterDrawer})} onClick={this.toggleFilterDropdown}>
