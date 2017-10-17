@@ -19,8 +19,7 @@ class CrossingList extends React.Component {
       return (<div>Loading</div>)
     }
 
-    // TODO FIX THIS ERROR
-    const crossings = this.props.crossingsQuery.allCrossings && this.props.crossingsQuery.allCrossings.nodes;
+    const crossings = this.props.crossingsQuery.allCrossings.nodes;
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
     const statusDurations = this.props.statusDurationsQuery.allStatusDurations.nodes;
 
