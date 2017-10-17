@@ -1,5 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Crossing List Header Full Width 1`] = `
+<div
+  className="CrossingListHeader"
+>
+  <div
+    className="CrossingListSearch"
+  >
+    <input
+      className="CrossingListSearchInput"
+      placeholder="Search your crossings"
+      type="text"
+    />
+    <div
+      className="CrossingListSearchButton"
+    >
+      <span
+        aria-hidden={true}
+        className="fa fa-search"
+      />
+    </div>
+  </div>
+  <div
+    className="CrossingListSortToggle"
+  >
+    <div
+      className="CrossingListSortToggleText"
+    >
+      LAST UPDATED 
+      <span
+        aria-hidden={true}
+        className="fa fa-caret-up"
+      />
+    </div>
+  </div>
+  
+</div>
+`;
+
+exports[`Storyshots Crossing List Header Width < 768px 1`] = `
+<div
+  style={
+    Object {
+      "width": "400px",
+    }
+  }
+>
+  <div
+    className="CrossingListHeader"
+  >
+    <div
+      className="CrossingListSearch"
+    >
+      <input
+        className="CrossingListSearchInput"
+        placeholder="Search your crossings"
+        type="text"
+      />
+      <div
+        className="CrossingListSearchButton"
+      >
+        <span
+          aria-hidden={true}
+          className="fa fa-search"
+        />
+      </div>
+    </div>
+    <div
+      className="CrossingListSortToggle"
+    >
+      <div
+        className="CrossingListSortToggleText"
+      >
+        LAST UPDATED 
+        <span
+          aria-hidden={true}
+          className="fa fa-caret-up"
+        />
+      </div>
+    </div>
+    
+  </div>
+</div>
+`;
+
 exports[`Storyshots Crossing List Item Caution 1`] = `
 <div>
   <div
