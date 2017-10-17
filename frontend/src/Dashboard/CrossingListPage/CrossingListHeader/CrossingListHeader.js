@@ -54,25 +54,26 @@ class CrossingListHeader extends Component {
               </div>
             )}
 
-            <div className={classnames(params, 'CrossingListFilter', {'hidden': (params.smallsize && !this.state.showFilterDrawer)})}>
-              <div className={classnames(params, 'CrossingListFilterItem')}>
-                <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
-                Open
-              </div>
-              <div className={classnames(params, 'CrossingListFilterItem')}>
-                <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
-                Caution
-              </div>
-              <div className={classnames(params, 'CrossingListFilterItem')}>
-                <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
-                Closed
-              </div>
-              <div className={classnames(params, 'CrossingListFilterItem')}>
-                <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
-                Long Term Closure
-              </div>
-            </div>
-
+            {params.smallsize && !this.state.showFilterDrawer ? "" : (
+              <div className={classnames(params, 'CrossingListFilter')}>
+                <div className={classnames(params, 'CrossingListFilterItem')}>
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
+                  Open
+                </div>
+                <div className={classnames(params, 'CrossingListFilterItem')}>
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
+                  Caution
+                </div>
+                <div className={classnames(params, 'CrossingListFilterItem')}>
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
+                  Closed
+                </div>
+                <div className={classnames(params, 'CrossingListFilterItem')}>
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
+                  Long Term Closure
+                </div>
+              </div> 
+            )}
           </div>
         )}
       </ContainerQuery>
