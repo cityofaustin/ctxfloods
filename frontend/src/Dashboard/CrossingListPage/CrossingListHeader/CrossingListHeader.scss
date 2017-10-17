@@ -22,16 +22,13 @@
 }
 
 .CrossingListSearchInput {
-  height: 60%;
+  height: 45px;
+  box-sizing: border-box;
   width: 85%;
   margin-top: 10px;
   font-size: 1.4em;
   padding-left: 1em;
   min-width: 155px;
-}
-
-.CrossingListSearchInput.smallsize {
-  height: auto;
 }
 
 .CrossingListSearchButton {
