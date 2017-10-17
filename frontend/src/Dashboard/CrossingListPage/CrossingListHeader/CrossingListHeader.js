@@ -3,8 +3,10 @@ import './CrossingListHeader.css';
 import {ContainerQuery} from 'react-container-query';
 import classnames from 'classnames';
 import FontAwesome from 'react-fontawesome';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
-const query = {
+const containerQuery = {
   'fullsize': { minWidth: 768 },
   'smallsize': { maxWidth: 767 }
 };
@@ -22,8 +24,14 @@ class CrossingListHeader extends Component {
   toggleSortDirection = () => { this.setState({ invertSort: !this.state.invertSort }) };
 
   render() {
+    if ( !this.props.data || this.props.data.loading) {
+      return '';
+    };
+
+    const { openCrossings, closedCrossings, cautionCrossings, longtermCrossings } = this.props.data;
+
     return (
-      <ContainerQuery query={query}>
+      <ContainerQuery query={containerQuery}>
         {(params) => (
           <div className={classnames(params, 'CrossingListHeader')}>
             <div className={classnames(params, 'CrossingListSearch')}>
@@ -58,19 +66,19 @@ class CrossingListHeader extends Component {
               <div className={classnames(params, 'CrossingListFilter')}>
                 <div className={classnames(params, 'CrossingListFilterItem')}>
                   <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
-                  Open
+                  Open ({openCrossings.totalCount})
                 </div>
                 <div className={classnames(params, 'CrossingListFilterItem')}>
                   <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
-                  Caution
+                  Caution ({cautionCrossings.totalCount})
                 </div>
                 <div className={classnames(params, 'CrossingListFilterItem')}>
                   <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
-                  Closed
+                  Closed ({closedCrossings.totalCount})
                 </div>
                 <div className={classnames(params, 'CrossingListFilterItem')}>
                   <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
-                  Long Term Closure
+                  Long Term Closure ({longtermCrossings.totalCount})
                 </div>
               </div> 
             )}
@@ -81,4 +89,21 @@ class CrossingListHeader extends Component {
   }
 }
 
-export default CrossingListHeader;
+const crossingStatusCountQuery = gql`
+  {
+    openCrossings: allCrossings(condition: {latestStatusId: 1}) {
+      totalCount
+    }
+    closedCrossings: allCrossings(condition: {latestStatusId: 2}) {
+      totalCount
+    }
+    cautionCrossings: allCrossings(condition: {latestStatusId: 3}) {
+      totalCount
+    }
+    longtermCrossings: allCrossings(condition: {latestStatusId: 4}) {
+      totalCount
+    }
+  }
+`;
+
+export default graphql(crossingStatusCountQuery)(CrossingListHeader);
