@@ -78,6 +78,8 @@
   text-align: center;
   margin-left: -30%;
   font-size: 1.3em;
+  background-color: #3C298D;
+  flex: 1;
 }
 
 .CrossingListFilter.fullsize {
@@ -88,6 +90,16 @@
   font-size: 1.3em;
   line-height: 65px;
   flex: 1.5;
+}
+
+.CrossingListFilter.smallsize {
+  background-color: #3C298D;
+  color: white;
+  padding-left: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  font-size: 1.2em;
+  line-height: 2em;
 }
 
 .CrossingListFilterItem.fullsize {
