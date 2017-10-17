@@ -11,8 +11,12 @@ const root = {
 storiesOf('Crossing List Header', module)
   .addDecorator(withApolloProvider({ schema, root }))
   .add('Full Width', () => <CrossingListHeader  />)
-  .add('Width < 768px', () => 
-  	<div style={{width: '400px'}}>
+  .add('Width 900px', () => 
+    <div style={{width: '900px'}}>
+      <CrossingListHeader />
+    </div>)
+  .add('Width 400px', () => 
+    <div style={{width: '400px'}}>
 	  	<CrossingListHeader />
-	</div>
+    </div>
   );
