@@ -13,6 +13,7 @@
   margin-left: 5%;
   flex: 1;
   display: flex;
+  min-width: 200px;
 }
 
 .CrossingListSearch.smallsize {
@@ -33,7 +34,7 @@
 
 .CrossingListSearchButton {
   background: #1764F6;
-  width: 9%;
+  width: 15%;
   min-width: 30px;
   height: 45px;
   margin-top: 10px;
