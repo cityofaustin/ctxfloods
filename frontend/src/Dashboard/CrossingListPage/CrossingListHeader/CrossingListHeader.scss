@@ -100,6 +100,14 @@
   line-height: 2em;
 }
 
+.CrossingListFilterItem {
+  cursor: pointer;
+}
+
+.CrossingListFilterCheckbox {
+  cursor: pointer;
+}
+
 .CrossingListFilterItem.fullsize {
   flex: auto;
 }
