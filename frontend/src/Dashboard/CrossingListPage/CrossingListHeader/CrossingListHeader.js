@@ -14,6 +14,7 @@ class CrossingListHeader extends Component {
     return (
       <ContainerQuery query={query}>
         {(params) => (
+          
           <div className={classnames(params, 'CrossingListHeader')}>
             <div className={classnames(params, 'CrossingListSearch')}>
               <input type="text" className={classnames(params, 'CrossingListSearchInput')} placeholder="Search your crossings"/>
@@ -21,36 +22,49 @@ class CrossingListHeader extends Component {
                 <FontAwesome name="search" />
               </div>
             </div>
+
             {params.smallsize ? (
               <div className='smallflex'>
                 <div className={classnames(params, 'CrossingListSortToggle')}>
-                  <div className={classnames(params, 'CrossingListSortToggleText')}>LAST UPDATED <FontAwesome name="caret-up" /></div>
+                  <div className={classnames(params, 'CrossingListSortToggleText')}>
+                    LAST UPDATED <FontAwesome name="caret-up" />
+                  </div>
                 </div>
                 <div className={classnames(params, 'CrossingListFilterToggle')}>
-                  <div className={classnames(params, 'CrossingListFilterToggleText')}>FILTER <FontAwesome name="plus" /></div>
+                  <div className={classnames(params, 'CrossingListFilterToggleText')}>
+                    FILTER <FontAwesome name="plus" />
+                  </div>
                 </div>
               </div>
             ) : (
               <div className={classnames(params, 'CrossingListSortToggle')}>
-                <div className={classnames(params, 'CrossingListSortToggleText')}>LAST UPDATED <FontAwesome name="caret-up" /></div>
+                <div className={classnames(params, 'CrossingListSortToggleText')}>
+                  LAST UPDATED <FontAwesome name="caret-up" />
+                </div>
               </div>
             )}
+
             {params.fullsize ? (
               <div className={classnames(params, 'CrossingListFilter')}>
                 <div className={classnames(params, 'CrossingListFilterItem')}>
-                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>Open
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
+                  Open
                 </div>
                 <div className={classnames(params, 'CrossingListFilterItem')}>
-                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>Caution
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
+                  Caution
                 </div>
                 <div className={classnames(params, 'CrossingListFilterItem')}>
-                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>Closed
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
+                  Closed
                 </div>
                 <div className={classnames(params, 'CrossingListFilterItem')}>
-                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>Long Term Closure
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox'/>
+                  Long Term Closure
                 </div>
               </div>
             ) : ''}
+
           </div>
         )}
       </ContainerQuery>
