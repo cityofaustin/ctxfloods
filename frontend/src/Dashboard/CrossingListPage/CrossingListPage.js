@@ -35,7 +35,11 @@ class CrossingListPage extends Component {
           toggleShowCaution={this.toggleShowCaution}
           showLongterm={this.state.showLongterm}
           toggleShowLongterm={this.toggleShowLongterm}/>
-        <CrossingList {...this.props} />
+        <CrossingList {...this.props}
+          showOpen={this.state.showOpen}
+          showCaution={this.state.showCaution}
+          showClosed={this.state.showClosed}
+          showLongterm={this.state.showLongterm} />
       </div>
     );
   }
