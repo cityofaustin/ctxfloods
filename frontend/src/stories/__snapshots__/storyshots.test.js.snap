@@ -18,7 +18,24 @@ exports[`Storyshots Crossing List Header Full Width 1`] = `
       <span
         aria-hidden={true}
         className="fa fa-search"
-      />
+      >
+        <span
+          style={
+            Object {
+              "border": "0px",
+              "clip": "rect(0px, 0px, 0px, 0px)",
+              "height": "1px",
+              "margin": "-1px",
+              "overflow": "hidden",
+              "padding": "0px",
+              "position": "absolute",
+              "width": "1px",
+            }
+          }
+        >
+          Search
+        </span>
+      </span>
     </div>
   </div>
   <div
@@ -32,7 +49,24 @@ exports[`Storyshots Crossing List Header Full Width 1`] = `
       <span
         aria-hidden={true}
         className="fa fa-caret-down"
-      />
+      >
+        <span
+          style={
+            Object {
+              "border": "0px",
+              "clip": "rect(0px, 0px, 0px, 0px)",
+              "height": "1px",
+              "margin": "-1px",
+              "overflow": "hidden",
+              "padding": "0px",
+              "position": "absolute",
+              "width": "1px",
+            }
+          }
+        >
+          Descending
+        </span>
+      </span>
     </div>
   </div>
   <div
@@ -103,7 +137,24 @@ exports[`Storyshots Crossing List Header Width < 768px 1`] = `
         <span
           aria-hidden={true}
           className="fa fa-search"
-        />
+        >
+          <span
+            style={
+              Object {
+                "border": "0px",
+                "clip": "rect(0px, 0px, 0px, 0px)",
+                "height": "1px",
+                "margin": "-1px",
+                "overflow": "hidden",
+                "padding": "0px",
+                "position": "absolute",
+                "width": "1px",
+              }
+            }
+          >
+            Search
+          </span>
+        </span>
       </div>
     </div>
     <div
@@ -117,7 +168,24 @@ exports[`Storyshots Crossing List Header Width < 768px 1`] = `
         <span
           aria-hidden={true}
           className="fa fa-caret-down"
-        />
+        >
+          <span
+            style={
+              Object {
+                "border": "0px",
+                "clip": "rect(0px, 0px, 0px, 0px)",
+                "height": "1px",
+                "margin": "-1px",
+                "overflow": "hidden",
+                "padding": "0px",
+                "position": "absolute",
+                "width": "1px",
+              }
+            }
+          >
+            Descending
+          </span>
+        </span>
       </div>
     </div>
     <div
