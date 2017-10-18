@@ -19,7 +19,7 @@ class CrossingListHeader extends Component {
             <div className={classnames(params, 'CrossingListSearch')}>
               <input type="text" className={classnames(params, 'CrossingListSearchInput')} placeholder="Search your crossings"/>
               <div className={classnames(params, 'CrossingListSearchButton')}>
-                <FontAwesome name="search" />
+                <FontAwesome name="search" ariaLabel="Search"/>
               </div>
             </div>
 
@@ -27,19 +27,19 @@ class CrossingListHeader extends Component {
               <div className='smallflex'>
                 <div className={classnames(params, 'CrossingListSortToggle')}>
                   <div className={classnames(params, 'CrossingListSortToggleText')}>
-                    LAST UPDATED <FontAwesome name="caret-up" />
+                    LAST UPDATED <FontAwesome name="caret-up" ariaLabel="Ascending"/>
                   </div>
                 </div>
                 <div className={classnames(params, 'CrossingListFilterToggle')}>
                   <div className={classnames(params, 'CrossingListFilterToggleText')}>
-                    FILTER <FontAwesome name="plus" />
+                    FILTER <FontAwesome name="plus" ariaLabel="Expand"/>
                   </div>
                 </div>
               </div>
             ) : (
               <div className={classnames(params, 'CrossingListSortToggle')}>
                 <div className={classnames(params, 'CrossingListSortToggleText')}>
-                  LAST UPDATED <FontAwesome name="caret-up" />
+                  LAST UPDATED <FontAwesome name="caret-up" ariaLabel="Ascending"/>
                 </div>
               </div>
             )}
