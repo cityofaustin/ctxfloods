@@ -3,7 +3,7 @@ Central Texas Floods
 
 ## Set up your development environment
 💾 Install [Postgres](https://www.postgresql.org/) 🐘
-  *  I use [Postgres.app](http://postgresapp.com/)
+  *  If you're using macOS I strongly recommend using [Postgres.app](http://postgresapp.com/)
 
 💾 [Install yarn](https://yarnpkg.com/en/docs/install) 
 
@@ -24,6 +24,10 @@ yarn install
 ⌨️ Initialize the database
 ```
 yarn init-local-db
+```
+For those that installed postgres via homebrew you may need to create the postgres user
+```
+/usr/local/Cellar/postgresql/<version>/bin/createuser -s postgres
 ```
 
 ⌨️ Run the local server
