@@ -39,9 +39,12 @@ class CrossingList extends React.Component {
       return (<div>Error Loading Crossings</div>);
     }
 
+    debugger;
+    var sortedCrossings = crossings.slice().sort((c1, c2) => (c2.id - c1.id));
+
     return (
       <div className='CrossingListContainer'>
-        {crossings.map(crossing => 
+        {sortedCrossings.map(crossing => 
           <CrossingListItem
             crossing={crossing}
             reasons={statusReasons} 
