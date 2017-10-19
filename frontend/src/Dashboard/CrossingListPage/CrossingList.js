@@ -21,7 +21,7 @@ class CrossingList extends React.Component {
       return (<div>Loading</div>)
     }
 
-    const { showOpen, showClosed, showCaution, showLongterm } = this.props;
+    const { showOpen, showClosed, showCaution, showLongterm, invertSort } = this.props;
 
     const crossings = this.props.crossingsQuery.allCrossings.nodes;
     let crossingIdsToShow = crossings.filter(crossing => 
@@ -40,7 +40,9 @@ class CrossingList extends React.Component {
     }
 
     debugger;
-    var sortedCrossings = crossings.slice().sort((c1, c2) => (c2.id - c1.id));
+    var sortedCrossings = invertSort ? 
+      crossings.slice().sort((c1, c2) => (c2.id - c1.id)) :
+      crossings.slice().sort((c1, c2) => (c1.id - c2.id));
 
     return (
       <div className='CrossingListContainer'>

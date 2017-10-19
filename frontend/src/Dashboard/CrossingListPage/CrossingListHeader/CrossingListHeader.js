@@ -17,19 +17,17 @@ class CrossingListHeader extends Component {
     super(props);
     this.state = {
       showFilterDrawer: false,
-      invertSort: false
     };
   }
 
   toggleFilterDropdown = () => { this.setState({ showFilterDrawer: !this.state.showFilterDrawer }) };
-  toggleSortDirection = () => { this.setState({ invertSort: !this.state.invertSort }) };
 
   render() {
     if ( !this.props.data || this.props.data.loading) {
       return '';
     };
 
-    const { toggleShowOpen, toggleShowClosed, toggleShowCaution, toggleShowLongterm, showOpen, showClosed, showCaution, showLongterm } = this.props;
+    const { toggleShowOpen, toggleShowClosed, toggleShowCaution, toggleShowLongterm, toggleSort, showOpen, showClosed, showCaution, showLongterm, invertSort } = this.props;
     const { openCrossings, closedCrossings, cautionCrossings, longtermCrossings } = this.props.data;
 
     return (
@@ -45,7 +43,7 @@ class CrossingListHeader extends Component {
 
             {params.smallsize ? (
               <div className='smallflex'>
-                <div className={classnames(params, 'CrossingListSortToggle')} onClick={this.toggleSortDirection}>
+                <div className={classnames(params, 'CrossingListSortToggle')} onClick={toggleSort}>
                   <div className={classnames(params, 'CrossingListSortToggleText')}>
                     LAST UPDATED {this.state.invertSort ? <FontAwesome name="caret-up" ariaLabel="Ascending"/> : <FontAwesome name="caret-down" ariaLabel="Descending"/>}
                   </div>
@@ -57,9 +55,9 @@ class CrossingListHeader extends Component {
                 </div>
               </div>
             ) : (
-              <div className={classnames(params, 'CrossingListSortToggle')} onClick={this.toggleSortDirection}>
+              <div className={classnames(params, 'CrossingListSortToggle')} onClick={toggleSort}>
                 <div className={classnames(params, 'CrossingListSortToggleText')}>
-                  LAST UPDATED {this.state.invertSort ? <FontAwesome name="caret-up" ariaLabel="Ascending"/> : <FontAwesome name="caret-down" ariaLabel="Descending"/>}
+                  LAST UPDATED {invertSort ? <FontAwesome name="caret-up" ariaLabel="Ascending"/> : <FontAwesome name="caret-down" ariaLabel="Descending"/>}
                 </div>
               </div>
             )}

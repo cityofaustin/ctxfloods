@@ -22,6 +22,7 @@ class CrossingListPage extends Component {
   toggleShowClosed = () => { this.setState({ showClosed: !this.state.showClosed }) };
   toggleShowCaution = () => { this.setState({ showCaution: !this.state.showCaution }) };
   toggleShowLongterm = () => { this.setState({ showLongterm: !this.state.showLongterm }) };
+  toggleSort = () => { this.setState({invertSort: !this.state.invertSort }) };
 
   render() {
     return (
@@ -34,12 +35,15 @@ class CrossingListPage extends Component {
           showCaution={this.state.showCaution}
           toggleShowCaution={this.toggleShowCaution}
           showLongterm={this.state.showLongterm}
-          toggleShowLongterm={this.toggleShowLongterm}/>
+          toggleShowLongterm={this.toggleShowLongterm}
+          toggleSort={this.toggleSort} 
+          invertSort={this.state.invertSort} />
         <CrossingList {...this.props}
           showOpen={this.state.showOpen}
           showCaution={this.state.showCaution}
           showClosed={this.state.showClosed}
-          showLongterm={this.state.showLongterm} />
+          showLongterm={this.state.showLongterm} 
+          invertSort={this.state.invertSort} />
       </div>
     );
   }
