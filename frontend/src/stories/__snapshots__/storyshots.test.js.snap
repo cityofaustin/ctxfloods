@@ -27,7 +27,24 @@ exports[`Storyshots Crossing List Header Width 400px 1`] = `
         <span
           aria-hidden={true}
           className="fa fa-search"
-        />
+        >
+          <span
+            style={
+              Object {
+                "border": "0px",
+                "clip": "rect(0px, 0px, 0px, 0px)",
+                "height": "1px",
+                "margin": "-1px",
+                "overflow": "hidden",
+                "padding": "0px",
+                "position": "absolute",
+                "width": "1px",
+              }
+            }
+          >
+            Search
+          </span>
+        </span>
       </div>
     </div>
     <div
@@ -41,7 +58,24 @@ exports[`Storyshots Crossing List Header Width 400px 1`] = `
         <span
           aria-hidden={true}
           className="fa fa-caret-down"
-        />
+        >
+          <span
+            style={
+              Object {
+                "border": "0px",
+                "clip": "rect(0px, 0px, 0px, 0px)",
+                "height": "1px",
+                "margin": "-1px",
+                "overflow": "hidden",
+                "padding": "0px",
+                "position": "absolute",
+                "width": "1px",
+              }
+            }
+          >
+            Descending
+          </span>
+        </span>
       </div>
     </div>
     <div
@@ -49,10 +83,10 @@ exports[`Storyshots Crossing List Header Width 400px 1`] = `
     >
       <div
         className="CrossingListFilterItem"
-        onClick={undefined}
+        onClick={[Function]}
       >
         <input
-          checked={undefined}
+          checked={true}
           className="CrossingListFilterCheckbox"
           type="checkbox"
         />
@@ -62,10 +96,10 @@ exports[`Storyshots Crossing List Header Width 400px 1`] = `
       </div>
       <div
         className="CrossingListFilterItem"
-        onClick={undefined}
+        onClick={[Function]}
       >
         <input
-          checked={undefined}
+          checked={true}
           className="CrossingListFilterCheckbox"
           type="checkbox"
         />
@@ -75,10 +109,10 @@ exports[`Storyshots Crossing List Header Width 400px 1`] = `
       </div>
       <div
         className="CrossingListFilterItem"
-        onClick={undefined}
+        onClick={[Function]}
       >
         <input
-          checked={undefined}
+          checked={true}
           className="CrossingListFilterCheckbox"
           type="checkbox"
         />
@@ -88,10 +122,10 @@ exports[`Storyshots Crossing List Header Width 400px 1`] = `
       </div>
       <div
         className="CrossingListFilterItem"
-        onClick={undefined}
+        onClick={[Function]}
       >
         <input
-          checked={undefined}
+          checked={true}
           className="CrossingListFilterCheckbox"
           type="checkbox"
         />
@@ -129,7 +163,24 @@ exports[`Storyshots Crossing List Header Width 900px 1`] = `
         <span
           aria-hidden={true}
           className="fa fa-search"
-        />
+        >
+          <span
+            style={
+              Object {
+                "border": "0px",
+                "clip": "rect(0px, 0px, 0px, 0px)",
+                "height": "1px",
+                "margin": "-1px",
+                "overflow": "hidden",
+                "padding": "0px",
+                "position": "absolute",
+                "width": "1px",
+              }
+            }
+          >
+            Search
+          </span>
+        </span>
       </div>
     </div>
     <div
@@ -143,7 +194,24 @@ exports[`Storyshots Crossing List Header Width 900px 1`] = `
         <span
           aria-hidden={true}
           className="fa fa-caret-down"
-        />
+        >
+          <span
+            style={
+              Object {
+                "border": "0px",
+                "clip": "rect(0px, 0px, 0px, 0px)",
+                "height": "1px",
+                "margin": "-1px",
+                "overflow": "hidden",
+                "padding": "0px",
+                "position": "absolute",
+                "width": "1px",
+              }
+            }
+          >
+            Descending
+          </span>
+        </span>
       </div>
     </div>
     <div
@@ -151,10 +219,10 @@ exports[`Storyshots Crossing List Header Width 900px 1`] = `
     >
       <div
         className="CrossingListFilterItem"
-        onClick={undefined}
+        onClick={[Function]}
       >
         <input
-          checked={undefined}
+          checked={true}
           className="CrossingListFilterCheckbox"
           type="checkbox"
         />
@@ -164,10 +232,10 @@ exports[`Storyshots Crossing List Header Width 900px 1`] = `
       </div>
       <div
         className="CrossingListFilterItem"
-        onClick={undefined}
+        onClick={[Function]}
       >
         <input
-          checked={undefined}
+          checked={true}
           className="CrossingListFilterCheckbox"
           type="checkbox"
         />
@@ -177,10 +245,10 @@ exports[`Storyshots Crossing List Header Width 900px 1`] = `
       </div>
       <div
         className="CrossingListFilterItem"
-        onClick={undefined}
+        onClick={[Function]}
       >
         <input
-          checked={undefined}
+          checked={true}
           className="CrossingListFilterCheckbox"
           type="checkbox"
         />
@@ -190,10 +258,10 @@ exports[`Storyshots Crossing List Header Width 900px 1`] = `
       </div>
       <div
         className="CrossingListFilterItem"
-        onClick={undefined}
+        onClick={[Function]}
       >
         <input
-          checked={undefined}
+          checked={true}
           className="CrossingListFilterCheckbox"
           type="checkbox"
         />
