@@ -42,12 +42,11 @@ class CrossingList extends React.Component {
     return (
       <div className='CrossingListContainer'>
         {crossings.map(crossing => 
-          <div className={classnames({'hiddenCrossing': !crossingIdsToShow.includes(crossing.id)})}>
-            <CrossingListItem
-              crossing={crossing}
-              reasons={statusReasons} 
-              durations={statusDurations} />
-          </div>
+          <CrossingListItem
+            crossing={crossing}
+            reasons={statusReasons} 
+            durations={statusDurations}
+            hidden={!crossingIdsToShow.includes(crossing.id)} />
         )}
       </div>
     );
