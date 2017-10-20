@@ -4,10 +4,12 @@ import CrossingStatusHistory from './CrossingStatusHistory';
 
 class CrossingDetailPage extends Component {
   render() {
+    const crossingId = this.props.match.params.id;
+
     return (
       <div>
-        <CrossingDetails/>
-        <CrossingStatusHistory/>
+        <CrossingDetails crossingId={crossingId}/>
+        <CrossingStatusHistory crossingId={crossingId}/>
       </div>
     );
   }

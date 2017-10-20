@@ -40,7 +40,7 @@ class FloodsRoutes extends Component {
           authorized={auth.roleAuthorized(['floods_community_editor','floods_community_admin', 'floods_super_admin'])}
           currentUser={currentUser}
         />
-        <PrivateRoute path="/dashboard/crossing/" component={CrossingDetailPage}
+        <PrivateRoute path="/dashboard/crossing/:id" component={CrossingDetailPage}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized(['floods_community_editor','floods_community_admin', 'floods_super_admin'])}
           currentUser={currentUser}
