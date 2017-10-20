@@ -48,6 +48,7 @@ class CrossingList extends React.Component {
       <div className='CrossingListContainer'>
         {sortedCrossings.map(crossing => 
           <CrossingListItem
+            key={crossing.id}
             crossing={crossing}
             reasons={statusReasons} 
             durations={statusDurations}
