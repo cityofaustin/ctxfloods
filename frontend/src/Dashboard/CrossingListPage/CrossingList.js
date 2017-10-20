@@ -39,10 +39,14 @@ class CrossingList extends React.Component {
       return (<div>Error Loading Crossings</div>);
     }
 
-    debugger;
-    var sortedCrossings = invertSort ? 
-      crossings.slice().sort((c1, c2) => (c2.id - c1.id)) :
-      crossings.slice().sort((c1, c2) => (c1.id - c2.id));
+    var sortedCrossings = crossings.slice();
+    sortedCrossings.sort((c1, c2) => {
+      if (c1.statusUpdateByLatestStatusUpdateId.createdAt > c2.statusUpdateByLatestStatusUpdateId.createdAt) {
+        return invertSort ? 1 : -1;
+      }
+
+      return invertSort ? -1 : 1;  
+    });
 
     return (
       <div className='CrossingListContainer'>

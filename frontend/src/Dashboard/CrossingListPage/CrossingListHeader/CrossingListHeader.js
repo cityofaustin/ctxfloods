@@ -45,7 +45,7 @@ class CrossingListHeader extends Component {
               <div className='smallflex'>
                 <div className={classnames(params, 'CrossingListSortToggle')} onClick={toggleSort}>
                   <div className={classnames(params, 'CrossingListSortToggleText')}>
-                    LAST UPDATED {this.state.invertSort ? <FontAwesome name="caret-up" ariaLabel="Ascending"/> : <FontAwesome name="caret-down" ariaLabel="Descending"/>}
+                    LAST UPDATED {invertSort ? <FontAwesome name="caret-up" ariaLabel="Ascending"/> : <FontAwesome name="caret-down" ariaLabel="Descending"/>}
                   </div>
                 </div>
                 <div className={classnames(params, 'CrossingListFilterToggle', {'selected': this.state.showFilterDrawer})} onClick={this.toggleFilterDropdown}>
