@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import CrossingDetails from './CrossingDetails';
 import CrossingStatusHistory from './CrossingStatusHistory';
@@ -7,17 +7,21 @@ import CrossingStatusHistory from './CrossingStatusHistory';
 
 class CrossingDetailPage extends Component {
   render() {
-    if ( !this.props.data || this.props.data.loading ) {
+    if ( !this.props.CrossingByIdQuery ||
+          this.props.CrossingByIdQuery.loading ||
+          !this.props.CrossingHistoryQuery ||
+          this.props.CrossingHistoryQuery.loading ) {
       return (<div>Loading</div>)
     }
 
-    const crossing = this.props.data.crossingById;
+    const crossing = this.props.CrossingByIdQuery.crossingById;
     const community = crossing.communityCrossingsByCrossingId.nodes[0].communityByCommunityId;
+    const history = this.props.CrossingHistoryQuery.allStatusUpdates.nodes;
 
     return (
       <div>
         <CrossingDetails crossing={crossing} community={community}/>
-        <CrossingStatusHistory crossingId={this.props.crossingId}/>
+        <CrossingStatusHistory history={history}/>
       </div>
     );
   }
@@ -42,6 +46,31 @@ const CrossingByIdQuery = gql`
   }
 `;
 
-export default graphql(CrossingByIdQuery, {
-  options: (ownProps) => ({ variables: { crossingId: ownProps.match.params.id } }),
-})(CrossingDetailPage);
+const CrossingHistoryQuery = gql`
+  query crossingHistory($crossingId:Int!) {
+    allStatusUpdates(condition:{crossingId:$crossingId}) {
+      nodes {
+        id
+      }
+    }
+  }
+`;
+
+export default compose(
+  graphql(CrossingByIdQuery, {
+    name: 'CrossingByIdQuery',
+    options: (ownProps) => ({
+      variables: {
+        crossingId: ownProps.match.params.id
+      }
+    })
+  }),
+  graphql(CrossingHistoryQuery, {
+    name: 'CrossingHistoryQuery',
+    options: (ownProps) => ({
+      variables: {
+        crossingId: ownProps.match.params.id
+      }
+    })
+  })
+)(CrossingDetailPage);
