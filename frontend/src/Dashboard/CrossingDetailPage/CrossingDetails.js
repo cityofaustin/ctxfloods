@@ -10,15 +10,16 @@ class CrossingDetails extends Component {
 
     debugger;
     const crossing = this.props.data.crossingById;
+    const community = crossing.communityCrossingsByCrossingId.nodes[0].communityByCommunityId;
 
     return (
       <div>
         <div>Crossing Details: {this.props.crossingId}</div>
-        <div> GPS </div>
+        <div> {crossing.humanCoordinates} </div>
         <input type='text' defaultValue={crossing.name}></input>
-        <div> Street Address </div>
-        <input type='text' defaultValue='location notes'></input>
-        <input type='text' defaultValue='community'></input>
+        <div> {crossing.humanAddress} </div>
+        <input type='text' defaultValue={crossing.description}></input>
+        <input type='text' defaultValue={community.name}></input>
         <div> SAVE CROSSING </div>
         <div> DELETE CROSSING </div>
       </div>
@@ -30,7 +31,17 @@ class CrossingDetails extends Component {
 const CrossingByIdQuery = gql`
   query crossingById($crossingId:Int!) {
     crossingById(id:$crossingId) {
-      name 
+      name
+      humanCoordinates
+      humanAddress
+      description
+      communityCrossingsByCrossingId {
+        nodes {
+          communityByCommunityId {
+            name
+          }
+        }
+      }
     }
   }
 `;
