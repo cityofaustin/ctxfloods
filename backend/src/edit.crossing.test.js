@@ -89,14 +89,20 @@ function shouldWork(email, password, communityId, coordinates, extra_description
 
     it('should edit the crossing', async () => {
       const response = await lokka.send(`
-        mutation($communityId:Int!) {
-
+        mutation editCrossing($id: Int!, $name: String!) {
+          editCrossing(input: {crossingId: $id, name: $name}) {
+            crossing {
+              id
+              name
+            }
+          }
+        }
       `,
       {
         id: newCrossingId,
+        name: "Edited Crossing Name"
       });
 
-      newCrossingId = response.newCrossing.crossing.id;
       expect(response).not.toBeNull();
     });
 
@@ -122,41 +128,10 @@ function shouldWork(email, password, communityId, coordinates, extra_description
       expect(response).toMatchSnapshot();
     });
 
-    it('should delete the new crossing', async () => {
-      const response = await lokka.send(`
-      mutation ($id: Int!) {
-        removeCrossing(input: {crossingId: $id}) {
-          crossing {
-            id
-          }
-        }
-      }
-      `,
-      {
-        id: newCrossingId
-      });
-
-      expect(response.removeCrossing.crossing.id).toEqual(newCrossingId);
-    });
-
-    it('the new crossing should no longer show up in the DB', async () => {
-      const response = await lokka.send(`
-        query ($id: Int!) {
-          crossingById(id: $id) {
-            id
-          }
-        }
-      `,
-      {
-        id: newCrossingId
-      });
-
-      expect(response.crossingById).toBeNull();
-    });
   });
 }
 
-describe('When removing a crossing', () => {
+describe('When editing a crossing', () => {
   shouldWork(superAdminEmail, everyPassword, 1);
   shouldWork(communityAdminEmail, everyPassword, 1);
   shouldWork(communityEditorEmail, everyPassword, 1);
