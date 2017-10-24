@@ -51,11 +51,12 @@ class CrossingDetails extends Component {
 }
 
 const updateCrossingMutation = gql`
-  mutation editCrossing($crossingId: Int!, $name: String!) {
-    editCrossing(input: {crossingId: $crossingId, name: $name}) {
+  mutation editCrossing($crossingId: Int!, $name: String!, $description: String!) {
+    editCrossing(input: {crossingId: $crossingId, name: $name, description: $description}) {
       crossing {
         id
         name
+        description
       }
     }
   }
