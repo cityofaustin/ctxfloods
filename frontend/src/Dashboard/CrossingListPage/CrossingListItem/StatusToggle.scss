@@ -13,7 +13,6 @@ $closed-color: #FFCEC6;
 
 .StatusToggleContainer {
   @include flexcontainer;
-  width: 258px;
   height: $container-height;
 }
 

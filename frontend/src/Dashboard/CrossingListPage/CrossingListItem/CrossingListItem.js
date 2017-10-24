@@ -10,6 +10,14 @@ import * as statusConstants from './StatusConstants';
 import newStatusUpdateMutation from '../queries/newStatusUpdateMutation';
 import crossingsQuery from '../queries/crossingsQuery';
 import statusCountsQuery from '../queries/statusCountsQuery';
+import {ContainerQuery} from 'react-container-query';
+import classnames from 'classnames';
+
+const containerQuery = {
+  'CrossingListItem--lg': {
+    minWidth: 600,
+  }
+};
 
 const statusStrings = new Map();
 statusStrings.set(statusConstants.OPEN, 'Open');
@@ -120,16 +128,24 @@ class CrossingListItem extends React.Component {
     }
 
     return (
-      <div>
-        <div className="CrossingListItemContainer">
+      <ContainerQuery query={containerQuery}>
+      {(params) => (
+        <div>
+        <div className={classnames(params, "CrossingListItemContainer")}>
           <div className={this.isDirty() ? "DirtyBorder" : ""}>
           <div className="CrossingListItemFlexContainer">
-            <div className="CrossingName">{crossing.name}</div>
-            <Location crossing={ crossing } />
-            <DateTime update={ crossing.statusUpdateByLatestStatusUpdateId } />
+            <div className="CrossingListItemFlexItem">
+              <div className="CrossingName">{crossing.name}</div>
+            </div>
+            <div className="CrossingListItemFlexItem">
+              <Location crossing={ crossing } />
+            </div>
+            <div className="CrossingListItemFlexItem">
+              <DateTime update={ crossing.statusUpdateByLatestStatusUpdateId } />
+            </div>
           </div>
           <div className="CrossingListItemFlexContainer">
-            <div className="flexitem">
+            <div className="CrossingListItemFlexItem">
               <div className="ControlLabel">Status: {statusStrings.get(this.state.selectedStatus)}</div>
               <StatusToggle 
                 status={this.state.selectedStatus}
@@ -138,7 +154,7 @@ class CrossingListItem extends React.Component {
                 closedClicked={this.closedClicked}
                 longtermClicked={this.longtermClicked} />
             </div>
-            <div className="flexitem">
+            <div className="CrossingListItemFlexItem">
               <div className={show.includes('reason') ? "" : "hidden"}>
                 <div className="ControlLabelContainer">
                   <div className="ControlLabel">Reason</div>
@@ -150,14 +166,14 @@ class CrossingListItem extends React.Component {
                   onChange={this.reasonChanged} />
               </div>
             </div>
-            <div className="flexitem">
+            <div className="CrossingListItemFlexItem">
               <div className="ControlLabel">Notes to the public</div>
               <input className="NotesTextBox" type="text" value={this.state.notes} onChange={this.notesChanged}/>
             </div>
           </div>
           <div className={show.includes('duration') || show.includes('cancelSave') ? "CrossingListItemFlexContainer" : ""}>
-            <div className="flexitem" />
-            <div className="flexitem">
+            <div className="CrossingListItemFlexItem" />
+            <div className="CrossingListItemFlexItem">
               <div className={show.includes('duration') ? "" : "hidden"}>
                 <div className="ControlLabelContainer">
                   <div className="ControlLabel">Duration</div>
@@ -169,7 +185,7 @@ class CrossingListItem extends React.Component {
                   onChange={this.durationChanged} />
               </div>
             </div>
-            <div className="flexitem">
+            <div className="CrossingListItemFlexItem">
               <div className={show.includes('cancelSave') ? "" : "hidden"}>
                 <div className="flexcontainer">              
                   <div className="CancelButton" onClick={this.cancelClicked}>Cancel</div>
@@ -181,6 +197,8 @@ class CrossingListItem extends React.Component {
         </div>
       </div>
       </div>
+      )}
+      </ContainerQuery>
     );
   }
 }

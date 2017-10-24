@@ -1,9 +1,3 @@
-@import "../../../css/flexbox";
-
-.DateTimeContainer {
-  @include flexitem;
-}
-
 .ClockIcon {
   display: inline-block;
   font-size: 12pt;
