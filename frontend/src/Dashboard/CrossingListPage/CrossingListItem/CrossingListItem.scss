@@ -66,11 +66,16 @@
   border: 1px solid #d6d4dc;
 }
 
+.ButtonContainer {
+  @include flexcontainer;
+  align-items: flex-end;
+  height: 100%;
+}
+
 @mixin button {
   @include flexitem;
   height: 40px;
   line-height: 40px;
-  margin-top: 30px;
   border-radius: 5px;
   font-size: 11pt;
   font-family: "Roboto";

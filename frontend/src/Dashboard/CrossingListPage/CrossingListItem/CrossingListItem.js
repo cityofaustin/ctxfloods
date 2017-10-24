@@ -190,7 +190,7 @@ class CrossingListItem extends React.Component {
 
       {show.includes('cancelSave') ? (
         <div className="CrossingListItemFlexItem">
-          <div className="flexcontainer">              
+          <div className="ButtonContainer">              
             <div className="CancelButton" onClick={this.cancelClicked}>Cancel</div>
             <div className="SaveButton" onClick={this.newStatusUpdate.bind(this)}>Save</div>
           </div>
