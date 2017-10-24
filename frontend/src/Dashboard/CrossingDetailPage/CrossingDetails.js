@@ -7,6 +7,7 @@ class CrossingDetails extends Component {
     super(props);
     this.state = {
       name: props.crossing.name,
+      description: props.crossing.description
     };
   }
 
@@ -15,7 +16,8 @@ class CrossingDetails extends Component {
     this.props.updateCrossingMutation({
       variables: {
         crossingId: this.props.crossing.id,
-        name: this.state.name
+        name: this.state.name,
+        description: this.state.description
       }
     })
     .then(({ data }) => {
@@ -26,6 +28,7 @@ class CrossingDetails extends Component {
   }
 
   nameChanged = (e) => { this.setState({ name: e.target.value }) };
+  descriptionChanged = (e) => { this.setState({ description: e.target.value }) };
 
   render() {
     const { crossing, community } = this.props;
@@ -36,9 +39,9 @@ class CrossingDetails extends Component {
         <div> {crossing.humanCoordinates} </div>
         <input type="text" value={this.state.name} onChange={this.nameChanged}/>
         <div> {crossing.humanAddress} </div>
-        <input type='text' defaultValue={crossing.description}></input>
-        <input type='text' defaultValue={community.name}></input>
-        <div onClick={this.updateCrossing.bind(this)}> SAVE CROSSING </div>
+        <input type="text" value={this.state.description} onChange={this.descriptionChanged}/>
+        <div>{community.name}</div>
+        <button onClick={this.updateCrossing.bind(this)}> SAVE CROSSING </button>
         <div> CANCEL EDITS </div>
         <div> DELETE CROSSING </div>
       </div>

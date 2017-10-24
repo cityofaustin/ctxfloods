@@ -515,14 +515,16 @@ comment on function floods.remove_crossing(integer) is 'Removes a crossing from 
 -- Create function to edit crossing
 create function floods.edit_crossing(
   crossing_id integer,
-  name text
+  name text,
+  description text
 ) returns floods.crossing as $$
 declare
   floods_crossing floods.crossing;
 begin
 
   update floods.crossing
-    set name = edit_crossing.name
+    set name = edit_crossing.name,
+        description = edit_crossing.description
     where id = crossing_id
     returning * into floods_crossing;
 
@@ -530,7 +532,7 @@ begin
 end;
 $$ language plpgsql strict security definer;
 
-comment on function floods.edit_crossing(integer, text) is 'Edits an existing crossing.';
+comment on function floods.edit_crossing(integer, text, text) is 'Edits an existing crossing.';
 
 -- Create function to create new statuses
 create function floods.new_status(
@@ -837,7 +839,7 @@ grant execute on function floods.new_status_update(integer, integer, text, integ
 -- Allow community editors and up to add/edit crossings
 -- NOTE: Extra logic around permissions in function
 grant execute on function floods.new_crossing(text, text, text, integer, decimal, decimal) to floods_community_editor;
-grant execute on function floods.edit_crossing(integer, text) to floods_community_editor;
+grant execute on function floods.edit_crossing(integer, text, text) to floods_community_editor;
 
 -- Allow community admins and up to remove crossings
 -- NOTE: Extra logic around permissions in function

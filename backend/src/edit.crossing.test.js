@@ -89,18 +89,20 @@ function shouldWork(email, password, communityId, coordinates, extra_description
 
     it('should edit the crossing', async () => {
       const response = await lokka.send(`
-        mutation editCrossing($id: Int!, $name: String!) {
-          editCrossing(input: {crossingId: $id, name: $name}) {
+        mutation editCrossing($id: Int!, $name: String!, $description: String!) {
+          editCrossing(input: {crossingId: $id, name: $name, description: $description}) {
             crossing {
               id
               name
+              description
             }
           }
         }
       `,
       {
         id: newCrossingId,
-        name: "Edited Crossing Name"
+        name: "Edited Crossing Name",
+        description: "Edited Description"
       });
 
       expect(response).not.toBeNull();
