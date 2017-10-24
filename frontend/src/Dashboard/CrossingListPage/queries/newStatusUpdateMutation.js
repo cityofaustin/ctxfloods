@@ -17,7 +17,6 @@ const newStatusUpdateMutation = gql`
         notes: $notes
       }) {
       statusUpdate {
-        id
         crossingId
         statusId
         statusReasonId

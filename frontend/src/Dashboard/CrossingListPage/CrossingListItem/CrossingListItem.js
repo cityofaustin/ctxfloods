@@ -29,13 +29,38 @@ class CrossingListItem extends React.Component {
   }
 
   newStatusUpdate(e) {
+    const updateData = {
+      crossingId: this.props.crossing.id,
+      statusId: this.state.selectedStatus,
+      reasonId: (this.state.selectedStatus !== statusConstants.OPEN ? this.state.selectedReason : null),
+      durationId: (this.state.selectedStatus === statusConstants.LONGTERM ? this.state.selectedDuration : null),
+      notes: this.state.notes
+    }
+
     this.props.newStatusUpdateMutation({
       variables: {
-        crossingId: this.props.crossing.id,
-        statusId: this.state.selectedStatus,
-        reasonId: (this.state.selectedStatus !== statusConstants.OPEN ? this.state.selectedReason : null),
-        durationId: (this.state.selectedStatus === statusConstants.LONGTERM ? this.state.selectedDuration : null),
-        notes: this.state.notes
+        crossingId: updateData.crossingId,
+        statusId: updateData.statusId,
+        reasonId: updateData.reasonId,
+        durationId: updateData.durationId,
+        notes: updateData.notes
+      },
+      optimisticResponse: {
+        newStatusUpdate: {
+          statusUpdate: {
+            crossingId: updateData.crossingId,
+            statusId: updateData.statusId,
+            statusReasonId: updateData.reasonId,
+            statusDurationId: updateData.durationId,
+            createdAt: Date.now(),
+            notes: updateData.notes,
+            userByCreatorId: {
+              firstName: "blarg",
+              lastName: "blarg"
+            }
+          },
+          __typename: 'NewStatusUpdatePayload'
+        },
       },
       update: (store, {data: {newStatusUpdate}}) => {
         // Get the crossing we need to update from the cache
