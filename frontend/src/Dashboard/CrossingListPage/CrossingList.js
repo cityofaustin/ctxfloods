@@ -6,7 +6,14 @@ import statusReasonsQuery from './queries/statusReasonsQuery';
 import statusDurationsQuery from './queries/statusDurationsQuery';
 import './CrossingList.css';
 import * as statusConstants from './CrossingListItem/StatusConstants';
+import {ContainerQuery} from 'react-container-query';
 import classnames from 'classnames';
+
+const containerQuery = {
+  'CrossingListItem--lg': {
+    minWidth: 600,
+  }
+};
 
 class CrossingList extends React.Component {
   state = {}
@@ -40,15 +47,23 @@ class CrossingList extends React.Component {
     }
 
     return (
-      <div className='CrossingListContainer'>
-        {crossings.map(crossing => 
-          <CrossingListItem
-            crossing={crossing}
-            reasons={statusReasons} 
-            durations={statusDurations}
-            hidden={!crossingIdsToShow.includes(crossing.id)} />
-        )}
-      </div>
+      <ContainerQuery query={containerQuery}>
+        {(params) => {
+          const cqClassName = classnames(params, 'CrossingListItem');
+          return (
+            <div className='CrossingListContainer'>
+              {crossings.map(crossing => 
+                <CrossingListItem
+                  crossing={crossing}
+                  reasons={statusReasons} 
+                  durations={statusDurations}
+                  hidden={!crossingIdsToShow.includes(crossing.id)} 
+                  cqClassName={cqClassName} />
+              )}
+            </div>
+          );
+        }}
+      </ContainerQuery>
     );
   }
 }
