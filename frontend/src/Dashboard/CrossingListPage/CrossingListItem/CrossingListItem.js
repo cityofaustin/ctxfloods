@@ -37,7 +37,20 @@ class CrossingListItem extends React.Component {
         durationId: (this.state.selectedStatus === statusConstants.LONGTERM ? this.state.selectedDuration : null),
         notes: this.state.notes
       },
-      refetchQueries: [{ query: crossingsQuery }, {query: statusCountsQuery}]
+      update: (store, {data: {newStatusUpdate}}) => {
+        // Get the crossing we need to update from the cache
+        const data = store.readQuery({query: crossingsQuery});
+        const crossings = data.allCrossings.nodes;
+        const crossingToUpdate = crossings.find(c => c.id === newStatusUpdate.statusUpdate.crossingId);
+
+        // Set the latest status id, and the latest status update
+        crossingToUpdate.latestStatusId = newStatusUpdate.statusUpdate.statusId;
+        crossingToUpdate.statusUpdateByLatestStatusUpdateId = newStatusUpdate.statusUpdate;
+
+        // Write the update back to the cache
+        store.writeQuery({ query: crossingsQuery, data });
+      },
+      // refetchQueries: [{ query: crossingsQuery }, {query: statusCountsQuery}]
     })
     .then(({ data }) => {
       this.setState({ selectedStatus: data.newStatusUpdate.statusUpdate.statusId });

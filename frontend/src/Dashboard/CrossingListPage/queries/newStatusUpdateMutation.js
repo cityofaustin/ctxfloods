@@ -18,10 +18,16 @@ const newStatusUpdateMutation = gql`
       }) {
       statusUpdate {
         id
+        crossingId
         statusId
         statusReasonId
         statusDurationId
+        createdAt
         notes
+        userByCreatorId {
+          firstName
+          lastName
+        }
       }
     }
   }
