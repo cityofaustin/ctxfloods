@@ -222,7 +222,7 @@ class CrossingListItem extends React.Component {
     }
 
     return (
-      <div className={classnames(this.props.cqClassName, "CrossingListItem")}>
+      <div className={classnames(this.props.cqClassName)}>
         {CrossingListItemJSX}
       </div>
     );
