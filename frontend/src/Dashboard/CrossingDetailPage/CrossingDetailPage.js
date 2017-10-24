@@ -31,6 +31,7 @@ class CrossingDetailPage extends Component {
 const CrossingByIdQuery = gql`
   query crossingById($crossingId:Int!) {
     crossingById(id:$crossingId) {
+      id
       name
       humanCoordinates
       humanAddress

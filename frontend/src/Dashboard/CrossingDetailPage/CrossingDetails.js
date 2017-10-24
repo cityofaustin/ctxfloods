@@ -11,6 +11,7 @@ class CrossingDetails extends Component {
   }
 
   updateCrossing(e) {
+    debugger;
     this.props.updateCrossingMutation({
       variables: {
         crossingId: this.props.crossing.id,
@@ -37,7 +38,7 @@ class CrossingDetails extends Component {
         <div> {crossing.humanAddress} </div>
         <input type='text' defaultValue={crossing.description}></input>
         <input type='text' defaultValue={community.name}></input>
-        <div> SAVE CROSSING </div>
+        <div onClick={this.updateCrossing.bind(this)}> SAVE CROSSING </div>
         <div> CANCEL EDITS </div>
         <div> DELETE CROSSING </div>
       </div>
@@ -46,28 +47,12 @@ class CrossingDetails extends Component {
 
 }
 
-const newStatusUpdateMutation = gql`
-  mutation newStatusUpdate(
-    $crossingId: Int,
-    $statusId: Int,
-    $reasonId: Int,
-    $durationId: Int,
-    $notes: String
-  ) {
-    newStatusUpdate(input: 
-      {
-        crossingId: $crossingId,
-        statusId: $statusId,
-        statusReasonId: $reasonId,
-        statusDurationId: $durationId,
-        notes: $notes
-      }) {
-      statusUpdate {
+const updateCrossingMutation = gql`
+  mutation editCrossing($crossingId: Int!, $name: String!) {
+    editCrossing(input: {crossingId: $crossingId, name: $name}) {
+      crossing {
         id
-        statusId
-        statusReasonId
-        statusDurationId
-        notes
+        name
       }
     }
   }
