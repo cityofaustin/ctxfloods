@@ -33,6 +33,11 @@
   margin: 10px;
 }
 
+.CrossingListItemFlexItem--spacer {
+  @include flexitem;
+  margin: 0 10px;
+}
+
 .CrossingName {
   font-size: 12pt;
   color: #055eff;
