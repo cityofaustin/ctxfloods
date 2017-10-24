@@ -484,19 +484,6 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
         />
       </div>
     </div>
-    <div
-      className=""
-    >
-      <div
-        className="CrossingListItemFlexItem--spacer"
-      />
-      <div
-        className="CrossingListItemFlexItem--spacer"
-      />
-      <div
-        className="CrossingListItemFlexItem--spacer"
-      />
-    </div>
   </div>
 </div>
 `;
@@ -954,19 +941,6 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
           value="No Go"
         />
       </div>
-    </div>
-    <div
-      className=""
-    >
-      <div
-        className="CrossingListItemFlexItem--spacer"
-      />
-      <div
-        className="CrossingListItemFlexItem--spacer"
-      />
-      <div
-        className="CrossingListItemFlexItem--spacer"
-      />
     </div>
   </div>
 </div>
@@ -1999,19 +1973,6 @@ exports[`Storyshots Crossing List Item Open 1`] = `
           value="All Clear"
         />
       </div>
-    </div>
-    <div
-      className=""
-    >
-      <div
-        className="CrossingListItemFlexItem--spacer"
-      />
-      <div
-        className="CrossingListItemFlexItem--spacer"
-      />
-      <div
-        className="CrossingListItemFlexItem--spacer"
-      />
     </div>
   </div>
 </div>
