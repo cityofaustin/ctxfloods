@@ -170,7 +170,11 @@ class CrossingListItem extends React.Component {
           <input className="NotesTextBox" type="text" value={this.state.notes} onChange={this.notesChanged}/>
         </div>
       </div>
-      <div className={show.includes('duration') || show.includes('cancelSave') ? "CrossingListItemFlexContainer" : ""}>
+
+      
+      { (show.includes('duration') || show.includes('cancelSave')) && (
+
+      <div className="CrossingListItemFlexContainer">
         <div className="CrossingListItemFlexItem--spacer" />
         
       {show.includes('duration') ? (
@@ -200,6 +204,8 @@ class CrossingListItem extends React.Component {
       )}
 
       </div>
+      )}
+
       </div>
     );
 
