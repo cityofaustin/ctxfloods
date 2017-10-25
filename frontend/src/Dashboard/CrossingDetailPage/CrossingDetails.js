@@ -12,7 +12,6 @@ class CrossingDetails extends Component {
   }
 
   updateCrossing(e) {
-    debugger;
     this.props.updateCrossingMutation({
       variables: {
         crossingId: this.props.crossing.id,
@@ -21,7 +20,7 @@ class CrossingDetails extends Component {
       }
     })
     .then(({ data }) => {
-      alert(data);
+      // TODO - handle success
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
