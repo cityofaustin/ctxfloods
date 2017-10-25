@@ -21,7 +21,7 @@ class CrossingList extends React.Component {
       return (<div>Loading</div>)
     }
 
-    const { showOpen, showClosed, showCaution, showLongterm } = this.props;
+    const { showOpen, showClosed, showCaution, showLongterm, currentUser } = this.props;
 
     const crossings = this.props.crossingsQuery.allCrossings.nodes;
     let crossingIdsToShow = crossings.filter(crossing => 
@@ -46,6 +46,7 @@ class CrossingList extends React.Component {
             crossing={crossing}
             reasons={statusReasons} 
             durations={statusDurations}
+            currentUser={currentUser}
             hidden={!crossingIdsToShow.includes(crossing.id)} />
         )}
       </div>

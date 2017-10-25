@@ -36,7 +36,8 @@ class CrossingListItem extends React.Component {
       statusId: this.state.selectedStatus,
       reasonId: (this.state.selectedStatus !== statusConstants.OPEN ? this.state.selectedReason : null),
       durationId: (this.state.selectedStatus === statusConstants.LONGTERM ? this.state.selectedDuration : null),
-      notes: this.state.notes
+      notes: this.state.notes,
+      user: this.props.currentUser
     }
 
     this.props.newStatusUpdateMutation({
@@ -64,8 +65,8 @@ class CrossingListItem extends React.Component {
                 createdAt: Date.now(),
                 notes: updateData.notes,
                 userByCreatorId: {
-                  firstName: "blarg",
-                  lastName: "blarg",
+                  firstName: updateData.user.firstName,
+                  lastName: updateData.user.lastName,
                   __typename: "User"
                 },
                 __typename: "StatusUpdate"
