@@ -68,35 +68,24 @@ class CrossingListItem extends React.Component {
       //   },
       // },
       update: (store, {data: {newStatusUpdate}}) => {
-        // Get the crossing we need to update from the cache
-        const crossingToUpdate = store.readFragment({
-          id: 'Crossing:' + newStatusUpdate.statusUpdate.crossingId,
-          fragment: crossingFragment
+        // Get the updated crossing from the status update mutation
+        const updatedCrossing = newStatusUpdate.statusUpdate.crossingByCrossingId;
+
+        // Write the updated crossing to the cache
+        store.writeFragment({
+          id: 'Crossing:' + updatedCrossing.id,
+          fragment: crossingFragment,
+          data: updatedCrossing
         });
-
-        debugger;
-
-
-
-        //const data = store.readQuery({query: crossingsQuery});
-        //const crossings = data.allCrossings.nodes;
-        // const crossingToUpdate = crossings.find(c => c.id === newStatusUpdate.statusUpdate.crossingId);
-        
-
-        // Set the latest status id, and the latest status update
-        // crossingToUpdate.latestStatusId = newStatusUpdate.statusUpdate.statusId;
-        // crossingToUpdate.statusUpdateByLatestStatusUpdateId = newStatusUpdate.statusUpdate;
-
-        // Write the update back to the cache
-        // store.writeQuery({ query: crossingsQuery, data });
-      },
-      // refetchQueries: [{ query: crossingsQuery }, {query: statusCountsQuery}]
+      }
     })
     .then(({ data }) => {
-      this.setState({ selectedStatus: data.newStatusUpdate.statusUpdate.statusId });
-      this.setState({ selectedReason: data.newStatusUpdate.statusUpdate.statusReasonId });
-      this.setState({ selectedDuration: data.newStatusUpdate.statusUpdate.statusDurationId });
-      this.setState({ notes: data.newStatusUpdate.statusUpdate.notes });
+      const update = data.newStatusUpdate.statusUpdate.crossingByCrossingId.statusUpdateByLatestStatusUpdateId;
+
+      this.setState({ selectedStatus: update.statusId });
+      this.setState({ selectedReason: update.statusReasonId });
+      this.setState({ selectedDuration: update.statusDurationId });
+      this.setState({ notes: update.notes });
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
