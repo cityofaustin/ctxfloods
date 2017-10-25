@@ -11,7 +11,7 @@ class CrossingDetails extends Component {
     };
   }
 
-  updateCrossing(e) {
+  updateCrossing = (e) => {
     this.props.updateCrossingMutation({
       variables: {
         crossingId: this.props.crossing.id,
@@ -40,7 +40,7 @@ class CrossingDetails extends Component {
         <div> {crossing.humanAddress} </div>
         <input type="text" value={this.state.description} onChange={this.descriptionChanged}/>
         <div>{communities.map(c => c.name)}</div>
-        <button onClick={this.updateCrossing.bind(this)}> SAVE CROSSING </button>
+        <button onClick={this.updateCrossing}> SAVE CROSSING </button>
         <div> CANCEL EDITS </div>
         <div> DELETE CROSSING </div>
       </div>
