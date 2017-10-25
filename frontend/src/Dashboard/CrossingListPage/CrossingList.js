@@ -11,6 +11,14 @@ import classnames from 'classnames';
 class CrossingList extends React.Component {
   state = {}
 
+  shouldHideCrossing (crossing, showOpen, showClosed, showCaution, showLongterm) {
+      return ( 
+        crossing.latestStatusId == statusConstants.OPEN && !showOpen ||
+        crossing.latestStatusId == statusConstants.CLOSED && !showClosed ||
+        crossing.latestStatusId == statusConstants.CAUTION && !showCaution ||
+        crossing.latestStatusId == statusConstants.LONGTERM && !showLongterm);
+  }
+
   render () {
     if ( !this.props.crossingsQuery ||
           this.props.crossingsQuery.loading ||
@@ -23,13 +31,7 @@ class CrossingList extends React.Component {
 
     const { showOpen, showClosed, showCaution, showLongterm, invertSort } = this.props;
 
-    const crossings = this.props.crossingsQuery.allCrossings.nodes;
-    let crossingIdsToShow = crossings.filter(crossing => 
-      crossing.latestStatusId == statusConstants.OPEN && showOpen ||
-      crossing.latestStatusId == statusConstants.CLOSED && showClosed ||
-      crossing.latestStatusId == statusConstants.CAUTION && showCaution ||
-      crossing.latestStatusId == statusConstants.LONGTERM && showLongterm
-    ).map(filteredCrossing => filteredCrossing.id);
+    const crossings = this.props.crossingsQuery.allCrossings.nodes.slice();
 
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
     const statusDurations = this.props.statusDurationsQuery.allStatusDurations.nodes;
@@ -39,8 +41,7 @@ class CrossingList extends React.Component {
       return (<div>Error Loading Crossings</div>);
     }
 
-    var sortedCrossings = crossings.slice();
-    sortedCrossings.sort((c1, c2) => {
+    crossings.sort((c1, c2) => {
       if (c1.statusUpdateByLatestStatusUpdateId.createdAt > c2.statusUpdateByLatestStatusUpdateId.createdAt) {
         return invertSort ? 1 : -1;
       }
@@ -50,13 +51,13 @@ class CrossingList extends React.Component {
 
     return (
       <div className='CrossingListContainer'>
-        {sortedCrossings.map(crossing => 
+        {crossings.map(crossing => 
           <CrossingListItem
             key={crossing.id}
             crossing={crossing}
             reasons={statusReasons} 
             durations={statusDurations}
-            hidden={!crossingIdsToShow.includes(crossing.id)} />
+            hidden={this.shouldHideCrossing(crossing, showOpen, showClosed, showCaution, showLongterm)} />
         )}
       </div>
     );
