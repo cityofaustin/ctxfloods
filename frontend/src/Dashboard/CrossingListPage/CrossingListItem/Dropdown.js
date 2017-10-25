@@ -15,7 +15,7 @@ class Dropdown extends Component {
           onChange={this.props.onChange}
           defaultValue={selected}>
           {options.map(opt => 
-            <option value={opt.id}>
+            <option value={opt.id} key={opt.id}>
               {opt.name}
             </option>
           )}
