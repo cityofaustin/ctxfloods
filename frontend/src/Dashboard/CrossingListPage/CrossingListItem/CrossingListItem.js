@@ -30,6 +30,7 @@ class CrossingListItem extends React.Component {
 
   newStatusUpdate(e) {
     const updateData = {
+      id: Math.round(Math.random() * -1000000),
       crossingId: this.props.crossing.id,
       statusId: this.state.selectedStatus,
       reasonId: (this.state.selectedStatus !== statusConstants.OPEN ? this.state.selectedReason : null),
@@ -48,6 +49,7 @@ class CrossingListItem extends React.Component {
       optimisticResponse: {
         newStatusUpdate: {
           statusUpdate: {
+            id: updateData.id,
             crossingId: updateData.crossingId,
             statusId: updateData.statusId,
             statusReasonId: updateData.reasonId,
@@ -65,6 +67,7 @@ class CrossingListItem extends React.Component {
         },
       },
       update: (store, {data: {newStatusUpdate}}) => {
+        debugger;
         // Get the crossing we need to update from the cache
         const data = store.readQuery({query: crossingsQuery});
         const crossings = data.allCrossings.nodes;

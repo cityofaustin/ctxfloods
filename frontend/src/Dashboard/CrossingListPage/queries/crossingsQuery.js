@@ -1,29 +1,15 @@
 import gql from 'graphql-tag';
-import statusUpdateFragment from './statusUpdateFragment';
+import crossingFragment from './crossingFragment';
 
 const crossingsQuery = gql`
   query allCrossings {
     allCrossings {
       nodes {
-        id
-        name
-        description
-        humanAddress
-        latestStatusId
-        statusUpdateByLatestStatusUpdateId {
-          ...statusUpdateInfo
-        }
-        communityCrossingsByCrossingId {
-          nodes {
-            communityByCommunityId {
-              name
-            }
-          }
-        }
+        ...crossingInfo
       }
     }
   }
-  ${statusUpdateFragment}
+  ${crossingFragment}
 `;
 
 export default crossingsQuery;

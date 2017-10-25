@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 // Save the fragment into a variable
 const statusUpdateFragment = gql`
   fragment statusUpdateInfo on StatusUpdate {
+    id
     crossingId
     statusId
     statusReasonId
