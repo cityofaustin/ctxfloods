@@ -10,6 +10,7 @@ import * as statusConstants from './StatusConstants';
 import newStatusUpdateMutation from '../queries/newStatusUpdateMutation';
 import crossingsQuery from '../queries/crossingsQuery';
 import statusCountsQuery from '../queries/statusCountsQuery';
+import crossingFragment from '../queries/crossingFragment';
 
 const statusStrings = new Map();
 statusStrings.set(statusConstants.OPEN, 'Open');
@@ -46,42 +47,48 @@ class CrossingListItem extends React.Component {
         durationId: updateData.durationId,
         notes: updateData.notes
       },
-      optimisticResponse: {
-        newStatusUpdate: {
-          statusUpdate: {
-            id: updateData.id,
-            crossingId: updateData.crossingId,
-            statusId: updateData.statusId,
-            statusReasonId: updateData.reasonId,
-            statusDurationId: updateData.durationId,
-            createdAt: Date.now(),
-            notes: updateData.notes,
-            userByCreatorId: {
-              firstName: "blarg",
-              lastName: "blarg",
-              __typename: "User"
-            },
-            __typename: "StatusUpdate"
-          },
-          __typename: "NewStatusUpdatePayload"
-        },
-      },
+      // optimisticResponse: {
+      //   newStatusUpdate: {
+      //     statusUpdate: {
+      //       id: updateData.id,
+      //       crossingId: updateData.crossingId,
+      //       statusId: updateData.statusId,
+      //       statusReasonId: updateData.reasonId,
+      //       statusDurationId: updateData.durationId,
+      //       createdAt: Date.now(),
+      //       notes: updateData.notes,
+      //       userByCreatorId: {
+      //         firstName: "blarg",
+      //         lastName: "blarg",
+      //         __typename: "User"
+      //       },
+      //       __typename: "StatusUpdate"
+      //     },
+      //     __typename: "NewStatusUpdatePayload"
+      //   },
+      // },
       update: (store, {data: {newStatusUpdate}}) => {
-        debugger;
         // Get the crossing we need to update from the cache
-        const data = store.readQuery({query: crossingsQuery});
-        const crossings = data.allCrossings.nodes;
-        var beforefind = Date.now();
-        const crossingToUpdate = crossings.find(c => c.id === newStatusUpdate.statusUpdate.crossingId);
-        var afterfind = Date.now();
-        console.log(afterfind - beforefind);
+        const crossingToUpdate = store.readFragment({
+          id: 'Crossing:' + newStatusUpdate.statusUpdate.crossingId,
+          fragment: crossingFragment
+        });
+
+        debugger;
+
+
+
+        //const data = store.readQuery({query: crossingsQuery});
+        //const crossings = data.allCrossings.nodes;
+        // const crossingToUpdate = crossings.find(c => c.id === newStatusUpdate.statusUpdate.crossingId);
+        
 
         // Set the latest status id, and the latest status update
-        crossingToUpdate.latestStatusId = newStatusUpdate.statusUpdate.statusId;
-        crossingToUpdate.statusUpdateByLatestStatusUpdateId = newStatusUpdate.statusUpdate;
+        // crossingToUpdate.latestStatusId = newStatusUpdate.statusUpdate.statusId;
+        // crossingToUpdate.statusUpdateByLatestStatusUpdateId = newStatusUpdate.statusUpdate;
 
         // Write the update back to the cache
-        store.writeQuery({ query: crossingsQuery, data });
+        // store.writeQuery({ query: crossingsQuery, data });
       },
       // refetchQueries: [{ query: crossingsQuery }, {query: statusCountsQuery}]
     })

@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import statusUpdateFragment from './statusUpdateFragment';
+import crossingFragment from './crossingFragment';
 
 const newStatusUpdateMutation = gql`
   mutation newStatusUpdate(
@@ -18,11 +18,14 @@ const newStatusUpdateMutation = gql`
         notes: $notes
       }) {
       statusUpdate {
-        ...statusUpdateInfo
+        crossingId
+        crossingByCrossingId {
+          ...crossingInfo
+        }
       }
     }
   }
-  ${statusUpdateFragment}
+  ${crossingFragment}
 `;
 
 export default newStatusUpdateMutation;

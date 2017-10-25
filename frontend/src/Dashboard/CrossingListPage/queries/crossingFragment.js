@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-import statusUpdateFragment from './statusUpdateFragment';
 
 // Save the fragment into a variable
 const crossingFragment = gql`
@@ -11,7 +10,17 @@ const crossingFragment = gql`
     latestStatusId
     latestStatusUpdateId
     statusUpdateByLatestStatusUpdateId {
-      ...statusUpdateInfo
+      id
+      crossingId
+      statusId
+      statusReasonId
+      statusDurationId
+      createdAt
+      notes
+      userByCreatorId {
+        firstName
+        lastName
+      }
     }
     communityCrossingsByCrossingId {
       nodes {
@@ -21,7 +30,6 @@ const crossingFragment = gql`
       }
     }
   }
-  ${statusUpdateFragment}
 `;
 
 export default crossingFragment;
