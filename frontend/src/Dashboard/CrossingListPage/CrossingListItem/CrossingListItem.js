@@ -56,17 +56,22 @@ class CrossingListItem extends React.Component {
             notes: updateData.notes,
             userByCreatorId: {
               firstName: "blarg",
-              lastName: "blarg"
-            }
+              lastName: "blarg",
+              __typename: "User"
+            },
+            __typename: "StatusUpdate"
           },
-          __typename: 'NewStatusUpdatePayload'
+          __typename: "NewStatusUpdatePayload"
         },
       },
       update: (store, {data: {newStatusUpdate}}) => {
         // Get the crossing we need to update from the cache
         const data = store.readQuery({query: crossingsQuery});
         const crossings = data.allCrossings.nodes;
+        var beforefind = Date.now();
         const crossingToUpdate = crossings.find(c => c.id === newStatusUpdate.statusUpdate.crossingId);
+        var afterfind = Date.now();
+        console.log(afterfind - beforefind);
 
         // Set the latest status id, and the latest status update
         crossingToUpdate.latestStatusId = newStatusUpdate.statusUpdate.statusId;

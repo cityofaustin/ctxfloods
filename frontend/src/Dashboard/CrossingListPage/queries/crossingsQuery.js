@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import statusUpdateFragment from './statusUpdateFragment';
 
 const crossingsQuery = gql`
   query allCrossings {
@@ -10,15 +11,7 @@ const crossingsQuery = gql`
         humanAddress
         latestStatusId
         statusUpdateByLatestStatusUpdateId {
-          statusId
-          statusReasonId
-          statusDurationId
-          createdAt
-          notes
-          userByCreatorId {
-            firstName
-            lastName
-          }
+          ...statusUpdateInfo
         }
         communityCrossingsByCrossingId {
           nodes {
@@ -30,6 +23,7 @@ const crossingsQuery = gql`
       }
     }
   }
+  ${statusUpdateFragment}
 `;
 
 export default crossingsQuery;
