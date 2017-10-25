@@ -27,7 +27,7 @@ class CrossingListHeader extends Component {
       return '';
     };
 
-    const { toggleShowOpen, toggleShowClosed, toggleShowCaution, toggleShowLongterm, toggleSort, showOpen, showClosed, showCaution, showLongterm, invertSort } = this.props;
+    const { toggleShowOpen, toggleShowClosed, toggleShowCaution, toggleShowLongterm, toggleSortByUpdated, showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc } = this.props;
     const { openCrossings, closedCrossings, cautionCrossings, longtermCrossings } = this.props.data;
 
     return (
@@ -43,9 +43,9 @@ class CrossingListHeader extends Component {
 
             {params.smallsize ? (
               <div className='smallflex'>
-                <div className={classnames(params, 'CrossingListSortToggle')} onClick={toggleSort}>
+                <div className={classnames(params, 'CrossingListSortToggle')} onClick={toggleSortByUpdated}>
                   <div className={classnames(params, 'CrossingListSortToggleText')}>
-                    LAST UPDATED {invertSort ? <FontAwesome name="caret-up" ariaLabel="Ascending"/> : <FontAwesome name="caret-down" ariaLabel="Descending"/>}
+                    LAST UPDATED {sortByUpdatedAsc ? <FontAwesome name="caret-up" ariaLabel="Ascending"/> : <FontAwesome name="caret-down" ariaLabel="Descending"/>}
                   </div>
                 </div>
                 <div className={classnames(params, 'CrossingListFilterToggle', {'selected': this.state.showFilterDrawer})} onClick={this.toggleFilterDropdown}>
@@ -55,9 +55,9 @@ class CrossingListHeader extends Component {
                 </div>
               </div>
             ) : (
-              <div className={classnames(params, 'CrossingListSortToggle')} onClick={toggleSort}>
+              <div className={classnames(params, 'CrossingListSortToggle')} onClick={toggleSortByUpdated}>
                 <div className={classnames(params, 'CrossingListSortToggleText')}>
-                  LAST UPDATED {invertSort ? <FontAwesome name="caret-up" ariaLabel="Ascending"/> : <FontAwesome name="caret-down" ariaLabel="Descending"/>}
+                  LAST UPDATED {sortByUpdatedAsc ? <FontAwesome name="caret-up" ariaLabel="Ascending"/> : <FontAwesome name="caret-down" ariaLabel="Descending"/>}
                 </div>
               </div>
             )}

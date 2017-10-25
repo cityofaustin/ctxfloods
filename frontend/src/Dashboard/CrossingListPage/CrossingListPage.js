@@ -10,7 +10,7 @@ class CrossingListPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      invertSort: false,
+      sortByUpdatedAsc: false,
       showOpen: true,
       showClosed: true,
       showCaution: true,
@@ -22,7 +22,7 @@ class CrossingListPage extends Component {
   toggleShowClosed = () => { this.setState({ showClosed: !this.state.showClosed }) };
   toggleShowCaution = () => { this.setState({ showCaution: !this.state.showCaution }) };
   toggleShowLongterm = () => { this.setState({ showLongterm: !this.state.showLongterm }) };
-  toggleSort = () => { this.setState({invertSort: !this.state.invertSort }) };
+  toggleSortByUpdated = () => { this.setState({sortByUpdatedAsc: !this.state.sortByUpdatedAsc }) };
 
   render() {
     return (
@@ -36,14 +36,14 @@ class CrossingListPage extends Component {
           toggleShowCaution={this.toggleShowCaution}
           showLongterm={this.state.showLongterm}
           toggleShowLongterm={this.toggleShowLongterm}
-          toggleSort={this.toggleSort} 
-          invertSort={this.state.invertSort} />
+          toggleSortByUpdated={this.toggleSortByUpdated} 
+          sortByUpdatedAsc={this.state.sortByUpdatedAsc} />
         <CrossingList {...this.props}
           showOpen={this.state.showOpen}
           showCaution={this.state.showCaution}
           showClosed={this.state.showClosed}
           showLongterm={this.state.showLongterm} 
-          invertSort={this.state.invertSort} />
+          sortByUpdatedAsc={this.state.sortByUpdatedAsc} />
       </div>
     );
   }

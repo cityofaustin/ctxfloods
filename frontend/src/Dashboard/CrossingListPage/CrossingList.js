@@ -29,7 +29,7 @@ class CrossingList extends React.Component {
       return (<div>Loading</div>)
     }
 
-    const { showOpen, showClosed, showCaution, showLongterm, invertSort } = this.props;
+    const { showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc } = this.props;
 
     const crossings = this.props.crossingsQuery.allCrossings.nodes.slice();
 
@@ -42,11 +42,12 @@ class CrossingList extends React.Component {
     }
 
     crossings.sort((c1, c2) => {
-      if (c1.statusUpdateByLatestStatusUpdateId.createdAt > c2.statusUpdateByLatestStatusUpdateId.createdAt) {
-        return invertSort ? 1 : -1;
-      }
+      const createdAt1 = c1.statusUpdateByLatestStatusUpdateId.createdAt;
+      const createdAt2 = c2.statusUpdateByLatestStatusUpdateId.createdAt;
 
-      return invertSort ? -1 : 1;  
+      return sortByUpdatedAsc ?
+              (createdAt1 > createdAt2 ? 1 : -1) :
+              (createdAt2 > createdAt1 ? 1 : -1);
     });
 
     return (
