@@ -4,9 +4,6 @@ import gql from 'graphql-tag';
 const crossingFragment = gql`
   fragment crossingInfo on Crossing {
     id
-    name
-    description
-    humanAddress
     latestStatusId
     latestStatusUpdateId
     statusUpdateByLatestStatusUpdateId {
@@ -20,13 +17,6 @@ const crossingFragment = gql`
       userByCreatorId {
         firstName
         lastName
-      }
-    }
-    communityCrossingsByCrossingId {
-      nodes {
-        communityByCommunityId {
-          name
-        }
       }
     }
   }

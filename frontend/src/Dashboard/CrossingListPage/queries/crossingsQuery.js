@@ -5,6 +5,17 @@ const crossingsQuery = gql`
   query allCrossings {
     allCrossings {
       nodes {
+        id
+        name
+        description
+        humanAddress
+        communityCrossingsByCrossingId {
+          nodes {
+            communityByCommunityId {
+              name
+            }
+          }
+        }
         ...crossingInfo
       }
     }

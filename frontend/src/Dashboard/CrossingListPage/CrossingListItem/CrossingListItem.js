@@ -47,26 +47,36 @@ class CrossingListItem extends React.Component {
         durationId: updateData.durationId,
         notes: updateData.notes
       },
-      // optimisticResponse: {
-      //   newStatusUpdate: {
-      //     statusUpdate: {
-      //       id: updateData.id,
-      //       crossingId: updateData.crossingId,
-      //       statusId: updateData.statusId,
-      //       statusReasonId: updateData.reasonId,
-      //       statusDurationId: updateData.durationId,
-      //       createdAt: Date.now(),
-      //       notes: updateData.notes,
-      //       userByCreatorId: {
-      //         firstName: "blarg",
-      //         lastName: "blarg",
-      //         __typename: "User"
-      //       },
-      //       __typename: "StatusUpdate"
-      //     },
-      //     __typename: "NewStatusUpdatePayload"
-      //   },
-      // },
+      optimisticResponse: {
+        newStatusUpdate: {
+          statusUpdate: {
+            crossingId: updateData.crossingId,
+            crossingByCrossingId: {
+              id: updateData.crossingId,
+              latestStatusId: updateData.statusId,
+              latestStatusUpdateId: updateData.id,
+              statusUpdateByLatestStatusUpdateId: {
+                id: updateData.id,
+                crossingId: updateData.crossingId,
+                statusId: updateData.statusId,
+                statusReasonId: updateData.reasonId,
+                statusDurationId: updateData.durationId,
+                createdAt: Date.now(),
+                notes: updateData.notes,
+                userByCreatorId: {
+                  firstName: "blarg",
+                  lastName: "blarg",
+                  __typename: "User"
+                },
+                __typename: "StatusUpdate"
+              },
+              __typename: "Crossing"
+            },
+            __typename: "StatusUpdate"
+          },
+          __typename: "NewStatusUpdatePayload"
+        },
+      },
       update: (store, {data: {newStatusUpdate}}) => {
         // Get the updated crossing from the status update mutation
         const updatedCrossing = newStatusUpdate.statusUpdate.crossingByCrossingId;
