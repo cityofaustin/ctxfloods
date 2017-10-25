@@ -31,7 +31,7 @@ class CrossingDetails extends Component {
   descriptionChanged = (e) => { this.setState({ description: e.target.value }) };
 
   render() {
-    const { crossing, community } = this.props;
+    const { crossing, communities } = this.props;
 
     return (
       <div>
@@ -40,7 +40,7 @@ class CrossingDetails extends Component {
         <input type="text" value={this.state.name} onChange={this.nameChanged}/>
         <div> {crossing.humanAddress} </div>
         <input type="text" value={this.state.description} onChange={this.descriptionChanged}/>
-        <div>{community.name}</div>
+        <div>{communities.map(c => c.name)}</div>
         <button onClick={this.updateCrossing.bind(this)}> SAVE CROSSING </button>
         <div> CANCEL EDITS </div>
         <div> DELETE CROSSING </div>

@@ -15,12 +15,12 @@ class CrossingDetailPage extends Component {
     }
 
     const crossing = this.props.CrossingByIdQuery.crossingById;
-    const community = crossing.communityCrossingsByCrossingId.nodes[0].communityByCommunityId;
+    const communities = crossing.communityCrossingsByCrossingId.nodes.map(n => n.communityByCommunityId);
     const history = this.props.CrossingHistoryQuery.allStatusUpdates.nodes;
 
     return (
       <div>
-        <CrossingDetails crossing={crossing} community={community}/>
+        <CrossingDetails crossing={crossing} communities={communities}/>
         <CrossingStatusHistory history={history}/>
       </div>
     );
