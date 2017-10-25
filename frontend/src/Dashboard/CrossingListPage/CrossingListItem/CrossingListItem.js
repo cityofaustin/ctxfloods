@@ -87,7 +87,8 @@ class CrossingListItem extends React.Component {
           fragment: crossingFragment,
           data: updatedCrossing
         });
-      }
+      },
+      refetchQueries: [{query: statusCountsQuery}]
     })
     .then(({ data }) => {
       const update = data.newStatusUpdate.statusUpdate.crossingByCrossingId.statusUpdateByLatestStatusUpdateId;
