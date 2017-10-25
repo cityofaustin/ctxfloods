@@ -22,6 +22,4 @@ class CrossingDetails extends Component {
 
 }
 
-
-
 export default CrossingDetails;
