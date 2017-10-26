@@ -47,7 +47,11 @@ class CrossingMap extends React.Component {
   }
 
   render () {
-    if (this.props.data.loading) {
+    const isLoading = (
+      !this.props.data || this.props.data.loading
+    );
+
+    if ( isLoading ) {
       return (<div>Loading</div>)
     }
 
