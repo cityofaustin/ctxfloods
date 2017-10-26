@@ -23,9 +23,12 @@ class CrossingListHeader extends Component {
   toggleFilterDropdown = () => { this.setState({ showFilterDrawer: !this.state.showFilterDrawer }) };
 
   render() {
-    if ( !this.props.data || this.props.data.loading) {
-      return '';
-    };
+    const isLoading = (
+      !this.props.data ||
+       this.props.data.loading
+    );
+
+    if ( isLoading ) { return '' };
 
     const { toggleShowOpen, toggleShowClosed, toggleShowCaution, toggleShowLongterm, toggleSortByUpdated, showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc } = this.props;
     const { openCrossings, closedCrossings, cautionCrossings, longtermCrossings } = this.props.data;

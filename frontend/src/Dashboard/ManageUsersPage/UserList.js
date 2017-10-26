@@ -35,9 +35,11 @@ class UserList extends React.Component {
   }
 
   render () {
-    if (!this.props.data || this.props.data.loading) {
-      return (<div>Loading</div>)
-    }
+    const isLoading = (
+      !this.props.data || this.props.data.loading
+    );
+
+    if ( isLoading ) { return (<div>Loading</div>) };
 
     const { searchUsers } = this.props.data;
 

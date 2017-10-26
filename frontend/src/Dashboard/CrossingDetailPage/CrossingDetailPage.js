@@ -7,12 +7,14 @@ import CrossingStatusHistory from './CrossingStatusHistory';
 
 class CrossingDetailPage extends Component {
   render() {
-    if ( !this.props.CrossingByIdQuery ||
-          this.props.CrossingByIdQuery.loading ||
-          !this.props.CrossingHistoryQuery ||
-          this.props.CrossingHistoryQuery.loading ) {
-      return (<div>Loading</div>)
-    }
+    const isLoading = (
+      !this.props.CrossingByIdQuery ||
+       this.props.CrossingByIdQuery.loading ||
+      !this.props.CrossingHistoryQuery ||
+       this.props.CrossingHistoryQuery.loading
+    );
+
+    if ( isLoading ) { return (<div>Loading</div>) };
 
     const crossing = this.props.CrossingByIdQuery.crossingById;
     const communities = crossing.communityCrossingsByCrossingId.nodes.map(n => n.communityByCommunityId);

@@ -27,14 +27,16 @@ class CrossingList extends React.Component {
   }
 
   render () {
-    if ( !this.props.crossingsQuery ||
-          this.props.crossingsQuery.loading ||
-         !this.props.statusReasonsQuery ||
-          this.props.statusReasonsQuery.loading ||
-         !this.props.statusDurationsQuery ||
-          this.props.statusDurationsQuery.loading) {
-      return (<div>Loading</div>)
-    }
+    const isLoading = (
+      !this.props.crossingsQuery ||
+       this.props.crossingsQuery.loading ||
+      !this.props.statusReasonsQuery ||
+       this.props.statusReasonsQuery.loading ||
+      !this.props.statusDurationsQuery ||
+       this.props.statusDurationsQuery.loading
+    );
+
+    if ( isLoading ) { return (<div>Loading</div>) };
 
     const { showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc, currentUser } = this.props;
 
