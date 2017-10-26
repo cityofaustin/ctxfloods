@@ -278,9 +278,7 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
 <div
   className="CrossingListItem"
 >
-  <div
-    className=""
-  >
+  <div>
     <div
       className="CrossingListItemFlexContainer"
     >
@@ -491,11 +489,9 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
 
 exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
 <div
-  className="CrossingListItem"
+  className="CrossingListItem--dirty CrossingListItem"
 >
-  <div
-    className="DirtyBorder"
-  >
+  <div>
     <div
       className="CrossingListItemFlexContainer"
     >
@@ -738,9 +734,7 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
 <div
   className="CrossingListItem"
 >
-  <div
-    className=""
-  >
+  <div>
     <div
       className="CrossingListItemFlexContainer"
     >
@@ -951,11 +945,9 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
 
 exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
 <div
-  className="CrossingListItem"
+  className="CrossingListItem--dirty CrossingListItem"
 >
-  <div
-    className="DirtyBorder"
-  >
+  <div>
     <div
       className="CrossingListItemFlexContainer"
     >
@@ -1263,9 +1255,7 @@ exports[`Storyshots Crossing List Item Long Term Closure 1`] = `
 <div
   className="CrossingListItem"
 >
-  <div
-    className=""
-  >
+  <div>
     <div
       className="CrossingListItemFlexContainer"
     >
@@ -1527,11 +1517,9 @@ exports[`Storyshots Crossing List Item Long Term Closure 1`] = `
 
 exports[`Storyshots Crossing List Item Long Term Closure Dirty 1`] = `
 <div
-  className="CrossingListItem"
+  className="CrossingListItem--dirty CrossingListItem"
 >
-  <div
-    className="DirtyBorder"
-  >
+  <div>
     <div
       className="CrossingListItemFlexContainer"
     >
@@ -1812,9 +1800,7 @@ exports[`Storyshots Crossing List Item Open 1`] = `
 <div
   className="CrossingListItem"
 >
-  <div
-    className=""
-  >
+  <div>
     <div
       className="CrossingListItemFlexContainer"
     >
@@ -1987,11 +1973,9 @@ exports[`Storyshots Crossing List Item Open 1`] = `
 
 exports[`Storyshots Crossing List Item Open Dirty 1`] = `
 <div
-  className="CrossingListItem"
+  className="CrossingListItem--dirty CrossingListItem"
 >
-  <div
-    className="DirtyBorder"
-  >
+  <div>
     <div
       className="CrossingListItemFlexContainer"
     >
@@ -2427,9 +2411,7 @@ exports[`Storyshots Crossing List Item Width 400px 1`] = `
   <div
     className="CrossingListItem"
   >
-    <div
-      className=""
-    >
+    <div>
       <div
         className="CrossingListItemFlexContainer"
       >
@@ -2701,9 +2683,7 @@ exports[`Storyshots Crossing List Item Width 900px 1`] = `
   <div
     className="CrossingListItem"
   >
-    <div
-      className=""
-    >
+    <div>
       <div
         className="CrossingListItemFlexContainer"
       >
