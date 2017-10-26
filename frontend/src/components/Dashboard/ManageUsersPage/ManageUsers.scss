@@ -1,15 +1,15 @@
-@import "../../css/flexbox";
+@import "../../../css/flexbox";
 
-.ManageCrossings {
+.ManageUsers {
   margin: auto 10%;
 }
 
-.ManageCrossings__h1 {
+.ManageUsers__h1 {
   font-size: 4.4rem;
   margin: 10px 0px;
 }
 
-.ManageCrossings__right-aligned-element {
+.ManageUsers__right-aligned-element {
   @include flexitem--pushed-right;
   @include flexcontainer;
   justify-content: flex-end;

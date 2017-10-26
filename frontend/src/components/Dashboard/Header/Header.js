@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import './Header.css';
-import externalLinkSvg from '../../images/external-link.svg';
+import externalLinkSvg from '../../../images/external-link.svg';
 import UserControls from './UserControls';
 
 class Header extends React.Component {

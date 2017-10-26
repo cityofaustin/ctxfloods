@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import Login from './Login';
-import auth from '../../services/gqlAuth'
+import auth from '../../../services/gqlAuth'
 
-import cogSvg from '../../images/cog.svg';
+import cogSvg from '../../../images/cog.svg';
 import './UserControls.css'
 
 class UserControlsBase extends React.Component {
