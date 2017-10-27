@@ -19,7 +19,7 @@ class CrossingDetailPage extends Component {
     const history = this.props.CrossingHistoryQuery.allStatusUpdates.nodes;
 
     return (
-      <div>
+      <div className="CrossingDetailPage">
         <CrossingDetails crossing={crossing} communities={communities}/>
         <CrossingStatusHistory history={history}/>
       </div>
@@ -60,11 +60,15 @@ query crossingHistory($crossingId:Int!) {
         firstName
       }
       statusByStatusId {
+        id
         name
       }
       statusReasonByStatusReasonId {
         name
       }
+      statusDurationByStatusDurationId {
+         name
+       }
       createdAt
       notes
     }

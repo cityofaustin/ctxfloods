@@ -1,7 +1,7 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import './StatusToggle.css';
-import * as statusConstants from './StatusConstants';
+import * as statusConstants from '../../../constants/StatusConstants';
 
 class StatusToggle extends React.Component {
 

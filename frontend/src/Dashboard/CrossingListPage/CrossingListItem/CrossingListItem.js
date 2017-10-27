@@ -6,7 +6,7 @@ import DateTime from './DateTime';
 import StatusToggle from './StatusToggle';
 import Dropdown from './Dropdown';
 import './CrossingListItem.css';
-import * as statusConstants from './StatusConstants';
+import * as statusConstants from '../../../constants/StatusConstants';
 import newStatusUpdateMutation from '../queries/newStatusUpdateMutation';
 import crossingsQuery from '../queries/crossingsQuery';
 import statusCountsQuery from '../queries/statusCountsQuery';

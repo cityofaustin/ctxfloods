@@ -16,8 +16,24 @@ export const strings = {
 };
 
 export const displayedInputs = {
-  1: ['notes'],
-  2: ['notes', 'reason'],
-  3: ['notes', 'reason'],
-  4: ['notes', 'reason', 'duration'],
+  1: {
+    'notes': true,
+    'reason': false,
+    'duration': false,
+  },
+  2: {
+    'notes': true,
+    'reason': true,
+    'duration': false,
+  },
+  3: {
+    'notes': true,
+    'reason': true,
+    'duration': false,
+  },
+  4: {
+    'notes': true,
+    'reason': true,
+    'duration': true,
+  },
 }

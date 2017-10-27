@@ -5,7 +5,7 @@ import crossingsQuery from './queries/crossingsQuery';
 import statusReasonsQuery from './queries/statusReasonsQuery';
 import statusDurationsQuery from './queries/statusDurationsQuery';
 import './CrossingList.css';
-import * as statusConstants from './CrossingListItem/StatusConstants';
+import * as statusConstants from '../../constants/StatusConstants';
 import {ContainerQuery} from 'react-container-query';
 import classnames from 'classnames';
 
@@ -19,7 +19,7 @@ class CrossingList extends React.Component {
   state = {}
 
   shouldHideCrossing (crossing, showOpen, showClosed, showCaution, showLongterm) {
-      return ( 
+      return (
         crossing.latestStatusId == statusConstants.OPEN && !showOpen ||
         crossing.latestStatusId == statusConstants.CLOSED && !showClosed ||
         crossing.latestStatusId == statusConstants.CAUTION && !showCaution ||
@@ -63,15 +63,15 @@ class CrossingList extends React.Component {
           const cqClassName = classnames(params, 'CrossingListItem');
           return (
             <div className='CrossingListContainer'>
-              {crossings.map(crossing => 
+              {crossings.map(crossing =>
                 <CrossingListItem
                   key={crossing.id}
                   crossing={crossing}
-                  reasons={statusReasons} 
+                  reasons={statusReasons}
                   durations={statusDurations}
                   currentUser={currentUser}
                   hidden={this.shouldHideCrossing(crossing, showOpen, showClosed, showCaution, showLongterm)}
-                  cqClassName={cqClassName} 
+                  cqClassName={cqClassName}
                 />
               )}
             </div>
