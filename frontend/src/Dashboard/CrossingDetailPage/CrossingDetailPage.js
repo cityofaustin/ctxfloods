@@ -48,13 +48,28 @@ const CrossingByIdQuery = gql`
 `;
 
 const CrossingHistoryQuery = gql`
-  query crossingHistory($crossingId:Int!) {
-    allStatusUpdates(condition:{crossingId:$crossingId}) {
-      nodes {
+query crossingHistory($crossingId:Int!) {
+  allStatusUpdates(
+    condition: { crossingId: $crossingId }
+    orderBy: CREATED_AT_DESC
+  ) {
+    nodes {
+      userByCreatorId {
         id
+        lastName
+        firstName
       }
+      statusByStatusId {
+        name
+      }
+      statusReasonByStatusReasonId {
+        name
+      }
+      createdAt
+      notes
     }
   }
+}
 `;
 
 export default compose(
