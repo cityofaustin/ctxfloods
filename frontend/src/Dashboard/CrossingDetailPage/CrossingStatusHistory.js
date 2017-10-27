@@ -13,7 +13,7 @@ class CrossingStatusHistory extends Component {
         <h2 className="CrossingStatusHistory__section-header">
           Crossing History
         </h2>
-        {history.map(update => {
+        {history.map((update, i) => {
           const firstName = get(update, 'userByCreatorId.firstName', '--');
           const lastName = get(update, 'userByCreatorId.lastName', '--');
           const statusId = get(update, 'statusByStatusId.id', '--');
@@ -26,10 +26,10 @@ class CrossingStatusHistory extends Component {
           const shouldDisplay = displayedInputs[statusId];
 
           return (
-            <div className="CrossingStatusHistory__item">
+            <div className="CrossingStatusHistory__item" key={i}>
               <div className="CrossingStatusHistory__item-details">
-                <p>{`${firstName} ${lastName}`}</p>
                 <p>{timestamp}</p>
+                <p>{`${firstName} ${lastName}`}</p>
                 <p>Status: {status}</p>
               </div>
               <div className="CrossingStatusHistory__item-details">
