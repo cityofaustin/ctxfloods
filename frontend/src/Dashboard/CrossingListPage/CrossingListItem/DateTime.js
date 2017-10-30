@@ -1,6 +1,7 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import './DateTime.css';
 
 class DateTime extends React.Component {
@@ -21,6 +22,14 @@ class DateTime extends React.Component {
       </div>
     );
   }
+}
+
+DateTime.propTypes = {
+  user: PropTypes.shape({
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+  }),
+  datetime: PropTypes.string.isRequired,
 }
 
 export default DateTime;
