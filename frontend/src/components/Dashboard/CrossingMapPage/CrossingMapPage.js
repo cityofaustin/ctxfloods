@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CrossingMap from '../../Map/CrossingMap'; 
-import './CrossingMapPage.css';
+import CrossingMap from 'Map/CrossingMap'; 
+import 'Dashboard/CrossingMapPage/CrossingMapPage.css';
 
 class CrossingMapPage extends Component {
 
@@ -14,7 +14,7 @@ class CrossingMapPage extends Component {
     return (
       <div className="CrossingMapPage">
         <div className="CrossingMapPage__map-container">
-          <CrossingMap mapHeight="80vh" mapWidth="80vw" viewport={viewport}/>
+          <CrossingMap mapHeight="80vh" mapWidth="100%" viewport={viewport}/>
         </div>
       </div>
     );

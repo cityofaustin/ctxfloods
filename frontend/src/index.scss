@@ -1,9 +1,17 @@
-@import "./css/typography.scss";
-@import "./css/flexbox.scss";
+@import "css/global/buttons";
+@import "css/global/flexbox";
+@import "css/global/typography";
+@import "css/mixins/colors";
 
 body {
   margin: 0;
   padding: 0;
+}
+
+.PageLayout {
+    max-width: 1100px; 
+    margin: 0 auto; 
+    padding: 0 5%;
 }
 
 .mapboxgl-user-location-dot {
