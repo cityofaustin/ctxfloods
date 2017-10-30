@@ -1,5 +1,6 @@
 @import "css/mixins/flexbox";
 @import "css/mixins/layout";
+@import "css/mixins/colors";
 
 .CrossingStatusHistory {
   margin: auto 10%;
@@ -11,8 +12,7 @@
 
 .CrossingStatusHistory__item {
   padding: 20px;
-  // TODO: Extract out colors into css/mixins/colors dir
-  border-bottom: 1px solid #F5F4F7;
+  border-bottom: 1px solid $border-color-light;
   @include flexcontainer--column;
 }
 
