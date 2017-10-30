@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { get } from 'lodash';
 import { displayedInputs } from '../../constants/StatusConstants';
+// TODO: DateTime component should live in a better place for shared use. Waiting
+//       for Brian's Cleanup PR.
+import DateTime from '../CrossingListPage/CrossingListItem/DateTime';
 import './CrossingStatusHistory.css';
 
 class CrossingStatusHistory extends Component {
@@ -14,22 +17,19 @@ class CrossingStatusHistory extends Component {
           Crossing History
         </h2>
         {history.map((update, i) => {
-          const firstName = get(update, 'userByCreatorId.firstName', '--');
-          const lastName = get(update, 'userByCreatorId.lastName', '--');
+          const user = get(update, 'userByCreatorId', {});
           const statusId = get(update, 'statusByStatusId.id', '--');
           const status = get(update, 'statusByStatusId.name', '--');
           const reason = get(update, 'statusReasonByStatusReasonId.name', 'Unconfirmed');
           const duration = get(update, 'statusDurationByStatusDurationId.name', '--');
           const createdAt = get(update, 'createdAt', '--');
           const notes = update.notes ? update.notes : '--';
-          const timestamp = moment(createdAt).format("MM/DD/YY h:mm A");
           const shouldDisplay = displayedInputs[statusId];
 
           return (
             <div className="CrossingStatusHistory__item" key={i}>
               <div className="CrossingStatusHistory__item-details">
-                <p>{timestamp}</p>
-                <p>{`${firstName} ${lastName}`}</p>
+                <DateTime datetime={createdAt} user={user} />
                 <p>Status: {status}</p>
               </div>
               <div className="CrossingStatusHistory__item-details">

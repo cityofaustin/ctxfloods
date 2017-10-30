@@ -126,7 +126,7 @@ class CrossingListItem extends React.Component {
             savedNotes != this.state.notes);
   }
 
-  openClicked = () => { 
+  openClicked = () => {
     this.setState({ selectedStatus: statusConstants.OPEN });
     this.setState({ notes: '' });
     this.setState({ selectedReason: null });
@@ -138,7 +138,7 @@ class CrossingListItem extends React.Component {
     this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CAUTION).id });
     this.setState({ selectedDuration: null });
   };
-  closedClicked = () => { 
+  closedClicked = () => {
     this.setState({ selectedStatus: statusConstants.CLOSED });
     this.setState({ notes: '' });
     this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CLOSED).id });
@@ -155,7 +155,7 @@ class CrossingListItem extends React.Component {
   durationChanged = (e) => { this.setState({ selectedDuration: e.target.value }) };
   notesChanged = (e) => { this.setState({ notes: e.target.value }) };
 
-  cancelClicked = () => { 
+  cancelClicked = () => {
     this.setState({ selectedStatus: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusId });
     this.setState({ selectedReason: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId });
     this.setState({ selectedDuration: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId });
@@ -164,6 +164,7 @@ class CrossingListItem extends React.Component {
 
   render () {
     const { crossing, reasons, durations, hidden } = this.props;
+    const { createdAt, userByCreatorId } = crossing.statusUpdateByLatestStatusUpdateId;
 
     if (hidden) return '';
 
@@ -178,7 +179,7 @@ class CrossingListItem extends React.Component {
         break;
       case statusConstants.LONGTERM:
         show = this.isDirty() ? ['reason', 'duration', 'cancelSave'] : ['reason', 'duration'];
-        break;  
+        break;
     }
 
     const CrossingListItemJSX = (
@@ -191,20 +192,20 @@ class CrossingListItem extends React.Component {
             <Location crossing={ crossing } />
           </div>
           <div className="CrossingListItemFlexItem">
-            <DateTime update={ crossing.statusUpdateByLatestStatusUpdateId } />
+            <DateTime datetime={ createdAt } user={ userByCreatorId } />
           </div>
         </div>
         <div className="CrossingListItemFlexContainer">
           <div className="CrossingListItemFlexItem">
             <div className="ControlLabel">Status: {statusStrings.get(this.state.selectedStatus)}</div>
-            <StatusToggle 
+            <StatusToggle
               status={this.state.selectedStatus}
               openClicked={this.openClicked}
               cautionClicked={this.cautionClicked}
               closedClicked={this.closedClicked}
               longtermClicked={this.longtermClicked} />
           </div>
-          
+
         {show.includes('reason') ? (
           <div className="CrossingListItemFlexItem">
             <div className="ControlLabelContainer">
@@ -224,12 +225,12 @@ class CrossingListItem extends React.Component {
             <input className="NotesTextBox" type="text" value={this.state.notes} onChange={this.notesChanged}/>
           </div>
         </div>
-        
+
         { (show.includes('duration') || show.includes('cancelSave')) && (
 
         <div className="CrossingListItemFlexContainer">
           <div className="CrossingListItemFlexItem--spacer" />
-          
+
         {show.includes('duration') ? (
           <div className="CrossingListItemFlexItem">
             <div className="ControlLabelContainer">
@@ -247,7 +248,7 @@ class CrossingListItem extends React.Component {
 
         {show.includes('cancelSave') ? (
           <div className="CrossingListItemFlexItem">
-            <div className="ButtonContainer">              
+            <div className="ButtonContainer">
               <div className="CancelButton" onClick={this.cancelClicked}>Cancel</div>
               <div className="SaveButton" onClick={this.newStatusUpdate.bind(this)}>Save</div>
             </div>
@@ -271,7 +272,7 @@ class CrossingListItem extends React.Component {
           </div>
         )}
         </ContainerQuery>
-      );      
+      );
     }
 
     return (
