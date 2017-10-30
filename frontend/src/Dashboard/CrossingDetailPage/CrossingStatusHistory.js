@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import { get } from 'lodash';
 import { displayedInputs } from '../../constants/StatusConstants';
 // TODO: DateTime component should live in a better place for shared use. Waiting
