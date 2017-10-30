@@ -4,7 +4,6 @@ import {ContainerQuery} from 'react-container-query';
 import classnames from 'classnames';
 import FontAwesome from 'react-fontawesome';
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import statusCountsQuery from '../queries/statusCountsQuery';
 
 const containerQuery = {
