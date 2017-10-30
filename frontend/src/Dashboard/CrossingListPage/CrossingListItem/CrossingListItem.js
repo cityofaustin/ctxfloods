@@ -7,6 +7,7 @@ import StatusToggle from './StatusToggle';
 import Dropdown from './Dropdown';
 import './CrossingListItem.css';
 import * as statusConstants from '../../../constants/StatusConstants';
+import { LARGE_ITEM_MIN_WIDTH } from '../../../constants/containerQueryConstants';
 import newStatusUpdateMutation from '../queries/newStatusUpdateMutation';
 import crossingsQuery from '../queries/crossingsQuery';
 import statusCountsQuery from '../queries/statusCountsQuery';
@@ -16,7 +17,7 @@ import classnames from 'classnames';
 
 const containerQuery = {
   'CrossingListItem--lg': {
-    minWidth: 600,
+    minWidth: LARGE_ITEM_MIN_WIDTH,
   }
 };
 

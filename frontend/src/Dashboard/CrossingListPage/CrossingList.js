@@ -62,7 +62,7 @@ class CrossingList extends React.Component {
         {(params) => {
           const cqClassName = classnames(params);
           return (
-            <div className='CrossingListContainer'>
+            <div className='CrossingList'>
               {crossings.map(crossing =>
                 <CrossingListItem
                   key={crossing.id}
