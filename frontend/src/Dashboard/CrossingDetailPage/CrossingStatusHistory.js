@@ -27,31 +27,35 @@ class CrossingStatusHistory extends Component {
 
           return (
             <div className="CrossingStatusHistory__item" key={i}>
-              <div className="CrossingStatusHistory__item-details">
+              <div className="flexitem">
                 <DateTime datetime={createdAt} user={user} />
-                <p>Status: {status}</p>
               </div>
-              <div className="CrossingStatusHistory__item-details">
-                { shouldDisplay.reason &&
-                    <div>
-                      <p>Reason</p>
-                      <p className="strong">{reason}</p>
-                    </div>
-                }
-                { shouldDisplay.duration &&
-                    <div>
-                      <p>Estimated re-open</p>
-                      <p className="strong">{duration}</p>
-                    </div>
-                }
-              </div>
-              <div className="CrossingStatusHistory__item-details">
-                { shouldDisplay.notes &&
-                  <div>
-                    <p>Notes to the public</p>
-                    <p className="strong">{notes}</p>
-                  </div>
-                }
+              <div className="flexitem flexcontainer">
+                <div className="CrossingStatusHistory__item-details">
+                  <span>Status: {status}</span>
+                </div>
+                <div className="CrossingStatusHistory__item-details">
+                  { shouldDisplay.reason &&
+                      <div className="CrossingStatusHistory__item-subdetails">
+                        <span>Reason</span>
+                        <span className="strong">{reason}</span>
+                      </div>
+                  }
+                  { shouldDisplay.duration &&
+                      <div className="CrossingStatusHistory__item-subdetails">
+                        <span>Estimated re-open</span>
+                        <span className="strong">{duration}</span>
+                      </div>
+                  }
+                </div>
+                <div className="CrossingStatusHistory__item-details">
+                  { shouldDisplay.notes &&
+                      <div className="CrossingStatusHistory__item-subdetails">
+                        <span>Notes to the public</span>
+                        <span className="strong">{notes}</span>
+                      </div>
+                  }
+                </div>
               </div>
             </div>
           )

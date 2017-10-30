@@ -22,9 +22,19 @@
   padding: 20px;
   // TODO: Extract out colors into css/mixins/colors dir
   border-bottom: 1px solid #F5F4F7;
-  @include flexcontainer;
+  @include flexcontainer--column;
 }
 
 .CrossingStatusHistory__item-details {
   @include flexitem;
+  padding: 10px 5px 0;
+}
+
+.CrossingStatusHistory__item-subdetails {
+  @include flexcontainer--column;
+  margin-bottom: 10px;
+  line-height: 2.2rem;
+  &:last-of-type {
+    margin-bottom: 0px;
+  }
 }
