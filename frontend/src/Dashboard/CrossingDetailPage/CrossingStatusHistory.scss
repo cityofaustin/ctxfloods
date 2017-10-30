@@ -6,6 +6,13 @@
   margin: auto 10%;
 }
 
+.CrossingStatusHistory--lg {
+  margin: auto 10%;
+  .CrossingStatusHistory__item-details-flexcontainer {
+    @include flexcontainer--row;
+  }
+}
+
 .CrossingStatusHistory__section-header {
   @include section-header;
 }
@@ -13,6 +20,11 @@
 .CrossingStatusHistory__item {
   padding: 20px;
   border-bottom: 1px solid $border-color-light;
+  @include flexcontainer--column;
+}
+
+.CrossingStatusHistory__item-details-flexcontainer {
+  @include flexitem;
   @include flexcontainer--column;
 }
 
