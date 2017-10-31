@@ -1,5 +1,5 @@
 import { configure } from '@storybook/react';
-import 'index.css';
+import '../src/index.css';
 
 function loadStories() {
   require('../src/stories/userList.js');
