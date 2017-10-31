@@ -2,7 +2,7 @@
 
 exports[`Storyshots Crossing List Header Large Width 1`] = `
 <div
-  class="storybook--lg"
+  className="storybook--lg"
 >
   
 </div>
@@ -10,7 +10,7 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
 
 exports[`Storyshots Crossing List Header Small Width 1`] = `
 <div
-  class="storybook--sm"
+  className="storybook--sm"
 >
   <div
     className="CrossingListHeader"
@@ -1081,7 +1081,7 @@ exports[`Storyshots Crossing List Item DateTime DateTime 1`] = `
 
 exports[`Storyshots Crossing List Item Large Width 1`] = `
 <div
-  class="storybook--lg"
+  className="storybook--lg"
 >
   <div
     className="CrossingListItem"
@@ -2302,7 +2302,7 @@ exports[`Storyshots Crossing List Item Open Dirty 1`] = `
 
 exports[`Storyshots Crossing List Item Small Width 1`] = `
 <div
-  class="storybook--sm"
+  className="storybook--sm"
 >
   <div
     className="CrossingListItem"
