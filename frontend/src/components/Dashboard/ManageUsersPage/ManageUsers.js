@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import LinkButton from 'LinkButton';
-import BulkActionsDropdown from 'Dashboard/Table/BulkActionsDropdown';
-import TableSearch from 'Dashboard/Table/TableSearch';
-import UserList from 'Dashboard/ManageUsersPage/UserList';
-import 'Dashboard/ManageUsersPage/ManageUsers.css';
+import LinkButton from 'components/LinkButton';
+import BulkActionsDropdown from 'components/Dashboard/Table/BulkActionsDropdown';
+import TableSearch from 'components/Dashboard/Table/TableSearch';
+import UserList from 'components/Dashboard/ManageUsersPage/UserList';
+import 'components/Dashboard/ManageUsersPage/ManageUsers.css';
 
 class ManageUsers extends Component {
   constructor(props) {

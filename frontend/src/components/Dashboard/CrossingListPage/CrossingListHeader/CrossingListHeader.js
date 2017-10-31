@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import 'Dashboard/CrossingListPage/CrossingListHeader/CrossingListHeader.css';
+import 'components/Dashboard/CrossingListPage/CrossingListHeader/CrossingListHeader.css';
 import {ContainerQuery} from 'react-container-query';
 import classnames from 'classnames';
 import FontAwesome from 'react-fontawesome';
 import { graphql } from 'react-apollo';
-import statusCountsQuery from 'Dashboard/CrossingListPage/queries/statusCountsQuery';
+import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/statusCountsQuery';
 
 const containerQuery = {
   'fullsize': { minWidth: 768 },

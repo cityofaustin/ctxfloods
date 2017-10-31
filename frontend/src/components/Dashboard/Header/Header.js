@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import 'Dashboard/Header/Header.css';
+import 'components/Dashboard/Header/Header.css';
 import externalLinkSvg from 'images/external-link.svg';
-import UserControls from 'Dashboard/Header/UserControls';
+import UserControls from 'components/Dashboard/Header/UserControls';
 
 class Header extends React.Component {
 

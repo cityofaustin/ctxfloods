@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import Login from 'Dashboard/Header/Login';
+import Login from 'components/Dashboard/Header/Login';
 import auth from 'services/gqlAuth'
 
 import cogSvg from 'images/cog.svg';
-import 'Dashboard/Header/UserControls.css'
+import 'components/Dashboard/Header/UserControls.css'
 
 class UserControlsBase extends React.Component {
   render() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import moment from 'moment';
-import 'Dashboard/CrossingListPage/CrossingListItem/DateTime.css';
+import 'components/Dashboard/CrossingListPage/CrossingListItem/DateTime.css';
 
 class DateTime extends React.Component {
   render () {

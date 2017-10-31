@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import crossingFragment from 'Dashboard/CrossingListPage/queries/crossingFragment';
+import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
 const crossingsQuery = gql`
   query allCrossings {

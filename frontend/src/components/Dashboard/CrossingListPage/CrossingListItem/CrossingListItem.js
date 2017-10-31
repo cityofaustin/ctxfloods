@@ -1,16 +1,16 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import { graphql } from 'react-apollo';
-import Location from 'Dashboard/CrossingListPage/CrossingListItem/Location';
-import DateTime from 'Dashboard/CrossingListPage/CrossingListItem/DateTime';
-import StatusToggle from 'Dashboard/CrossingListPage/CrossingListItem/StatusToggle';
-import Dropdown from 'Dashboard/CrossingListPage/CrossingListItem/Dropdown';
-import 'Dashboard/CrossingListPage/CrossingListItem/CrossingListItem.css';
-import * as statusConstants from 'Dashboard/CrossingListPage/CrossingListItem/StatusConstants';
-import newStatusUpdateMutation from 'Dashboard/CrossingListPage/queries/newStatusUpdateMutation';
-import crossingsQuery from 'Dashboard/CrossingListPage/queries/crossingsQuery';
-import statusCountsQuery from 'Dashboard/CrossingListPage/queries/statusCountsQuery';
-import crossingFragment from 'Dashboard/CrossingListPage/queries/crossingFragment';
+import Location from 'components/Dashboard/CrossingListPage/CrossingListItem/Location';
+import DateTime from 'components/Dashboard/CrossingListPage/CrossingListItem/DateTime';
+import StatusToggle from 'components/Dashboard/CrossingListPage/CrossingListItem/StatusToggle';
+import Dropdown from 'components/Dashboard/CrossingListPage/CrossingListItem/Dropdown';
+import 'components/Dashboard/CrossingListPage/CrossingListItem/CrossingListItem.css';
+import * as statusConstants from 'components/Dashboard/CrossingListPage/CrossingListItem/StatusConstants';
+import newStatusUpdateMutation from 'components/Dashboard/CrossingListPage/queries/newStatusUpdateMutation';
+import crossingsQuery from 'components/Dashboard/CrossingListPage/queries/crossingsQuery';
+import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/statusCountsQuery';
+import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 import {ContainerQuery} from 'react-container-query';
 import classnames from 'classnames';
 

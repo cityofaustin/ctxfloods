@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import CrossingDetails from 'Dashboard/CrossingDetailPage/CrossingDetails';
-import CrossingStatusHistory from 'Dashboard/CrossingDetailPage/CrossingStatusHistory';
+import CrossingDetails from 'components/Dashboard/CrossingDetailPage/CrossingDetails';
+import CrossingStatusHistory from 'components/Dashboard/CrossingDetailPage/CrossingStatusHistory';
 
 
 class CrossingDetailPage extends Component {
