@@ -1,5 +1,4 @@
 import React from 'react';
-import FontAwesome from 'react-fontawesome';
 import { graphql } from 'react-apollo';
 import Location from 'Dashboard/CrossingListPage/CrossingListItem/Location';
 import DateTime from 'Dashboard/CrossingListPage/CrossingListItem/DateTime';
@@ -10,7 +9,7 @@ import * as statusConstants from 'Dashboard/CrossingListPage/CrossingListItem/St
 import newStatusUpdateMutation from 'Dashboard/CrossingListPage/queries/newStatusUpdateMutation';
 import statusCountsQuery from 'Dashboard/CrossingListPage/queries/statusCountsQuery';
 import crossingFragment from 'Dashboard/CrossingListPage/queries/crossingFragment';
-import {ContainerQuery} from 'react-container-query';
+import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
 
 const containerQuery = {
@@ -119,10 +118,10 @@ class CrossingListItem extends React.Component {
     const savedDuration = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId;
     const savedNotes = this.props.crossing.statusUpdateByLatestStatusUpdateId.notes;
 
-    return (savedStatus != this.state.selectedStatus ||
-            savedReason != this.state.selectedReason ||
-            savedDuration != this.state.selectedDuration ||
-            savedNotes != this.state.notes);
+    return (savedStatus !== this.state.selectedStatus ||
+            savedReason !== this.state.selectedReason ||
+            savedDuration !== this.state.selectedDuration ||
+            savedNotes !== this.state.notes);
   }
 
   openClicked = () => { 
