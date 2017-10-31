@@ -26,7 +26,18 @@ class CrossingListHeader extends Component {
       return '';
     };
 
-    const { toggleShowOpen, toggleShowClosed, toggleShowCaution, toggleShowLongterm, toggleSortByUpdated, showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc } = this.props;
+    const { toggleShowOpen,
+            toggleShowClosed,
+            toggleShowCaution, 
+            toggleShowLongterm, 
+            toggleSortByUpdated, 
+            showOpen, 
+            showClosed, 
+            showCaution, 
+            showLongterm, 
+            sortByUpdatedAsc,
+            searchQuery,
+            searchQueryUpdated } = this.props;
     const { openCrossings, closedCrossings, cautionCrossings, longtermCrossings } = this.props.data;
 
     return (
@@ -34,7 +45,11 @@ class CrossingListHeader extends Component {
         {(params) => (
           <div className={classnames(params, 'CrossingListHeader')}>
             <div className={classnames(params, 'CrossingListSearch')}>
-              <input type="text" className={classnames(params, 'CrossingListSearchInput')} placeholder="Search your crossings"/>
+              <input type="text"
+                     className={classnames(params, 'CrossingListSearchInput')}
+                     placeholder="Search your crossings"
+                     value={searchQuery} 
+                     onChange={searchQueryUpdated} />
               <div className={classnames(params, 'CrossingListSearchButton')}>
                 <FontAwesome name="search" ariaLabel="Search"/>
               </div>

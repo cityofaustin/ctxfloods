@@ -18,12 +18,18 @@ const containerQuery = {
 class CrossingList extends React.Component {
   state = {}
 
-  shouldHideCrossing (crossing, showOpen, showClosed, showCaution, showLongterm) {
+  crossingMatchesQuery (crossing, query) {
+    return crossing.name.includes(query);
+  }
+
+  shouldShowCrossing (crossing, showOpen, showClosed, showCaution, showLongterm, searchQuery) {
       return ( 
-        (crossing.latestStatusId === statusConstants.OPEN && !showOpen) ||
-        (crossing.latestStatusId === statusConstants.CLOSED && !showClosed) ||
-        (crossing.latestStatusId === statusConstants.CAUTION && !showCaution) ||
-        (crossing.latestStatusId === statusConstants.LONGTERM && !showLongterm)
+        (searchQuery ? this.crossingMatchesQuery(crossing, searchQuery) : true ) && (
+          (crossing.latestStatusId === statusConstants.OPEN && showOpen) ||
+          (crossing.latestStatusId === statusConstants.CLOSED && showClosed) ||
+          (crossing.latestStatusId === statusConstants.CAUTION && showCaution) ||
+          (crossing.latestStatusId === statusConstants.LONGTERM && showLongterm)
+        )
       );
   }
 
@@ -37,7 +43,7 @@ class CrossingList extends React.Component {
       return (<div>Loading</div>)
     }
 
-    const { showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc, currentUser } = this.props;
+    const { showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc, currentUser, searchQuery } = this.props;
 
     const crossings = this.props.crossingsQuery.allCrossings.nodes.slice();
 
@@ -71,7 +77,7 @@ class CrossingList extends React.Component {
                   reasons={statusReasons} 
                   durations={statusDurations}
                   currentUser={currentUser}
-                  hidden={this.shouldHideCrossing(crossing, showOpen, showClosed, showCaution, showLongterm)}
+                  hidden={!this.shouldShowCrossing(crossing, showOpen, showClosed, showCaution, showLongterm, searchQuery)}
                   cqClassName={cqClassName} 
                 />
               )}
