@@ -1,17 +1,17 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-import Location from './Location';
-import DateTime from './DateTime';
-import StatusToggle from './StatusToggle';
-import Dropdown from './Dropdown';
-import './CrossingListItem.css';
-import * as statusConstants from '../../../constants/StatusConstants';
-import { LARGE_ITEM_MIN_WIDTH } from '../../../constants/containerQueryConstants';
-import newStatusUpdateMutation from '../queries/newStatusUpdateMutation';
-import statusCountsQuery from '../queries/statusCountsQuery';
-import crossingFragment from '../queries/crossingFragment';
-import {ContainerQuery} from 'react-container-query';
+import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
+import Location from 'Dashboard/CrossingListPage/CrossingListItem/Location';
+import DateTime from 'Dashboard/CrossingListPage/CrossingListItem/DateTime';
+import StatusToggle from 'Dashboard/CrossingListPage/CrossingListItem/StatusToggle';
+import Dropdown from 'Dashboard/CrossingListPage/CrossingListItem/Dropdown';
+import newStatusUpdateMutation from 'Dashboard/CrossingListPage/queries/newStatusUpdateMutation';
+import statusCountsQuery from 'Dashboard/CrossingListPage/queries/statusCountsQuery';
+import crossingFragment from 'Dashboard/CrossingListPage/queries/crossingFragment';
+import * as statusConstants from 'constants/StatusConstants';
+import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
+import 'Dashboard/CrossingListPage/CrossingListItem/CrossingListItem.css';
 
 const containerQuery = {
   'CrossingListItem--lg': {
@@ -178,6 +178,8 @@ class CrossingListItem extends React.Component {
         break;
       case statusConstants.LONGTERM:
         show = this.isDirty() ? ['reason', 'duration', 'cancelSave'] : ['reason', 'duration'];
+        break;
+      default:
         break;
     }
 
