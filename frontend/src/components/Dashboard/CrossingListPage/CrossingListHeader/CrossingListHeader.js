@@ -66,23 +66,23 @@ class CrossingListHeader extends Component {
 
             {params.smallsize && !this.state.showFilterDrawer ? "" : (
               <div className={classnames(params, 'CrossingListFilter')}>
-                <div className={classnames(params, 'CrossingListFilterItem')} onClick={toggleShowOpen}>
-                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' checked={showOpen}/>
+                <label className={classnames(params, 'CrossingListFilterItem')}>
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' defaultChecked={showOpen} onClick={toggleShowOpen}/>
                   Open ({openCrossings.totalCount})
-                </div>
-                <div className={classnames(params, 'CrossingListFilterItem')} onClick={toggleShowCaution}>
-                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' checked={showCaution}/>
+                </label>
+                <label className={classnames(params, 'CrossingListFilterItem')}>
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' defaultChecked={showCaution} onClick={toggleShowCaution}/>
                   Caution ({cautionCrossings.totalCount})
-                </div>
-                <div className={classnames(params, 'CrossingListFilterItem')} onClick={toggleShowClosed}>
-                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' checked={showClosed}/>
+                </label>
+                <label className={classnames(params, 'CrossingListFilterItem')}>
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' defaultChecked={showClosed} onClick={toggleShowClosed}/>
                   Closed ({closedCrossings.totalCount})
-                </div>
-                <div className={classnames(params, 'CrossingListFilterItem')} onClick={toggleShowLongterm}>
-                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' checked={showLongterm}/>
+                </label>
+                <label className={classnames(params, 'CrossingListFilterItem')}>
+                  <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' defaultChecked={showLongterm} onClick={toggleShowLongterm}/>
                   Long Term Closure ({longtermCrossings.totalCount})
-                </div>
-              </div> 
+                </label>
+              </div>
             )}
           </div>
         )}
