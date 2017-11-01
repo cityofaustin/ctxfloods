@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import 'componets/Dashboard/Table/Table.css'
+import 'components/Dashboard/Table/Table.css'
 import caretDownSvg from 'images/caret-down.svg'
 
 class Table extends Component {
