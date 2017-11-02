@@ -2,10 +2,10 @@
 // It would be nice if we used Symbols instead.
 // Ex:
 //    export const LONGTERM = Symbol("LONGTERM");
-import openIcon from 'components/Map/style/icons/marker-open-small.svg';
-import cautionIcon from 'components/Map/style/icons/marker-caution-small.svg';
-import closedIcon from 'components/Map/style/icons/marker-closed-small.svg';
-import longTermIcon from 'components/Map/style/icons/marker-long-term-small.svg';
+import openIcon from 'images/marker-open-small.svg';
+import cautionIcon from 'images/marker-caution-small.svg';
+import closedIcon from 'images/marker-closed-small.svg';
+import longTermIcon from 'images/marker-long-term-small.svg';
 
 export const OPEN = 1;
 export const CLOSED = 2;
