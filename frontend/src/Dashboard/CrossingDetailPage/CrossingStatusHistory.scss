@@ -34,8 +34,17 @@
 }
 
 .CrossingStatusHistory__item-details {
+  @include flexcontainer;
   @include flexitem;
+  align-items: center;
   padding: 10px 5px 0;
+  &:first-of-type {
+    padding-left: 0;
+  }
+}
+
+.CrossingStatusHistory__status-icon {
+  margin-right: 10px;
 }
 
 .CrossingStatusHistory__item-subdetails {

@@ -8,6 +8,10 @@ import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 //       for Brian's Cleanup PR.
 import DateTime from 'components/Dashboard/CrossingListPage/CrossingListItem/DateTime';
 import 'Dashboard/CrossingDetailPage/CrossingStatusHistory.css';
+import openStatusSvg from 'components/Map/style/icons/circle-11.svg';
+import closedStatusSvg from 'components/Map/style/icons/cross-11.svg';
+// import cautionStatusSvg from 'components/Map/style/icons/circle-11.svg';
+// import longtermStatusSvg from 'components/Map/style/icons/circle-11.svg';
 
 const containerQuery = {
   'CrossingStatusHistory--lg' : {
@@ -44,6 +48,7 @@ class CrossingStatusHistory extends Component {
                     </div>
                     <div className="CrossingStatusHistory__item-details-flexcontainer">
                       <div className="CrossingStatusHistory__item-details">
+                        <img src={openStatusSvg} alt={status} className="CrossingStatusHistory__status-icon" />
                         <span>Status: {status}</span>
                       </div>
                       <div className="CrossingStatusHistory__item-details">
