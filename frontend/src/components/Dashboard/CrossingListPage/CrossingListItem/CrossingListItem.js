@@ -12,7 +12,6 @@ import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/sta
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 import * as statusConstants from 'constants/StatusConstants';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
-import 'Dashboard/CrossingListPage/CrossingListItem/CrossingListItem.css';
 import 'components/Dashboard/CrossingListPage/CrossingListItem/CrossingListItem.css';
 
 
