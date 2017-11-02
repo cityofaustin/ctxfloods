@@ -43,8 +43,8 @@ const history = [
     "firstName": "Super"
   },
   "statusByStatusId": {
-    "id": 2,
-    "name": "Closed"
+    "id": 3,
+    "name": "Caution"
   },
   "statusReasonByStatusReasonId": {
     "name": "Flooded"
@@ -60,8 +60,8 @@ const history = [
     "firstName": "Super"
   },
   "statusByStatusId": {
-    "id": 1,
-    "name": "Open"
+    "id": 4,
+    "name": "Long-Term Closure"
   },
   "statusReasonByStatusReasonId": null,
   "statusDurationByStatusDurationId": null,
@@ -118,15 +118,3 @@ const history = [
 
 storiesOf('Crossing Status History', module)
   .add('A crossing history', () => <CrossingStatusHistory history={history} />)
-  // .add('Caution', () => <CrossingStatusHistory reasons={reasons} durations={durations} crossing={cautionCrossing} />)
-  // .add('Closed', () => <CrossingStatusHistory reasons={reasons} durations={durations} crossing={closedCrossing} />)
-  // .add('Long Term Closure', () => <CrossingStatusHistory reasons={reasons} durations={durations} crossing={longtermCrossing} />)
-  // .add('Width 900px', () =>
-  //   <div style={{width: '900px'}}>
-  //     <CrossingStatusHistory reasons={reasons} durations={durations} crossing={longtermCrossing} />
-  //   </div>)
-  // .add('Width 400px', () =>
-  //   <div style={{width: '400px'}}>
-  //     <CrossingStatusHistory reasons={reasons} durations={durations} crossing={longtermCrossing} />
-  //   </div>
-  // );

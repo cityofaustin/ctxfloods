@@ -2,16 +2,10 @@ import React, { Component } from 'react';
 import { get } from 'lodash';
 import classnames from 'classnames';
 import { ContainerQuery } from 'react-container-query';
-import { displayedInputs } from 'constants/StatusConstants';
+import { displayedInputs, statusIcons } from 'constants/StatusConstants';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
-// TODO: DateTime component should live in a better place for shared use. Waiting
-//       for Brian's Cleanup PR.
 import DateTime from 'components/Dashboard/CrossingListPage/CrossingListItem/DateTime';
-import 'Dashboard/CrossingDetailPage/CrossingStatusHistory.css';
-import openStatusSvg from 'components/Map/style/icons/circle-11.svg';
-import closedStatusSvg from 'components/Map/style/icons/cross-11.svg';
-// import cautionStatusSvg from 'components/Map/style/icons/circle-11.svg';
-// import longtermStatusSvg from 'components/Map/style/icons/circle-11.svg';
+import 'components/Dashboard/CrossingDetailPage/CrossingStatusHistory.css';
 
 const containerQuery = {
   'CrossingStatusHistory--lg' : {
@@ -48,7 +42,7 @@ class CrossingStatusHistory extends Component {
                     </div>
                     <div className="CrossingStatusHistory__item-details-flexcontainer">
                       <div className="CrossingStatusHistory__item-details">
-                        <img src={openStatusSvg} alt={status} className="CrossingStatusHistory__status-icon" />
+                        <img src={statusIcons[statusId]} alt={shouldDisplay.status} className="CrossingStatusHistory__status-icon" />
                         <span>Status: {status}</span>
                       </div>
                       <div className="CrossingStatusHistory__item-details">

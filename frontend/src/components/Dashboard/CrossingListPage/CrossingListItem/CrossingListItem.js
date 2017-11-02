@@ -7,7 +7,6 @@ import DateTime from 'components/Dashboard/CrossingListPage/CrossingListItem/Dat
 import StatusToggle from 'components/Dashboard/CrossingListPage/CrossingListItem/StatusToggle';
 import Dropdown from 'components/Dashboard/CrossingListPage/CrossingListItem/Dropdown';
 import newStatusUpdateMutation from 'components/Dashboard/CrossingListPage/queries/newStatusUpdateMutation';
-import crossingsQuery from 'components/Dashboard/CrossingListPage/queries/crossingsQuery';
 import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/statusCountsQuery';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 import * as statusConstants from 'constants/StatusConstants';

@@ -34,11 +34,11 @@
 }
 
 .CrossingStatusHistory__item-details {
-  @include flexcontainer;
   @include flexitem;
   align-items: center;
   padding: 10px 5px 0;
   &:first-of-type {
+    @include flexcontainer;
     padding-left: 0;
   }
 }
