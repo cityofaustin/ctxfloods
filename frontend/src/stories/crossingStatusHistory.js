@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import CrossingStatusHistory from '../Dashboard/CrossingDetailPage/CrossingStatusHistory'
-import * as statusConstants from 'constants/StatusConstants'
+import CrossingStatusHistory from 'components/Dashboard/CrossingDetailPage/CrossingStatusHistory';
+import * as statusConstants from 'constants/StatusConstants';
 
 const history = [
 {
