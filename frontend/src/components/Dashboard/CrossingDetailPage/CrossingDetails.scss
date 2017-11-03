@@ -10,4 +10,15 @@
 
 .CrossingDetails__details {
   @include flexitem;  
+  @include flexcontainer--column;
+  justify-content: space-between;
+}
+
+.CrossingDetails__communities button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+
+  &:last-of-type{
+    margin-right: 0;
+  }
 }
