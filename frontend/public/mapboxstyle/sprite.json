@@ -3,42 +3,98 @@
     "height": 33,
     "pixelRatio": 1,
     "width": 33,
-    "x": 37,
-    "y": 0
+    "x": 213,
+    "y": 77
   },
   "circle-15": {
     "height": 37,
     "pixelRatio": 1,
     "width": 37,
-    "x": 0,
-    "y": 0
+    "x": 176,
+    "y": 77
   },
   "cross-11": {
     "height": 28,
     "pixelRatio": 1,
     "width": 28,
     "x": 32,
-    "y": 37
+    "y": 154
   },
   "cross-15": {
     "height": 32,
     "pixelRatio": 1,
     "width": 32,
     "x": 0,
-    "y": 37
+    "y": 154
   },
   "marker-11": {
     "height": 15,
     "pixelRatio": 1,
     "width": 15,
     "x": 79,
-    "y": 37
+    "y": 154
   },
   "marker-15": {
     "height": 19,
     "pixelRatio": 1,
     "width": 19,
     "x": 60,
-    "y": 37
+    "y": 154
+  },
+  "marker-caution-selected": {
+    "height": 77,
+    "pixelRatio": 1,
+    "width": 67,
+    "x": 0,
+    "y": 0
+  },
+  "marker-caution-small": {
+    "height": 48,
+    "pixelRatio": 1,
+    "width": 42,
+    "x": 134,
+    "y": 0
+  },
+  "marker-closed-selected": {
+    "height": 77,
+    "pixelRatio": 1,
+    "width": 67,
+    "x": 67,
+    "y": 0
+  },
+  "marker-closed-small": {
+    "height": 48,
+    "pixelRatio": 1,
+    "width": 42,
+    "x": 176,
+    "y": 0
+  },
+  "marker-long-term-selected": {
+    "height": 77,
+    "pixelRatio": 1,
+    "width": 67,
+    "x": 0,
+    "y": 77
+  },
+  "marker-long-term-small": {
+    "height": 48,
+    "pixelRatio": 1,
+    "width": 42,
+    "x": 218,
+    "y": 0
+  },
+  "marker-open-selected": {
+    "height": 77,
+    "pixelRatio": 1,
+    "width": 67,
+    "x": 67,
+    "y": 77
+  },
+  "marker-open-small": {
+    "height": 48,
+    "pixelRatio": 1,
+    "width": 42,
+    "x": 134,
+    "y": 77
   }
 }

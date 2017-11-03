@@ -11,8 +11,13 @@ class CrossingListPage extends Component {
       showClosed: true,
       showCaution: true,
       showLongterm: true,
-      searchQuery: ''
+      searchQuery: '',
+      formattedSearchQuery: '%'
     };
+  }
+
+  formatSearchQuery(query) {
+    return `%${query.replace(/ /g,"%")}%`;
   }
 
   toggleShowOpen = () => { this.setState({ showOpen: !this.state.showOpen }) };
@@ -20,7 +25,10 @@ class CrossingListPage extends Component {
   toggleShowCaution = () => { this.setState({ showCaution: !this.state.showCaution }) };
   toggleShowLongterm = () => { this.setState({ showLongterm: !this.state.showLongterm }) };
   toggleSortByUpdated = () => { this.setState({sortByUpdatedAsc: !this.state.sortByUpdatedAsc }) };
-  searchQueryUpdated = (e) => { this.setState({ searchQuery: e.target.value }) };
+  searchQueryUpdated = (e) => {
+    this.setState({ searchQuery: e.target.value });
+    this.setState({ formattedSearchQuery: this.formatSearchQuery(e.target.value) });
+  };
 
   render() {
     return (
@@ -44,7 +52,7 @@ class CrossingListPage extends Component {
           showClosed={this.state.showClosed}
           showLongterm={this.state.showLongterm} 
           sortByUpdatedAsc={this.state.sortByUpdatedAsc}
-          searchQuery={this.state.searchQuery} />
+          searchQuery={this.state.formattedSearchQuery} />
       </div>
     );
   }

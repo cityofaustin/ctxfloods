@@ -23,14 +23,12 @@ class CrossingList extends React.Component {
   }
 
   shouldShowCrossing (crossing, showOpen, showClosed, showCaution, showLongterm, searchQuery) {
-      return ( 
-        (searchQuery ? this.crossingMatchesQuery(crossing, searchQuery) : true ) && (
-          (crossing.latestStatusId === statusConstants.OPEN && showOpen) ||
-          (crossing.latestStatusId === statusConstants.CLOSED && showClosed) ||
-          (crossing.latestStatusId === statusConstants.CAUTION && showCaution) ||
-          (crossing.latestStatusId === statusConstants.LONGTERM && showLongterm)
-        )
-      );
+    return (
+        (crossing.latestStatusId === statusConstants.OPEN && showOpen) ||
+        (crossing.latestStatusId === statusConstants.CLOSED && showClosed) ||
+        (crossing.latestStatusId === statusConstants.CAUTION && showCaution) ||
+        (crossing.latestStatusId === statusConstants.LONGTERM && showLongterm)
+    );
   }
 
   render () {
@@ -47,7 +45,7 @@ class CrossingList extends React.Component {
 
     const { showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc, currentUser, searchQuery } = this.props;
 
-    const crossings = this.props.crossingsQuery.allCrossings.nodes.slice();
+    const crossings = this.props.crossingsQuery.searchCrossings.nodes.slice();
 
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
     const statusDurations = this.props.statusDurationsQuery.allStatusDurations.nodes;
@@ -92,7 +90,14 @@ class CrossingList extends React.Component {
 }
 
 export default compose(
-  graphql(crossingsQuery, { name: 'crossingsQuery' }),
+    graphql(crossingsQuery, {
+    name: 'crossingsQuery',
+    options: (ownProps) => ({
+      variables: {
+        search: ownProps.searchQuery
+      }
+    })
+  }),
   graphql(statusReasonsQuery, { name: 'statusReasonsQuery' }),
   graphql(statusDurationsQuery, { name: 'statusDurationsQuery' })
 )(CrossingList);

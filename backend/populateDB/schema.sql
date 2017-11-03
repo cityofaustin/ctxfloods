@@ -63,6 +63,12 @@ comment on column floods.crossing.description is 'The description of the crossin
 comment on column floods.crossing.coordinates is 'The GIS coordinates of the crossing created with ST_MakePoint.';
 comment on column floods.crossing.geojson is 'The GeoJSON coordinates of the crossing.';
 
+-- Add trigrams for indexing
+create extension if not exists "pg_trgm";
+
+-- Add search index to crossings table
+create index crossing_search_index on floods.crossing using gin(name gin_trgm_ops, description gin_trgm_ops);
+
 -- Create the Community Crossing relation table
 create table floods.community_crossing (
   id               serial primary key,
@@ -318,6 +324,18 @@ end;
 $$ language plpgsql strict security definer;
 
 comment on function floods.reactivate_user(integer, text, text, text) is 'Reactivates a user and creates an account.';
+
+-- Create function to search crossings
+create function floods.search_crossings(
+  search text default null
+) returns setof floods.crossing as $$
+  select *
+  from floods.crossing
+  where name ilike search;
+$$ language sql stable security definer;
+
+comment on function floods.search_crossings(text) is 'Searches users.';
+
 
 -- Create function to search users
 -- TODO: plainto_tsquery probably won't do everything we need, so we'll need to implement something else to form a valid tsquery for search on the frontend
@@ -816,6 +834,9 @@ grant execute on function floods.authenticate(text, text) to floods_anonymous;
 
 -- Allow all users to search users
 grant execute on function floods.search_users(text, integer) to floods_anonymous;
+
+-- Allow all users to search crossings
+grant execute on function floods.search_crossings(text) to floods_anonymous;
 
 -- Allow community admins and up to register new users
 -- NOTE: Extra logic around permissions in function
