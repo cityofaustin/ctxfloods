@@ -60,17 +60,18 @@ class CrossingDetails extends Component {
             </Layer>
         </Map>
 
+        <div className="CrossingDetails__details">
+          <div>Crossing Details: {crossing.id}</div>
+          <div> {crossing.humanCoordinates} </div>
+          <input type="text" value={this.state.name} onChange={this.nameChanged}/>
+          <div> {crossing.humanAddress} </div>
+          <input type="text" value={this.state.description} onChange={this.descriptionChanged}/>
+          <div>{communities.map(c => c.name)}</div>
+          <button onClick={this.updateCrossing}> SAVE CROSSING </button>
+          <div> CANCEL EDITS </div>
+          <div> DELETE CROSSING </div>
+        </div>
 
-
-        <div>Crossing Details: {crossing.id}</div>
-        <div> {crossing.humanCoordinates} </div>
-        <input type="text" value={this.state.name} onChange={this.nameChanged}/>
-        <div> {crossing.humanAddress} </div>
-        <input type="text" value={this.state.description} onChange={this.descriptionChanged}/>
-        <div>{communities.map(c => c.name)}</div>
-        <button onClick={this.updateCrossing}> SAVE CROSSING </button>
-        <div> CANCEL EDITS </div>
-        <div> DELETE CROSSING </div>
       </div>
     );
   }

@@ -1,0 +1,13 @@
+@import "css/mixins/flexbox";
+
+.CrossingDetails {
+  @include flexcontainer--row;
+}
+
+.CrossingDetails__map {
+  @include flexitem;
+}
+
+.CrossingDetails__details {
+  @include flexitem;  
+}
