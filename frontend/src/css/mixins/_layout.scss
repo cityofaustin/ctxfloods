@@ -1,6 +1,8 @@
+@import "css/mixins/colors";
+
 @mixin section-header {
   width: 100%;
-  background-color: #0C0333;
+  background-color: $color-primary;
   color: #fff;
   padding: 20px;
   text-transform: uppercase;
