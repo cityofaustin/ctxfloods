@@ -327,14 +327,23 @@ comment on function floods.reactivate_user(integer, text, text, text) is 'Reacti
 
 -- Create function to search crossings
 create function floods.search_crossings(
-  search text default null
+  search text default null,
+  show_open boolean default true,
+  show_closed boolean default true,
+  show_caution boolean default true,
+  show_longterm boolean default true
 ) returns setof floods.crossing as $$
   select *
   from floods.crossing
-  where name ilike search;
+  where name ilike search and (
+  (latest_status_id = 1 and show_open) or
+  (latest_status_id = 2 and show_closed) or
+  (latest_status_id = 3 and show_caution) or
+  (latest_status_id = 4 and show_longterm)
+  );
 $$ language sql stable security definer;
 
-comment on function floods.search_crossings(text) is 'Searches users.';
+comment on function floods.search_crossings(text, boolean, boolean, boolean, boolean) is 'Searches users.';
 
 
 -- Create function to search users
@@ -836,7 +845,7 @@ grant execute on function floods.authenticate(text, text) to floods_anonymous;
 grant execute on function floods.search_users(text, integer) to floods_anonymous;
 
 -- Allow all users to search crossings
-grant execute on function floods.search_crossings(text) to floods_anonymous;
+grant execute on function floods.search_crossings(text, boolean, boolean, boolean, boolean) to floods_anonymous;
 
 -- Allow community admins and up to register new users
 -- NOTE: Extra logic around permissions in function

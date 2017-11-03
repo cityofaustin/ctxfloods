@@ -90,7 +90,7 @@ class CrossingListItem extends React.Component {
           data: updatedCrossing
         });
       },
-      refetchQueries: [{query: statusCountsQuery}]
+      refetchQueries: [{query: statusCountsQuery}, {query: crossingsQuery}]
     })
     .then(({ data }) => {
       const update = data.newStatusUpdate.statusUpdate.crossingByCrossingId.statusUpdateByLatestStatusUpdateId;
@@ -156,9 +156,7 @@ class CrossingListItem extends React.Component {
   };
 
   render () {
-    const { crossing, reasons, durations, hidden } = this.props;
-
-    if (hidden) return '';
+    const { crossing, reasons, durations } = this.props;
 
     var show = [];
     switch(this.state.selectedStatus) {

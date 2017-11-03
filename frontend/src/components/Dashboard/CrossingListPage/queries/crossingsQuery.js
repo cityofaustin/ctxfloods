@@ -2,9 +2,18 @@ import gql from 'graphql-tag';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
 const crossingsQuery = gql`
-  query searchCrossings($search:String, $pageCursor:Cursor){
+  query searchCrossings($search:String,
+                        $showOpen:Boolean,
+                        $showClosed:Boolean,
+                        $showCaution:Boolean,
+                        $showLongterm:Boolean,
+                        $pageCursor:Cursor) {
     searchCrossings(
       search: $search
+      showOpen: $showOpen
+      showClosed: $showClosed
+      showCaution: $showCaution
+      showLongterm: $showLongterm
       first: 20
       after: $pageCursor
     ) {

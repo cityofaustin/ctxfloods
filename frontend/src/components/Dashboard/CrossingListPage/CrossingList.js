@@ -18,19 +18,6 @@ const containerQuery = {
 class CrossingList extends React.Component {
   state = {}
 
-  crossingMatchesQuery (crossing, query) {
-    return crossing.name.includes(query);
-  }
-
-  shouldShowCrossing (crossing, showOpen, showClosed, showCaution, showLongterm, searchQuery) {
-    return (
-        (crossing.latestStatusId === statusConstants.OPEN && showOpen) ||
-        (crossing.latestStatusId === statusConstants.CLOSED && showClosed) ||
-        (crossing.latestStatusId === statusConstants.CAUTION && showCaution) ||
-        (crossing.latestStatusId === statusConstants.LONGTERM && showLongterm)
-    );
-  }
-
   render () {
     const isLoading = (
       !this.props.crossingsQuery ||
@@ -77,7 +64,6 @@ class CrossingList extends React.Component {
                   reasons={statusReasons} 
                   durations={statusDurations}
                   currentUser={currentUser}
-                  hidden={!this.shouldShowCrossing(crossing, showOpen, showClosed, showCaution, showLongterm, searchQuery)}
                   cqClassName={cqClassName} 
                 />
               )}
@@ -95,6 +81,10 @@ export default compose(
     options: (ownProps) => ({
       variables: {
         search: ownProps.searchQuery,
+        showOpen: ownProps.showOpen,
+        showClosed: ownProps.showClosed,
+        showCaution: ownProps.showCaution,
+        showLongterm: ownProps.showLongterm,
         pageCursor: null
       }
     })
