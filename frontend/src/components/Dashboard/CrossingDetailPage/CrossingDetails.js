@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 import mapboxstyle from 'components/Map/mapboxstyle.json';
 import FontAwesome from 'react-fontawesome';
+import classnames from 'classnames';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetails.css';
 
 const Map = ReactMapboxGl({ accessToken: null, interactive: false });
@@ -13,8 +14,7 @@ class CrossingDetails extends Component {
     super(props);
     this.state = {
       name: props.crossing.name,
-      description: props.crossing.description,
-      edit: false
+      description: props.crossing.description
     };
   }
 
@@ -27,25 +27,54 @@ class CrossingDetails extends Component {
       }
     })
     .then(({ data }) => {
+      console.log('success', data);
       // TODO - handle success
+      // refetch crossing
+      // set state based on updated data
+      // do props update based on updated data/refetch?
+      this.setState({
+        edit: false  
+      })
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
   }
 
-  nameChanged         = (e) => { this.setState({ name: e.target.value }) };
-  descriptionChanged  = (e) => { this.setState({ description: e.target.value }) };
-  setEditModeTrue     = () => { this.setState({ edit: true }) };
-  setEditModeFalse    = () => { this.setState({ edit: false }) };
+  nameChanged = (e) => { 
+    this.setState({ 
+      name: e.target.value
+    });
+  }
+  descriptionChanged = (e) => { 
+    this.setState({ 
+      description: e.target.value
+    });
+  }
+  cancelClicked = () => {
+    this.setState({
+      name: this.props.crossing.name,
+      description: this.props.crossing.description
+    });
+  }
+  deleteClicked = () => {
+    console.log('show delete overlay');
+  }
+
+  isDirty() {
+    return (
+      this.props.crossing.name !== this.state.name ||
+      this.props.crossing.description !== this.state.description
+    );
+  }
 
   render() {
     const { crossing, communities } = this.props;
 
     return (
-      <div className="CrossingDetails">
+      <div className="CrossingDetails mlv2--b">
 
         <Map
-          className="CrossingDetails__map"
+          className="CrossingDetails__map mlv2"
           center={JSON.parse(crossing.geojson).coordinates}
           style={mapboxstyle}
           containerStyle={{
@@ -60,16 +89,53 @@ class CrossingDetails extends Component {
             </Layer>
         </Map>
 
-        <div className="CrossingDetails__details">
-          <div>Crossing Details: {crossing.id}</div>
-          <div> {crossing.humanCoordinates} </div>
-          <input type="text" value={this.state.name} onChange={this.nameChanged}/>
-          <div> {crossing.humanAddress} </div>
-          <input type="text" value={this.state.description} onChange={this.descriptionChanged}/>
-          <div>{communities.map(c => c.name)}</div>
-          <button onClick={this.updateCrossing}> SAVE CROSSING </button>
-          <div> CANCEL EDITS </div>
-          <div> DELETE CROSSING </div>
+        <div className={classnames({"CrossingDetails__details--dirty":this.isDirty()}, "CrossingDetails__details mlv2 plv2")}>   
+          <div>
+            <div>
+              <span className="strong gray--75 mlv1--r">ID#</span> <span className="italic light gray--50">{crossing.id}</span>
+            </div>
+            <div>
+              <span className="strong gray--75 mlv1--r">GPS</span> <span className="italic light gray--50">{crossing.humanCoordinates}</span>
+            </div>
+            <div>
+              <span className="strong gray--75 mlv1--r">Address</span> <span className="italic light gray--50">{crossing.humanAddress}</span>
+            </div>
+
+            <input className="input input--lg mlv2--t" type="text" value={this.state.name} onChange={this.nameChanged}/>
+
+            <input className="input mlv2--t" type="text" value={this.state.description} onChange={this.descriptionChanged}/>
+
+            <div className="CrossingDetails__communities mlv2--t">
+                {
+                  communities.map((community) => {
+                    return (
+                      <button 
+                        key={community.id} 
+                        className="button button--secondary"
+                      >{community.name} <FontAwesome name="times" />
+                      </button>
+                    );
+                  })
+                }
+            </div>
+          </div>
+
+          {this.isDirty() ? (
+            <div className="flexcontainer">
+              <button 
+                className="flexitem button mlv1--r" 
+                onClick={this.updateCrossing}
+              >Save</button>
+              <button 
+                className="flexitem button mlv1--l"
+                onClick={this.cancelClicked}
+              >Cancel</button>
+            </div>
+          ) : (
+            <div className="flexcontainer">
+              <span className="button button--plaintext">Delete Crossing</span>
+            </div>
+          )}
         </div>
 
       </div>
@@ -77,6 +143,8 @@ class CrossingDetails extends Component {
   }
 
 }
+
+/**/
 
 const updateCrossingMutation = gql`
   mutation editCrossing($crossingId: Int!, $name: String!, $description: String!) {
