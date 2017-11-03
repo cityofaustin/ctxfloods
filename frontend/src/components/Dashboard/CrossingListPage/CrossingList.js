@@ -94,7 +94,8 @@ export default compose(
     name: 'crossingsQuery',
     options: (ownProps) => ({
       variables: {
-        search: ownProps.searchQuery
+        search: ownProps.searchQuery,
+        pageCursor: null
       }
     })
   }),

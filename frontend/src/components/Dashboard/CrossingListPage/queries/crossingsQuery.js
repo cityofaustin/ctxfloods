@@ -2,10 +2,18 @@ import gql from 'graphql-tag';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
 const crossingsQuery = gql`
-  query searchCrossings($search:String){
+  query searchCrossings($search:String, $pageCursor:Cursor){
     searchCrossings(
       search: $search
+      first: 20
+      after: $pageCursor
     ) {
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
       nodes {
         id
         name
