@@ -15,6 +15,18 @@
     color: $color-primary;
   }
 
+  &.button--confirm {
+    background-color: $color-highlight;
+    border-color: $color-highlight;
+    color: $color-white;
+  }
+
+  &.button--cancel {
+    background-color: $color-white;
+    border-color: $color-highlight;
+    color: $color-highlight;
+  }
+
   &.button--plaintext {
     background: none;
     border: none;

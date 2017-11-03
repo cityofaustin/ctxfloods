@@ -123,13 +123,13 @@ class CrossingDetails extends Component {
           {this.isDirty() ? (
             <div className="flexcontainer">
               <button 
-                className="flexitem button mlv1--r" 
-                onClick={this.updateCrossing}
-              >Save</button>
-              <button 
-                className="flexitem button mlv1--l"
+                className="flexitem button button--cancel mlv2--r"
                 onClick={this.cancelClicked}
               >Cancel</button>
+              <button 
+                className="flexitem button button--confirm mlv2--l" 
+                onClick={this.updateCrossing}
+              >Save</button>
             </div>
           ) : (
             <div className="flexcontainer">
