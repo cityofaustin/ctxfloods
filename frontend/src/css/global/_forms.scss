@@ -14,7 +14,19 @@
     background-color: $color-white;
     color: $color-primary;
   }
+
+  &.button--plaintext {
+    background: none;
+    border: none;
+    color: $color-primary;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: left;
+    text-decoration: underline;
+  }
 }
+
+
 
 .button-reset {
   background: none repeat scroll 0 0 transparent;
