@@ -46,13 +46,6 @@ class CrossingDetails extends Component {
     })
     .then(({ data }) => {
       console.log('success', data);
-      // TODO - handle success
-      // refetch crossing
-      // set state based on updated data
-      // do props update based on updated data/refetch?
-      this.setState({
-        edit: false  
-      })
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
@@ -154,8 +147,8 @@ class CrossingDetails extends Component {
                   <span className="button button--plaintext">Delete Crossing</span>
                 </div>
               )}
-            </div>
 
+            </div>
           </div>
         )}
       </ContainerQuery>

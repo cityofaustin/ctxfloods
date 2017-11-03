@@ -28,8 +28,7 @@ class CrossingList extends React.Component {
   }
 
   render () {
-debugger;
-    
+
     const isLoading = (
       !this.props.crossingsQuery ||
        this.props.crossingsQuery.loading ||
@@ -42,7 +41,6 @@ debugger;
     if ( isLoading ) { return (<div>Loading</div>) };
 
     const { showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc, currentUser } = this.props;
-// debugger;
     const crossings = this.props.crossingsQuery.allCrossings.nodes.slice();
 
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;

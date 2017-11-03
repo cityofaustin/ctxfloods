@@ -12,12 +12,12 @@ const crossingsQuery = gql`
         communityCrossingsByCrossingId {
           nodes {
             communityByCommunityId {
+              id
               name
             }
           }
         }
         ...statusUpdateInfo
-
       }
     }
   }
