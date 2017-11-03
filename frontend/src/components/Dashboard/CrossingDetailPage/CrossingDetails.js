@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
+import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 import mapboxstyle from 'components/Map/mapboxstyle.json';
 import FontAwesome from 'react-fontawesome';
@@ -27,12 +28,21 @@ class CrossingDetails extends Component {
   }
 
   updateCrossing = (e) => {
+
     this.props.updateCrossingMutation({
       variables: {
         crossingId: this.props.crossing.id,
         name: this.state.name,
         description: this.state.description
-      }
+      },
+      update: (store, {data: {editCrossing}}) => {
+        const updatedCrossing = editCrossing.crossing;        
+        store.writeFragment({
+          id: 'Crossing:' + updatedCrossing.id,
+          fragment: crossingFragment,
+          data: updatedCrossing
+        });
+      },  
     })
     .then(({ data }) => {
       console.log('success', data);
