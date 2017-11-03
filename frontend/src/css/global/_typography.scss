@@ -15,10 +15,21 @@ p, span {
   font-size: $base-font-size;
 }
 
-.link {
-  text-decoration: underline !important;
+.underline {
+  text-decoration: underline;
+}
+
+.italic {
+  font-style: italic;
 }
 
 .strong {
   font-weight: bold;
 }
+
+.light {
+  font-weight: 300;
+}
+
+
+
