@@ -1,4 +1,5 @@
 @import "css/mixins/flexbox";
+@import "css/mixins/colors";
 
 .CrossingDetails {
   @include flexcontainer--row;
@@ -12,6 +13,10 @@
   @include flexitem;  
   @include flexcontainer--column;
   justify-content: space-between;
+
+  &.CrossingDetails__details--dirty {
+    border: 5px solid $color-highlight;
+  }
 }
 
 .CrossingDetails__communities button {
