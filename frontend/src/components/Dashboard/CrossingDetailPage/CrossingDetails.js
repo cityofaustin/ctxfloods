@@ -114,7 +114,7 @@ class CrossingDetails extends Component {
           </div>
         ) : (
           <div className="flexcontainer">
-            <span className="button button--plaintext">Delete Crossing</span>
+            <span className="button button--plaintext color-highlight">Delete Crossing</span>
           </div>
         )}
 

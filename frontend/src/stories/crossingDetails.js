@@ -25,12 +25,6 @@ const crossing = {
 const communities = crossing.communityCrossingsByCrossingId.nodes.map(n => n.communityByCommunityId);
 
 storiesOf('Crossing Details', module)
-  .add('Large Width', () => 
-    <div className="storybook--lg">
-      <CrossingDetails crossing={crossing} communities={communities}/>
-    </div>)
-  .add('Small Width', () => 
-    <div className="storybook--sm">
-      <CrossingDetails crossing={crossing} communities={communities}/>
-    </div>
+  .add('Crossing', () => 
+    <CrossingDetails crossing={crossing} communities={communities}/>
   );
