@@ -20,6 +20,16 @@ class CrossingListPage extends Component {
     return `%${query.replace(/ /g,"%")}%`;
   }
 
+  previousPage = (startCursor) => { 
+    // debugger;
+    this.setState({pageCursor: startCursor });
+  };
+
+  nextPage = (endCursor) => { 
+    // debugger;
+    this.setState({pageCursor: endCursor });
+  };
+
   toggleShowOpen = () => { this.setState({ showOpen: !this.state.showOpen }) };
   toggleShowClosed = () => { this.setState({ showClosed: !this.state.showClosed }) };
   toggleShowCaution = () => { this.setState({ showCaution: !this.state.showCaution }) };
@@ -29,6 +39,7 @@ class CrossingListPage extends Component {
     this.setState({ searchQuery: e.target.value });
     this.setState({ formattedSearchQuery: this.formatSearchQuery(e.target.value) });
   };
+  
 
   render() {
     return (
@@ -52,7 +63,10 @@ class CrossingListPage extends Component {
           showClosed={this.state.showClosed}
           showLongterm={this.state.showLongterm} 
           sortByUpdatedAsc={this.state.sortByUpdatedAsc}
-          searchQuery={this.state.formattedSearchQuery} />
+          searchQuery={this.state.formattedSearchQuery}
+          pageCursor={this.state.pageCursor}
+          previousPage={this.previousPage}
+          nextPage={this.nextPage} />
       </div>
     );
   }

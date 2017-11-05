@@ -16,7 +16,6 @@ const containerQuery = {
 };
 
 class CrossingList extends React.Component {
-  state = {}
 
   render () {
     const isLoading = (
@@ -30,7 +29,7 @@ class CrossingList extends React.Component {
 
     if ( isLoading ) { return (<div>Loading</div>) };
 
-    const { showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc, currentUser, searchQuery } = this.props;
+    const { showOpen, showClosed, showCaution, showLongterm, sortByUpdatedAsc, currentUser, searchQuery, previousPage, nextPage } = this.props;
 
     const crossings = this.props.crossingsQuery.searchCrossings.nodes.slice();
 
@@ -52,6 +51,7 @@ class CrossingList extends React.Component {
     });
 
     return (
+      <div>
       <ContainerQuery query={containerQuery}>
         {(params) => {
           const cqClassName = classnames(params);
@@ -71,6 +71,9 @@ class CrossingList extends React.Component {
           );
         }}
       </ContainerQuery>
+      <div onClick={() => previousPage(this.props.crossingsQuery.searchCrossings.pageInfo.startCursor)}>Previous Page</div>
+      <div onClick={() => nextPage(this.props.crossingsQuery.searchCrossings.pageInfo.endCursor)}>Next Page</div>
+      </div>
     );
   }
 }
@@ -85,7 +88,7 @@ export default compose(
         showClosed: ownProps.showClosed,
         showCaution: ownProps.showCaution,
         showLongterm: ownProps.showLongterm,
-        pageCursor: null
+        pageCursor: ownProps.pageCursor
       }
     })
   }),
