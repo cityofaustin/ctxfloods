@@ -1,9 +1,9 @@
 @import "css/mixins/colors";
 
 @mixin section-header {
-  width: 100%;
   background-color: $color-primary;
   color: $color-white;
+  display: block;
   padding: 20px;
   text-transform: uppercase;
   font-weight: normal;
