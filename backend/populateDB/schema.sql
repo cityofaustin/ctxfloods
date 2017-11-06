@@ -52,7 +52,8 @@ create table floods.crossing (
   human_address     text not null check (char_length(human_address) < 800),
   description       text not null check (char_length(description) < 800),
   coordinates       geometry not null,
-  geojson           text not null check (char_length(geojson) < 100)
+  geojson           text not null check (char_length(geojson) < 100),
+  latest_status_created_at timestamp 
 );
 
 comment on table floods.crossing is 'A road crossing that might flood.';
@@ -62,6 +63,7 @@ comment on column floods.crossing.human_address is 'The human readable address o
 comment on column floods.crossing.description is 'The description of the crossing.';
 comment on column floods.crossing.coordinates is 'The GIS coordinates of the crossing created with ST_MakePoint.';
 comment on column floods.crossing.geojson is 'The GeoJSON coordinates of the crossing.';
+comment on column floods.crossing.latest_status_created_at is 'The timestamp of the latest status update for the crossing.';
 
 -- Add trigrams for indexing
 create extension if not exists "pg_trgm";
@@ -345,10 +347,10 @@ create function floods.search_crossings(
   order by 
     case 
       when order_asc
-        then name end asc,
+        then latest_status_created_at end asc,
     case
       when order_asc = false
-        then name end desc;
+        then latest_status_created_at end desc;
 $$ language sql stable security definer;
 
 comment on function floods.search_crossings(text, boolean, boolean, boolean, boolean, boolean) is 'Searches users.';
@@ -460,6 +462,10 @@ begin
 
   update floods.crossing
     set latest_status_id = floods_status_update.status_id
+    where id = floods_status_update.crossing_id;
+
+  update floods.crossing
+    set latest_status_created_at = floods_status_update.created_at
     where id = floods_status_update.crossing_id;
 
   return floods_status_update;
