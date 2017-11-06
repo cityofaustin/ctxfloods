@@ -80,7 +80,7 @@ class CrossingDetails extends Component {
 
     return (
 
-      <div className={classnames("CrossingDetails", {"dirty-container":this.isDirty()} ,"mlv2 plv2")}>   
+      <div className={classnames("CrossingDetails", {"dirty-container--dirty":this.isDirty()} ,"dirty-container mlv2 plv2")}>   
 
         <div className="CrossingDetails__details">
           <div><span className="strong gray--75 mlv1--r">ID#</span> <span className="italic light gray--50">{crossing.id}</span></div>

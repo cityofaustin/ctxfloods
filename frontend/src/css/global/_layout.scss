@@ -18,7 +18,11 @@
 }
 
 .dirty-container {
-  border: 5px solid $color-highlight;
+  outline: 4px solid $color-white;
+
+  &.dirty-container--dirty {
+    outline-color: $color-highlight;
+  }
 }
 
 $sizes: (lv1, 5), (lv2, 10);
