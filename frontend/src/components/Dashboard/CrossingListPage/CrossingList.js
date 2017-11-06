@@ -41,6 +41,8 @@ class CrossingList extends React.Component {
       return (<div>Error Loading Crossings</div>);
     }
 
+    const {startCursor, endCursor, hasPrevious, hasNext} = this.props.crossingsQuery.searchCrossings.pageInfo;
+
     crossings.sort((c1, c2) => {
       const createdAt1 = c1.statusUpdateByLatestStatusUpdateId.createdAt;
       const createdAt2 = c2.statusUpdateByLatestStatusUpdateId.createdAt;
@@ -71,7 +73,7 @@ class CrossingList extends React.Component {
           );
         }}
       </ContainerQuery>
-      <div onClick={() => previousPage(this.props.crossingsQuery.searchCrossings.pageInfo.startCursor)}>Previous Page</div>
+      <div onClick={() => previousPage(hasPrevious ? startCursor : null)}>Previous Page</div>
       <div onClick={() => nextPage(this.props.crossingsQuery.searchCrossings.pageInfo.endCursor)}>Next Page</div>
       </div>
     );

@@ -331,7 +331,8 @@ create function floods.search_crossings(
   show_open boolean default true,
   show_closed boolean default true,
   show_caution boolean default true,
-  show_longterm boolean default true
+  show_longterm boolean default true,
+  order_asc boolean default false
 ) returns setof floods.crossing as $$
   select *
   from floods.crossing
@@ -340,10 +341,17 @@ create function floods.search_crossings(
   (latest_status_id = 2 and show_closed) or
   (latest_status_id = 3 and show_caution) or
   (latest_status_id = 4 and show_longterm)
-  );
+  )
+  order by 
+    case 
+      when order_asc
+        then name end asc,
+    case
+      when order_asc = false
+        then name end desc;
 $$ language sql stable security definer;
 
-comment on function floods.search_crossings(text, boolean, boolean, boolean, boolean) is 'Searches users.';
+comment on function floods.search_crossings(text, boolean, boolean, boolean, boolean, boolean) is 'Searches users.';
 
 
 -- Create function to search users
@@ -845,7 +853,7 @@ grant execute on function floods.authenticate(text, text) to floods_anonymous;
 grant execute on function floods.search_users(text, integer) to floods_anonymous;
 
 -- Allow all users to search crossings
-grant execute on function floods.search_crossings(text, boolean, boolean, boolean, boolean) to floods_anonymous;
+grant execute on function floods.search_crossings(text, boolean, boolean, boolean, boolean, boolean) to floods_anonymous;
 
 -- Allow community admins and up to register new users
 -- NOTE: Extra logic around permissions in function
