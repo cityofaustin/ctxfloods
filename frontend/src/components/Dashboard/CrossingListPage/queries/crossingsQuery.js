@@ -7,7 +7,8 @@ const crossingsQuery = gql`
                         $showClosed:Boolean,
                         $showCaution:Boolean,
                         $showLongterm:Boolean,
-                        $pageCursor:Cursor) {
+                        $pageCursor:Cursor,
+                        $orderAsc:Boolean) {
     searchCrossings(
       search: $search
       showOpen: $showOpen
@@ -16,6 +17,7 @@ const crossingsQuery = gql`
       showLongterm: $showLongterm
       first: 20
       after: $pageCursor
+      orderAsc: $orderAsc
     ) {
       pageInfo {
         startCursor

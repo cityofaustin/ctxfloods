@@ -90,7 +90,8 @@ export default compose(
         showClosed: ownProps.showClosed,
         showCaution: ownProps.showCaution,
         showLongterm: ownProps.showLongterm,
-        pageCursor: ownProps.pageCursor
+        pageCursor: ownProps.pageCursor,
+        orderAsc: ownProps.sortByUpdatedAsc
       }
     })
   }),
