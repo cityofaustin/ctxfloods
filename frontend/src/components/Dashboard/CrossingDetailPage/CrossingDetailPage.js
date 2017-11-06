@@ -56,6 +56,10 @@ const CrossingByIdQuery = gql`
       humanCoordinates
       humanAddress
       description
+      statusByLatestStatusId {
+        id
+        name
+      }
       communityCrossingsByCrossingId {
         nodes {
           communityByCommunityId {

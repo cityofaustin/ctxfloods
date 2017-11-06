@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import ReactMapboxGl, { Marker } from "react-mapbox-gl";
 import mapboxstyle from 'components/Map/mapboxstyle.json';
+import { statusIcons } from 'constants/StatusConstants';
 import classnames from 'classnames';
 
 const Map = ReactMapboxGl({ accessToken: null, interactive: false });
@@ -8,19 +9,21 @@ const Map = ReactMapboxGl({ accessToken: null, interactive: false });
 class CrossingStaticMap extends Component {
 
   render() {
+    const coordinates = JSON.parse(this.props.crossing.geojson).coordinates;
+    const statusId = this.props.crossing.statusByLatestStatusId.id;
+    const status = this.props.crossing.statusByLatestStatusId.name;
+
     return (
         <Map
-          className={classnames("CrossingStaticMap", this.props.className)}
-          center={JSON.parse(this.props.crossing.geojson).coordinates}
+          className="CrossingStaticMap"
+          center={coordinates}
           style={mapboxstyle}
         >
-          <Layer
-            type="symbol"
-            id="marker"
-            layout={{'icon-image':'circle-15'}}
-          >
-            <Feature coordinates={JSON.parse(this.props.crossing.geojson).coordinates}/>
-          </Layer>
+          <Marker
+            coordinates={coordinates}
+            anchor="bottom">
+            <img src={statusIcons[statusId]} alt={status} />
+          </Marker>
         </Map>
     );
   }
