@@ -5,7 +5,7 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
   className="storybook--sm"
 >
   <div
-    className="CrossingDetails mlv2 plv2"
+    className="CrossingDetails dirty-container mlv2 plv2"
   >
     <div
       className="CrossingDetails__details"
