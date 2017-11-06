@@ -105,7 +105,7 @@ class CrossingDetails extends Component {
           </div>
         </div>
 
-        {this.isDirty() && (
+        {this.isDirty() ? (
           <div className="CrossingDetails__buttons flexcontainer">
             <button 
               className="flexitem button button--cancel mlv2--r"
@@ -116,9 +116,7 @@ class CrossingDetails extends Component {
               onClick={this.updateCrossing}
             >Save</button>
           </div>
-        )}
-
-        {!this.isDirty() && !this.state.delete && (
+        ) : (
           <div className="CrossingDetails__buttons flexcontainer">
             <button 
               className="button button--plaintext color-highlight"

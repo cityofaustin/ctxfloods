@@ -25,6 +25,8 @@
 @mixin overlay-container {
   background-color: $color-white-translucent;
   height: 100%;
+  left: 0;
   position: absolute;
+  top: 0;
   width: 100%;
 }

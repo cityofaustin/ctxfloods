@@ -116,7 +116,6 @@ const history = [
 }];
 
 storiesOf('Crossing Status History', module)
-  .add('A crossing history', () => <CrossingStatusHistory history={history} />)
   .add('Large Width', () => 
     <div className="storybook--lg">
       <CrossingStatusHistory history={history} />
