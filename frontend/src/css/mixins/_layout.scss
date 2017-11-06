@@ -21,3 +21,10 @@
   background-color: $color-gray-lightest;
   border-top: 10px solid $color-gray-lightest;
 }
+
+@mixin overlay-container {
+  background-color: $color-white-translucent;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}

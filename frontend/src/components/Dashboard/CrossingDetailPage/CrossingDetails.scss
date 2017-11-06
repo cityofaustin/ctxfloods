@@ -3,10 +3,7 @@
 
 .CrossingDetails {
     border: 5px solid $color-white;
-
-  &.CrossingDetails--dirty {
-    border-color: $color-highlight;
-  }
+    position: relative;
 }
 
 .CrossingDetails__communities button {
