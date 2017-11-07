@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import ReactMapboxGl, { Marker } from "react-mapbox-gl";
 import mapboxstyle from 'components/Map/mapboxstyle.json';
 import { statusIcons } from 'constants/StatusConstants';
-import classnames from 'classnames';
 
 const Map = ReactMapboxGl({ accessToken: null, interactive: false });
 
 class CrossingStaticMap extends Component {
+
+  onStyleLoad = (map) => {
+    map.resize();
+  }
 
   render() {
     const coordinates = JSON.parse(this.props.crossing.geojson).coordinates;
@@ -18,6 +21,7 @@ class CrossingStaticMap extends Component {
           className="CrossingStaticMap"
           center={coordinates}
           style={mapboxstyle}
+          onStyleLoad = {this.onStyleLoad}
         >
           <Marker
             coordinates={coordinates}
