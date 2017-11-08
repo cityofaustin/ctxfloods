@@ -43,18 +43,18 @@ export default class InfiniteCrossingList extends React.Component{
         else {
             return (
                 // <LinearProgress mode="indeterminate" />
-                 <div>Loading.....</div>       
+                 <div key={key}>Loading.....</div>       
             )
         }
 
-        debugger;
+        // debugger;
 
         return (
                 <CrossingListItem
                   key={crossing.id}
                   crossing={crossing}
                   reasons={[1,2,3]} 
-                  durations={[1,2.3]}
+                  durations={[1,2,3]}
                   currentUser={1}
                   cqClassName='CrossingListItem--lg' 
                 />
@@ -74,7 +74,7 @@ export default class InfiniteCrossingList extends React.Component{
         const {loadMoreRows,crossingsQuery} = this.props
         virtualizingList = crossingsQuery.edges
 
-        debugger;
+        // debugger;
 
     return (
             <div style={{ marginLeft:"30%",}}>

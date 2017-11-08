@@ -19,6 +19,7 @@ const crossingsQuery = gql`
       after: $pageCursor
       orderAsc: $orderAsc
     ) {
+      __typename
       totalCount
       pageInfo {
         startCursor

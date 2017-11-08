@@ -47,19 +47,22 @@ const configObject = {
  *  This callback function is called to load more rows from GraphQL Server.
  ******************************************************************************************************************/    
     const loadMoreRows = ()=>{
+        // debugger;
         return fetchMore({
           variables:{
-            after:searchCrossings.pageInfo.endCursor,
+            pageCursor:searchCrossings.pageInfo.endCursor,
           },
           updateQuery:(previousResult,{fetchMoreResult})=> {
-            const totalCount=fetchMoreResult.data.searchCrossings.totalCount
-            const newEdges=fetchMoreResult.data.searchCrossings.edges
-            const pageInfo=fetchMoreResult.data.searchCrossings.pageInfo
+            debugger;
+            const totalCount=fetchMoreResult.searchCrossings.totalCount
+            const newEdges=fetchMoreResult.searchCrossings.edges
+            const pageInfo=fetchMoreResult.searchCrossings.pageInfo
 
             return {
               // By returning `cursor` here, we update the `loadMore` function
               // to the new cursor.
               searchCrossings:{
+                __typename: 'SearchCrossingsConnection',
                 totalCount,
                 edges:[...previousResult.searchCrossings.edges, ...newEdges],
                 pageInfo
