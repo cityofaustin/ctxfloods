@@ -57,6 +57,7 @@ class CrossingListItem extends React.Component {
               id: updateData.crossingId,
               latestStatusId: updateData.statusId,
               latestStatusUpdateId: updateData.id,
+              latestStatusCreatedAt: Date.now(),
               statusUpdateByLatestStatusUpdateId: {
                 id: updateData.id,
                 crossingId: updateData.crossingId,
@@ -90,7 +91,7 @@ class CrossingListItem extends React.Component {
           data: updatedCrossing
         });
       },
-      refetchQueries: [{query: statusCountsQuery}, {query: crossingsQuery}]
+      refetchQueries: [{query: statusCountsQuery}, {query: crossingsQuery, variables: {pageCursor: this.props.startCursor}}]
     })
     .then(({ data }) => {
       const update = data.newStatusUpdate.statusUpdate.crossingByCrossingId.statusUpdateByLatestStatusUpdateId;

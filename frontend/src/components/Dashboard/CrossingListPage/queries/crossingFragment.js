@@ -6,6 +6,7 @@ const crossingFragment = gql`
     id
     latestStatusId
     latestStatusUpdateId
+    latestStatusCreatedAt
     statusUpdateByLatestStatusUpdateId {
       id
       crossingId

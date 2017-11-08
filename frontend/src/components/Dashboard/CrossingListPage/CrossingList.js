@@ -43,14 +43,14 @@ class CrossingList extends React.Component {
 
     const {startCursor, endCursor, hasPrevious, hasNext} = this.props.crossingsQuery.searchCrossings.pageInfo;
 
-    crossings.sort((c1, c2) => {
-      const createdAt1 = c1.statusUpdateByLatestStatusUpdateId.createdAt;
-      const createdAt2 = c2.statusUpdateByLatestStatusUpdateId.createdAt;
+    // crossings.sort((c1, c2) => {
+    //   const createdAt1 = c1.statusUpdateByLatestStatusUpdateId.createdAt;
+    //   const createdAt2 = c2.statusUpdateByLatestStatusUpdateId.createdAt;
 
-      return sortByUpdatedAsc ?
-              (createdAt1 > createdAt2 ? 1 : -1) :
-              (createdAt2 > createdAt1 ? 1 : -1);
-    });
+    //   return sortByUpdatedAsc ?
+    //           (createdAt1 > createdAt2 ? 1 : -1) :
+    //           (createdAt2 > createdAt1 ? 1 : -1);
+    // });
 
     return (
       <div>
@@ -67,6 +67,7 @@ class CrossingList extends React.Component {
                   durations={statusDurations}
                   currentUser={currentUser}
                   cqClassName={cqClassName} 
+                  startCursor={startCursor}
                 />
               )}
             </div>
