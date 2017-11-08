@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CrossingList from 'components/Dashboard/CrossingListPage/CrossingList';
+import InfiniteCrossingPaginationContainer from 'components/Dashboard/CrossingListPage/InfiniteCrossingPaginationContainer';
 import CrossingListHeader from 'components/Dashboard/CrossingListPage/CrossingListHeader/CrossingListHeader';
 
 class CrossingListPage extends Component {
@@ -56,21 +56,24 @@ class CrossingListPage extends Component {
           sortByUpdatedAsc={this.state.sortByUpdatedAsc}
           searchQuery={this.state.searchQuery}
           searchQueryUpdated={this.searchQueryUpdated} />
-        <CrossingList {...this.props}
-          showOpen={this.state.showOpen}
-          showCaution={this.state.showCaution}
-          showClosed={this.state.showClosed}
-          showLongterm={this.state.showLongterm} 
-          sortByUpdatedAsc={this.state.sortByUpdatedAsc}
-          searchQuery={this.state.formattedSearchQuery}
-          pageCursor={this.state.pageCursor}
-          previousPage={this.previousPage}
-          nextPage={this.nextPage} />
+        <InfiniteCrossingPaginationContainer /> 
       </div>
     );
   }
 
 }
 
+/*
+       <CrossingList {...this.props}
+         showOpen={this.state.showOpen}
+         showCaution={this.state.showCaution}
+         showClosed={this.state.showClosed}
+          showLongterm={this.state.showLongterm} 
+          sortByUpdatedAsc={this.state.sortByUpdatedAsc}
+          searchQuery={this.state.formattedSearchQuery}
+          pageCursor={this.state.pageCursor}
+          previousPage={this.previousPage}
+          nextPage={this.nextPage} />
+*/
 
 export default CrossingListPage;

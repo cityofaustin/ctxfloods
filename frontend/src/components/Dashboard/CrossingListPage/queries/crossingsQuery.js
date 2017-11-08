@@ -19,25 +19,29 @@ const crossingsQuery = gql`
       after: $pageCursor
       orderAsc: $orderAsc
     ) {
+      totalCount
       pageInfo {
         startCursor
         endCursor
         hasNextPage
         hasPreviousPage
       }
-      nodes {
-        id
-        name
-        description
-        humanAddress
-        communityCrossingsByCrossingId {
-          nodes {
-            communityByCommunityId {
-              name
+      edges {
+        cursor
+        node {
+          id
+          name
+          description
+          humanAddress
+          communityCrossingsByCrossingId {
+            nodes {
+              communityByCommunityId {
+                name
+              }
             }
           }
+          ...crossingInfo
         }
-        ...crossingInfo
       }
     }
   }
