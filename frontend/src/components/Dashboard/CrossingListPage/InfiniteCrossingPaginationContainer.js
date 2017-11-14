@@ -10,7 +10,7 @@ import InfiniteCrossingList from 'components/Dashboard/CrossingListPage/Infinite
 // import {List as MaterialList,ListItem} from 'material-ui/List'
 // import {loadInitialData} from  '../actions/action'
 
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from "graphql-tag"
 
 
@@ -20,6 +20,8 @@ import 'react-virtualized/styles.css'
 // import {List} from "immutable"
 
 import crossingsQuery from 'components/Dashboard/CrossingListPage/queries/crossingsQuery';
+import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/statusReasonsQuery';
+import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 
 const configObject = {
   options: (props) => {
@@ -90,16 +92,39 @@ const configObject = {
 
 export class InfiniteCrossingPaginationContainer extends React.Component{
    render() {  
-      const {dispatch,loading,searchCrossings,loadMoreRows} = this.props
+      const isLoading = (
+        !this.props.statusReasonsQuery ||
+         this.props.statusReasonsQuery.loading ||
+        !this.props.statusDurationsQuery ||
+         this.props.statusDurationsQuery.loading
+      );
+
+
+      const {dispatch, loading, searchCrossings, loadMoreRows, currentUser} = this.props
+      // debugger;
      
-     if (loading){
+     if (loading || isLoading){
       return (<div>Loading</div>);
      }
-     else {
-      return <InfiniteCrossingList loadMoreRows={loadMoreRows} crossingsQuery={searchCrossings}/>
-    }
+    
+    const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
+    const statusDurations = this.props.statusDurationsQuery.allStatusDurations.nodes;
+
+      return <InfiniteCrossingList 
+                loadMoreRows={loadMoreRows}
+                crossingsQuery={searchCrossings}
+                statusReasons={statusReasons}
+                statusDurations={statusDurations}
+                currentUser={currentUser}
+                />
   }
 }
 
-export default graphql(crossingsQuery,configObject)(InfiniteCrossingPaginationContainer)
+export default compose(
+  graphql(crossingsQuery, configObject),
+  graphql(statusReasonsQuery, { name: 'statusReasonsQuery' }),
+  graphql(statusDurationsQuery, { name: 'statusDurationsQuery' })
+)(InfiniteCrossingPaginationContainer);
+
+// export default graphql(crossingsQuery,configObject)(InfiniteCrossingPaginationContainer)
 // export default connect(mapStateToProps)(InfiniteCrossingPaginationContainerWithData)

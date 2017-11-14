@@ -36,6 +36,9 @@ export default class InfiniteCrossingList extends React.Component{
  *  Used in List to render each row.
  ******************************************************************************************************************/
    _rowRenderer({ key, index, style}) {
+      // debugger;
+      const {statusReasons, statusDurations, currentUser} = this.props;
+
         let crossing
         if (index<virtualizingList.length) {
             crossing = virtualizingList[index].node
@@ -54,9 +57,9 @@ export default class InfiniteCrossingList extends React.Component{
                   <CrossingListItem
                     key={crossing.id}
                     crossing={crossing}
-                    reasons={[1,2,3]} 
-                    durations={[1,2,3]}
-                    currentUser={1}
+                    reasons={statusReasons} 
+                    durations={statusDurations}
+                    currentUser={currentUser}
                     cqClassName='CrossingListItem--lg' 
                   />
                 </div>
