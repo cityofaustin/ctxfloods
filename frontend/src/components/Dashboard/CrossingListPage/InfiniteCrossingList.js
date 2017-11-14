@@ -50,14 +50,16 @@ export default class InfiniteCrossingList extends React.Component{
         // debugger;
 
         return (
-                <CrossingListItem
-                  key={crossing.id}
-                  crossing={crossing}
-                  reasons={[1,2,3]} 
-                  durations={[1,2,3]}
-                  currentUser={1}
-                  cqClassName='CrossingListItem--lg' 
-                />
+                <div key={key} style={style}>
+                  <CrossingListItem
+                    key={crossing.id}
+                    crossing={crossing}
+                    reasons={[1,2,3]} 
+                    durations={[1,2,3]}
+                    currentUser={1}
+                    cqClassName='CrossingListItem--lg' 
+                  />
+                </div>
         )
     }
 /******************************************************************************************************************
@@ -72,7 +74,7 @@ export default class InfiniteCrossingList extends React.Component{
  ******************************************************************************************************************/
    render(){  
         const {loadMoreRows,crossingsQuery} = this.props
-        virtualizingList = crossingsQuery.edges
+        virtualizingList = crossingsQuery ? crossingsQuery.edges : null;
 
         // debugger;
 
@@ -97,7 +99,7 @@ export default class InfiniteCrossingList extends React.Component{
                         width={width}
                         onRowsRendered={onRowsRendered}
                         rowCount={crossingsQuery.totalCount}
-                        rowHeight={200}
+                        rowHeight={400}
                         rowRenderer={this._rowRenderer}
                         scrollTop={scrollTop} />
                     )}

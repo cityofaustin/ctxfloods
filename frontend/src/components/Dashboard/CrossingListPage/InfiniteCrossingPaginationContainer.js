@@ -25,15 +25,16 @@ const configObject = {
   options: (props) => {
     // debugger;
     let after = props.endCursor || null; 
+
     return {
       variables: {
-        search: '%',
-        showOpen: true,
-        showClosed: true,
-        showCaution: true,
-        showLongterm: true,
+        search: props.searchQuery,
+        showOpen: props.showOpen,
+        showClosed: props.showClosed,
+        showCaution: props.showCaution,
+        showLongterm: props.showLongterm,
         pageCursor: after,
-        orderAsc: false
+        orderAsc: props.searchByUpdatedAsc
       }
     }
   } ,
@@ -53,7 +54,7 @@ const configObject = {
             pageCursor:searchCrossings.pageInfo.endCursor,
           },
           updateQuery:(previousResult,{fetchMoreResult})=> {
-            debugger;
+            // debugger;
             const totalCount=fetchMoreResult.searchCrossings.totalCount
             const newEdges=fetchMoreResult.searchCrossings.edges
             const pageInfo=fetchMoreResult.searchCrossings.pageInfo

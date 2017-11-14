@@ -56,7 +56,13 @@ class CrossingListPage extends Component {
           sortByUpdatedAsc={this.state.sortByUpdatedAsc}
           searchQuery={this.state.searchQuery}
           searchQueryUpdated={this.searchQueryUpdated} />
-        <InfiniteCrossingPaginationContainer /> 
+        <InfiniteCrossingPaginationContainer 
+          showOpen={this.state.showOpen}
+          showClosed={this.state.showClosed}
+          showCaution={this.state.showCaution}
+          showLongterm={this.state.showLongterm}
+          sortByUpdatedAsc={this.state.sortByUpdatedAsc}
+          searchQuery={this.state.formattedSearchQuery} /> 
       </div>
     );
   }
