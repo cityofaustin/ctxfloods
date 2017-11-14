@@ -9,7 +9,7 @@ import CrossingListItem from 'components/Dashboard/CrossingListPage/CrossingList
 
 // import injectTapEventPlugin from 'react-tap-event-plugin'
 
-import {InfiniteLoader,AutoSizer,List} from "react-virtualized"
+import {InfiniteLoader,AutoSizer,List, WindowScroller} from "react-virtualized"
 
 // injectTapEventPlugin()
 
@@ -77,6 +77,43 @@ export default class InfiniteCrossingList extends React.Component{
         // debugger;
 
     return (
+      <div>
+
+          <InfiniteLoader
+            isRowLoaded={this._isRowLoaded}
+            loadMoreRows={loadMoreRows}
+            rowCount={crossingsQuery.totalCount}
+            threshold={10}>
+            {({ onRowsRendered, registerChild }) => (
+              <WindowScroller>
+                {({ height, isScrolling, scrollTop }) => (
+                  <AutoSizer disableHeight>
+                    {({ width }) => (
+                      <List
+                        ref={registerChild}
+                        className="List"
+                        autoHeight
+                        height={height}
+                        width={width}
+                        onRowsRendered={onRowsRendered}
+                        rowCount={crossingsQuery.totalCount}
+                        rowHeight={200}
+                        rowRenderer={this._rowRenderer}
+                        scrollTop={scrollTop} />
+                    )}
+                  </AutoSizer>
+                )}
+              </WindowScroller>
+            )}
+          </InfiniteLoader>
+
+      </div>
+    );
+  }
+}
+
+/*
+
             <div style={{ marginLeft:"30%",}}>
                 <InfiniteLoader
                     isRowLoaded={this._isRowLoaded}
@@ -98,6 +135,5 @@ export default class InfiniteCrossingList extends React.Component{
                     )}
         </InfiniteLoader>
       </div>
-    );
-  }
-}
+
+*/
