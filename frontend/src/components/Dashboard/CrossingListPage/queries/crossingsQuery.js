@@ -15,7 +15,7 @@ const crossingsQuery = gql`
       showClosed: $showClosed
       showCaution: $showCaution
       showLongterm: $showLongterm
-      first: 2
+      first: 10
       after: $pageCursor
       orderAsc: $orderAsc
     ) {
