@@ -14,6 +14,7 @@ import {InfiniteLoader,AutoSizer,List, WindowScroller, CellMeasurer, CellMeasure
 // injectTapEventPlugin()
 
 let virtualizingList = []
+let listRef;
 
 const cache = new CellMeasurerCache({
   defaultHeight: 400,
@@ -33,9 +34,10 @@ export default class InfiniteCrossingList extends React.Component{
    }
 
    clearMeasurerCache(index) {
-    debugger;
+    // debugger;
     cache.clear(index);
-    
+    listRef.recomputeRowHeights();
+
     // cache.clear({rowIndex: index});
     // registerChild.recomputeRowHeights({index: index});
    }
@@ -131,7 +133,7 @@ export default class InfiniteCrossingList extends React.Component{
                   <AutoSizer disableHeight>
                     {({ width }) => (
                       <List
-                        ref={registerChild}
+                        ref={ref => registerChild = listRef = ref}
                         className="List"
                         autoHeight
                         height={height}
