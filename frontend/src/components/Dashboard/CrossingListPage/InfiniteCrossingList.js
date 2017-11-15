@@ -9,11 +9,16 @@ import CrossingListItem from 'components/Dashboard/CrossingListPage/CrossingList
 
 // import injectTapEventPlugin from 'react-tap-event-plugin'
 
-import {InfiniteLoader,AutoSizer,List, WindowScroller} from "react-virtualized"
+import {InfiniteLoader,AutoSizer,List, WindowScroller, CellMeasurer, CellMeasurerCache} from "react-virtualized"
 
 // injectTapEventPlugin()
 
 let virtualizingList = []
+
+const cache = new CellMeasurerCache({
+  defaultHeight: 400,
+  fixedWidth: true
+});
 
 export default class InfiniteCrossingList extends React.Component{
    constructor(props)
@@ -35,7 +40,7 @@ export default class InfiniteCrossingList extends React.Component{
 /******************************************************************************************************************
  *  Used in List to render each row.
  ******************************************************************************************************************/
-   _rowRenderer({ key, index, style}) {
+   _rowRenderer({ key, index, style, parent}) {
       // debugger;
       const {statusReasons, statusDurations, currentUser} = this.props;
 
@@ -53,17 +58,36 @@ export default class InfiniteCrossingList extends React.Component{
         // debugger;
 
         return (
-                <div key={key} style={style}>
-                  <CrossingListItem
-                    key={crossing.id}
-                    crossing={crossing}
-                    reasons={statusReasons} 
-                    durations={statusDurations}
-                    currentUser={currentUser}
-                    cqClassName='CrossingListItem--lg' 
-                  />
-                </div>
+                    <CellMeasurer
+                      cache={cache}
+                      columnIndex={0}
+                      key={key}
+                      parent={parent}
+                      rowIndex={index}
+                    >
+
+                      {({ measure }) => (
+                        // 'style' attribute required to position cell (within parent List)
+                        <div style={style}>
+                          <CrossingListItem
+                            onLoad={measure}
+                            key={crossing.id}
+                            crossing={crossing}
+                            reasons={statusReasons} 
+                            durations={statusDurations}
+                            currentUser={currentUser}
+                            cqClassName='CrossingListItem--lg' 
+                          />
+                        </div>
+                      )}
+
+                    </CellMeasurer>
         )
+    }
+
+    _calculateRowHeight({ index }) {
+      return 400;
+
     }
 /******************************************************************************************************************
  *  When no rows are returned
@@ -76,8 +100,14 @@ export default class InfiniteCrossingList extends React.Component{
  *  React render method for ItemList Component
  ******************************************************************************************************************/
    render(){  
-        const {loadMoreRows,crossingsQuery} = this.props
-        virtualizingList = crossingsQuery ? crossingsQuery.edges : null;
+        const {loadMoreRows,crossingsQuery} = this.props;
+
+        if(!crossingsQuery) {
+          return (<div>Loading</div>);
+        }
+
+        // debugger;
+        virtualizingList = crossingsQuery.edges;
 
         // debugger;
 
@@ -102,7 +132,8 @@ export default class InfiniteCrossingList extends React.Component{
                         width={width}
                         onRowsRendered={onRowsRendered}
                         rowCount={crossingsQuery.totalCount}
-                        rowHeight={400}
+                        deferredMeasurementCache={cache}
+                        rowHeight={cache.rowHeight}
                         rowRenderer={this._rowRenderer}
                         scrollTop={scrollTop} />
                     )}
