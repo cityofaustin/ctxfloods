@@ -28,6 +28,15 @@ class CrossingListItem extends React.Component {
       selectedDuration: props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId,
       notes: props.crossing.statusUpdateByLatestStatusUpdateId.notes
     };
+
+    this.openClicked = this.openClicked.bind(this);
+    this.closedClicked = this.closedClicked.bind(this);
+    this.cautionClicked = this.cautionClicked.bind(this);
+    this.longtermClicked = this.longtermClicked.bind(this);
+    this.cancelClicked = this.cancelClicked.bind(this);
+    this.reasonChanged = this.reasonChanged.bind(this);
+    this.durationChanged = this.durationChanged.bind(this);
+    this.notesChanged = this.notesChanged.bind(this);
   }
 
   newStatusUpdate(e) {
@@ -121,40 +130,54 @@ class CrossingListItem extends React.Component {
             savedNotes !== this.state.notes);
   }
 
-  openClicked = () => {
+  openClicked() {
     this.setState({ selectedStatus: statusConstants.OPEN });
     this.setState({ notes: '' });
     this.setState({ selectedReason: null });
     this.setState({ selectedDuration: null });
+    this.props.clearMeasurerCache();
   };
-  cautionClicked = () => {
+  cautionClicked() {
     this.setState({ selectedStatus: statusConstants.CAUTION });
     this.setState({ notes: '' });
     this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CAUTION).id });
     this.setState({ selectedDuration: null });
+    this.props.clearMeasurerCache();
   };
-  closedClicked = () => {
+  closedClicked() {
     this.setState({ selectedStatus: statusConstants.CLOSED });
     this.setState({ notes: '' });
     this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CLOSED).id });
     this.setState({ selectedDuration: null });
+    this.props.clearMeasurerCache();
   };
-  longtermClicked = () => {
+  longtermClicked() {
     this.setState({ selectedStatus: statusConstants.LONGTERM });
     this.setState({ notes: '' });
     this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.LONGTERM).id });
     this.setState({ selectedDuration: this.props.durations[0].id });
+    this.props.clearMeasurerCache();
   };
 
-  reasonChanged = (e) => { this.setState({ selectedReason: e.target.value }) };
-  durationChanged = (e) => { this.setState({ selectedDuration: e.target.value }) };
-  notesChanged = (e) => { this.setState({ notes: e.target.value }) };
+  reasonChanged(e) {
+    this.setState({ selectedReason: e.target.value });
+    this.props.clearMeasurerCache();
+  };
+  durationChanged(e) {
+    this.setState({ selectedDuration: e.target.value });
+    this.props.clearMeasurerCache();
+  };
+  notesChanged(e) {
+    this.setState({ notes: e.target.value });
+    this.props.clearMeasurerCache();
+  };
 
-  cancelClicked = () => {
+  cancelClicked() {
     this.setState({ selectedStatus: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusId });
     this.setState({ selectedReason: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId });
     this.setState({ selectedDuration: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId });
     this.setState({ notes: this.props.crossing.statusUpdateByLatestStatusUpdateId.notes });
+    this.props.clearMeasurerCache();
   };
 
   render () {

@@ -29,6 +29,15 @@ export default class InfiniteCrossingList extends React.Component{
        this._isRowLoaded = this._isRowLoaded.bind(this)
        this._rowRenderer = this._rowRenderer.bind(this)
        this._noRowsRenderer = this._noRowsRenderer.bind(this)
+       this.clearMeasurerCache = this.clearMeasurerCache.bind(this)
+   }
+
+   clearMeasurerCache(index) {
+    debugger;
+    cache.clear(index);
+    
+    // cache.clear({rowIndex: index});
+    // registerChild.recomputeRowHeights({index: index});
    }
 /******************************************************************************************************************
  *  Used in InfiniteLoader to track the loaded state of each row.
@@ -76,7 +85,8 @@ export default class InfiniteCrossingList extends React.Component{
                             reasons={statusReasons} 
                             durations={statusDurations}
                             currentUser={currentUser}
-                            cqClassName='CrossingListItem--lg' 
+                            cqClassName='CrossingListItem--lg'
+                            clearMeasurerCache={() => this.clearMeasurerCache(index)}
                           />
                         </div>
                       )}
@@ -85,10 +95,6 @@ export default class InfiniteCrossingList extends React.Component{
         )
     }
 
-    _calculateRowHeight({ index }) {
-      return 400;
-
-    }
 /******************************************************************************************************************
  *  When no rows are returned
  ******************************************************************************************************************/
