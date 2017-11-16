@@ -41,6 +41,8 @@ class CrossingListPage extends Component {
   
 
   render() {
+    const { currentUser } = this.props;
+
     return (
       <div className="ManageCrossings">
         <CrossingListHeader 
@@ -62,7 +64,8 @@ class CrossingListPage extends Component {
           showCaution={this.state.showCaution}
           showLongterm={this.state.showLongterm}
           sortByUpdatedAsc={this.state.sortByUpdatedAsc}
-          searchQuery={this.state.formattedSearchQuery} /> 
+          searchQuery={this.state.formattedSearchQuery}
+          currentUser={currentUser} /> 
       </div>
     );
   }

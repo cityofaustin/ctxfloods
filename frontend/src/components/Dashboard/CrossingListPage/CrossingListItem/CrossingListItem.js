@@ -37,6 +37,7 @@ class CrossingListItem extends React.Component {
     this.reasonChanged = this.reasonChanged.bind(this);
     this.durationChanged = this.durationChanged.bind(this);
     this.notesChanged = this.notesChanged.bind(this);
+    this.newStatusUpdate = this.newStatusUpdate.bind(this);
   }
 
   newStatusUpdate(e) {
@@ -110,6 +111,8 @@ class CrossingListItem extends React.Component {
       this.setState({ selectedReason: update.statusReasonId });
       this.setState({ selectedDuration: update.statusDurationId });
       this.setState({ notes: update.notes });
+      this.props.refreshList();
+      this.props.clearMeasurerCache();
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
@@ -267,7 +270,7 @@ class CrossingListItem extends React.Component {
           <div className="CrossingListItemFlexItem">
             <div className="ButtonContainer">
               <div className="CancelButton" onClick={this.cancelClicked}>Cancel</div>
-              <div className="SaveButton" onClick={this.newStatusUpdate.bind(this)}>Save</div>
+              <div className="SaveButton" onClick={this.newStatusUpdate}>Save</div>
             </div>
           </div>
         ) : (

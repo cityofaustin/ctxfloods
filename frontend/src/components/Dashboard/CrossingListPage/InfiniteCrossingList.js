@@ -74,7 +74,8 @@ export default class InfiniteCrossingList extends React.Component{
               durations={statusDurations}
               currentUser={currentUser}
               cqClassName='CrossingListItem--lg'
-              clearMeasurerCache={() => this.clearMeasurerCache(index)} />
+              clearMeasurerCache={() => this.clearMeasurerCache(index)}
+              refreshList={() => this.refreshList()} />
           </div>
         )}
       </CellMeasurer>
