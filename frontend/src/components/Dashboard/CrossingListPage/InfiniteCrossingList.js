@@ -22,11 +22,22 @@ export default class InfiniteCrossingList extends React.Component{
     this._rowRenderer = this._rowRenderer.bind(this);
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
     this.clearMeasurerCache = this.clearMeasurerCache.bind(this);
+    this.refreshList = this.refreshList.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.sortByUpdatedAsc != prevProps.sortByUpdatedAsc) {
+      this.refreshList();
+    };
   }
 
   clearMeasurerCache(index) {
     cache.clear(index);
     listRef.recomputeRowHeights();
+  }
+
+  refreshList() {
+    listRef.forceUpdateGrid();
   }
 
   _isRowLoaded ({ index }) {
@@ -88,6 +99,7 @@ export default class InfiniteCrossingList extends React.Component{
       <div>
 
         <InfiniteLoader
+          
           isRowLoaded={this._isRowLoaded}
           loadMoreRows={loadMoreRows}
           rowCount={crossingsQuery.totalCount}

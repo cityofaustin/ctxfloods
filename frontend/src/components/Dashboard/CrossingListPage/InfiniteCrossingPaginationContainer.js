@@ -75,7 +75,7 @@ export class InfiniteCrossingPaginationContainer extends Component {
       this.props.statusDurationsQuery.loading
     );
 
-    const {dispatch, loading, searchCrossings, loadMoreRows, currentUser} = this.props;
+    const {dispatch, loading, searchCrossings, loadMoreRows, currentUser, sortByUpdatedAsc} = this.props;
      
     if (loading || isLoading) {
       return (<div>Loading</div>);
@@ -91,7 +91,8 @@ export class InfiniteCrossingPaginationContainer extends Component {
         crossingsQuery={searchCrossings}
         statusReasons={statusReasons}
         statusDurations={statusDurations}
-        currentUser={currentUser} />
+        currentUser={currentUser}
+        sortByUpdatedAsc={sortByUpdatedAsc} />
     );
   }
 }
