@@ -41,7 +41,6 @@ class CrossingListItem extends React.Component {
   }
 
   newStatusUpdate(e) {
-    debugger;
     const updateData = {
       id: Math.round(Math.random() * -1000000),
       crossingId: this.props.crossing.id,
