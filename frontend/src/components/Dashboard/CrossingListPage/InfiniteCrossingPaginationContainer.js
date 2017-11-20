@@ -13,22 +13,24 @@ import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/st
 import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 
 let infiniteCrossingListRef;
+let crossingQueryVariables;
 
 const configObject = {
   options: (props) => {
 
     let after = props.endCursor || null;
+    crossingQueryVariables = {
+      search: props.searchQuery,
+      showOpen: props.showOpen,
+      showClosed: props.showClosed,
+      showCaution: props.showCaution,
+      showLongterm: props.showLongterm,
+      pageCursor: after,
+      orderAsc: props.sortByUpdatedAsc
+    };
 
     return {
-      variables: {
-        search: props.searchQuery,
-        showOpen: props.showOpen,
-        showClosed: props.showClosed,
-        showCaution: props.showCaution,
-        showLongterm: props.showLongterm,
-        pageCursor: after,
-        orderAsc: props.sortByUpdatedAsc
-      }
+      variables: crossingQueryVariables
     }
   },
   force: true,
@@ -86,13 +88,15 @@ export class InfiniteCrossingPaginationContainer extends Component {
 
     return (
       <InfiniteCrossingList
+        {...this.props}
         ref={(ref) => infiniteCrossingListRef = ref} 
         loadMoreRows={loadMoreRows}
         crossingsQuery={searchCrossings}
         statusReasons={statusReasons}
         statusDurations={statusDurations}
         currentUser={currentUser}
-        sortByUpdatedAsc={sortByUpdatedAsc} />
+        sortByUpdatedAsc={sortByUpdatedAsc}
+        crossingQueryVariables={crossingQueryVariables} />
     );
   }
 }

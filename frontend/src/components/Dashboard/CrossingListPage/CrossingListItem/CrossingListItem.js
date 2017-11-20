@@ -49,7 +49,8 @@ class CrossingListItem extends React.Component {
       durationId: (this.state.selectedStatus === statusConstants.LONGTERM ? this.state.selectedDuration : null),
       notes: this.state.notes,
       user: this.props.currentUser
-    }
+    };
+    const { crossingQueryVariables, refreshList, clearMeasurerCache } = this.props;
 
     this.props.newStatusUpdateMutation({
       variables: {
@@ -100,6 +101,19 @@ class CrossingListItem extends React.Component {
           fragment: crossingFragment,
           data: updatedCrossing
         });
+
+        // Fix the sort order
+        const data = store.readQuery({ query: crossingsQuery, variables: crossingQueryVariables });
+        const index = data.searchCrossings.edges.findIndex(edge => edge.node.id == updatedCrossing.id);
+        const edge = data.searchCrossings.edges.find(edge => edge.node.id == updatedCrossing.id);
+        data.searchCrossings.edges.splice(index, 1);
+        data.searchCrossings.edges.splice(0, 0, edge);
+
+        store.writeQuery({
+          query: crossingsQuery,
+          variables: crossingQueryVariables,
+          data
+        });
       },
       refetchQueries: [{query: statusCountsQuery}, {query: crossingsQuery}]
     })
@@ -110,8 +124,8 @@ class CrossingListItem extends React.Component {
       this.setState({ selectedReason: update.statusReasonId });
       this.setState({ selectedDuration: update.statusDurationId });
       this.setState({ notes: update.notes });
-      this.props.refreshList();
-      this.props.clearMeasurerCache();
+      clearMeasurerCache();
+      refreshList();
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });

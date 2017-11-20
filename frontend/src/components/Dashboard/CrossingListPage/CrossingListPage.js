@@ -59,6 +59,7 @@ class CrossingListPage extends Component {
           searchQuery={this.state.searchQuery}
           searchQueryUpdated={this.searchQueryUpdated} />
         <InfiniteCrossingPaginationContainer
+          {...this.props}
           showOpen={this.state.showOpen}
           showClosed={this.state.showClosed}
           showCaution={this.state.showCaution}

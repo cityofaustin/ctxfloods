@@ -29,10 +29,11 @@ export default class InfiniteCrossingList extends React.Component{
     if(this.props.sortByUpdatedAsc != prevProps.sortByUpdatedAsc) {
       this.refreshList();
     };
+    this.clearMeasurerCache();
   }
 
-  clearMeasurerCache(index) {
-    cache.clear(index);
+  clearMeasurerCache() {
+    cache.clearAll();
     listRef.recomputeRowHeights();
   }
 
@@ -46,7 +47,7 @@ export default class InfiniteCrossingList extends React.Component{
 
   _rowRenderer({ key, index, style, parent}) {
 
-    const {statusReasons, statusDurations, currentUser} = this.props;
+    const {statusReasons, statusDurations, currentUser, crossingQueryVariables} = this.props;
     let crossing;
 
     if (index<virtualizingList.length) {
@@ -75,7 +76,8 @@ export default class InfiniteCrossingList extends React.Component{
               currentUser={currentUser}
               cqClassName='CrossingListItem--lg'
               clearMeasurerCache={() => this.clearMeasurerCache(index)}
-              refreshList={() => this.refreshList()} />
+              refreshList={() => this.refreshList()}
+              crossingQueryVariables={crossingQueryVariables} />
           </div>
         )}
       </CellMeasurer>
@@ -100,7 +102,6 @@ export default class InfiniteCrossingList extends React.Component{
       <div>
 
         <InfiniteLoader
-          
           isRowLoaded={this._isRowLoaded}
           loadMoreRows={loadMoreRows}
           rowCount={crossingsQuery.totalCount}
