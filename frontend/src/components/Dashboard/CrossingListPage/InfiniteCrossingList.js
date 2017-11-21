@@ -33,8 +33,10 @@ export default class InfiniteCrossingList extends React.Component{
   }
 
   componentDidMount() {
-    this.refreshList();
-    this.clearMeasurerCache();
+    if (listRef) {
+      this.refreshList();
+      this.clearMeasurerCache();
+    }
   }
 
   clearMeasurerCache(index) {

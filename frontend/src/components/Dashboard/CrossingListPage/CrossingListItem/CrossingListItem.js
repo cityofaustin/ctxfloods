@@ -137,6 +137,7 @@ class CrossingListItem extends React.Component {
 
         if (indexAsc != -1) {
           edge = dataAsc.searchCrossings.edges.find(edge => edge.node.id == updatedCrossing.id);
+          dataAsc.searchCrossings.edges.splice(indexAsc, 1);
         }
         
         // Put it at the top of the list
@@ -144,8 +145,14 @@ class CrossingListItem extends React.Component {
 
         store.writeQuery({
           query: crossingsQuery,
-          variables: crossingQueryVariables,
+          variables: crossingQueryVariablesDesc,
           data: dataDesc
+        });
+
+        store.writeQuery({
+          query: crossingsQuery,
+          variables: crossingQueryVariablesAsc,
+          data: dataAsc
         });
       },
       refetchQueries: [{query: statusCountsQuery}, {query: crossingsQuery}]
@@ -157,10 +164,8 @@ class CrossingListItem extends React.Component {
       this.setState({ selectedReason: update.statusReasonId });
       this.setState({ selectedDuration: update.statusDurationId });
       this.setState({ notes: update.notes });
-      if (!crossingQueryVariables.orderAsc) {
-        clearMeasurerCache(true);
-        refreshList();
-      };
+      clearMeasurerCache(true);
+      refreshList();
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
