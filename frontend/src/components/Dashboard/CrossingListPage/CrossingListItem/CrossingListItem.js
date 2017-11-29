@@ -12,6 +12,7 @@ import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/sta
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 import {ContainerQuery} from 'react-container-query';
 import classnames from 'classnames';
+import { invalidateFields, ROOT } from 'apollo-cache-invalidation';
 
 const containerQuery = {
   'CrossingListItem--lg': {
@@ -40,6 +41,172 @@ class CrossingListItem extends React.Component {
     this.newStatusUpdate = this.newStatusUpdate.bind(this);
   }
 
+  fixSorty(store, updatedCrossing) {
+    // Get the edge from the current query
+    const { crossingQueryVariables } = this.props;
+    const data = store.readQuery({ query: crossingsQuery, variables: crossingQueryVariables });
+    const edge = data.searchCrossings.edges.find(edge => edge.node.id == updatedCrossing.id);
+
+    // Get all the queries we have cached
+    const queries = store.data.ROOT_QUERY;
+    const queryVariables = Object.keys(queries)
+                            .filter(query => query.includes('searchCrossings'))
+                            .map(q => JSON.parse(q.replace(/.*\(|\)/g, '')));
+
+    // var x = store.readQuery({ query: crossingsQuery, variables: queryVariables[0] });
+    debugger;
+
+    // Update the sorting accordingly
+    for(var qv of queryVariables) {
+      const qvars = {
+        orderAsc: qv.orderAsc,
+        pageCursor: null,
+        search: qv.search,
+        showCaution: qv.showCaution,
+        showClosed: qv.showClosed,
+        showLongterm: qv.showLongterm,
+        showOpen: qv.showOpen
+      };
+      
+      this.doASortFix(store, updatedCrossing, qvars, edge);
+    }
+  }
+
+  doASortFix(store, updatedCrossing, queryVariables, edge) {
+    // Get the index of the updated crossing
+    let index = -1;
+    let data;
+    try {
+      data = store.readQuery({ query: crossingsQuery, variables: queryVariables });
+      index = data.searchCrossings.edges.findIndex(edge => edge.node.id == updatedCrossing.id);
+      
+    } catch(err) {
+      console.log(err);
+    }
+
+    // Remove it if it's on a list already
+    if (index != -1) {
+      data.searchCrossings.edges.splice(index, 1);
+    }
+
+    // Add it to a list if appropriate
+    if ((queryVariables.showOpen && updatedCrossing.latestStatusId == statusConstants.OPEN) ||
+        (queryVariables.showCaution && updatedCrossing.latestStatusId == statusConstants.CAUTION) ||
+        (queryVariables.showClosed && updatedCrossing.latestStatusId == statusConstants.CLOSED) ||
+        (queryVariables.showLongterm && updatedCrossing.latestStatusId == statusConstants.LONGTERM)) {
+      if (queryVariables.orderAsc) {
+        data.searchCrossings.edges.splice(-1, 0, edge);
+      } else {
+        data.searchCrossings.edges.splice(0, 0, edge);
+      }   
+    }
+
+    // write it to the apollo cache
+    store.writeQuery({
+      query: crossingsQuery,
+      variables: queryVariables,
+      data
+    });
+
+    debugger;
+  }
+
+  // fixSort(store, updatedCrossing) {
+  //   const { crossingQueryVariables } = this.props;
+
+  //   const crossingQueryVariablesAsc = Object.assign({}, crossingQueryVariables);
+  //   const crossingQueryVariablesDesc = Object.assign({}, crossingQueryVariables);
+  //   crossingQueryVariablesAsc.orderAsc = true;
+  //   crossingQueryVariablesDesc.orderAsc = false;
+  //   const crossingQueryVariablesNoSearchDesc = {
+  //     orderAsc: false,
+  //     pageCursor: null,
+  //     search: "%%",
+  //     showCaution: true,
+  //     showClosed: true,
+  //     showLongterm: true,
+  //     showOpen: true
+  //   }
+
+  //   // Get the index of the updated crossing
+  //   let indexDesc = -1;
+  //   let dataDesc;
+  //   try {
+  //     dataDesc = store.readQuery({ query: crossingsQuery, variables: crossingQueryVariablesDesc });
+  //     indexDesc = dataDesc.searchCrossings.edges.findIndex(edge => edge.node.id == updatedCrossing.id);
+      
+  //   } catch(err) {
+  //     console.log(err);
+  //   }
+
+  //   let indexNoSearchDesc = -1;
+  //   let dataNoSearchDesc;
+  //   try {
+  //     dataNoSearchDesc = store.readQuery({ query: crossingsQuery, variables: crossingQueryVariablesNoSearchDesc });
+  //     indexNoSearchDesc = dataNoSearchDesc.searchCrossings.edges.findIndex(edge => edge.node.id == updatedCrossing.id);
+      
+  //   } catch(err) {
+  //     console.log(err);
+  //   }
+
+  //   let indexAsc = -1;
+  //   let dataAsc;
+  //   try {
+  //     dataAsc = store.readQuery({ query: crossingsQuery, variables: crossingQueryVariablesAsc });
+  //     indexAsc = dataAsc.searchCrossings.edges.findIndex(edge => edge.node.id == updatedCrossing.id);          
+  //   } catch(err) {
+  //     console.log(err);
+  //   }
+    
+  //   // Get the crossing edge
+  //   let edge;
+  //   if (indexDesc != -1) {
+  //     edge = dataDesc.searchCrossings.edges.find(edge => edge.node.id == updatedCrossing.id);
+  //     dataDesc.searchCrossings.edges.splice(indexDesc, 1);
+  //   }
+
+  //   if (indexAsc != -1) {
+  //     edge = dataAsc.searchCrossings.edges.find(edge => edge.node.id == updatedCrossing.id);
+  //     dataAsc.searchCrossings.edges.splice(indexAsc, 1);
+  //   }
+
+  //   // If it's already on the no search list we need to remove it before re-adding it
+  //   if (indexNoSearchDesc != -1) {
+  //     dataNoSearchDesc.searchCrossings.edges.splice(indexNoSearchDesc, 1);
+  //   }
+    
+  //   // Put it at the top of the current list
+  //   if ((crossingQueryVariables.showOpen && updatedCrossing.latestStatusId == statusConstants.OPEN) ||
+  //       (crossingQueryVariables.showCaution && updatedCrossing.latestStatusId == statusConstants.CAUTION) ||
+  //       (crossingQueryVariables.showClosed && updatedCrossing.latestStatusId == statusConstants.CLOSED) ||
+  //       (crossingQueryVariables.showLongterm && updatedCrossing.latestStatusId == statusConstants.LONGTERM)) {
+  //     dataDesc.searchCrossings.edges.splice(0, 0, edge);  
+  //   }
+
+  //   // Put it at the top of the main list
+  //   dataNoSearchDesc.searchCrossings.edges.splice(0, 0, edge);
+
+  //   store.writeQuery({
+  //     query: crossingsQuery,
+  //     variables: crossingQueryVariablesDesc,
+  //     data: dataDesc
+  //   });
+
+  //   store.writeQuery({
+  //     query: crossingsQuery,
+  //     variables: crossingQueryVariablesNoSearchDesc,
+  //     data: dataNoSearchDesc
+  //   });
+
+  //   if (dataAsc) {
+  //     store.writeQuery({
+  //       query: crossingsQuery,
+  //       variables: crossingQueryVariablesAsc,
+  //       data: dataAsc
+  //     });
+  //   }
+  // }
+
   newStatusUpdate(e) {
     const updateData = {
       id: Math.round(Math.random() * -1000000),
@@ -50,7 +217,7 @@ class CrossingListItem extends React.Component {
       notes: this.state.notes,
       user: this.props.currentUser
     };
-    const { crossingQueryVariables, refreshList, clearMeasurerCache } = this.props;
+    const { refreshList, clearMeasurerCache } = this.props;
 
     this.props.newStatusUpdateMutation({
       variables: {
@@ -91,6 +258,9 @@ class CrossingListItem extends React.Component {
           __typename: "NewStatusUpdatePayload"
         },
       },
+      // update: invalidateFields((proxy, result) => [
+      //   [ROOT, 'searchCrossings']
+      // ])
       update: (store, {data: {newStatusUpdate}}) => {
         // Get the updated crossing from the status update mutation
         const updatedCrossing = newStatusUpdate.statusUpdate.crossingByCrossingId;
@@ -103,59 +273,10 @@ class CrossingListItem extends React.Component {
         });
 
         // Fix the sort order
-        const crossingQueryVariablesAsc = Object.assign({}, crossingQueryVariables);
-        const crossingQueryVariablesDesc = Object.assign({}, crossingQueryVariables);
-        crossingQueryVariablesAsc.orderAsc = true;
-        crossingQueryVariablesDesc.orderAsc = false;
-
-        // Get the index of the updated crossing
-        let indexDesc = -1;
-        let dataDesc;
-        try {
-          dataDesc = store.readQuery({ query: crossingsQuery, variables: crossingQueryVariablesDesc });
-          indexDesc = dataDesc.searchCrossings.edges.findIndex(edge => edge.node.id == updatedCrossing.id);
-          
-        } catch(err) {
-          console.log(err);
-        }
-
-        let indexAsc = -1;
-        let dataAsc;
-        try {
-          dataAsc = store.readQuery({ query: crossingsQuery, variables: crossingQueryVariablesAsc });
-          indexAsc = dataAsc.searchCrossings.edges.findIndex(edge => edge.node.id == updatedCrossing.id);          
-        } catch(err) {
-          console.log(err);
-        }
-        
-        // Get the crossing edge
-        let edge;
-        if (indexDesc != -1) {
-          edge = dataDesc.searchCrossings.edges.find(edge => edge.node.id == updatedCrossing.id);
-          dataDesc.searchCrossings.edges.splice(indexDesc, 1);
-        }
-
-        if (indexAsc != -1) {
-          edge = dataAsc.searchCrossings.edges.find(edge => edge.node.id == updatedCrossing.id);
-          dataAsc.searchCrossings.edges.splice(indexAsc, 1);
-        }
-        
-        // Put it at the top of the list
-        dataDesc.searchCrossings.edges.splice(0, 0, edge);
-
-        store.writeQuery({
-          query: crossingsQuery,
-          variables: crossingQueryVariablesDesc,
-          data: dataDesc
-        });
-
-        store.writeQuery({
-          query: crossingsQuery,
-          variables: crossingQueryVariablesAsc,
-          data: dataAsc
-        });
+        this.fixSorty(store, updatedCrossing);
+        debugger;
       },
-      refetchQueries: [{query: statusCountsQuery}, {query: crossingsQuery}]
+      refetchQueries: [{query: statusCountsQuery}]
     })
     .then(({ data }) => {
       const update = data.newStatusUpdate.statusUpdate.crossingByCrossingId.statusUpdateByLatestStatusUpdateId;

@@ -26,7 +26,7 @@ export default class InfiniteCrossingList extends React.Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.sortByUpdatedAsc != nextProps.sortByUpdatedAsc) {
+    if(listRef) {
       this.refreshList();
       this.clearMeasurerCache();
     };

@@ -12,7 +12,7 @@ class CrossingListPage extends Component {
       showCaution: true,
       showLongterm: true,
       searchQuery: '',
-      formattedSearchQuery: '%'
+      formattedSearchQuery: '%%'
     };
   }
 
