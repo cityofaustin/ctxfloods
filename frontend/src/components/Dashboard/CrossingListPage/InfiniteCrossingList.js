@@ -111,7 +111,6 @@ export default class InfiniteCrossingList extends React.Component{
 
     return (
       <div>
-
         <InfiniteLoader
           isRowLoaded={this._isRowLoaded}
           loadMoreRows={loadMoreRows}
@@ -140,7 +139,6 @@ export default class InfiniteCrossingList extends React.Component{
             </WindowScroller>
           )}
         </InfiniteLoader>
-
       </div>
     );
   }

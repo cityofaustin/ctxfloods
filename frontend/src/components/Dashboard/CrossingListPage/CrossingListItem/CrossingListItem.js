@@ -46,9 +46,8 @@ class CrossingListItem extends React.Component {
     const data = store.readQuery({ query: crossingsQuery, variables: crossingQueryVariables });
     const edge = data.searchCrossings.edges.find(edge => edge.node.id == updatedCrossing.id);
 
-    // Get all the queries we have cached
-    const queries = store.data.ROOT_QUERY;
-    const queryVariables = Object.keys(queries)
+    // Get all the query variable combinations we have cached
+    const queryVariables = Object.keys(store.data.ROOT_QUERY)
                             .filter(query => query.includes('searchCrossings'))
                             .map(q => JSON.parse(q.replace(/.*\(|\)/g, '')));
 
@@ -156,9 +155,6 @@ class CrossingListItem extends React.Component {
           __typename: "NewStatusUpdatePayload"
         },
       },
-      // update: invalidateFields((proxy, result) => [
-      //   [ROOT, 'searchCrossings']
-      // ])
       update: (store, {data: {newStatusUpdate}}) => {
         // Get the updated crossing from the status update mutation
         const updatedCrossing = newStatusUpdate.statusUpdate.crossingByCrossingId;
