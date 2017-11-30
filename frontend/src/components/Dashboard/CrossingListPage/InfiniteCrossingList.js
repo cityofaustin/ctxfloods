@@ -58,7 +58,7 @@ export default class InfiniteCrossingList extends React.Component{
 
   _rowRenderer({ key, index, style, parent}) {
 
-    const {statusReasons, statusDurations, currentUser, crossingQueryVariables} = this.props;
+    const {statusReasons, statusDurations, currentUser, crossingQueryVariables, cqClassName} = this.props;
     let crossing;
 
     if (index<virtualizingList.length) {
@@ -85,7 +85,7 @@ export default class InfiniteCrossingList extends React.Component{
               reasons={statusReasons} 
               durations={statusDurations}
               currentUser={currentUser}
-              cqClassName='CrossingListItem--lg'
+              cqClassName={cqClassName}
               clearMeasurerCache={(all) => this.clearMeasurerCache(all ? null : index )}
               refreshList={() => this.refreshList()}
               crossingQueryVariables={crossingQueryVariables} />

@@ -12,8 +12,17 @@ import crossingsQuery from 'components/Dashboard/CrossingListPage/queries/crossi
 import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/statusReasonsQuery';
 import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 
+import {ContainerQuery} from 'react-container-query';
+import classnames from 'classnames';
+
 let infiniteCrossingListRef;
 let crossingQueryVariables;
+
+const containerQuery = {    
+  'CrossingListItem--lg': {
+    minWidth: 600, 
+  } 
+};
 
 const configObject = {
   options: (props) => {
@@ -87,16 +96,25 @@ export class InfiniteCrossingPaginationContainer extends Component {
     const statusDurations = this.props.statusDurationsQuery.allStatusDurations.nodes;
 
     return (
-      <InfiniteCrossingList
-        {...this.props}
-        ref={(ref) => infiniteCrossingListRef = ref} 
-        loadMoreRows={loadMoreRows}
-        crossingsQuery={searchCrossings}
-        statusReasons={statusReasons}
-        statusDurations={statusDurations}
-        currentUser={currentUser}
-        sortByUpdatedAsc={sortByUpdatedAsc}
-        crossingQueryVariables={crossingQueryVariables} />
+      <ContainerQuery query={containerQuery}> 
+        {(params) => {
+          const cqClassName = classnames(params);
+          return (
+            <InfiniteCrossingList
+              {...this.props}
+              ref={(ref) => infiniteCrossingListRef = ref} 
+              loadMoreRows={loadMoreRows}
+              crossingsQuery={searchCrossings}
+              statusReasons={statusReasons}
+              statusDurations={statusDurations}
+              currentUser={currentUser}
+              sortByUpdatedAsc={sortByUpdatedAsc}
+              crossingQueryVariables={crossingQueryVariables}
+              cqClassName={cqClassName} />
+
+          );
+        }}
+      </ContainerQuery>
     );
   }
 }
