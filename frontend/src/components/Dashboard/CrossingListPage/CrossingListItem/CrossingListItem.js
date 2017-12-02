@@ -40,6 +40,34 @@ class CrossingListItem extends React.Component {
     this.newStatusUpdate = this.newStatusUpdate.bind(this);
   }
 
+  componentWillMount() {
+    const { restoreDirtyState, crossing } = this.props;
+    const savedState = restoreDirtyState(crossing.id);
+    if (savedState) {
+      this.setState({ selectedStatus: savedState.selectedStatus });
+      this.setState({ selectedReason: savedState.selectedReason });
+      this.setState({ selectedDuration: savedState.selectedDuration });
+      this.setState({ notes: savedState.notes });
+      this.props.clearMeasurerCache();
+    }
+  }
+
+  componentWillUnmount() {
+    const { saveDirtyState } = this.props;
+
+    const stateToSave = {
+      crossingId: this.props.crossing.id,
+      selectedStatus: this.state.selectedStatus,
+      selectedDuration: this.state.selectedDuration,
+      selectedReason: this.state.selectedReason,
+      notes: this.state.notes
+    };
+
+    if (this.isDirty()) {
+      saveDirtyState(stateToSave);  
+    }
+  }
+
   fixSort(store, updatedCrossing) {
     // Get the edge from the current query
     const { crossingQueryVariables } = this.props;
@@ -189,15 +217,12 @@ class CrossingListItem extends React.Component {
     // Temporary fix for storybook
     if(this.props.dirty) return true;
 
-    const savedStatus = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusId;
-    const savedReason = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId;
-    const savedDuration = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId;
-    const savedNotes = this.props.crossing.statusUpdateByLatestStatusUpdateId.notes;
+    const { statusId, statusReasonId, statusDurationId, notes } = this.props.crossing.statusUpdateByLatestStatusUpdateId;
 
-    return (savedStatus !== this.state.selectedStatus ||
-            savedReason !== this.state.selectedReason ||
-            savedDuration !== this.state.selectedDuration ||
-            savedNotes !== this.state.notes);
+    return (statusId !== this.state.selectedStatus ||
+            statusReasonId !== this.state.selectedReason ||
+            statusDurationId !== this.state.selectedDuration ||
+            notes !== this.state.notes);
   }
 
   openClicked() {

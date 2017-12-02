@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import InfiniteCrossingPaginationContainer from 'components/Dashboard/CrossingListPage/InfiniteCrossingPaginationContainer';
 import CrossingListHeader from 'components/Dashboard/CrossingListPage/CrossingListHeader/CrossingListHeader';
+import 'components/Dashboard/CrossingListPage/CrossingList.css';
 
 class CrossingListPage extends Component {
   constructor(props) {

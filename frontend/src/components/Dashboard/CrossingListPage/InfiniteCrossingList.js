@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import CrossingListItem from 'components/Dashboard/CrossingListPage/CrossingListItem/CrossingListItem';
-
 import {InfiniteLoader, AutoSizer, List, WindowScroller, CellMeasurer, CellMeasurerCache} from 'react-virtualized';
+import 'components/Dashboard/CrossingListPage/CrossingList.css';
 
 let virtualizingList = [];
 let listRef;
@@ -17,6 +16,10 @@ export default class InfiniteCrossingList extends React.Component{
 
   constructor(props) {
     super(props);
+    this.state = {
+      dirtyCrossings: [],
+    };
+
     const {loadMoreRows,crossingsQuery} = this.props;
     this._isRowLoaded = this._isRowLoaded.bind(this);
     this._rowRenderer = this._rowRenderer.bind(this);
@@ -46,6 +49,22 @@ export default class InfiniteCrossingList extends React.Component{
       cache.clearAll();
     };
     listRef.recomputeRowHeights();
+  }
+
+  saveDirtyUnmountedListItemState(dirtyState) {
+    const savedDirties = this.state.dirtyCrossings;
+    savedDirties[dirtyState.crossingId] = dirtyState;
+    this.setState({ dirtyCrossings: savedDirties });
+  }
+
+  restoreDirtyUnmountedListItemState(crossingId) {
+    const savedState = this.state.dirtyCrossings[crossingId];
+    if (savedState) {
+      const savedDirties = this.state.dirtyCrossings;
+      savedDirties[crossingId] = null;
+      this.setState({ dirtyCrossings: savedDirties });
+    }
+    return savedState;
   }
 
   refreshList() {
@@ -88,7 +107,9 @@ export default class InfiniteCrossingList extends React.Component{
               cqClassName={cqClassName}
               clearMeasurerCache={(all) => this.clearMeasurerCache(all ? null : index )}
               refreshList={() => this.refreshList()}
-              crossingQueryVariables={crossingQueryVariables} />
+              crossingQueryVariables={crossingQueryVariables}
+              saveDirtyState={(dirtyState) => this.saveDirtyUnmountedListItemState(dirtyState)}
+              restoreDirtyState={(crossingId) => this.restoreDirtyUnmountedListItemState(crossingId)} />
           </div>
         )}
       </CellMeasurer>
