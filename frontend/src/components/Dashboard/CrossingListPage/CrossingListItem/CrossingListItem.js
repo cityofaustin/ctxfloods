@@ -129,8 +129,8 @@ class CrossingListItem extends React.Component {
       id: Math.round(Math.random() * -1000000),
       crossingId: this.props.crossing.id,
       statusId: this.state.selectedStatus,
-      reasonId: (this.state.selectedStatus !== statusConstants.OPEN ? this.state.selectedReason : null),
-      durationId: (this.state.selectedStatus === statusConstants.LONGTERM ? this.state.selectedDuration : null),
+      reasonId: this.state.selectedReason,
+      durationId: this.state.selectedDuration,
       notes: this.state.notes,
       user: this.props.currentUser
     };
@@ -181,7 +181,7 @@ class CrossingListItem extends React.Component {
 
         // Write the updated crossing to the cache
         store.writeFragment({
-          id: 'Crossing:' + updatedCrossing.id,
+          id: `Crossing:${updatedCrossing.id}`,
           fragment: statusUpdateFragment,
           data: updatedCrossing
         });
@@ -194,78 +194,98 @@ class CrossingListItem extends React.Component {
     .then(({ data }) => {
       const update = data.newStatusUpdate.statusUpdate.crossingByCrossingId.statusUpdateByLatestStatusUpdateId;
 
-      this.setState({ selectedStatus: update.statusId });
-      this.setState({ selectedReason: update.statusReasonId });
-      this.setState({ selectedDuration: update.statusDurationId });
-      this.setState({ notes: update.notes });
+      this.setState({ 
+        selectedStatus: update.statusId,
+        selectedReason: update.statusReasonId,
+        selectedDuration: update.statusDurationId,
+        notes: update.notes 
+      });
       clearMeasurerCache(true);
       refreshList();
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
   }
-
+  
   isDirty() {
     // Temporary fix for storybook
     if(this.props.dirty) return true;
 
-    const { statusId, statusReasonId, statusDurationId, notes } = this.props.crossing.statusUpdateByLatestStatusUpdateId;
+    const savedStatus = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusId;
+    const savedReason = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId;
+    const savedDuration = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId;
+    const savedNotes = this.props.crossing.statusUpdateByLatestStatusUpdateId.notes;
 
-    return (statusId !== this.state.selectedStatus ||
-            statusReasonId !== this.state.selectedReason ||
-            statusDurationId !== this.state.selectedDuration ||
-            notes !== this.state.notes);
+    return (savedStatus !== this.state.selectedStatus ||
+            savedReason !== this.state.selectedReason ||
+            savedDuration !== this.state.selectedDuration ||
+            savedNotes !== this.state.notes);
   }
 
   openClicked = () => {
-    this.setState({ selectedStatus: statusConstants.OPEN });
-    this.setState({ notes: '' });
-    this.setState({ selectedReason: null });
-    this.setState({ selectedDuration: null });
+    this.setState({ 
+      selectedStatus: statusConstants.OPEN,
+      notes: '',
+      selectedReason: null,
+      selectedDuration: null 
+    });
     this.props.clearMeasurerCache();
-  };
+  }
+  
   cautionClicked = () => {
-    this.setState({ selectedStatus: statusConstants.CAUTION });
-    this.setState({ notes: '' });
-    this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CAUTION).id });
-    this.setState({ selectedDuration: null });
+    this.setState({ 
+      selectedStatus: statusConstants.CAUTION,
+      notes: '',
+      selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CAUTION).id,
+      selectedDuration: null
+    });
     this.props.clearMeasurerCache();
-  };
+  }
+  
   closedClicked = () => {
-    this.setState({ selectedStatus: statusConstants.CLOSED });
-    this.setState({ notes: '' });
-    this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CLOSED).id });
-    this.setState({ selectedDuration: null });
+    this.setState({ 
+      selectedStatus: statusConstants.CLOSED,
+      notes: '',
+      selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CLOSED).id,
+      selectedDuration: null
+    });
     this.props.clearMeasurerCache();
-  };
+  }
+  
   longtermClicked = () => {
-    this.setState({ selectedStatus: statusConstants.LONGTERM });
-    this.setState({ notes: '' });
-    this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.LONGTERM).id });
-    this.setState({ selectedDuration: this.props.durations[0].id });
+    this.setState({ 
+      selectedStatus: statusConstants.LONGTERM,
+      notes: '',
+      selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.LONGTERM).id,
+      selectedDuration: this.props.durations[0].id
+    });
     this.props.clearMeasurerCache();
-  };
+  }
 
   reasonChanged = (e) => {
     this.setState({ selectedReason: e.target.value });
-    this.props.clearMeasurerCache();
-  };
+    this.props.clearMeasurerCache();  
+  }
+  
   durationChanged = (e) => {
     this.setState({ selectedDuration: e.target.value });
     this.props.clearMeasurerCache();
-  };
+  }
+  
   notesChanged = (e) => {
     this.setState({ notes: e.target.value });
     this.props.clearMeasurerCache();
-  };
+  }
 
   cancelClicked = () => {
-    this.setState({ selectedStatus: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusId });
-    this.setState({ selectedReason: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId });
-    this.setState({ selectedDuration: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId });
-    this.setState({ notes: this.props.crossing.statusUpdateByLatestStatusUpdateId.notes });
+    this.setState({ 
+      selectedStatus: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusId,
+      selectedReason: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId,
+      selectedDuration: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId,
+      notes: this.props.crossing.statusUpdateByLatestStatusUpdateId.notes 
+    });
     this.props.clearMeasurerCache();
-  };
+  }
 
   render () {
     const { crossing, reasons, durations } = this.props;
