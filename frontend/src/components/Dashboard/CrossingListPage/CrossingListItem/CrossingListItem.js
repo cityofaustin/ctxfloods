@@ -1,21 +1,23 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
+import { ContainerQuery } from 'react-container-query';
+import classnames from 'classnames';
 import Location from 'components/Dashboard/CrossingListPage/CrossingListItem/Location';
 import DateTime from 'components/Dashboard/CrossingListPage/CrossingListItem/DateTime';
 import StatusToggle from 'components/Dashboard/CrossingListPage/CrossingListItem/StatusToggle';
 import Dropdown from 'components/Dashboard/CrossingListPage/CrossingListItem/Dropdown';
-import 'components/Dashboard/CrossingListPage/CrossingListItem/CrossingListItem.css';
-import * as statusConstants from 'components/Dashboard/CrossingListPage/CrossingListItem/StatusConstants';
 import newStatusUpdateMutation from 'components/Dashboard/CrossingListPage/queries/newStatusUpdateMutation';
 import crossingsQuery from 'components/Dashboard/CrossingListPage/queries/crossingsQuery';
 import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/statusCountsQuery';
-import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
-import {ContainerQuery} from 'react-container-query';
-import classnames from 'classnames';
+import statusUpdateFragment from 'components/Dashboard/CrossingListPage/queries/statusUpdateFragment';
+import * as statusConstants from 'constants/StatusConstants';
+import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
+import 'components/Dashboard/CrossingListPage/CrossingListItem/CrossingListItem.css';
+
 
 const containerQuery = {
   'CrossingListItem--lg': {
-    minWidth: 600,
+    minWidth: LARGE_ITEM_MIN_WIDTH,
   }
 };
 
@@ -28,16 +30,6 @@ class CrossingListItem extends React.Component {
       selectedDuration: props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId,
       notes: props.crossing.statusUpdateByLatestStatusUpdateId.notes
     };
-
-    this.openClicked = this.openClicked.bind(this);
-    this.closedClicked = this.closedClicked.bind(this);
-    this.cautionClicked = this.cautionClicked.bind(this);
-    this.longtermClicked = this.longtermClicked.bind(this);
-    this.cancelClicked = this.cancelClicked.bind(this);
-    this.reasonChanged = this.reasonChanged.bind(this);
-    this.durationChanged = this.durationChanged.bind(this);
-    this.notesChanged = this.notesChanged.bind(this);
-    this.newStatusUpdate = this.newStatusUpdate.bind(this);
   }
 
   componentWillMount() {
@@ -132,7 +124,7 @@ class CrossingListItem extends React.Component {
     });
   }
 
-  newStatusUpdate(e) {
+  newStatusUpdate = (e) => {
     const updateData = {
       id: Math.round(Math.random() * -1000000),
       crossingId: this.props.crossing.id,
@@ -190,7 +182,7 @@ class CrossingListItem extends React.Component {
         // Write the updated crossing to the cache
         store.writeFragment({
           id: 'Crossing:' + updatedCrossing.id,
-          fragment: crossingFragment,
+          fragment: statusUpdateFragment,
           data: updatedCrossing
         });
 
@@ -225,28 +217,28 @@ class CrossingListItem extends React.Component {
             notes !== this.state.notes);
   }
 
-  openClicked() {
+  openClicked = () => {
     this.setState({ selectedStatus: statusConstants.OPEN });
     this.setState({ notes: '' });
     this.setState({ selectedReason: null });
     this.setState({ selectedDuration: null });
     this.props.clearMeasurerCache();
   };
-  cautionClicked() {
+  cautionClicked = () => {
     this.setState({ selectedStatus: statusConstants.CAUTION });
     this.setState({ notes: '' });
     this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CAUTION).id });
     this.setState({ selectedDuration: null });
     this.props.clearMeasurerCache();
   };
-  closedClicked() {
+  closedClicked = () => {
     this.setState({ selectedStatus: statusConstants.CLOSED });
     this.setState({ notes: '' });
     this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.CLOSED).id });
     this.setState({ selectedDuration: null });
     this.props.clearMeasurerCache();
   };
-  longtermClicked() {
+  longtermClicked = () => {
     this.setState({ selectedStatus: statusConstants.LONGTERM });
     this.setState({ notes: '' });
     this.setState({ selectedReason: this.props.reasons.find(reason => reason.statusId === statusConstants.LONGTERM).id });
@@ -254,20 +246,20 @@ class CrossingListItem extends React.Component {
     this.props.clearMeasurerCache();
   };
 
-  reasonChanged(e) {
+  reasonChanged = (e) => {
     this.setState({ selectedReason: e.target.value });
     this.props.clearMeasurerCache();
   };
-  durationChanged(e) {
+  durationChanged = (e) => {
     this.setState({ selectedDuration: e.target.value });
     this.props.clearMeasurerCache();
   };
-  notesChanged(e) {
+  notesChanged = (e) => {
     this.setState({ notes: e.target.value });
     this.props.clearMeasurerCache();
   };
 
-  cancelClicked() {
+  cancelClicked = () => {
     this.setState({ selectedStatus: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusId });
     this.setState({ selectedReason: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId });
     this.setState({ selectedDuration: this.props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId });
@@ -277,6 +269,7 @@ class CrossingListItem extends React.Component {
 
   render () {
     const { crossing, reasons, durations } = this.props;
+    const { createdAt, userByCreatorId } = crossing.statusUpdateByLatestStatusUpdateId;
 
     var show = [];
     switch(this.state.selectedStatus) {
@@ -304,7 +297,7 @@ class CrossingListItem extends React.Component {
             <Location crossing={ crossing } />
           </div>
           <div className="CrossingListItemFlexItem">
-            <DateTime update={ crossing.statusUpdateByLatestStatusUpdateId } />
+            <DateTime datetime={ createdAt } user={ userByCreatorId } />
           </div>
         </div>
         <div className="CrossingListItemFlexContainer">

@@ -8,6 +8,8 @@ function loadStories() {
   require('../src/stories/crossingListItemLocation.js');
   require('../src/stories/crossingListItemDatetime.js');
   require('../src/stories/crossingListHeader.js');
+  require('../src/stories/crossingStatusHistory.js');
+  require('../src/stories/crossingDetails.js');
 }
 
 configure(loadStories, module);

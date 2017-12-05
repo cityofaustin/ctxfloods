@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import statusUpdateFragment from 'components/Dashboard/CrossingListPage/queries/statusUpdateFragment';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
 const crossingsQuery = gql`
@@ -37,6 +38,7 @@ const crossingsQuery = gql`
           communityCrossingsByCrossingId {
             nodes {
               communityByCommunityId {
+                id
                 name
               }
             }
