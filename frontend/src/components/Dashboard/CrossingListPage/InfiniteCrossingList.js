@@ -96,7 +96,7 @@ export default class InfiniteCrossingList extends React.Component{
         parent={parent}
         rowIndex={index} >
         {({ measure }) => (
-          <div style={style}>
+          <div className='CrossingListItemMeasureContainer' style={style}>
             <CrossingListItem
               onLoad={measure}
               key={crossing.id}
