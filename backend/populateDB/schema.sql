@@ -69,7 +69,7 @@ comment on column floods.crossing.latest_status_created_at is 'The timestamp of 
 create extension if not exists "pg_trgm";
 
 -- Add search index to crossings table
-create index crossing_search_index on floods.crossing using gin(name gin_trgm_ops, description gin_trgm_ops);
+create index crossing_search_index on floods.crossing using gin(name gin_trgm_ops, human_address gin_trgm_ops, description gin_trgm_ops);
 
 -- Create the Community Crossing relation table
 create table floods.community_crossing (
@@ -338,7 +338,11 @@ create function floods.search_crossings(
 ) returns setof floods.crossing as $$
   select *
   from floods.crossing
-  where name ilike search and (
+  where (
+    (name ilike search) or
+    (description ilike search) or
+    (human_address ilike search)
+  ) and (
   (latest_status_id = 1 and show_open) or
   (latest_status_id = 2 and show_closed) or
   (latest_status_id = 3 and show_caution) or
