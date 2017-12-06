@@ -32,23 +32,14 @@ const crossingsQuery = gql`
         cursor
         node {
           id
-          name
-          description
-          humanAddress
-          communityCrossingsByCrossingId {
-            nodes {
-              communityByCommunityId {
-                id
-                name
-              }
-            }
-          }
           ...crossingInfo
+          ...statusUpdateInfo  
         }
       }
     }
   }
   ${crossingFragment}
+  ${statusUpdateFragment}
 `;
 
 export default crossingsQuery;
