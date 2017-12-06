@@ -206,21 +206,6 @@ class CrossingListItem extends React.Component {
       console.log('there was an error sending the query', error);
     });
   }
-  
-  isDirty() {
-    // Temporary fix for storybook
-    if(this.props.dirty) return true;
-
-    const savedStatus = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusId;
-    const savedReason = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId;
-    const savedDuration = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId;
-    const savedNotes = this.props.crossing.statusUpdateByLatestStatusUpdateId.notes;
-
-    return (savedStatus !== this.state.selectedStatus ||
-            savedReason !== this.state.selectedReason ||
-            savedDuration !== this.state.selectedDuration ||
-            savedNotes !== this.state.notes);
-  }
 
   openClicked = () => {
     this.setState({ 
@@ -285,6 +270,21 @@ class CrossingListItem extends React.Component {
       notes: this.props.crossing.statusUpdateByLatestStatusUpdateId.notes 
     });
     this.props.clearMeasurerCache();
+  }
+
+  isDirty() {
+    // Temporary fix for storybook
+    if(this.props.dirty) return true;
+
+    const savedStatus = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusId;
+    const savedReason = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId;
+    const savedDuration = this.props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId;
+    const savedNotes = this.props.crossing.statusUpdateByLatestStatusUpdateId.notes;
+
+    return (savedStatus !== this.state.selectedStatus ||
+            savedReason !== this.state.selectedReason ||
+            savedDuration !== this.state.selectedDuration ||
+            savedNotes !== this.state.notes);
   }
 
   render () {
