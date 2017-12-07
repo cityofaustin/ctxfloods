@@ -16,6 +16,16 @@ const containerQuery = {
 };
 
 class AddCrossingPage extends Component {
+  state = {
+    crossingCoordinates: [-97.46, 30.96]
+  }
+
+  crossingMoved = (e) => {
+    const coords = [e.lngLat.lng, e.lngLat.lat];
+    this.setState({ crossingCoordinates: coords });
+    // debugger;
+  }
+
   render() {
     const crossing = {
       name: null,
@@ -33,7 +43,7 @@ class AddCrossingPage extends Component {
         {(params) => (
           <div className="AddCrossingPage">
             <div className={classnames(params, "CrossingDetails__container mlv2--b")}>
-              <AddCrossingMap/>
+              <AddCrossingMap crossingCoordinates={this.state.crossingCoordinates} crossingMoved={this.crossingMoved}/>
               <CrossingDetails crossing={crossing} communities={communities} addMode={true}/>
             </div>
           </div>

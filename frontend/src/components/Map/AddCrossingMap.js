@@ -12,6 +12,7 @@ class AddCrossingMap extends Component {
   }
 
   render() {
+    const { crossingCoordinates, crossingMoved } = this.props;
     const coordinates = [-97.46, 30.96];
 
     return (
@@ -26,7 +27,7 @@ class AddCrossingMap extends Component {
             id="openCrossings"
             layout={{ 'icon-image': 'circle-15', 'icon-allow-overlap': true }}
             >            
-             <Feature coordinates={coordinates} draggable={true}/>
+             <Feature coordinates={crossingCoordinates} draggable={true} onDragEnd={crossingMoved}/>
           </Layer>
         </Map>
     );
