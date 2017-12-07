@@ -26,16 +26,14 @@ const containerQuery = {
 
 const configObject = {
   options: (props) => {
-
-    let after = props.endCursor || null;
     crossingQueryVariables = {
       search: props.searchQuery,
       showOpen: props.showOpen,
       showClosed: props.showClosed,
       showCaution: props.showCaution,
       showLongterm: props.showLongterm,
-      pageCursor: after,
-      orderAsc: props.sortByUpdatedAsc
+      orderAsc: props.sortByUpdatedAsc,
+      pageCursor: null
     };
 
     return {
@@ -52,9 +50,13 @@ const configObject = {
           pageCursor:searchCrossings.pageInfo.endCursor,
         },
         updateQuery:(previousResult, {fetchMoreResult}) => {
-          const totalCount=fetchMoreResult.searchCrossings.totalCount
-          const newEdges=fetchMoreResult.searchCrossings.edges
-          const pageInfo=fetchMoreResult.searchCrossings.pageInfo
+          const totalCount=fetchMoreResult.searchCrossings.totalCount;
+          const newEdges=fetchMoreResult.searchCrossings.edges;
+          const pageInfo=fetchMoreResult.searchCrossings.pageInfo;
+          
+          if(!previousResult.searchCrossings) {
+            return;
+          }
 
           return {
             searchCrossings: {
@@ -100,18 +102,19 @@ export class InfiniteCrossingPaginationContainer extends Component {
         {(params) => {
           const cqClassName = classnames(params);
           return (
-            <InfiniteCrossingList
-              {...this.props}
-              ref={(ref) => infiniteCrossingListRef = ref} 
-              loadMoreRows={loadMoreRows}
-              crossingsQuery={searchCrossings}
-              statusReasons={statusReasons}
-              statusDurations={statusDurations}
-              currentUser={currentUser}
-              sortByUpdatedAsc={sortByUpdatedAsc}
-              crossingQueryVariables={crossingQueryVariables}
-              cqClassName={cqClassName} />
-
+            <div>
+              <InfiniteCrossingList
+                {...this.props}
+                ref={(ref) => infiniteCrossingListRef = ref} 
+                loadMoreRows={loadMoreRows}
+                crossingsQuery={searchCrossings}
+                statusReasons={statusReasons}
+                statusDurations={statusDurations}
+                currentUser={currentUser}
+                sortByUpdatedAsc={sortByUpdatedAsc}
+                crossingQueryVariables={crossingQueryVariables}
+                cqClassName={cqClassName} />
+            </div>
           );
         }}
       </ContainerQuery>
