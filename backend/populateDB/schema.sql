@@ -489,6 +489,7 @@ create function floods.new_crossing(
 ) returns floods.crossing as $$
 declare
   floods_crossing floods.crossing;
+  floods_status_update floods.status_update;
 begin
   -- If we aren't a super admin
   if current_setting('jwt.claims.role') != 'floods_super_admin' then
@@ -509,6 +510,23 @@ begin
   update floods.community
     set viewportgeojson = (select ST_AsGeoJSON(ST_Extent(c.coordinates)) from floods.crossing c, floods.community_crossing cc where cc.crossing_id = c.id and cc.community_id = new_crossing.community_id)
     where id = new_crossing.community_id;
+
+  -- Give it an inital status
+  insert into floods.status_update (status_id, creator_id, crossing_id, notes) values
+    (1, current_setting('jwt.claims.user_id')::integer, floods_crossing.id, 'Crossing Added')
+    returning * into floods_status_update;
+
+  update floods.crossing
+    set latest_status_update_id = floods_status_update.id
+    where id = floods_status_update.crossing_id;
+
+  update floods.crossing
+    set latest_status_id = floods_status_update.status_id
+    where id = floods_status_update.crossing_id;
+
+  update floods.crossing
+    set latest_status_created_at = floods_status_update.created_at
+    where id = floods_status_update.crossing_id;
 
   return floods_crossing;
 end;

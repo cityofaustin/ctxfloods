@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
@@ -40,6 +40,31 @@ class CrossingDetails extends Component {
     });
   }
 
+  addCrossing = (e) => {
+
+    this.props.addCrossingMutation({
+      variables: {
+        name: this.state.name,
+        humanAddress: this.state.humanAddress,
+        description: this.state.description,
+        communityId: 1,
+        longitude: 30,
+        latitude: 40
+      }
+    })
+    .then(({ data }) => {
+      console.log('success', data);
+      const { id } = data.newCrossing.crossing;
+
+      // redirect to the edit page for the crossing
+      const blarg = `/crossing/${id}`;
+      window.location.href = blarg;
+      debugger;
+    }).catch((error) => {
+      console.log('there was an error sending the query', error);
+    });
+  }
+
   deleteCrossing = (e) => {
 //TODO: add delete functionality    
     console.log('DELETE CROSSING');
@@ -55,6 +80,12 @@ class CrossingDetails extends Component {
       description: e.target.value
     });
   }
+  humanAddressChanged = (e) => { 
+    this.setState({ 
+      humanAddress: e.target.value
+    });
+  }
+
   cancelClicked = () => {
     this.setState({
       name: this.props.crossing.name,
@@ -182,4 +213,21 @@ const updateCrossingMutation = gql`
   }
 `;
 
-export default graphql(updateCrossingMutation, { name: 'updateCrossingMutation' })(CrossingDetails);
+const addCrossingMutation = gql`
+  mutation addCrossing($name: String!, $humanAddress: String!, $description: String!, $communityId: Int!, $longitude: Float!, $latitude: Float!) {
+    newCrossing(input: {name: $name, humanAddress: $humanAddress, description: $description, communityId: $communityId, longitude: $longitude, latitude: $latitude}) {
+      crossing {
+        id
+      }
+    }
+  }
+`;
+
+export default compose(
+  graphql(updateCrossingMutation, {
+    name: 'updateCrossingMutation'
+  }),
+  graphql(addCrossingMutation, {
+    name: 'addCrossingMutation'
+  })
+)(CrossingDetails);
