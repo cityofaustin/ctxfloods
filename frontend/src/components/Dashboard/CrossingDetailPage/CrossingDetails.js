@@ -76,19 +76,23 @@ class CrossingDetails extends Component {
   }
 
   render() {
-    const { crossing, communities } = this.props;
+    const { crossing, communities, addMode } = this.props;
 
     return (
 
       <div className={classnames("CrossingDetails", {"dirty-container--dirty":this.isDirty()} ,"dirty-container mlv2 plv2")}>   
 
         <div className="CrossingDetails__details">
-          <div><span className="strong gray--75 mlv1--r">ID#</span> <span className="italic light gray--50">{crossing.id}</span></div>
+          { !addMode ? (
+              <div><span className="strong gray--75 mlv1--r">ID#</span> <span className="italic light gray--50">{crossing.id}</span></div>
+            ) : null
+          }
+
           <div><span className="strong gray--75 mlv1--r">GPS</span> <span className="italic light gray--50">{crossing.humanCoordinates}</span></div>
           <div><span className="strong gray--75 mlv1--r">Address</span> <span className="italic light gray--50">{crossing.humanAddress}</span></div>
 
-          <input className="input input--lg mlv2--t" type="text" value={this.state.name} onChange={this.nameChanged}/>
-          <input className="input mlv2--t" type="text" value={this.state.description} onChange={this.descriptionChanged}/>
+          <input className="input input--lg mlv2--t" type="text" value={this.state.name} onChange={this.nameChanged} placeholder={addMode ? "Crossing Name" : null}/>
+          <input className="input mlv2--t" type="text" value={this.state.description} onChange={this.descriptionChanged} placeholder={addMode ? "Description of Crossing" : null}/>
 
           <div className="CrossingDetails__communities mlv2--t">
               {
@@ -117,12 +121,14 @@ class CrossingDetails extends Component {
             >Save</button>
           </div>
         ) : (
-          <div className="CrossingDetails__buttons flexcontainer">
-            <button 
-              className="button button--plaintext color-highlight"
-              onClick={this.deleteClicked}
-            >Delete Crossing</button>
-          </div>
+          !addMode ? ( 
+            <div className="CrossingDetails__buttons flexcontainer">
+              <button 
+                className="button button--plaintext color-highlight"
+                onClick={this.deleteClicked}
+              >Delete Crossing</button>
+            </div>
+          ) : null
         )}
 
         { this.state.delete && (
