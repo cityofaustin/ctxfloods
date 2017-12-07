@@ -13,13 +13,12 @@ class AddCrossingMap extends Component {
 
   render() {
     const { crossingCoordinates, crossingMoved } = this.props;
-    const coordinates = [-97.46, 30.96];
 
     return (
         <Map
           className="CrossingStaticMap"
           style={mapboxstyle}
-          center={coordinates}
+          center={crossingCoordinates}
           onStyleLoad = {this.onStyleLoad}
         >
           <Layer

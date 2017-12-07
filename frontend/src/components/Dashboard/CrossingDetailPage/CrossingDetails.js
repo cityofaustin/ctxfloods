@@ -84,15 +84,21 @@ class CrossingDetails extends Component {
 
         <div className="CrossingDetails__details">
           { !addMode ? (
-              <div><span className="strong gray--75 mlv1--r">ID#</span> <span className="italic light gray--50">{crossing.id}</span></div>
+              <div>
+                <div><span className="strong gray--75 mlv1--r">ID#</span> <span className="italic light gray--50">{crossing.id}</span></div>
+                <div><span className="strong gray--75 mlv1--r">Address</span> <span className="italic light gray--50">{crossing.humanAddress}</span></div>
+              </div>
             ) : null
           }
 
           <div><span className="strong gray--75 mlv1--r">GPS</span> <span className="italic light gray--50">{crossing.humanCoordinates}</span></div>
-          <div><span className="strong gray--75 mlv1--r">Address</span> <span className="italic light gray--50">{crossing.humanAddress}</span></div>
 
           <input className="input input--lg mlv2--t" type="text" value={this.state.name} onChange={this.nameChanged} placeholder={addMode ? "Crossing Name" : null}/>
           <input className="input mlv2--t" type="text" value={this.state.description} onChange={this.descriptionChanged} placeholder={addMode ? "Description of Crossing" : null}/>
+
+          { addMode ? (
+            <input className="input mlv2--t" type="text" value={this.state.humanAddress} onChange={this.humanAddressChanged} placeholder="Human readable address of Crossing"/>
+          ) : null }
 
           <div className="CrossingDetails__communities mlv2--t">
               {
@@ -109,26 +115,33 @@ class CrossingDetails extends Component {
           </div>
         </div>
 
-        {this.isDirty() ? (
-          <div className="CrossingDetails__buttons flexcontainer">
-            <button 
-              className="flexitem button button--cancel mlv2--r"
-              onClick={this.cancelClicked}
-            >Cancel</button>
-            <button 
-              className="flexitem button button--confirm mlv2--l" 
-              onClick={this.updateCrossing}
-            >Save</button>
-          </div>
-        ) : (
-          !addMode ? ( 
+        {!addMode ? (
+          this.isDirty() ? (
+            <div className="CrossingDetails__buttons flexcontainer">
+              <button 
+                className="flexitem button button--cancel mlv2--r"
+                onClick={this.cancelClicked}
+              >Cancel</button>
+              <button 
+                className="flexitem button button--confirm mlv2--l" 
+                onClick={this.updateCrossing}
+              >Save</button>
+            </div>
+          ) : (
             <div className="CrossingDetails__buttons flexcontainer">
               <button 
                 className="button button--plaintext color-highlight"
                 onClick={this.deleteClicked}
               >Delete Crossing</button>
             </div>
-          ) : null
+          )
+        ) : (
+          <div className="CrossingDetails__buttons flexcontainer">
+            <button 
+              className="flexitem button button--confirm mlv2--l" 
+              onClick={this.addCrossing}
+            >Add Crossing</button>
+          </div>
         )}
 
         { this.state.delete && (
