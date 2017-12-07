@@ -21,21 +21,12 @@ class CrossingListPage extends Component {
     return `%${query.replace(/ /g,"%")}%`;
   }
 
-  previousPage = (startCursor) => { 
-    this.setState({pageCursor: startCursor });
-  };
-
-  nextPage = (endCursor) => { 
-    this.setState({pageCursor: endCursor });
-  };
-
   toggleShowOpen = () => { this.setState({ showOpen: !this.state.showOpen }) };
   toggleShowClosed = () => { this.setState({ showClosed: !this.state.showClosed }) };
   toggleShowCaution = () => { this.setState({ showCaution: !this.state.showCaution }) };
   toggleShowLongterm = () => { this.setState({ showLongterm: !this.state.showLongterm }) };
   toggleSortByUpdated = () => { this.setState({sortByUpdatedAsc: !this.state.sortByUpdatedAsc }) };
   searchQueryUpdated = (e) => {
-    this.setState({ pageCursor: null });
     this.setState({ searchQuery: e.target.value });
     this.setState({ formattedSearchQuery: this.formatSearchQuery(e.target.value) });
   };
