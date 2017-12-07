@@ -8,6 +8,7 @@ import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetailPage.css';
+import formatcoords from 'formatcoords';
 
 const containerQuery = {
   'CrossingDetails__container--lg': {
@@ -29,7 +30,8 @@ class AddCrossingPage extends Component {
   render() {
     const crossing = {
       name: null,
-      description: null
+      description: null,
+      humanCoordinates: formatcoords(this.state.crossingCoordinates, true).format({decimalPlaces: 3})
     };
 
     const communities = [
