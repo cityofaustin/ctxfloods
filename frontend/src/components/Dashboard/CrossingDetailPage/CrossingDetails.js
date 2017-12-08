@@ -5,6 +5,7 @@ import crossingFragment from 'components/Dashboard/CrossingListPage/queries/cros
 import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetails.css';
+import { Redirect } from 'react-router';
 
 class CrossingDetails extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class CrossingDetails extends Component {
     this.state = {
       name: props.crossing.name,
       description: props.crossing.description,
-      delete: false
+      delete: false,
+      redirectToNewCrossingId: null
     };
   }
 
@@ -55,11 +57,7 @@ class CrossingDetails extends Component {
     .then(({ data }) => {
       console.log('success', data);
       const { id } = data.newCrossing.crossing;
-
-      // redirect to the edit page for the crossing
-      const blarg = `/crossing/${id}`;
-      window.location.href = blarg;
-      debugger;
+      this.setState({redirectToNewCrossingId: id});
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
@@ -107,6 +105,11 @@ class CrossingDetails extends Component {
   }
 
   render() {
+    // If we finished adding a crossing, we should redirect to the edit page
+    if (this.state.redirectToNewCrossingId) {
+      return <Redirect push to={`/dashboard/crossing/${this.state.redirectToNewCrossingId}`} />
+    }
+
     const { crossing, communities, addMode } = this.props;
 
     return (
