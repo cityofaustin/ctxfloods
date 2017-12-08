@@ -49,7 +49,7 @@ class CrossingDetails extends Component {
         name: this.state.name,
         humanAddress: this.state.humanAddress,
         description: this.state.description,
-        communityId: 1,
+        communityId: this.props.currentUser.communityId,
         longitude: this.props.crossing.lng,
         latitude: this.props.crossing.lat
       }
@@ -141,8 +141,7 @@ class CrossingDetails extends Component {
                     <button 
                       key={community.id} 
                       className="button button--secondary mlv2--r mlv2--b"
-                    >{community.name} <FontAwesome name="times" />
-                    </button>
+                    >{community.name} </button>
                   );
                 })
               }

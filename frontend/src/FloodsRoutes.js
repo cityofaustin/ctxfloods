@@ -63,7 +63,9 @@ const currentUser = gql`
       id
       communityId
       communityByCommunityId {
+        id
         viewportgeojson
+        name
       }
       role
       firstName

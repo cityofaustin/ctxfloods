@@ -37,9 +37,7 @@ class AddCrossingPage extends Component {
     };
 
     const communities = [
-      {
-        name: 'blarg'
-      }
+      this.props.currentUser.communityByCommunityId
     ];
 
     return (
@@ -48,7 +46,7 @@ class AddCrossingPage extends Component {
           <div className="AddCrossingPage">
             <div className={classnames(params, "CrossingDetails__container mlv2--b")}>
               <AddCrossingMap crossingCoordinates={this.state.crossingCoordinates} crossingMoved={this.crossingMoved}/>
-              <CrossingDetails crossing={crossing} communities={communities} addMode={true}/>
+              <CrossingDetails crossing={crossing} communities={communities} addMode={true} currentUser={this.props.currentUser}/>
             </div>
           </div>
         )}
