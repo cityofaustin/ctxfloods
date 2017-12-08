@@ -69,7 +69,7 @@ class CrossingListItem extends React.Component {
     // Get all the query variable combinations we have cached
     const queryVariables = Object.keys(store.data.ROOT_QUERY)
                             .filter(query => query.includes('searchCrossings'))
-                            .map(q => JSON.parse(q.replace(/.*\(|\)/g, '')));
+                            .map(q => JSON.parse(q.replace(/(^\w*\()|(\)$)/g, '')));
 
     // Update the sorting accordingly
     for(var qv of queryVariables) {
