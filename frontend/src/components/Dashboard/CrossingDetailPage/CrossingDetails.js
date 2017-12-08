@@ -50,8 +50,8 @@ class CrossingDetails extends Component {
         humanAddress: this.state.humanAddress,
         description: this.state.description,
         communityId: 1,
-        longitude: 30,
-        latitude: 40
+        longitude: this.props.crossing.lng,
+        latitude: this.props.crossing.lat
       }
     })
     .then(({ data }) => {

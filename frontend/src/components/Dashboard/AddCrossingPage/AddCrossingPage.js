@@ -31,7 +31,9 @@ class AddCrossingPage extends Component {
     const crossing = {
       name: null,
       description: null,
-      humanCoordinates: formatcoords(this.state.crossingCoordinates, true).format({decimalPlaces: 3})
+      humanCoordinates: formatcoords(this.state.crossingCoordinates, true).format({decimalPlaces: 3}),
+      lng: this.state.crossingCoordinates[0],
+      lat: this.state.crossingCoordinates[1]
     };
 
     const communities = [
