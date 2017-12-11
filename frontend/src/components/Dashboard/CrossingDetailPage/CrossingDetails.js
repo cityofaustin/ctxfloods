@@ -127,11 +127,25 @@ class CrossingDetails extends Component {
 
           <div><span className="strong gray--75 mlv1--r">GPS</span> <span className="italic light gray--50">{crossing.humanCoordinates}</span></div>
 
-          <input className="input input--lg mlv2--t" type="text" value={this.state.name} onChange={this.nameChanged} placeholder={addMode ? "Crossing Name" : null}/>
-          <input className="input mlv2--t" type="text" value={this.state.description} onChange={this.descriptionChanged} placeholder={addMode ? "Description of Crossing" : null}/>
+          <div className="mlv2--t">
+            <span className="strong gray--75 mlv1--r">Crossing Name</span>
+            <input id="crossingName" className="input input--lg" type="text" value={this.state.name} onChange={this.nameChanged} placeholder="TODO: Good Placeholder"/>
+          </div>
+
+
+          <div className="mlv2--t">
+            <span className="strong gray--75 mlv1--r">Description of Crossing</span>
+            <input id="crossingDescription" className="input" type="text" value={this.state.description} onChange={this.descriptionChanged} placeholder="TODO: Good Placeholder"/>
+          </div>
 
           { addMode ? (
-            <input className="input mlv2--t" type="text" value={this.state.humanAddress} onChange={this.humanAddressChanged} placeholder="Human readable address of Crossing"/>
+
+            <div className="mlv2--t">
+              <span className="strong gray--75 mlv1--r">Address of Crossing</span>
+              <input className="input" type="text" value={this.state.humanAddress} onChange={this.humanAddressChanged} placeholder="TODO: Good Placeholder"/>
+            </div>
+
+            
           ) : null }
 
           <div className="CrossingDetails__communities mlv2--t">
