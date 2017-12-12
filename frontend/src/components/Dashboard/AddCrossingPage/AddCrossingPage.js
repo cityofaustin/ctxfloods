@@ -24,7 +24,6 @@ class AddCrossingPage extends Component {
   crossingMoved = (e) => {
     const coords = [e.lngLat.lng, e.lngLat.lat];
     this.setState({ crossingCoordinates: coords });
-    // debugger;
   }
 
   render() {
