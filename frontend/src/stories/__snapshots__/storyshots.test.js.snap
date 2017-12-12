@@ -54,16 +54,24 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
       <div
         className="mlv2--t"
       >
-        <span
-          className="strong gray--75 mlv1--r"
-        >
-          Crossing Name
-        </span>
+        <div>
+          <div>
+            <span
+              className="gray--75 mlv1--r"
+            >
+              Display Name*
+            </span>
+          </div>
+          <span
+            className="light gray--25 mlv1--r"
+          >
+            Name your crossings by intersections (ie, Onion Creek Blvd. & 5th Ave) or waypoints (5th Ave. Denny's)
+          </span>
+        </div>
         <input
           className="input input--lg"
           id="crossingName"
           onChange={[Function]}
-          placeholder="TODO: Good Placeholder"
           type="text"
           value="Spurlock Valley"
         />
@@ -71,16 +79,24 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
       <div
         className="mlv2--t"
       >
-        <span
-          className="strong gray--75 mlv1--r"
-        >
-          Description of Crossing
-        </span>
+        <div>
+          <div>
+            <span
+              className="gray--75 mlv1--r"
+            >
+              Additional Description (optional)
+            </span>
+          </div>
+          <span
+            className="light gray--25 mlv1--r"
+          >
+            Does the location need additional clarification? ie, "Southbound lane only"
+          </span>
+        </div>
         <input
           className="input"
           id="crossingDescription"
           onChange={[Function]}
-          placeholder="TODO: Good Placeholder"
           type="text"
           value="E of Intersection w/ Clifford"
         />

@@ -128,25 +128,33 @@ class CrossingDetails extends Component {
           <div><span className="strong gray--75 mlv1--r">GPS</span> <span className="italic light gray--50">{crossing.humanCoordinates}</span></div>
 
           <div className="mlv2--t">
-            <span className="strong gray--75 mlv1--r">Crossing Name</span>
-            <input id="crossingName" className="input input--lg" type="text" value={this.state.name} onChange={this.nameChanged} placeholder="TODO: Good Placeholder"/>
-          </div>
-
-
-          <div className="mlv2--t">
-            <span className="strong gray--75 mlv1--r">Description of Crossing</span>
-            <input id="crossingDescription" className="input" type="text" value={this.state.description} onChange={this.descriptionChanged} placeholder="TODO: Good Placeholder"/>
+            <div>
+              <div><span className="gray--75 mlv1--r">Display Name*</span></div>
+              <span className="light gray--25 mlv1--r">Name your crossings by intersections (ie, Onion Creek Blvd. & 5th Ave) or waypoints (5th Ave. Denny's)</span>
+            </div>
+            <input id="crossingName" className="input input--lg" type="text" value={this.state.name} onChange={this.nameChanged} />
           </div>
 
           { addMode ? (
 
             <div className="mlv2--t">
-              <span className="strong gray--75 mlv1--r">Address of Crossing</span>
-              <input className="input" type="text" value={this.state.humanAddress} onChange={this.humanAddressChanged} placeholder="TODO: Good Placeholder"/>
-            </div>
+              <div>
+                <div><span className="gray--75 mlv1--r">Street Address*</span></div>
+                <span className="light gray--25 mlv1--r">The human readable address for the crossing</span>
+              </div>
 
+              <input className="input" type="text" value={this.state.humanAddress} onChange={this.humanAddressChanged} />
+            </div>
             
           ) : null }
+
+          <div className="mlv2--t">
+              <div>
+                <div><span className="gray--75 mlv1--r">Additional Description (optional)</span></div>
+                <span className="light gray--25 mlv1--r">Does the location need additional clarification? ie, "Southbound lane only"</span>
+              </div>
+            <input id="crossingDescription" className="input" type="text" value={this.state.description} onChange={this.descriptionChanged} />
+          </div>
 
           <div className="CrossingDetails__communities mlv2--t">
               {
