@@ -53,7 +53,8 @@ create table floods.crossing (
   description       text not null check (char_length(description) < 800),
   coordinates       geometry not null,
   geojson           text not null check (char_length(geojson) < 100),
-  latest_status_created_at timestamp 
+  latest_status_created_at timestamp,
+  active            boolean default true
 );
 
 comment on table floods.crossing is 'A road crossing that might flood.';
@@ -64,6 +65,7 @@ comment on column floods.crossing.description is 'The description of the crossin
 comment on column floods.crossing.coordinates is 'The GIS coordinates of the crossing created with ST_MakePoint.';
 comment on column floods.crossing.geojson is 'The GeoJSON coordinates of the crossing.';
 comment on column floods.crossing.latest_status_created_at is 'The timestamp of the latest status update for the crossing.';
+comment on column floods.crossing.active is 'If the crossing is active or not.';
 
 -- Add trigrams for indexing
 create extension if not exists "pg_trgm";
@@ -564,6 +566,12 @@ begin
       raise exception 'Only administrators can delete crossings';
     end if;
   end if;
+
+  update floods.crossing
+    set latest_status_update_id = null
+    where id = remove_crossing.crossing_id;
+
+  delete from floods.status_update where floods.status_update.crossing_id = remove_crossing.crossing_id;
 
   delete from floods.community_crossing where floods.community_crossing.crossing_id = remove_crossing.crossing_id;
 
