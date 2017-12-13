@@ -40,7 +40,7 @@ class CrossingStatusHistory extends Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, showNames } = this.props;
 
     return (
       <ContainerQuery query={containerQuery}>
@@ -66,7 +66,7 @@ class CrossingStatusHistory extends Component {
                 return (
                   <div className="CrossingStatusHistory__item" key={i}>
 
-                    {crossingId ? (
+                    {showNames ? (
                       <div className="CrossingListItemFlexItem">
                         <a href={`/dashboard/crossing/${crossingId}`} className="CrossingName">{crossingName}</a>
                       </div>
