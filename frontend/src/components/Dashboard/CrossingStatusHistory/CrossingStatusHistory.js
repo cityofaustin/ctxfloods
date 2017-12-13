@@ -6,6 +6,7 @@ import { displayedInputs, statusIcons } from 'constants/StatusConstants';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import DateTime from 'components/Dashboard/CrossingListPage/CrossingListItem/DateTime';
 import 'components/Dashboard/CrossingDetailPage/CrossingStatusHistory.css';
+import InfiniteCrossingStatusHistoryPaginationContainer from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryPaginationContainer';
 import { CSVLink } from 'react-csv';
 
 const containerQuery = {
@@ -16,27 +17,28 @@ const containerQuery = {
 
 class CrossingStatusHistory extends Component {
   generateCsv() {
-    const { history, crossingId } = this.props;
+    // const { history, crossingId } = this.props;
 
-    const headers = crossingId ? 
-      [['Date & Time', 'Status', 'Reason', 'Duration', 'Notes']] :
-      [['Crossing Name', 'Crossing Address', 'Date & Time', 'Status', 'Reason', 'Duration', 'Notes']];
+    // const headers = crossingId ? 
+    //   [['Date & Time', 'Status', 'Reason', 'Duration', 'Notes']] :
+    //   [['Crossing Name', 'Crossing Address', 'Date & Time', 'Status', 'Reason', 'Duration', 'Notes']];
 
-    return headers.concat(
-      history.map((update) => {
-        const status = get(update, 'statusByStatusId.name');
-        const reason = get(update, 'statusReasonByStatusReasonId.name', '');
-        const duration = get(update, 'statusDurationByStatusDurationId.name', '');
-        const createdAt = get(update, 'createdAt');
-        const crossingName = get(update, 'crossingByCrossingId.name');
-        const crossingAddress = get(update, 'crossingByCrossingId.humanAddress');
-        const notes = get(update, 'notes', '');
+    // return headers.concat(
+    //   history.map((update) => {
+    //     const status = get(update, 'statusByStatusId.name');
+    //     const reason = get(update, 'statusReasonByStatusReasonId.name', '');
+    //     const duration = get(update, 'statusDurationByStatusDurationId.name', '');
+    //     const createdAt = get(update, 'createdAt');
+    //     const crossingName = get(update, 'crossingByCrossingId.name');
+    //     const crossingAddress = get(update, 'crossingByCrossingId.humanAddress');
+    //     const notes = get(update, 'notes', '');
 
-        return crossingId ? 
-          [createdAt, status, reason, duration, notes] :
-          [crossingName, crossingAddress, createdAt, status, reason, duration, notes];
-      })
-    );
+    //     return crossingId ? 
+    //       [createdAt, status, reason, duration, notes] :
+    //       [crossingName, crossingAddress, createdAt, status, reason, duration, notes];
+    //   })
+    // );
+    return "blarg";
   }
 
   render() {
@@ -51,6 +53,19 @@ class CrossingStatusHistory extends Component {
               Crossing Status History
             </h2>
             <div className="CrossingStatusHistory__list-wrapper">
+              <InfiniteCrossingStatusHistoryPaginationContainer />
+            </div>
+          </div>
+        )}
+      </ContainerQuery>
+    );
+  }
+}
+
+export default CrossingStatusHistory;
+
+/*
+
               {history.map((update, i) => {
                 const user = get(update, 'userByCreatorId', {});
                 const statusId = get(update, 'statusByStatusId.id', '--');
@@ -107,12 +122,5 @@ class CrossingStatusHistory extends Component {
                   </div>
                 )
               })}
-            </div>
-          </div>
-        )}
-      </ContainerQuery>
-    );
-  }
-}
 
-export default CrossingStatusHistory;
+*/
