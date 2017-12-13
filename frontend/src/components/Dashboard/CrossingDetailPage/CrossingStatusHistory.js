@@ -42,7 +42,7 @@ class CrossingStatusHistory extends Component {
       <ContainerQuery query={containerQuery}>
         {(params) => (
           <div className={classnames(params, "CrossingStatusHistory")}>
-            <CSVLink data={this.generateCsv()} >Download me</CSVLink>
+            <CSVLink filename={'statusHistory.csv'} data={this.generateCsv()} >Download spreadsheet</CSVLink>
             <h2 className="CrossingStatusHistory__section-header">
               Crossing Status History
             </h2>
