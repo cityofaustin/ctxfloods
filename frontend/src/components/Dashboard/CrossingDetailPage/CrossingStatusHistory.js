@@ -16,9 +16,11 @@ const containerQuery = {
 
 class CrossingStatusHistory extends Component {
   generateCsv() {
-    const { history } = this.props;
+    const { history, crossingId } = this.props;
 
-    const headers = [['Crossing Name', 'Crossing Address', 'Date & Time', 'Status', 'Reason', 'Duration', 'Notes']];
+    const headers = crossingId ? 
+      [['Date & Time', 'Status', 'Reason', 'Duration', 'Notes']] :
+      [['Crossing Name', 'Crossing Address', 'Date & Time', 'Status', 'Reason', 'Duration', 'Notes']];
 
     return headers.concat(
       history.map((update) => {
@@ -30,7 +32,9 @@ class CrossingStatusHistory extends Component {
         const crossingAddress = get(update, 'crossingByCrossingId.humanAddress');
         const notes = get(update, 'notes', '');
 
-        return [crossingName, crossingAddress, createdAt, status, reason, duration, notes];        
+        return crossingId ? 
+          [createdAt, status, reason, duration, notes] :
+          [crossingName, crossingAddress, createdAt, status, reason, duration, notes];
       })
     );
   }

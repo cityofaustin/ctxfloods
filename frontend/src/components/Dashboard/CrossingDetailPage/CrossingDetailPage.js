@@ -38,7 +38,7 @@ class CrossingDetailPage extends Component {
               <CrossingStaticMap crossing={crossing}/>
               <CrossingDetails crossing={crossing} communities={communities} addMode={false}/>
             </div>
-            <CrossingStatusHistory history={history}/>
+            <CrossingStatusHistory crossingId={crossing.id} history={history}/>
           </div>
         )}
       </ContainerQuery>
