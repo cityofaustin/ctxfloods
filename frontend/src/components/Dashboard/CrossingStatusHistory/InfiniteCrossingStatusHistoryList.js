@@ -7,6 +7,11 @@ import 'components/Dashboard/CrossingListPage/CrossingList.css';
 let virtualizingList = [];
 let listRef;
 
+const cache = new CellMeasurerCache({
+  defaultHeight: 400,
+  fixedWidth: true
+});
+
 export default class InfiniteCrossingStatusHistoryList extends React.Component{
 
   constructor(props) {
@@ -16,6 +21,29 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component{
     this._isRowLoaded = this._isRowLoaded.bind(this);
     this._rowRenderer = this._rowRenderer.bind(this);
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(listRef) {
+      this.refreshList();
+      this.clearMeasurerCache();
+    };
+  }
+
+  componentDidMount() {
+    if (listRef) {
+      this.refreshList();
+      this.clearMeasurerCache();
+    }
+  }
+
+  clearMeasurerCache() {
+    cache.clearAll();
+    listRef.recomputeRowHeights();
+  }
+
+  refreshList() {
+    listRef.forceUpdateGrid();
   }
 
   _isRowLoaded ({ index }) {
@@ -35,9 +63,18 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component{
     }
 
     return (
-      <div>
-        <CrossingStatusHistoryItem update={statusUpdate} showNames={showNames}/>
-      </div>
+      <CellMeasurer
+        cache={cache}
+        columnIndex={0}
+        key={key}
+        parent={parent}
+        rowIndex={index} >
+        {({ measure }) => (
+          <div className='CrossingStatusHistoryItemMeasureContainer' style={style}>
+            <CrossingStatusHistoryItem onLoad={measure} key={key} update={statusUpdate} showNames={showNames}/>
+          </div>
+        )}
+      </CellMeasurer>
     )
   }
 
@@ -65,16 +102,22 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component{
           {({ onRowsRendered, registerChild }) => (
             <WindowScroller>
               {({ height, isScrolling, scrollTop }) => (
-                <List
-                  ref={ref => registerChild = listRef = ref}
-                  className="List"
-                  height={500}
-                  rowHeight={200}
-                  width={500}
-                  onRowsRendered={onRowsRendered}
-                  rowCount={allStatusUpdates.totalCount}
-                  rowRenderer={this._rowRenderer}
-                  scrollTop={scrollTop} />
+                <AutoSizer disableHeight>
+                  {({ width }) => (
+                    <List
+                      ref={ref => registerChild = listRef = ref}
+                      className="List"
+                      autoHeight
+                      deferredMeasurementCache={cache}
+                      height={height}
+                      rowHeight={cache.rowHeight}
+                      width={width}
+                      onRowsRendered={onRowsRendered}
+                      rowCount={allStatusUpdates.totalCount}
+                      rowRenderer={this._rowRenderer}
+                      scrollTop={scrollTop} />
+                  )}
+                </AutoSizer>
               )}
             </WindowScroller>
           )}
