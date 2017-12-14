@@ -53,7 +53,7 @@ class CrossingStatusHistory extends Component {
               Crossing Status History
             </h2>
             <div className="CrossingStatusHistory__list-wrapper">
-              <InfiniteCrossingStatusHistoryPaginationContainer />
+              <InfiniteCrossingStatusHistoryPaginationContainer showNames={showNames}/>
             </div>
           </div>
         )}

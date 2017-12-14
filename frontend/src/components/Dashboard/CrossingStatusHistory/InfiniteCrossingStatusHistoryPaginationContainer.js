@@ -81,7 +81,7 @@ const configObject = {
 export class InfiniteCrossingStatusHistoryPaginationContainer extends Component {
   
   render() {
-    const {dispatch, loading, allStatusUpdates, loadMoreRows, currentUser, sortByUpdatedAsc} = this.props;
+    const {dispatch, loading, allStatusUpdates, loadMoreRows, currentUser, showNames} = this.props;
      
     if (loading) {
       return (<div>Loading</div>);
@@ -98,6 +98,7 @@ export class InfiniteCrossingStatusHistoryPaginationContainer extends Component 
                 ref={(ref) => infiniteCrossingListRef = ref} 
                 loadMoreRows={loadMoreRows}
                 allStatusUpdates={allStatusUpdates}
+                showNames={showNames}
                 cqClassName={cqClassName} />
             </div>
           );

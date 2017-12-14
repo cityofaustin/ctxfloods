@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CrossingListItem from 'components/Dashboard/CrossingListPage/CrossingListItem/CrossingListItem';
+import CrossingStatusHistoryItem from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistoryItem';
 import {InfiniteLoader, AutoSizer, List, WindowScroller, CellMeasurer, CellMeasurerCache} from 'react-virtualized';
 import 'components/Dashboard/CrossingListPage/CrossingList.css';
 
@@ -23,17 +23,21 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component{
   }
 
   _rowRenderer({ key, index, style, parent}) {
+    const { showNames } = this.props;
+    let statusUpdate;
 
-    // if (index<virtualizingList.length) {
-    //   crossing = virtualizingList[index].node
-    // } else {
-    //   return (
-    //     <div key={key}>Loading.....</div>       
-    //   )
-    // }
+    if (index<virtualizingList.length) {
+      statusUpdate = virtualizingList[index].node
+    } else {
+      return (
+        <div key={key}>Loading.....</div>       
+      )
+    }
 
     return (
-      <div>HERE IS THE THING</div>
+      <div>
+        <CrossingStatusHistoryItem update={statusUpdate} showNames={showNames}/>
+      </div>
     )
   }
 
