@@ -42,7 +42,7 @@ class CrossingStatusHistory extends Component {
   }
 
   render() {
-    const { history, showNames } = this.props;
+    const { history, showNames, crossingId } = this.props;
 
     return (
       <ContainerQuery query={containerQuery}>
@@ -53,7 +53,7 @@ class CrossingStatusHistory extends Component {
               Crossing Status History
             </h2>
             <div className="CrossingStatusHistory__list-wrapper">
-              <InfiniteCrossingStatusHistoryPaginationContainer showNames={showNames}/>
+              <InfiniteCrossingStatusHistoryPaginationContainer crossingId={crossingId} showNames={showNames}/>
             </div>
           </div>
         )}

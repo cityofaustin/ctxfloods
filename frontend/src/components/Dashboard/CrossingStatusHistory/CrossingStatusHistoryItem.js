@@ -18,7 +18,7 @@ const containerQuery = {
 class CrossingStatusHistoryItem extends Component {
 
   render() {
-    const { update, showNames } = this.props;
+    const { update, showNames, measure } = this.props;
 
     const user = get(update, 'userByCreatorId', {});
     const statusId = get(update, 'statusByStatusId.id', '--');
@@ -48,7 +48,7 @@ class CrossingStatusHistoryItem extends Component {
 
         <div className="CrossingStatusHistory__item-details-flexcontainer">
           <div className="CrossingStatusHistory__item-details">
-            <img src={statusIcons[statusId]} alt={shouldDisplay.status} className="CrossingStatusHistory__status-icon" />
+            <img onLoad={measure} src={statusIcons[statusId]} alt={shouldDisplay.status} className="CrossingStatusHistory__status-icon" />
             <span>Status: {status}</span>
           </div>
           <div className="CrossingStatusHistory__item-details">

@@ -71,7 +71,7 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component{
         rowIndex={index} >
         {({ measure }) => (
           <div className='CrossingStatusHistoryItemMeasureContainer' style={style}>
-            <CrossingStatusHistoryItem onLoad={measure} key={key} update={statusUpdate} showNames={showNames}/>
+            <CrossingStatusHistoryItem measure={measure} key={key} update={statusUpdate} showNames={showNames}/>
           </div>
         )}
       </CellMeasurer>

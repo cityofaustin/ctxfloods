@@ -36,8 +36,10 @@ const configObject = {
     //   pageCursor: null
     // };
 
+    const variables = props.crossingId ? { crossingId: props.crossingId } : {};
+
     return {
-      variables: {}
+      variables: variables
     }
   },
   force: true,
