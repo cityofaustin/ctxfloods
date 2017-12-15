@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { get } from 'lodash';
 import classnames from 'classnames';
 import { ContainerQuery } from 'react-container-query';
 import { displayedInputs, statusIcons } from 'constants/StatusConstants';
@@ -7,7 +6,8 @@ import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import DateTime from 'components/Dashboard/CrossingListPage/CrossingListItem/DateTime';
 import 'components/Dashboard/CrossingDetailPage/CrossingStatusHistory.css';
 import InfiniteCrossingStatusHistoryPaginationContainer from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryPaginationContainer';
-import { CSVLink } from 'react-csv';
+
+import CrossingStatusHistorySpreadsheetLink from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistorySpreadsheetLink';
 
 const containerQuery = {
   'CrossingStatusHistory--lg' : {
@@ -16,30 +16,7 @@ const containerQuery = {
 }
 
 class CrossingStatusHistory extends Component {
-  generateCsv() {
-    // const { history, crossingId } = this.props;
 
-    // const headers = crossingId ? 
-    //   [['Date & Time', 'Status', 'Reason', 'Duration', 'Notes']] :
-    //   [['Crossing Name', 'Crossing Address', 'Date & Time', 'Status', 'Reason', 'Duration', 'Notes']];
-
-    // return headers.concat(
-    //   history.map((update) => {
-    //     const status = get(update, 'statusByStatusId.name');
-    //     const reason = get(update, 'statusReasonByStatusReasonId.name', '');
-    //     const duration = get(update, 'statusDurationByStatusDurationId.name', '');
-    //     const createdAt = get(update, 'createdAt');
-    //     const crossingName = get(update, 'crossingByCrossingId.name');
-    //     const crossingAddress = get(update, 'crossingByCrossingId.humanAddress');
-    //     const notes = get(update, 'notes', '');
-
-    //     return crossingId ? 
-    //       [createdAt, status, reason, duration, notes] :
-    //       [crossingName, crossingAddress, createdAt, status, reason, duration, notes];
-    //   })
-    // );
-    return "blarg";
-  }
 
   render() {
     const { history, showNames, crossingId } = this.props;
@@ -48,7 +25,7 @@ class CrossingStatusHistory extends Component {
       <ContainerQuery query={containerQuery}>
         {(params) => (
           <div className={classnames(params, "CrossingStatusHistory")}>
-            <CSVLink filename={'statusHistory.csv'} data={this.generateCsv()} >Download spreadsheet</CSVLink>
+            <CrossingStatusHistorySpreadsheetLink crossingId={crossingId} />
             <h2 className="CrossingStatusHistory__section-header">
               Crossing Status History
             </h2>

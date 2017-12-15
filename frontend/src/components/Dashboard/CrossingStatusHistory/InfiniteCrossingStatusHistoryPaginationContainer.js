@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import InfiniteCrossingStatusHistoryList from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryList';
 
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 
 import {InfiniteLoader, AutoSizer, List} from 'react-virtualized';
 import 'react-virtualized/styles.css';
