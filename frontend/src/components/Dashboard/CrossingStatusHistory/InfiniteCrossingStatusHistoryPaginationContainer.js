@@ -26,15 +26,6 @@ const containerQuery = {
 
 const configObject = {
   options: (props) => {
-    // crossingQueryVariables = {
-    //   search: props.searchQuery,
-    //   showOpen: props.showOpen,
-    //   showClosed: props.showClosed,
-    //   showCaution: props.showCaution,
-    //   showLongterm: props.showLongterm,
-    //   orderAsc: props.sortByUpdatedAsc,
-    //   pageCursor: null
-    // };
 
     const variables = props.crossingId ? { crossingId: props.crossingId } : {};
 
