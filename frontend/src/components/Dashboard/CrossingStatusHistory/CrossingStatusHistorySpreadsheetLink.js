@@ -11,7 +11,8 @@ class CrossingStatusHistorySpreadsheetLink extends Component {
   }
 
   render() {
-    const { loadSpreadsheet, crossingId } = this.state;
+    const { loadSpreadsheet } = this.state;
+    const { crossingId } = this.props;
 
     const variables = crossingId ? { crossingId: crossingId } : {};
 

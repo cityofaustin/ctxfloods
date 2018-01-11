@@ -8,7 +8,7 @@ class CrossingStatusHistorySpreadsheet extends Component {
   
   generateCsv() {
     const { crossingId } = this.props;
-    const { loading } = !this.props.data || this.props.data.loading;
+    const loading = !this.props.data || this.props.data.loading;
     if(loading) return "loading";
 
     const history = this.props.data.allStatusUpdates.edges;
