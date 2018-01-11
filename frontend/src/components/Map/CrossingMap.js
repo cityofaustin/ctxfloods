@@ -55,6 +55,8 @@ class CrossingMap extends React.Component {
   addCrossingClickHandlers (map) {
      map.on('click', 'closedCrossings', this.onCrossingClick);
      map.on('click', 'openCrossings', this.onCrossingClick);
+     map.on('click', 'cautionCrossings', this.onCrossingClick);
+     map.on('click', 'longtermCrossings', this.onCrossingClick);
      map.on('click', this.onMapClick);
   }
 
@@ -113,7 +115,7 @@ class CrossingMap extends React.Component {
         <Layer
           type="symbol"
           id="longtermCrossings"
-          layout={{ 'icon-image': 'cross-15', 'icon-allow-overlap': true }}
+          layout={{ 'icon-image': 'longterm', 'icon-allow-overlap': true }}
           layerOptions={{"filter":
             [
               "all",
@@ -135,7 +137,7 @@ class CrossingMap extends React.Component {
         <Layer
           type="symbol"
           id="cautionCrossings"
-          layout={{ 'icon-image': 'triangle-stroked-15', 'icon-allow-overlap': true }}
+          layout={{ 'icon-image': 'caution', 'icon-allow-overlap': true }}
           layerOptions={{"filter":
             [
               "all",
@@ -157,7 +159,7 @@ class CrossingMap extends React.Component {
         <Layer
           type="symbol"
           id="closedCrossings"
-          layout={{ 'icon-image': 'cross-15', 'icon-allow-overlap': true }}
+          layout={{ 'icon-image': 'closed', 'icon-allow-overlap': true }}
           layerOptions={{"filter":
             [
               "all",
@@ -179,7 +181,7 @@ class CrossingMap extends React.Component {
         <Layer
           type="symbol"
           id="openCrossings"
-          layout={{ 'icon-image': 'circle-15', 'icon-allow-overlap': true }}
+          layout={{ 'icon-image': 'open', 'icon-allow-overlap': true }}
           layerOptions={{"filter":
             [
               "all",
@@ -200,16 +202,88 @@ class CrossingMap extends React.Component {
         </Layer>
         <Layer
           type="symbol"
-          id="selectedCrossing"
-          layout={{ 'icon-image': 'marker-15', 'icon-allow-overlap': true }}
-          layerOptions={{"filter": ["==", "crossingId", this.state.selectedCrossingId]}}
+          id="selectedLongtermCrossing"
+          layout={{ 'icon-image': 'longterm_selected', 'icon-allow-overlap': true }}
+          layerOptions={{"filter":
+            [
+              "all",
+              ["==", "crossingId", this.state.selectedCrossingId],
+              ["==", "crossingStatus", STATUS_LONGTERM]
+            ]
+          }}
           >
           {
             allCrossings.map((crossing, i) => {
               return(
                    <Feature key={i}
                             coordinates={JSON.parse(crossing.geojson).coordinates}
-                            properties={{"crossingId": crossing.id}}/>
+                            properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id}}/>
+              )}
+            )
+          }
+        </Layer>
+        <Layer
+          type="symbol"
+          id="selectedCautionCrossing"
+          layout={{ 'icon-image': 'caution_selected', 'icon-allow-overlap': true }}
+          layerOptions={{"filter":
+            [
+              "all",
+              ["==", "crossingId", this.state.selectedCrossingId],
+              ["==", "crossingStatus", STATUS_CAUTION]
+            ]
+          }}
+          >
+          {
+            allCrossings.map((crossing, i) => {
+              return(
+                   <Feature key={i}
+                            coordinates={JSON.parse(crossing.geojson).coordinates}
+                            properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id}}/>
+              )}
+            )
+          }
+        </Layer>
+        <Layer
+          type="symbol"
+          id="selectedClosedCrossing"
+          layout={{ 'icon-image': 'closed_selected', 'icon-allow-overlap': true }}
+          layerOptions={{"filter":
+            [
+              "all",
+              ["==", "crossingId", this.state.selectedCrossingId],
+              ["==", "crossingStatus", STATUS_CLOSED]
+            ]
+          }}
+          >
+          {
+            allCrossings.map((crossing, i) => {
+              return(
+                   <Feature key={i}
+                            coordinates={JSON.parse(crossing.geojson).coordinates}
+                            properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id}}/>
+              )}
+            )
+          }
+        </Layer>
+        <Layer
+          type="symbol"
+          id="selectedOpenCrossing"
+          layout={{ 'icon-image': 'open_selected', 'icon-allow-overlap': true }}
+          layerOptions={{"filter":
+            [
+              "all",
+              ["==", "crossingId", this.state.selectedCrossingId],
+              ["==", "crossingStatus", STATUS_OPEN]
+            ]
+          }}
+          >
+          {
+            allCrossings.map((crossing, i) => {
+              return(
+                   <Feature key={i}
+                            coordinates={JSON.parse(crossing.geojson).coordinates}
+                            properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id}}/>
               )}
             )
           }
