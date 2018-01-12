@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import CrossingListItem from 'components/Dashboard/CrossingListPage/CrossingListItem/CrossingListItem';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import FontAwesome from 'react-fontawesome';
 import statusUpdateFragment from 'components/Dashboard/CrossingListPage/queries/statusUpdateFragment';
 import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/statusReasonsQuery';
 import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 import 'components/Dashboard/CrossingMapPage/CrossingMapPage.css';
 
-class CrossingMapSidebar extends Component {
+class CrossingMapOverlay extends Component {
 
   render() {
-    const { crossingId, hideSidebar, currentUser } = this.props;
+    const { crossingId, currentUser, selectCrossing } = this.props;
 
     const isLoading = (
       !this.props.data ||
@@ -19,7 +20,7 @@ class CrossingMapSidebar extends Component {
       !this.props.data.crossingById
     );
 
-    if ( isLoading ) { return (<div>Loading</div>) };
+    if ( isLoading ) { return null };
 
     const crossing = this.props.data.crossingById;
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
@@ -27,11 +28,13 @@ class CrossingMapSidebar extends Component {
 
 
     return (
-      <div className="CrossingMapSidebar">
-        <div onClick={() => hideSidebar(true)}> hide sidebar </div>
+      <div className="CrossingMapOverlay">
         { crossingId ?
           (
-            <div className="CrossingMapSidebar__detail-container">
+            <div className="CrossingMapOverlay__detail-container">
+              <div className="CrossingMapOverlay__close-button" onClick={() => selectCrossing(null)}>
+                <FontAwesome name='times' />
+              </div>
               <CrossingListItem
                 key={crossing.id}
                 crossing={crossing}
@@ -39,8 +42,7 @@ class CrossingMapSidebar extends Component {
                 durations={statusDurations}
                 currentUser={currentUser} />
             </div>
-          ) :
-          (<div>NOPE</div>)
+          ) : null
         }
         
       </div>
@@ -70,4 +72,4 @@ export default compose(
   }),
   graphql(statusReasonsQuery, { name: 'statusReasonsQuery' }),
   graphql(statusDurationsQuery, { name: 'statusDurationsQuery' })
-)(CrossingMapSidebar);
+)(CrossingMapOverlay);

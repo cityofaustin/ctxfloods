@@ -24,10 +24,13 @@ class CrossingMap extends React.Component {
     ]
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.sidebarVisible !== this.props.sidebarVisible && this.state.map) {
-      this.state.map.resize();
-      return;
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.selectedCrossingId != this.props.selectedCrossingId) {
+      if (nextProps.selectedCrossingId) {
+        this.setState({selectedCrossingId: nextProps.selectedCrossingId})
+      } else {
+        this.setState({selectedCrossingId: -1})
+      }
     }
   }
 

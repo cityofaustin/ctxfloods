@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CrossingMap from 'components/Map/CrossingMap';
-import CrossingMapSidebar from 'components/Dashboard/CrossingMapPage/CrossingMapSidebar';
+import CrossingMapOverlay from 'components/Dashboard/CrossingMapPage/CrossingMapOverlay';
 import 'components/Dashboard/CrossingMapPage/CrossingMapPage.css';
 
 class CrossingMapPage extends Component {
@@ -21,38 +21,20 @@ class CrossingMapPage extends Component {
     };
   }
 
-  hideSidebar = (keepHidden) => {
-    this.setState({
-      showSidebar: false,
-      keepSidebarHidden: keepHidden
-    })
-  }
-
-  showSidebar = (forceShow) => {
-    const keepHidden = (!forceShow && this.state.keepSidebarHidden);
-
-    this.setState({
-      showSidebar: (!keepHidden),
-      keepSidebarHidden: keepHidden
-    })
-  }
-
   selectCrossing = (crossingId) => {
-    if (crossingId) this.showSidebar();
     this.setState({selectedCrossingId: crossingId});
   }
 
   render() {
-    const { showSidebar, keepSidebarHidden, viewport, selectedCrossingId } = this.state;
+    const { viewport, selectedCrossingId } = this.state;
     const { currentUser } = this.props;
 
     return (
       <div>
-        {keepSidebarHidden ? <div onClick={() => this.showSidebar(true)}>Show Sidebar</div> : null}
         <div className="CrossingMapPage">
-          {showSidebar ? <CrossingMapSidebar crossingId={selectedCrossingId} hideSidebar={this.hideSidebar} currentUser={currentUser}/> : null}
+          {selectedCrossingId ? <CrossingMapOverlay crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/> : null}
           <div className="CrossingMapPage__map-container">
-            <CrossingMap mapHeight="80vh" mapWidth="100%" viewport={viewport} sidebarVisible={showSidebar} selectCrossing={this.selectCrossing}/>
+            <CrossingMap mapHeight="80vh" mapWidth="100%" viewport={viewport} selectedCrossingId={selectedCrossingId} selectCrossing={this.selectCrossing}/>
           </div>
         </div>
       </div>
