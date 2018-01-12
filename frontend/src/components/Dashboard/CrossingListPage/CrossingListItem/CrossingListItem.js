@@ -8,6 +8,7 @@ import StatusToggle from 'components/Dashboard/CrossingListPage/CrossingListItem
 import Dropdown from 'components/Dashboard/CrossingListPage/CrossingListItem/Dropdown';
 import newStatusUpdateMutation from 'components/Dashboard/CrossingListPage/queries/newStatusUpdateMutation';
 import crossingsQuery from 'components/Dashboard/CrossingListPage/queries/crossingsQuery';
+import allCrossings from 'components/Map/queries/allCrossingsQuery';
 import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/statusCountsQuery';
 import statusUpdateFragment from 'components/Dashboard/CrossingListPage/queries/statusUpdateFragment';
 import * as statusConstants from 'constants/StatusConstants';
@@ -126,10 +127,50 @@ class CrossingListItem extends React.Component {
     });
   }
 
+  updateMap(store, updatedCrossing) {
+    // Update the selected crossing
+    this.props.selectCrossing(updatedCrossing.id, updatedCrossing.latestStatusId);
+
+    for (var statusId of [1, 2, 3, 4]) {
+      // Get the index of the updated crossing
+      let index = -1;
+      let data;  
+      try {
+        data = store.readQuery({ query: allCrossings, variables: {statusId: statusId} });
+        index = data.allCrossings.nodes.findIndex(node => node.id == updatedCrossing.id);
+      } catch(err) {
+        console.log(err);
+      }
+
+      // Remove it if it's on a layer already
+      if (index != -1) {
+        data.allCrossings.nodes.splice(index, 1);
+      }
+
+      // Add it to a layer if appropriate
+      if(updatedCrossing.latestStatusId == statusId) {
+        data.allCrossings.nodes.push({
+          id: updatedCrossing.id,
+          geojson: updatedCrossing.geojson,
+          latestStatusId: updatedCrossing.latestStatusId,
+          __typename: "Crossing"
+        })
+      }
+
+      // write it to the apollo cache
+      store.writeQuery({
+        query: allCrossings,
+        variables: {statusId: statusId},
+        data
+      });
+    }
+  }
+
   newStatusUpdate = (e) => {
     const updateData = {
       id: Math.round(Math.random() * -1000000),
       crossingId: this.props.crossing.id,
+      geojson: this.props.crossing.geojson,
       statusId: this.state.selectedStatus,
       reasonId: this.state.selectedReason,
       durationId: this.state.selectedDuration,
@@ -152,6 +193,7 @@ class CrossingListItem extends React.Component {
             crossingId: updateData.crossingId,
             crossingByCrossingId: {
               id: updateData.crossingId,
+              geojson: updateData.geojson,
               latestStatusId: updateData.statusId,
               latestStatusUpdateId: updateData.id,
               latestStatusCreatedAt: Date.now(),
@@ -188,8 +230,17 @@ class CrossingListItem extends React.Component {
           data: updatedCrossing
         });
 
-        // Fix the sort order
-        this.fixSort(store, updatedCrossing);
+        // If we're in a list view, fix the sort order
+        if(this.props.listOrMap == "list") {
+          this.fixSort(store, updatedCrossing);  
+        }
+
+        // If we're on the map, update the map queries
+        if(this.props.listOrMap == "map") {
+          this.updateMap(store, updatedCrossing);  
+        }
+
+        
       },
       refetchQueries: [{query: statusCountsQuery}]
     })

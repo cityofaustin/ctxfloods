@@ -17,16 +17,18 @@ class CrossingMapPage extends Component {
       showSidebar: false,
       keepSidebarHidden: false,
       viewport: viewport,
-      selectedCrossingId: null
+      selectedCrossingId: null,
+      selectedCrossingStatus: null
     };
   }
 
-  selectCrossing = (crossingId) => {
+  selectCrossing = (crossingId, crossingStatus) => {
     this.setState({selectedCrossingId: crossingId});
+    this.setState({selectedCrossingStatus: crossingStatus});
   }
 
   render() {
-    const { viewport, selectedCrossingId } = this.state;
+    const { viewport, selectedCrossingId, selectedCrossingStatus } = this.state;
     const { currentUser } = this.props;
 
     return (
@@ -34,7 +36,13 @@ class CrossingMapPage extends Component {
         <div className="CrossingMapPage">
           {selectedCrossingId ? <CrossingMapOverlay crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/> : null}
           <div className="CrossingMapPage__map-container">
-            <CrossingMap mapHeight="80vh" mapWidth="100%" viewport={viewport} selectedCrossingId={selectedCrossingId} selectCrossing={this.selectCrossing}/>
+            <CrossingMap 
+              mapHeight="80vh"
+              mapWidth="100%"
+              viewport={viewport}
+              selectedCrossingId={selectedCrossingId}
+              selectedCrossingStatus={selectedCrossingStatus}
+              selectCrossing={this.selectCrossing} />
           </div>
         </div>
       </div>

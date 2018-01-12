@@ -17,6 +17,10 @@ class CrossingMapOverlay extends Component {
     const isLoading = (
       !this.props.data ||
        this.props.data.loading ||
+      !this.props.statusReasonsQuery ||
+       this.props.statusReasonsQuery.loading ||
+      !this.props.statusDurationsQuery ||
+       this.props.statusDurationsQuery.loading ||
       !this.props.data.crossingById
     );
 
@@ -32,7 +36,7 @@ class CrossingMapOverlay extends Component {
         { crossingId ?
           (
             <div className="CrossingMapOverlay__detail-container">
-              <div className="CrossingMapOverlay__close-button" onClick={() => selectCrossing(null)}>
+              <div className="CrossingMapOverlay__close-button" onClick={() => selectCrossing(null, null)}>
                 <FontAwesome name='times' />
               </div>
               <CrossingListItem
@@ -40,7 +44,9 @@ class CrossingMapOverlay extends Component {
                 crossing={crossing}
                 reasons={statusReasons} 
                 durations={statusDurations}
-                currentUser={currentUser} />
+                currentUser={currentUser}
+                listOrMap="map"
+                selectCrossing={selectCrossing} />
             </div>
           ) : null
         }
