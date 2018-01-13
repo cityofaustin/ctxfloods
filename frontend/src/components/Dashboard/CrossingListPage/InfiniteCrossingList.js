@@ -82,7 +82,7 @@ export default class InfiniteCrossingList extends React.Component{
       crossing = virtualizingList[index].node
     } else {
       return (
-        <div key={key}>Loading.....</div>       
+        <div style={style} key={key}>Loading.....</div>       
       )
     }
 
