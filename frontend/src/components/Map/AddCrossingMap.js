@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 import mapboxstyle from 'components/Map/mapboxstyle.json';
-import { statusIcons } from 'constants/StatusConstants';
 
 const Map = ReactMapboxGl({ accessToken: null });
 

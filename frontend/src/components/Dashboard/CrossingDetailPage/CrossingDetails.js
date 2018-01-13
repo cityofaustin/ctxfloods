@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
-import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetails.css';
 import { Redirect } from 'react-router';
