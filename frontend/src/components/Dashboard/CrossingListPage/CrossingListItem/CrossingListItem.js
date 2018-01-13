@@ -178,6 +178,28 @@ class CrossingListItem extends React.Component {
       user: this.props.currentUser
     };
     const { refreshList, clearMeasurerCache } = this.props;
+    const queriesToRefetch = 
+      (this.props.listOrMap == 'map') ? [
+        {query: statusCountsQuery},
+        {
+          query: crossingsQuery,
+          variables: {
+            orderAsc: false,
+            pageCursor: null,
+            search: "%%",
+            showCaution: true,
+            showClosed: true,
+            showLongterm: true,
+            showOpen: true
+          }
+        }
+      ] : [
+        {query: statusCountsQuery},
+        {query: allCrossings, variables: {statusId: 1}},
+        {query: allCrossings, variables: {statusId: 2}},
+        {query: allCrossings, variables: {statusId: 3}},
+        {query: allCrossings, variables: {statusId: 4}}
+      ];
 
     this.props.newStatusUpdateMutation({
       variables: {
@@ -242,7 +264,7 @@ class CrossingListItem extends React.Component {
 
         
       },
-      refetchQueries: [{query: statusCountsQuery}]
+      refetchQueries: queriesToRefetch
     })
     .then(({ data }) => {
       const update = data.newStatusUpdate.statusUpdate.crossingByCrossingId.statusUpdateByLatestStatusUpdateId;
