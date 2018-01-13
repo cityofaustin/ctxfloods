@@ -128,6 +128,27 @@ class CrossingMap extends React.Component {
         <ZoomControl />
         <Layer
           type="symbol"
+          id="openCrossings"
+          layout={{ 'icon-image': 'open', 'icon-allow-overlap': true }}
+          layerOptions={{"filter":
+            [
+              "all",
+              ["!=", "crossingId", this.state.selectedCrossingId],
+            ]
+          }}
+          >
+          {
+            openCrossings.map((crossing, i) => {
+              return(
+                   <Feature key={i}
+                            coordinates={JSON.parse(crossing.geojson).coordinates}
+                            properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
+              )}
+            )
+          }
+        </Layer>
+        <Layer
+          type="symbol"
           id="longtermCrossings"
           layout={{ 'icon-image': 'longterm', 'icon-allow-overlap': true }}
           layerOptions={{"filter":
@@ -181,27 +202,6 @@ class CrossingMap extends React.Component {
           >
           {
             closedCrossings.map((crossing, i) => {
-              return(
-                   <Feature key={i}
-                            coordinates={JSON.parse(crossing.geojson).coordinates}
-                            properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
-              )}
-            )
-          }
-        </Layer>
-        <Layer
-          type="symbol"
-          id="openCrossings"
-          layout={{ 'icon-image': 'open', 'icon-allow-overlap': true }}
-          layerOptions={{"filter":
-            [
-              "all",
-              ["!=", "crossingId", this.state.selectedCrossingId],
-            ]
-          }}
-          >
-          {
-            openCrossings.map((crossing, i) => {
               return(
                    <Feature key={i}
                             coordinates={JSON.parse(crossing.geojson).coordinates}
