@@ -110,6 +110,7 @@ class CrossingDetails extends Component {
     }
 
     const { crossing, communities, addMode } = this.props;
+    const { name, humanAddress, description } = this.state;
 
     return (
 
@@ -131,7 +132,7 @@ class CrossingDetails extends Component {
               <div><span className="gray--75 mlv1--r">Display Name*</span></div>
               <span className="light gray--25 mlv1--r">Name your crossings by intersections (ie, Onion Creek Blvd. & 5th Ave) or waypoints (5th Ave. Denny's)</span>
             </div>
-            <input id="crossingName" className="input input--lg" type="text" value={this.state.name} onChange={this.nameChanged} />
+            <input id="crossingName" className="input input--lg" type="text" value={name ? name : ""} onChange={this.nameChanged} />
           </div>
 
           { addMode ? (
@@ -142,7 +143,7 @@ class CrossingDetails extends Component {
                 <span className="light gray--25 mlv1--r">The human readable address for the crossing</span>
               </div>
 
-              <input className="input" type="text" value={this.state.humanAddress} onChange={this.humanAddressChanged} />
+              <input className="input" type="text" value={humanAddress ? humanAddress : ""} onChange={this.humanAddressChanged} />
             </div>
             
           ) : null }
@@ -152,7 +153,7 @@ class CrossingDetails extends Component {
                 <div><span className="gray--75 mlv1--r">Additional Description (optional)</span></div>
                 <span className="light gray--25 mlv1--r">Does the location need additional clarification? ie, "Southbound lane only"</span>
               </div>
-            <input id="crossingDescription" className="input" type="text" value={this.state.description} onChange={this.descriptionChanged} />
+            <input id="crossingDescription" className="input" type="text" value={description ? description : ""} onChange={this.descriptionChanged} />
           </div>
 
           <div className="CrossingDetails__communities mlv2--t">

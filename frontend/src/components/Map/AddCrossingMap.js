@@ -22,8 +22,8 @@ class AddCrossingMap extends Component {
         >
           <Layer
             type="symbol"
-            id="openCrossings"
-            layout={{ 'icon-image': 'circle-15', 'icon-allow-overlap': true }}
+            id="newCrossing"
+            layout={{ 'icon-image': 'open', 'icon-allow-overlap': true }}
             >            
              <Feature coordinates={crossingCoordinates} draggable={true} onDragEnd={crossingMoved}/>
           </Layer>
