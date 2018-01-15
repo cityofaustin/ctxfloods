@@ -24,6 +24,8 @@ var adjustStyle = function(opts) {
     }
   }
 
+  console.log(process.env);
+
   if(opts.needSprite) {
     style.sprite = "http://ctxfloods-frontend-bds-deploy.s3-website-us-east-1.amazonaws.com/mapboxstyle/sprite";
   } else {
