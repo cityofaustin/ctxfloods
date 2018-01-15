@@ -25,7 +25,7 @@ var adjustStyle = function(opts) {
   }
 
   if(opts.needSprite) {
-    style.sprite = "http://localhost:3000/mapboxstyle/sprite";
+    style.sprite = "http://ctxfloods-frontend-bds-deploy.s3-website-us-east-1.amazonaws.com/mapboxstyle/sprite";
   } else {
     delete style.sprite;
   }
