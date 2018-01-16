@@ -7,7 +7,7 @@ import statusUpdateFragment from 'components/Dashboard/CrossingListPage/queries/
 import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/statusReasonsQuery';
 import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
-import 'components/Public/MapPage/PublicMapPage.css';
+import 'components/Dashboard/CrossingMapPage/CrossingMapPage.css';
 import {ContainerQuery} from 'react-container-query';
 import classnames from 'classnames';
 
@@ -36,7 +36,6 @@ class CrossingMapOverlay extends Component {
     const crossing = this.props.data.crossingById;
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
     const statusDurations = this.props.statusDurationsQuery.allStatusDurations.nodes;
-
 
     return (
       <ContainerQuery query={containerQuery}>

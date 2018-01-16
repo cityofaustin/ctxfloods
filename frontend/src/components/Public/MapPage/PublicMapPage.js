@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CrossingMap from 'components/Map/CrossingMap';
 import PublicMapOverlay from 'components/Public/MapPage/PublicMapOverlay';
-import 'components/Public/MapPage/PublicMapPage.css';
+import 'components/Dashboard/CrossingMapPage/CrossingMapPage.css';
 import Fullscreen from 'react-full-screen';
 import FontAwesome from 'react-fontawesome';
 
