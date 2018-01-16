@@ -23,6 +23,13 @@
   margin-top: 50px;
 }
 
+.CrossingMapOverlay.smallsize {
+  width: 100%;
+  position: absolute;
+  z-index: 11;
+  margin: 0;
+}
+
 .CrossingMapPage__fullscreen-toggle {
   position: absolute;
   margin-left: 50px;
