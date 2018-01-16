@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import 'components/Dashboard/Header/Header.css';
-import externalLinkSvg from 'images/external-link.svg';
 import UserControls from 'components/Dashboard/Header/UserControls';
 import {ContainerQuery} from 'react-container-query';
 import classnames from 'classnames';
