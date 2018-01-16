@@ -25,12 +25,13 @@ class Header extends React.Component {
 
       <div className="Header">
         <div className="flexcontainer">
-          <UserControls {...this.props} />
+          
         </div>
 
         <div className="Header__main">
           <div className={classnames(params, "Header__h1-container")}>
             <h1 className={classnames(params,"Header__h1")}>{"CTXfloods Dashboard"}</h1>
+            <UserControls cqParams={params} {...this.props} />
           </div>
           <ul className={classnames(params,"Header__tabs")}>
             <li className={pathname.endsWith('crossings/list') ? 'Header__tab--active' : 'Header__tab'}>
