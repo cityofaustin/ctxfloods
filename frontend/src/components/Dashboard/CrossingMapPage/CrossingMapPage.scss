@@ -16,14 +16,19 @@
 }
 
 .CrossingMapOverlay {
-  width: 320px;
   position: absolute;
-  z-index: 1;
-  margin-left: 10px;
-  margin-top: 50px;
+  width: 100%;
 }
 
-.CrossingMapOverlay.smallsize {
+.CrossingMapOverlay__detail-container {
+  width: 320px;
+  z-index: 11;
+  margin-left: 10px;
+  margin-top: 50px;
+  position: absolute;
+}
+
+.CrossingMapOverlay__detail-container.smallsize {
   width: 100%;
   position: absolute;
   z-index: 11;
