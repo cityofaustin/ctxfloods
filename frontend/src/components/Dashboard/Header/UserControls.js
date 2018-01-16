@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import auth from 'services/gqlAuth'
+import classnames from 'classnames';
 
 import cogSvg from 'images/cog.svg';
 import 'components/Dashboard/Header/UserControls.css'
@@ -10,7 +11,7 @@ class UserControlsBase extends React.Component {
   render() {
     return (
       auth.isAuthenticated() ? (
-        <div className="UserControls">
+        <div className={classnames(this.props.cqParams, "UserControls")}>
           <img src={cogSvg} alt="Link User Settings" className="Header__settings-icon" />
           { this.props.cqParams.fullsize && this.props.currentUser ? (
             <Link className="UserControls__text" to="#">

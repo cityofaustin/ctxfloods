@@ -35,6 +35,7 @@
 .Header__h1-container.smallsize {
   width: 100%;
   text-align: center;
+  display: flex;
 }
 
 @mixin Header__tabs {
