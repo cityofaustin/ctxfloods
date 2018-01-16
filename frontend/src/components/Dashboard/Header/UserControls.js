@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import Login from 'components/Dashboard/Header/Login';
 import auth from 'services/gqlAuth'
 
 import cogSvg from 'images/cog.svg';
@@ -28,8 +27,8 @@ class UserControlsBase extends React.Component {
         </div>
       ) : (
         <div className="UserControls">
-          <p>You are not logged in.</p>
-          <Login/>
+          <p>You are not logged in. </p>
+          <Link to="/dashboard/crossings/list" className="UserControls__login-link">Log in</Link>
         </div>
       )
     )
