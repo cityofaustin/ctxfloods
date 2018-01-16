@@ -10,6 +10,9 @@ import formatcoords from 'formatcoords';
 const containerQuery = {
   'CrossingDetails__container--lg': {
     minWidth: LARGE_ITEM_MIN_WIDTH,
+  },
+  'ProbablyOnAPhone': {
+    maxWidth: 400,
   }
 };
 
@@ -39,12 +42,16 @@ class AddCrossingPage extends Component {
     return (
       <ContainerQuery query={containerQuery}>
         {(params) => (
-          <div className="AddCrossingPage">
-            <div className={classnames(params, "CrossingDetails__container mlv2--b")}>
-              <AddCrossingMap crossingCoordinates={this.state.crossingCoordinates} crossingMoved={this.crossingMoved}/>
-              <CrossingDetails crossing={crossing} communities={communities} addMode={true} currentUser={this.props.currentUser}/>
+          params.ProbablyOnAPhone ? (
+            <div>Adding crossings is not yet supported on mobile.</div> 
+          ) : (
+            <div className="AddCrossingPage">
+              <div className={classnames(params, "CrossingDetails__container mlv2--b")}>
+                <AddCrossingMap crossingCoordinates={this.state.crossingCoordinates} crossingMoved={this.crossingMoved}/>
+                <CrossingDetails crossing={crossing} communities={communities} addMode={true} currentUser={this.props.currentUser}/>
+              </div>
             </div>
-          </div>
+          )
         )}
       </ContainerQuery>
     );
