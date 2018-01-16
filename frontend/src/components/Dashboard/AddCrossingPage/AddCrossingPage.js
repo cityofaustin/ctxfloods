@@ -6,15 +6,15 @@ import classnames from 'classnames';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetailPage.css';
 import formatcoords from 'formatcoords';
+import MobileDetect from 'mobile-detect';
 
 const containerQuery = {
   'CrossingDetails__container--lg': {
     minWidth: LARGE_ITEM_MIN_WIDTH,
-  },
-  'ProbablyOnAPhone': {
-    maxWidth: 400,
   }
 };
+
+const md = new MobileDetect(window.navigator.userAgent);
 
 class AddCrossingPage extends Component {
   state = {
@@ -27,6 +27,12 @@ class AddCrossingPage extends Component {
   }
 
   render() {
+    if(md.mobile()) {
+      return (
+        <div>Adding crossings is not yet supported on mobile.</div>
+      );
+    }
+
     const crossing = {
       name: null,
       description: null,
@@ -42,16 +48,12 @@ class AddCrossingPage extends Component {
     return (
       <ContainerQuery query={containerQuery}>
         {(params) => (
-          params.ProbablyOnAPhone ? (
-            <div>Adding crossings is not yet supported on mobile.</div> 
-          ) : (
-            <div className="AddCrossingPage">
-              <div className={classnames(params, "CrossingDetails__container mlv2--b")}>
-                <AddCrossingMap crossingCoordinates={this.state.crossingCoordinates} crossingMoved={this.crossingMoved}/>
-                <CrossingDetails crossing={crossing} communities={communities} addMode={true} currentUser={this.props.currentUser}/>
-              </div>
+          <div className="AddCrossingPage">
+            <div className={classnames(params, "CrossingDetails__container mlv2--b")}>
+              <AddCrossingMap crossingCoordinates={this.state.crossingCoordinates} crossingMoved={this.crossingMoved}/>
+              <CrossingDetails crossing={crossing} communities={communities} addMode={true} currentUser={this.props.currentUser}/>
             </div>
-          )
+          </div>
         )}
       </ContainerQuery>
     );
