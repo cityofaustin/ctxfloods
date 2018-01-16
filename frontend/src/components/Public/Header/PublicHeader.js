@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import 'components/Public/Header/PublicHeader.css';
 
 class PublicHeader extends React.Component {
+  componentDidMount() {
+    const { pathname } = this.props.location;
+    document.title = `CTXFloods - ${pathname}`;
+  }
 
   render() {
     const { pathname } = this.props.location;

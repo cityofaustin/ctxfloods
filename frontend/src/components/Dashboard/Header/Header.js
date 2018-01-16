@@ -12,6 +12,11 @@ const containerQuery = {
 
 class Header extends React.Component {
 
+  componentDidMount() {
+    const { pathname } = this.props.location;
+    document.title = `CTXFloods Dashboard - ${pathname}`;
+  }  
+
   render() {
     const { pathname } = this.props.location;
     return (
