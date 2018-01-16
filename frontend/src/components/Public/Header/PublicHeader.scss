@@ -16,9 +16,9 @@
 
 .Header__main {
   @include flexcontainer;
-  border-bottom: 2px solid $border-color-light;
   align-items: center;
   margin: 0;
+  border: none;
 }
 
 .Header__link-icon {
