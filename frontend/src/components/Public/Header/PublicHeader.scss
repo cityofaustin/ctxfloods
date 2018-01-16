@@ -2,7 +2,6 @@
 @import "css/mixins/colors";
 
 .Header {
-  margin-top: 1rem;
   a {
     color: $color-black;
   }
@@ -19,6 +18,7 @@
   @include flexcontainer;
   border-bottom: 2px solid $border-color-light;
   align-items: center;
+  margin: 0;
 }
 
 .Header__link-icon {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import 'components/Dashboard/Header/Header.css';
+import 'components/Public/Header/PublicHeader.css';
 import externalLinkSvg from 'images/external-link.svg';
 
 class PublicHeader extends React.Component {
