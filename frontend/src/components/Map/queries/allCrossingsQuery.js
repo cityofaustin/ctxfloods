@@ -7,6 +7,7 @@ const allCrossings = gql`
         id
         geojson
         latestStatusId
+        communityIds
       }
     }
   }

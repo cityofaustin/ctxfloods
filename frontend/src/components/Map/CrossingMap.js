@@ -108,10 +108,24 @@ class CrossingMap extends React.Component {
       return (<div>Error Loading Crossings</div>);
     }
 
-    const openCrossings = this.props.openCrossings.allCrossings.nodes;
-    const closedCrossings = this.props.closedCrossings.allCrossings.nodes;
-    const cautionCrossings = this.props.cautionCrossings.allCrossings.nodes;
-    const longtermCrossings = this.props.longtermCrossings.allCrossings.nodes;
+    const { currentUser } = this.props;
+
+    const openCrossings = this.props.openCrossings.allCrossings.nodes.filter(node => (
+        !currentUser || (node.communityIds.includes(currentUser.communityId))
+      )
+    );
+    const closedCrossings = this.props.closedCrossings.allCrossings.nodes.filter(node => (
+        !currentUser || (node.communityIds.includes(currentUser.communityId))
+      )
+    );
+    const cautionCrossings = this.props.cautionCrossings.allCrossings.nodes.filter(node => (
+        !currentUser || (node.communityIds.includes(currentUser.communityId))
+      )
+    );
+    const longtermCrossings = this.props.longtermCrossings.allCrossings.nodes.filter(node => (
+        !currentUser || (node.communityIds.includes(currentUser.communityId))
+      )
+    );
 
     return (
       <Map

@@ -49,7 +49,8 @@ class CrossingMapPage extends Component {
                 viewport={viewport}
                 selectedCrossingId={selectedCrossingId}
                 selectedCrossingStatus={selectedCrossingStatus}
-                selectCrossing={this.selectCrossing} />
+                selectCrossing={this.selectCrossing}
+                currentUser={currentUser} />
             </div>
           </div>
         </Fullscreen>
