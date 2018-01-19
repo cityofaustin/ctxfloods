@@ -61,7 +61,7 @@ const CrossingByIdQuery = gql`
         id
         name
       }
-      communityCrossingsByCrossingId {
+      communities {
         nodes {
           communityByCommunityId {
             id

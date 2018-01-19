@@ -398,13 +398,15 @@ begin
     raise exception 'Crossing is required';
   end if;
 
-  -- If we aren't a super admin
-  if current_setting('jwt.claims.role') != 'floods_super_admin' then
-    -- and we're trying to update the status of a crossing in a different community
-    if current_setting('jwt.claims.community_id')::integer != (select community_id from floods.community_crossing where floods.community_crossing.crossing_id = new_status_update.crossing_id) then
-      raise exception 'Users can only update the status of crossings within their communities';
-    end if;
-  end if;
+  -- TODO: Reimplement this logic
+  -- 
+  -- -- If we aren't a super admin
+  -- if current_setting('jwt.claims.role') != 'floods_super_admin' then
+  --   -- and we're trying to update the status of a crossing in a different community
+  --   if current_setting('jwt.claims.community_id')::integer != (select community_id from floods.community_crossing where floods.community_crossing.crossing_id = new_status_update.crossing_id) then
+  --     raise exception 'Users can only update the status of crossings within their communities';
+  --   end if;
+  -- end if;
 
   -- If the status reason is not null
   if status_reason_id is not null then
@@ -535,6 +537,13 @@ create function floods.crossing_human_coordinates(crossing floods.crossing) retu
 $$ language sql stable security definer;
 
 comment on function floods.crossing_human_coordinates(floods.crossing) is 'Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.';
+
+create function floods.crossing_communities(crossing floods.crossing) returns setof floods.community as $$
+  select * from floods.community com
+  where array_position(crossing.community_ids, com.id) >= 0;
+$$ language sql stable security definer;
+
+comment on function floods.crossing_communities(floods.crossing) is 'Get all the communities for a crossing.';
 
 -- Create function to edit crossing
 create function floods.edit_crossing(
@@ -892,5 +901,6 @@ grant execute on function floods.delete_status_duration(integer) to floods_super
 
 -- Allow all users to get the human coordinates of a crossing
 grant execute on function floods.crossing_human_coordinates(floods.crossing) to floods_anonymous;
+grant execute on function floods.crossing_communities(floods.crossing) to floods_anonymous;
 
 commit;

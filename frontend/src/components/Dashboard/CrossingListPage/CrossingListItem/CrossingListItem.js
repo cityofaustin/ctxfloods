@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
+import moment from 'moment';
 import Location from 'components/Dashboard/CrossingListPage/CrossingListItem/Location';
 import DateTime from 'components/Dashboard/CrossingListPage/CrossingListItem/DateTime';
 import StatusToggle from 'components/Dashboard/CrossingListPage/CrossingListItem/StatusToggle';
@@ -153,6 +154,7 @@ class CrossingListItem extends React.Component {
           id: updatedCrossing.id,
           geojson: updatedCrossing.geojson,
           latestStatusId: updatedCrossing.latestStatusId,
+          communityIds: updatedCrossing.communityIds,
           __typename: "Crossing"
         })
       }
@@ -171,6 +173,7 @@ class CrossingListItem extends React.Component {
       id: Math.round(Math.random() * -1000000),
       crossingId: this.props.crossing.id,
       geojson: this.props.crossing.geojson,
+      communityIds: this.props.crossing.communityIds,
       statusId: this.state.selectedStatus,
       reasonId: this.state.selectedReason,
       durationId: this.state.selectedDuration,
@@ -178,6 +181,7 @@ class CrossingListItem extends React.Component {
       user: this.props.currentUser
     };
     const { refreshList, clearMeasurerCache } = this.props;
+
     const queriesToRefetch = 
       (this.props.listOrMap === 'map') ? [
         {query: statusCountsQuery},
@@ -217,15 +221,16 @@ class CrossingListItem extends React.Component {
               id: updateData.crossingId,
               geojson: updateData.geojson,
               latestStatusId: updateData.statusId,
+              communityIds: updateData.communityIds,
               latestStatusUpdateId: updateData.id,
-              latestStatusCreatedAt: Date.now(),
+              latestStatusCreatedAt: moment().format(),
               statusUpdateByLatestStatusUpdateId: {
                 id: updateData.id,
                 crossingId: updateData.crossingId,
                 statusId: updateData.statusId,
                 statusReasonId: updateData.reasonId,
                 statusDurationId: updateData.durationId,
-                createdAt: Date.now(),
+                createdAt: moment().format(),
                 notes: updateData.notes,
                 userByCreatorId: {
                   firstName: updateData.user.firstName,
