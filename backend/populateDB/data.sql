@@ -27,14 +27,22 @@ select floods.register_user(text 'Inactive', text 'User', text 'Retired', intege
 -- Add crossings
 insert into floods.crossing (id, name, human_address, description, coordinates, geojson, community_ids) values
   (1, 'Spurlock Valley', '605 Spurlock Valley · West Lake Hills, TX 78746', 'E of Intersection w/ Clifford', ST_MakePoint(-97.768, 30.267), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.267)), '{1}'),
-  (2, 'school', 'at the school', 'Crossing at the school', ST_MakePoint(-97.768, 30.367), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.367)), '{1}'),
-  (3, 'library', 'at the library', 'Crossing at the library', ST_MakePoint(-97.768, 30.467), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.467)), '{1}'),
-  (4, 'capitol', 'at the capitol', 'Crossing at the capitol', ST_MakePoint(-97.768, 30.567), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.567)), '{1}'),
-  (5, 'city hall', 'at city hall', 'Crossing at city hall', ST_MakePoint(-97.768, 30.667), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.667)), '{1}'),
-  (6, 'coffee shop', 'at the coffee shop', 'Crossing at the coffee shop', ST_MakePoint(-97.768, 30.767), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.767)), '{1}'),
-  (7, 'other community', 'in the other community', 'Crossing in the other community', ST_MakePoint(-97.768, 30.867), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.867)), '{1,2}'),
-  (8, 'other community 2', 'another in the other community', 'Another crossing in the other community', ST_MakePoint(-97.768, 30.967), ST_AsGeoJSON(ST_MakePoint(-97.768, 30.967)), '{1,2}');
+  (2, 'school', 'at the school', 'Crossing at the school', ST_MakePoint(-97.668, 30.367), ST_AsGeoJSON(ST_MakePoint(-97.668, 30.367)), '{1}'),
+  (3, 'library', 'at the library', 'Crossing at the library', ST_MakePoint(-97.568, 30.467), ST_AsGeoJSON(ST_MakePoint(-97.568, 30.467)), '{1}'),
+  (4, 'capitol', 'at the capitol', 'Crossing at the capitol', ST_MakePoint(-97.468, 30.567), ST_AsGeoJSON(ST_MakePoint(-97.468, 30.567)), '{1}'),
+  (5, 'city hall', 'at city hall', 'Crossing at city hall', ST_MakePoint(-97.368, 30.667), ST_AsGeoJSON(ST_MakePoint(-97.368, 30.667)), '{1}'),
+  (6, 'coffee shop', 'at the coffee shop', 'Crossing at the coffee shop', ST_MakePoint(-97.268, 30.767), ST_AsGeoJSON(ST_MakePoint(-97.268, 30.767)), '{1}'),
+  (7, 'other community', 'in the other community', 'Crossing in the other community', ST_MakePoint(-97.168, 30.867), ST_AsGeoJSON(ST_MakePoint(-97.168, 30.867)), '{1,2}'),
+  (8, 'other community 2', 'another in the other community', 'Another crossing in the other community', ST_MakePoint(-97.068, 30.967), ST_AsGeoJSON(ST_MakePoint(-97.068, 30.967)), '{1,2}');
 alter sequence floods.crossing_id_seq restart with 9;
+
+-- Update community viewports based on crossings
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c where array_position(c.community_ids, 1) >= 0)
+  where id = 1;
+update floods.community
+  set viewportgeojson = (select ST_AsGeoJSON(ST_Envelope(ST_Extent(c.coordinates))) from floods.crossing c where array_position(c.community_ids, 2) >= 0)
+  where id = 2;
 
 -- Add statuses
 insert into floods.status (id, name) values
