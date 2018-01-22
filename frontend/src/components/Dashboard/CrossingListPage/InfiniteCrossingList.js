@@ -26,7 +26,7 @@ export default class InfiniteCrossingList extends React.Component{
     this.refreshList = this.refreshList.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate() {
     if(listRef) {
       this.refreshList();
       this.clearMeasurerCache();

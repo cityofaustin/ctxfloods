@@ -81,12 +81,13 @@ export class InfiniteCrossingPaginationContainer extends Component {
      !this.props.statusReasonsQuery ||
       this.props.statusReasonsQuery.loading ||
      !this.props.statusDurationsQuery ||
-      this.props.statusDurationsQuery.loading
+      this.props.statusDurationsQuery.loading ||
+      this.props.loading
     );
 
-    const { loading, searchCrossings, loadMoreRows, currentUser, sortByUpdatedAsc} = this.props;
+    const { searchCrossings, loadMoreRows, currentUser, sortByUpdatedAsc} = this.props;
      
-    if (loading || isLoading) {
+    if (isLoading) {
       return (<div>Loading</div>);
     };
     
