@@ -88,7 +88,7 @@ export class InfiniteCrossingPaginationContainer extends Component {
     const { searchCrossings, loadMoreRows, currentUser, sortByUpdatedAsc} = this.props;
      
     if (isLoading) {
-      return (<div>Loading</div>);
+      return '';
     };
     
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;

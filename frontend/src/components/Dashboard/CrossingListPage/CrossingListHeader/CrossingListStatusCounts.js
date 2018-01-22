@@ -11,8 +11,6 @@ class CrossingListStatusCounts extends Component {
        this.props.data.loading
     );
 
-    if ( isLoading ) { return '' };
-
     const { toggleShowOpen,
             toggleShowClosed,
             toggleShowCaution, 
@@ -25,26 +23,34 @@ class CrossingListStatusCounts extends Component {
             formattedSearchQuery,
             params } = this.props;
 
-    const { openCrossings, closedCrossings, cautionCrossings, longtermCrossings } = this.props.data;
-
+    let openCrossingCount, closedCrossingCount, cautionCrossingCount, longtermCrossingCount;
+    openCrossingCount = closedCrossingCount = cautionCrossingCount = longtermCrossingCount = ' ... ';
+    if (!isLoading) {
+      const { openCrossings, closedCrossings, cautionCrossings, longtermCrossings } = this.props.data;
+      openCrossingCount = openCrossings.totalCount;
+      closedCrossingCount = closedCrossings.totalCount;
+      cautionCrossingCount = cautionCrossings.totalCount;
+      longtermCrossingCount = longtermCrossings.totalCount;
+    }
+    
     return (
 
     <div className={classnames(params, 'CrossingListFilter')}>
       <label className={classnames(params, 'CrossingListFilterItem')}>
         <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' defaultChecked={showOpen} onClick={toggleShowOpen}/>
-        Open ({openCrossings.totalCount})
+        Open ({openCrossingCount})
       </label>
       <label className={classnames(params, 'CrossingListFilterItem')}>
         <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' defaultChecked={showCaution} onClick={toggleShowCaution}/>
-        Caution ({cautionCrossings.totalCount})
+        Caution ({cautionCrossingCount})
       </label>
       <label className={classnames(params, 'CrossingListFilterItem')}>
         <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' defaultChecked={showClosed} onClick={toggleShowClosed}/>
-        Closed ({closedCrossings.totalCount})
+        Closed ({closedCrossingCount})
       </label>
       <label className={classnames(params, 'CrossingListFilterItem')}>
         <input className={classnames(params, 'CrossingListFilterCheckbox')} type='checkbox' defaultChecked={showLongterm} onClick={toggleShowLongterm}/>
-        Long Term Closure ({longtermCrossings.totalCount})
+        Long Term Closure ({longtermCrossingCount})
       </label>
     </div>
 
