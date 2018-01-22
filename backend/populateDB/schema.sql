@@ -326,7 +326,8 @@ create function floods.search_crossings(
   show_closed boolean default true,
   show_caution boolean default true,
   show_longterm boolean default true,
-  order_asc boolean default false
+  order_asc boolean default false,
+  community_id integer default null
 ) returns setof floods.crossing as $$
   select *
   from floods.crossing
@@ -340,8 +341,8 @@ create function floods.search_crossings(
     (latest_status_id = 3 and show_caution) or
     (latest_status_id = 4 and show_longterm)
   ) and (
-    (current_setting('jwt.claims.role') = 'floods_super_admin') or
-    (array_position(community_ids, current_setting('jwt.claims.community_id')::integer) >= 0)
+    (community_id is null) or
+    (array_position(community_ids, community_id) >= 0)
   )
   order by 
     case 
@@ -352,7 +353,7 @@ create function floods.search_crossings(
         then latest_status_created_at end desc;
 $$ language sql stable security definer;
 
-comment on function floods.search_crossings(text, boolean, boolean, boolean, boolean, boolean) is 'Searches users.';
+comment on function floods.search_crossings(text, boolean, boolean, boolean, boolean, boolean, integer) is 'Searches crossings.';
 
 
 -- Create function to search users
@@ -853,7 +854,7 @@ grant execute on function floods.authenticate(text, text) to floods_anonymous;
 grant execute on function floods.search_users(text, integer) to floods_anonymous;
 
 -- Allow all users to search crossings
-grant execute on function floods.search_crossings(text, boolean, boolean, boolean, boolean, boolean) to floods_anonymous;
+grant execute on function floods.search_crossings(text, boolean, boolean, boolean, boolean, boolean, integer) to floods_anonymous;
 
 -- Allow community admins and up to register new users
 -- NOTE: Extra logic around permissions in function

@@ -27,6 +27,7 @@ const configObject = {
       showClosed: props.showClosed,
       showCaution: props.showCaution,
       showLongterm: props.showLongterm,
+      communityId: props.currentUser.role !== "floods_super_admin" ? props.currentUser.communityId : null,
       orderAsc: props.sortByUpdatedAsc,
       pageCursor: null
     };
