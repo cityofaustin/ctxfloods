@@ -335,10 +335,13 @@ create function floods.search_crossings(
     (description ilike search) or
     (human_address ilike search)
   ) and (
-  (latest_status_id = 1 and show_open) or
-  (latest_status_id = 2 and show_closed) or
-  (latest_status_id = 3 and show_caution) or
-  (latest_status_id = 4 and show_longterm)
+    (latest_status_id = 1 and show_open) or
+    (latest_status_id = 2 and show_closed) or
+    (latest_status_id = 3 and show_caution) or
+    (latest_status_id = 4 and show_longterm)
+  ) and (
+    (current_setting('jwt.claims.role') = 'floods_super_admin') or
+    (array_position(community_ids, current_setting('jwt.claims.community_id')::integer) >= 0)
   )
   order by 
     case 
