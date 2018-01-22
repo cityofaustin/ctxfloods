@@ -28,7 +28,7 @@ class CrossingDetailPage extends Component {
     if ( isLoading ) { return (<div>Loading</div>) };
 
     const crossing = this.props.CrossingByIdQuery.crossingById;
-    const communities = crossing.communityCrossingsByCrossingId.nodes.map(n => n.communityByCommunityId);
+    const communities = crossing.communities.nodes;
     const history = this.props.StatusHistoryQuery.allStatusUpdates.nodes;
 
     return (
@@ -63,10 +63,8 @@ const CrossingByIdQuery = gql`
       }
       communities {
         nodes {
-          communityByCommunityId {
-            id
-            name
-          }
+          id
+          name
         }
       }
     }
