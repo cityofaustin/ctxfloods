@@ -77,6 +77,9 @@ class CrossingListItem extends React.Component {
 
     // Update the sorting accordingly
     for(var qv of queryVariables) {
+      // Hacky fix for status counts
+      if(qv.orderAsc === undefined) continue;
+
       const qvars = {
         orderAsc: qv.orderAsc,
         pageCursor: null,
@@ -84,7 +87,8 @@ class CrossingListItem extends React.Component {
         showCaution: qv.showCaution,
         showClosed: qv.showClosed,
         showLongterm: qv.showLongterm,
-        showOpen: qv.showOpen
+        showOpen: qv.showOpen,
+        communityId: qv.communityId
       };
       
       this.doASortFix(store, updatedCrossing, qvars, edge);
@@ -101,6 +105,7 @@ class CrossingListItem extends React.Component {
       
     } catch(err) {
       console.log(err);
+      return;
     }
 
     // Remove it if it's on a list already

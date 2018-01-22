@@ -106,4 +106,11 @@ class CrossingListHeader extends Component {
   }
 }
 
-export default graphql(statusCountsQuery)(CrossingListHeader);
+export default graphql(statusCountsQuery, {
+  options: (ownProps) => ({
+    variables: {
+      search: ownProps.formattedSearchQuery,
+      communityId: (ownProps.currentUser.role !== "floods_super_admin") ? ownProps.currentUser.communityId : null
+    }
+  })
+})(CrossingListHeader);
