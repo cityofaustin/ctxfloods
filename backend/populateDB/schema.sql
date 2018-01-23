@@ -539,6 +539,45 @@ $$ language sql stable security definer;
 
 comment on function floods.crossing_human_coordinates(floods.crossing) is 'Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.';
 
+--- Create function to delete crossings
+create function floods.remove_crossing(
+  crossing_id integer
+) returns floods.crossing as $$
+declare
+  crossing_to_delete floods.crossing;
+  deleted_crossing floods.crossing;
+begin
+  -- Get the crossing
+  select * from floods.crossing c where c.id = remove_crossing.crossing_id into crossing_to_delete;
+
+  -- If we aren't a super admin
+  if current_setting('jwt.claims.role') != 'floods_super_admin' then
+    -- and we are a community admin
+    if current_setting('jwt.claims.role') = 'floods_community_admin' then
+      -- and we're trying to delete a user in a different community
+      if (array_position(crossing_to_delete.community_ids, current_setting('jwt.claims.community_id')::integer) < 0) then
+        raise exception 'Community administrators can only delete crossings in their community';
+      end if;
+    -- all other roles shouldn't be here
+    else
+      raise exception 'Only administrators can delete crossings';
+    end if;
+  end if;
+
+  update floods.crossing
+    set latest_status_update_id = null
+    where id = remove_crossing.crossing_id;
+
+  delete from floods.status_update where floods.status_update.crossing_id = remove_crossing.crossing_id;
+
+  delete from floods.crossing where id = crossing_id returning * into deleted_crossing;
+
+  return deleted_crossing;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.remove_crossing(integer) is 'Removes a crossing from the database.';
+
 create function floods.crossing_communities(crossing floods.crossing) returns setof floods.community as $$
   select * from floods.community com
   where array_position(crossing.community_ids, com.id) >= 0;
@@ -879,6 +918,7 @@ grant execute on function floods.edit_crossing(integer, text, text) to floods_co
 
 -- Allow community admins and up to remove crossings
 -- NOTE: Extra logic around permissions in function
+grant execute on function floods.remove_crossing(integer) to floods_community_admin;
 
 -- Allow super admins to create/edit/delete communities
 grant execute on function floods.new_community(text) to floods_super_admin;

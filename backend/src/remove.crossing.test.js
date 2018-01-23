@@ -169,7 +169,7 @@ function shouldFail(email, password, communityId, extra_description) {
             name
             humanAddress
             description
-            communityCrossingsByCrossingId {
+            communities {
               nodes {
                 id
               }
