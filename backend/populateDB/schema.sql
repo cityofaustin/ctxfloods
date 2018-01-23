@@ -390,6 +390,7 @@ create function floods.new_status_update(
   status_duration_id integer
 ) returns floods.status_update as $$
 declare
+  crossing_to_update floods.crossing;
   floods_status_update floods.status_update;
 begin
   -- TODO: Remove this hacky fix and redefine as strict after
@@ -402,15 +403,15 @@ begin
     raise exception 'Crossing is required';
   end if;
 
-  -- TODO: Reimplement this logic
-  -- 
-  -- -- If we aren't a super admin
-  -- if current_setting('jwt.claims.role') != 'floods_super_admin' then
-  --   -- and we're trying to update the status of a crossing in a different community
-  --   if current_setting('jwt.claims.community_id')::integer != (select community_id from floods.community_crossing where floods.community_crossing.crossing_id = new_status_update.crossing_id) then
-  --     raise exception 'Users can only update the status of crossings within their communities';
-  --   end if;
-  -- end if;
+  select * from floods.crossing where id = crossing_id into crossing_to_update;
+
+  -- If we aren't a super admin
+  if current_setting('jwt.claims.role') != 'floods_super_admin' then
+    -- and we're trying to update the status of a crossing in a different community
+    if (array_position(crossing_to_update.community_ids, current_setting('jwt.claims.community_id')::integer) is null) then
+      raise exception 'Users can only update the status of crossings within their communities';
+    end if;
+  end if;
 
   -- If the status reason is not null
   if status_reason_id is not null then
