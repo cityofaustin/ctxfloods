@@ -137,40 +137,66 @@ class CrossingListItem extends React.Component {
     // Update the selected crossing
     this.props.selectCrossing(updatedCrossing.id, updatedCrossing.latestStatusId);
 
-    for (var statusId of [1, 2, 3, 4]) {
-      // Get the index of the updated crossing
-      let index = -1;
-      let data;  
-      try {
-        data = store.readQuery({ query: allCrossings, variables: {statusId: statusId} });
-        index = data.allCrossings.nodes.findIndex(node => node.id === updatedCrossing.id);
-      } catch(err) {
-        console.log(err);
-      }
+    // Get all the query variable combinations we have cached
+    const queryVariables = Object.keys(store.data.ROOT_QUERY)
+                            .filter(query => query.includes('searchCrossings'))
+                            .map(q => JSON.parse(q.replace(/(^\w*\()|(\)$)/g, '')));
 
-      // Remove it if it's on a layer already
-      if (index !== -1) {
-        data.allCrossings.nodes.splice(index, 1);
-      }
+    // Update the sorting accordingly
+    for(var qv of queryVariables) {
+      // Hacky fix for status counts
+      if(qv.orderAsc !== undefined) continue;
 
-      // Add it to a layer if appropriate
-      if(updatedCrossing.latestStatusId === statusId) {
-        data.allCrossings.nodes.push({
-          id: updatedCrossing.id,
-          geojson: updatedCrossing.geojson,
-          latestStatusId: updatedCrossing.latestStatusId,
-          communityIds: updatedCrossing.communityIds,
-          __typename: "Crossing"
-        })
-      }
-
-      // write it to the apollo cache
-      store.writeQuery({
-        query: allCrossings,
-        variables: {statusId: statusId},
-        data
-      });
+      const qvars = {
+        search: qv.search,
+        showCaution: qv.showCaution,
+        showClosed: qv.showClosed,
+        showLongterm: qv.showLongterm,
+        showOpen: qv.showOpen,
+        communityId: qv.communityId
+      };
+      
+      this.doAMapFix(store, updatedCrossing, qvars);
     }
+  }
+
+  doAMapFix(store, updatedCrossing, qvars) {
+    // Get the index of the updated crossing
+    let index = -1;
+    let data;  
+    try {
+      data = store.readQuery({ query: allCrossings, variables: qvars });
+      index = data.searchCrossings.nodes.findIndex(node => node.id === updatedCrossing.id);
+    } catch(err) {
+      console.log(err);
+      return;
+    }
+
+    // Remove it if it's on a layer already
+    if (index !== -1) {
+      data.searchCrossings.nodes.splice(index, 1);
+    }
+
+    // Add it to a layer if appropriate
+    if ((qvars.showOpen && updatedCrossing.latestStatusId === statusConstants.OPEN) ||
+        (qvars.showCaution && updatedCrossing.latestStatusId === statusConstants.CAUTION) ||
+        (qvars.showClosed && updatedCrossing.latestStatusId === statusConstants.CLOSED) ||
+        (qvars.showLongterm && updatedCrossing.latestStatusId === statusConstants.LONGTERM)) {
+      data.searchCrossings.nodes.push({
+        id: updatedCrossing.id,
+        geojson: updatedCrossing.geojson,
+        latestStatusId: updatedCrossing.latestStatusId,
+        communityIds: updatedCrossing.communityIds,
+        __typename: "Crossing"
+      })
+    }
+
+    // write it to the apollo cache
+    store.writeQuery({
+      query: allCrossings,
+      variables: qvars,
+      data
+    });
   }
 
   newStatusUpdate = (e) => {

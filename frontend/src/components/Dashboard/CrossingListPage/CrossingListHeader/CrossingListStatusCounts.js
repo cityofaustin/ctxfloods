@@ -15,12 +15,10 @@ class CrossingListStatusCounts extends Component {
             toggleShowClosed,
             toggleShowCaution, 
             toggleShowLongterm, 
-            toggleSortByUpdated, 
             showOpen, 
             showClosed, 
             showCaution, 
             showLongterm,
-            formattedSearchQuery,
             params } = this.props;
 
     let openCrossingCount, closedCrossingCount, cautionCrossingCount, longtermCrossingCount;
