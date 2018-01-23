@@ -505,9 +505,6 @@ begin
     set community_ids = array_append(community_ids, community_id)
     where id = floods_crossing.id;
 
-  insert into floods.community_crossing (community_id, crossing_id) values
-    (community_id, floods_crossing.id);
-
   -- Update the community viewport
   update floods.community
     set viewportgeojson = (select ST_AsGeoJSON(ST_Extent(c.coordinates)) from floods.crossing c where array_position(c.community_ids, community_id) >= 0)
