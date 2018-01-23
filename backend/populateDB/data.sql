@@ -33,7 +33,7 @@ insert into floods.crossing (id, name, human_address, description, coordinates, 
   (5, 'city hall', 'at city hall', 'Crossing at city hall', ST_MakePoint(-97.368, 30.667), ST_AsGeoJSON(ST_MakePoint(-97.368, 30.667)), '{1}'),
   (6, 'coffee shop', 'at the coffee shop', 'Crossing at the coffee shop', ST_MakePoint(-97.268, 30.767), ST_AsGeoJSON(ST_MakePoint(-97.268, 30.767)), '{1}'),
   (7, 'other community', 'in the other community', 'Crossing in the other community', ST_MakePoint(-97.168, 30.867), ST_AsGeoJSON(ST_MakePoint(-97.168, 30.867)), '{1,2}'),
-  (8, 'other community 2', 'another in the other community', 'Another crossing in the other community', ST_MakePoint(-97.068, 30.967), ST_AsGeoJSON(ST_MakePoint(-97.068, 30.967)), '{1,2}');
+  (8, 'other community 2', 'another in the other community', 'Another crossing in the other community', ST_MakePoint(-97.068, 30.967), ST_AsGeoJSON(ST_MakePoint(-97.068, 30.967)), '{2}');
 alter sequence floods.crossing_id_seq restart with 9;
 
 -- Update community viewports based on crossings

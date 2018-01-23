@@ -548,14 +548,14 @@ declare
   deleted_crossing floods.crossing;
 begin
   -- Get the crossing
-  select * from floods.crossing c where c.id = remove_crossing.crossing_id into crossing_to_delete;
+  select * from floods.crossing where id = remove_crossing.crossing_id into crossing_to_delete;
 
   -- If we aren't a super admin
   if current_setting('jwt.claims.role') != 'floods_super_admin' then
     -- and we are a community admin
     if current_setting('jwt.claims.role') = 'floods_community_admin' then
       -- and we're trying to delete a user in a different community
-      if (array_position(crossing_to_delete.community_ids, current_setting('jwt.claims.community_id')::integer) < 0) then
+      if (array_position(crossing_to_delete.community_ids, current_setting('jwt.claims.community_id')::integer) is null) then
         raise exception 'Community administrators can only delete crossings in their community';
       end if;
     -- all other roles shouldn't be here
@@ -570,7 +570,7 @@ begin
 
   delete from floods.status_update where floods.status_update.crossing_id = remove_crossing.crossing_id;
 
-  delete from floods.crossing where id = crossing_id returning * into deleted_crossing;
+  delete from floods.crossing c where c.id = remove_crossing.crossing_id returning * into deleted_crossing;
 
   return deleted_crossing;
 end;
