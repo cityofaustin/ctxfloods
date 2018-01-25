@@ -332,6 +332,8 @@ create function floods.search_crossings(
   select *
   from floods.crossing
   where (
+    active = true
+  ) and (
     (name ilike search) or
     (description ilike search) or
     (human_address ilike search)
@@ -566,12 +568,11 @@ begin
   end if;
 
   update floods.crossing
-    set latest_status_update_id = null
+    set active = false
     where id = remove_crossing.crossing_id;
 
-  delete from floods.status_update where floods.status_update.crossing_id = remove_crossing.crossing_id;
-
-  delete from floods.crossing c where c.id = remove_crossing.crossing_id returning * into deleted_crossing;
+  -- Get the crossing
+  select * from floods.crossing where id = remove_crossing.crossing_id into deleted_crossing;
 
   return deleted_crossing;
 end;
