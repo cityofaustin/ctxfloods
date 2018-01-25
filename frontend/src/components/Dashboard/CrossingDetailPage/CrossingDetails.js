@@ -179,7 +179,7 @@ class CrossingDetails extends Component {
       return <Redirect push to={`/dashboard/crossing/${this.state.redirectToNewCrossingId}`} />
     }
 
-    const { crossing, crossingCommunities, addMode } = this.props;
+    const { crossing, crossingCommunities, addMode, currentUser } = this.props;
     const { dropdownCommunities, name, humanAddress, description } = this.state;
 
     return (
@@ -238,7 +238,7 @@ class CrossingDetails extends Component {
                   );
                 })
               }
-              { !this.state.addCommunity && dropdownCommunities.length > 0 && (
+              { !this.state.addCommunity && dropdownCommunities.length > 0 && currentUser.role !== 'floods_community_editor' && (
                 <button
                   className="button button--secondary mlv2--r mlv2--b"
                   onClick={this.addCommunityClicked}
@@ -281,13 +281,13 @@ class CrossingDetails extends Component {
               >Save</button>
             </div>
           ) : (
-            crossing.active ? (
+            crossing.active && currentUser.role !== 'floods_community_editor' && (
             <div className="CrossingDetails__buttons flexcontainer">
               <button 
                 className="button button--plaintext color-highlight"
                 onClick={this.deleteClicked}
               >Delete Crossing</button>
-            </div> ) : null
+            </div> )
           )
         ) : (
           <div className="CrossingDetails__buttons flexcontainer">
