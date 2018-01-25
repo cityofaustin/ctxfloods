@@ -24,6 +24,7 @@ class CrossingDetails extends Component {
       delete: false,
       addCommunity: false,
       selectedCommunityId: dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
+      communityToRemoveId: null,
       redirectToNewCrossingId: null,
       dropdownCommunities: dropdownCommunities
     };
@@ -126,6 +127,36 @@ class CrossingDetails extends Component {
 
   }
 
+  removeCommunity = (e) => {
+
+    this.props.removeCrossingFromCommunityMutation({
+      variables: {
+        crossingId: this.props.crossing.id,
+        communityId: this.state.communityToRemoveId
+      },
+      update: (store, {data: {removeCrossingFromCommunity}}) => {
+        const updatedCrossing = removeCrossingFromCommunity.crossing;        
+        store.writeFragment({
+          id: 'Crossing:' + updatedCrossing.id,
+          fragment: addCrossingToCommunityFragment,
+          data: updatedCrossing
+        });
+      },  
+    })
+    .then(({ data }) => {
+      console.log('success', data);
+
+      const { allCommunities, crossingCommunities } = this.props;
+      var dropdownCommunities = allCommunities.slice();
+      _.pullAllBy(dropdownCommunities, crossingCommunities, 'id');
+
+      this.setState({removeCommunity: false, dropdownCommunities: dropdownCommunities});
+    }).catch((error) => {
+      console.log('there was an error sending the query', error);
+    });
+
+  }
+
   nameChanged = (e) => { 
     this.setState({ 
       name: e.target.value
@@ -162,11 +193,11 @@ class CrossingDetails extends Component {
     this.setState({addCommunity: false});
   }
 
-  removeCommunityClicked = () => {
-    this.setState({removeCommunity: true});
+  removeCommunityClicked = (communityId) => {
+    this.setState({removeCommunity: true, communityToRemoveId: communityId});
   }
   removeCommunityCancelClicked = () => {
-    this.setState({removeCommunity: false});
+    this.setState({removeCommunity: false, communityToRemoveId: null});
   }
 
   selectedCommunityChanged = (e) => {
@@ -244,7 +275,7 @@ class CrossingDetails extends Component {
                         {community.name}
                         {currentUser.role === 'floods_super_admin' &&
                          crossingCommunities.length > 1 &&
-                          <span onClick={this.removeCommunityClicked}> X </span>
+                          <span onClick={() => this.removeCommunityClicked(community.id)}> X </span>
                         }
                       </button>
                   );
@@ -341,7 +372,7 @@ class CrossingDetails extends Component {
               >No, Go Back</button>
               <button 
                 className="flexitem button button--confirm mlv2--l" 
-                onClick={null}
+                onClick={this.removeCommunity}
               >Yes, Remove</button>
             </div>
             </div>
@@ -405,6 +436,22 @@ const addCrossingToCommunityMutation = gql`
   }
 `;
 
+const removeCrossingFromCommunityMutation = gql`
+  mutation removeCrossingFromCommunityMutation($crossingId:Int!, $communityId:Int!) {
+    removeCrossingFromCommunity(input:{crossingId:$crossingId, communityId:$communityId}) {
+      crossing {
+        id
+        communityIds
+        communities {
+          nodes {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default compose(
   graphql(updateCrossingMutation, {
@@ -418,5 +465,8 @@ export default compose(
   }),
   graphql(addCrossingToCommunityMutation, {
     name: 'addCrossingToCommunityMutation'
+  }),
+  graphql(removeCrossingFromCommunityMutation, {
+    name: 'removeCrossingFromCommunityMutation'
   })
 )(CrossingDetails);
