@@ -242,7 +242,8 @@ class CrossingDetails extends Component {
                         key={community.id} 
                         className="button button--secondary mlv2--r mlv2--b">
                         {community.name}
-                        {currentUser.role === 'floods_super_admin' && 
+                        {currentUser.role === 'floods_super_admin' &&
+                         crossingCommunities.length > 1 &&
                           <span onClick={this.removeCommunityClicked}> X </span>
                         }
                       </button>
