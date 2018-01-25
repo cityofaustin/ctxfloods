@@ -350,6 +350,12 @@ const addCrossingToCommunityMutation = gql`
       crossing {
         id
         communityIds
+        communities {
+          nodes {
+            id
+            name
+          }
+        }
       }
     }
   }
