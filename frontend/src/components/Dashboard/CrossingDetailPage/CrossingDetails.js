@@ -24,7 +24,7 @@ class CrossingDetails extends Component {
       delete: false,
       addCommunity: false,
       selectedCommunityId: dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
-      communityToRemoveId: null,
+      communityToRemove: null,
       redirectToNewCrossingId: null,
       dropdownCommunities: dropdownCommunities
     };
@@ -136,7 +136,7 @@ class CrossingDetails extends Component {
     this.props.removeCrossingFromCommunityMutation({
       variables: {
         crossingId: this.props.crossing.id,
-        communityId: this.state.communityToRemoveId
+        communityId: this.state.communityToRemove.id
       },
       update: (store, {data: {removeCrossingFromCommunity}}) => {
         const updatedCrossing = removeCrossingFromCommunity.crossing;        
@@ -201,8 +201,8 @@ class CrossingDetails extends Component {
     this.setState({addCommunity: false});
   }
 
-  removeCommunityClicked = (communityId) => {
-    this.setState({removeCommunity: true, communityToRemoveId: communityId});
+  removeCommunityClicked = (community) => {
+    this.setState({removeCommunity: true, communityToRemove: community});
   }
   removeCommunityCancelClicked = () => {
     this.setState({removeCommunity: false, communityToRemoveId: null});
@@ -283,7 +283,7 @@ class CrossingDetails extends Component {
                         {community.name}
                         {currentUser.role === 'floods_super_admin' &&
                          crossingCommunities.length > 1 &&
-                          <span onClick={() => this.removeCommunityClicked(community.id)}> X </span>
+                          <span onClick={() => this.removeCommunityClicked(community)}> X </span>
                         }
                       </button>
                   );
@@ -371,7 +371,7 @@ class CrossingDetails extends Component {
         { this.state.removeCommunity && (
           <div className="CrossingDetails__delete overlay-container flexcontainer--center">
             <div className="plv2">
-            <p>This will remove the crossing from TODO: SAY WHAT COMMUNITY</p>
+            <p>This will remove the crossing from {this.state.communityToRemove.name}</p>
             <p>Do you want to continue?</p>
             <div className="flexcontainer">
               <button 
