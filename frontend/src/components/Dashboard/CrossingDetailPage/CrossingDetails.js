@@ -162,6 +162,13 @@ class CrossingDetails extends Component {
     this.setState({addCommunity: false});
   }
 
+  removeCommunityClicked = () => {
+    this.setState({removeCommunity: true});
+  }
+  removeCommunityCancelClicked = () => {
+    this.setState({removeCommunity: false});
+  }
+
   selectedCommunityChanged = (e) => {
     this.setState({selectedCommunityId: e.target.value});
   }
@@ -231,10 +238,14 @@ class CrossingDetails extends Component {
               {
                 crossingCommunities.map((community) => {
                   return (
-                    <button 
-                      key={community.id} 
-                      className="button button--secondary mlv2--r mlv2--b"
-                    >{community.name} </button>
+                      <button 
+                        key={community.id} 
+                        className="button button--secondary mlv2--r mlv2--b">
+                        {community.name}
+                        {currentUser.role === 'floods_super_admin' && 
+                          <span onClick={this.removeCommunityClicked}> X </span>
+                        }
+                      </button>
                   );
                 })
               }
@@ -312,6 +323,25 @@ class CrossingDetails extends Component {
                 className="flexitem button button--confirm mlv2--l" 
                 onClick={this.deleteCrossing}
               >Yes, Delete</button>
+            </div>
+            </div>
+          </div>
+        )}
+
+        { this.state.removeCommunity && (
+          <div className="CrossingDetails__delete overlay-container flexcontainer--center">
+            <div className="plv2">
+            <p>This will remove the crossing from TODO: SAY WHAT COMMUNITY</p>
+            <p>Do you want to continue?</p>
+            <div className="flexcontainer">
+              <button 
+                className="flexitem button button--cancel mlv2--r"
+                onClick={this.removeCommunityCancelClicked}
+              >No, Go Back</button>
+              <button 
+                className="flexitem button button--confirm mlv2--l" 
+                onClick={null}
+              >Yes, Remove</button>
             </div>
             </div>
           </div>
