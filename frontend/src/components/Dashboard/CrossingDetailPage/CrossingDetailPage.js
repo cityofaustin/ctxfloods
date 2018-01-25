@@ -9,6 +9,7 @@ import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetailPage.css';
+import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
 const containerQuery = {
   'CrossingDetails__container--lg': {
@@ -52,25 +53,14 @@ class CrossingDetailPage extends Component {
 const CrossingByIdQuery = gql`
   query crossingById($crossingId:Int!) {
     crossingById(id:$crossingId) {
-      id
-      name
-      geojson
-      humanCoordinates
-      humanAddress
-      description
-      active
+      ...crossingInfo
       statusByLatestStatusId {
         id
         name
       }
-      communities {
-        nodes {
-          id
-          name
-        }
-      }
     }
   }
+  ${crossingFragment}
 `;
 
 const allCommunitiesQuery = gql`

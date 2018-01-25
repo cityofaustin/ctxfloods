@@ -4,6 +4,12 @@ import gql from 'graphql-tag';
 const addCrossingToCommunityFragment = gql`
   fragment addCrossingToCommunityInfo on Crossing {
     communityIds
+    communities {
+      nodes {
+        id
+        name
+      }
+    }
   }
 `;
 

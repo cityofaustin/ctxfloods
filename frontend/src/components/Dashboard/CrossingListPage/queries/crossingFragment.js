@@ -14,12 +14,6 @@ const crossingFragment = gql`
     geojson
     ...addCrossingToCommunityInfo
     ...deleteCrossingInfo
-    communities {
-      nodes {
-        id
-        name
-      }
-    }
   }
   ${updateCrossingFragment}
   ${deleteCrossingFragment}
