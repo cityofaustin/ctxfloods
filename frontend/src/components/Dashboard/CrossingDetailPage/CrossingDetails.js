@@ -79,6 +79,7 @@ class CrossingDetails extends Component {
     })
     .then(({ data }) => {
       console.log('success', data);
+      this.setState({delete: false});
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
@@ -136,6 +137,7 @@ class CrossingDetails extends Component {
         <div className="CrossingDetails__details">
           { !addMode ? (
               <div>
+                { !crossing.active ? (<div><span className="strong gray--75 mlv1--r">INACTIVE</span></div>) : null }
                 <div><span className="strong gray--75 mlv1--r">ID#</span> <span className="italic light gray--50">{crossing.id}</span></div>
                 <div><span className="strong gray--75 mlv1--r">Address</span> <span className="italic light gray--50">{crossing.humanAddress}</span></div>
               </div>
@@ -200,12 +202,13 @@ class CrossingDetails extends Component {
               >Save</button>
             </div>
           ) : (
+            crossing.active ? (
             <div className="CrossingDetails__buttons flexcontainer">
               <button 
                 className="button button--plaintext color-highlight"
                 onClick={this.deleteClicked}
               >Delete Crossing</button>
-            </div>
+            </div> ) : null
           )
         ) : (
           <div className="CrossingDetails__buttons flexcontainer">
