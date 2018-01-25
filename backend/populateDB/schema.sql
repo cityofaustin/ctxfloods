@@ -321,7 +321,7 @@ comment on function floods.reactivate_user(integer, text, text, text) is 'Reacti
 
 -- Create function to search crossings
 create function floods.search_crossings(
-  search text default null,
+  search text default '%%',
   show_open boolean default true,
   show_closed boolean default true,
   show_caution boolean default true,
