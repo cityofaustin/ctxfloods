@@ -28,7 +28,8 @@ class CrossingDetailPage extends Component {
     if ( isLoading ) { return (<div>Loading</div>) };
 
     const crossing = this.props.CrossingByIdQuery.crossingById;
-    const communities = crossing.communities.nodes;
+    const allCommunities = this.props.AllCommunitiesQuery.allCommunities.nodes;
+    const crossingCommunities = crossing.communities.nodes;
     const history = this.props.StatusHistoryQuery.allStatusUpdates.nodes;
 
     return (
@@ -37,7 +38,7 @@ class CrossingDetailPage extends Component {
           <div className="CrossingDetailPage">
             <div className={classnames(params, "CrossingDetails__container mlv2--b")}>
               <CrossingStaticMap crossing={crossing}/>
-              <CrossingDetails crossing={crossing} communities={communities} addMode={false}/>
+              <CrossingDetails crossing={crossing} crossingCommunities={crossingCommunities} allCommunities={allCommunities} addMode={false}/>
             </div>
             <CrossingStatusHistory crossingId={crossing.id} history={history}/>
           </div>
@@ -72,6 +73,17 @@ const CrossingByIdQuery = gql`
   }
 `;
 
+const allCommunitiesQuery = gql`
+  query {
+    allCommunities {
+      nodes {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export default compose(
   graphql(CrossingByIdQuery, {
     name: 'CrossingByIdQuery',
@@ -88,5 +100,8 @@ export default compose(
         crossingId: ownProps.match.params.id
       }
     })
+  }),
+  graphql(allCommunitiesQuery, {
+    name: 'AllCommunitiesQuery'
   })
 )(CrossingDetailPage);
