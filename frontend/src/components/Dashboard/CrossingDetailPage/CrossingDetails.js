@@ -120,7 +120,11 @@ class CrossingDetails extends Component {
       var dropdownCommunities = allCommunities.slice();
       _.pullAllBy(dropdownCommunities, crossingCommunities, 'id');
 
-      this.setState({addCommunity: false, dropdownCommunities: dropdownCommunities});
+      this.setState({
+        addCommunity: false,
+        dropdownCommunities: dropdownCommunities,
+        selectedCommunityId: dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null
+      });
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
@@ -150,7 +154,11 @@ class CrossingDetails extends Component {
       var dropdownCommunities = allCommunities.slice();
       _.pullAllBy(dropdownCommunities, crossingCommunities, 'id');
 
-      this.setState({removeCommunity: false, dropdownCommunities: dropdownCommunities});
+      this.setState({
+        removeCommunity: false,
+        dropdownCommunities: dropdownCommunities,
+        selectedCommunityId: dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null
+      });
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
