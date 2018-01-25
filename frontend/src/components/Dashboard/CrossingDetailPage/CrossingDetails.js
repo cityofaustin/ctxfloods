@@ -6,6 +6,7 @@ import deleteCrossingFragment from 'components/Dashboard/CrossingListPage/querie
 import classnames from 'classnames';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetails.css';
 import { Redirect } from 'react-router';
+import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
 
 class CrossingDetails extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class CrossingDetails extends Component {
       name: props.crossing.name,
       description: props.crossing.description,
       delete: false,
+      addCommunity: false,
       redirectToNewCrossingId: null
     };
   }
@@ -114,6 +116,13 @@ class CrossingDetails extends Component {
     this.setState({delete: false});
   }
 
+  addCommunityClicked = () => {
+    this.setState({addCommunity: true});
+  }
+  addCommunityCancelClicked = () => {
+    this.setState({addCommunity: false});
+  }
+
   isDirty() {
     return (
       this.props.crossing.name !== this.state.name ||
@@ -186,8 +195,35 @@ class CrossingDetails extends Component {
                   );
                 })
               }
+              { !this.state.addCommunity && (
+                <button
+                  className="button button--secondary mlv2--r mlv2--b"
+                  onClick={this.addCommunityClicked}
+                  >Add Community +</button>
+              )}
           </div>
         </div>
+
+        { this.state.addCommunity && (
+          <div>
+            <Dropdown
+              options={communities}
+              selected={this.state.selectedCommunity}
+              onChange={this.selectedCommunityChanged} />
+
+            <div className="CrossingDetails__addCommunityButtons flexcontainer">
+              <button 
+                className="flexitem button button--cancel mlv2--r"
+                onClick={this.addCommunityCancelClicked}
+              >Cancel</button>
+              <button 
+                className="flexitem button button--confirm mlv2--l" 
+                onClick={this.addCommunity}
+              >Save</button>
+            </div>
+          </div>
+          )
+        }
 
         {!addMode ? (
           this.isDirty() ? (
