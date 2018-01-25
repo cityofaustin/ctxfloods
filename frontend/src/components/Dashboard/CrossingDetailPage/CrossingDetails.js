@@ -8,17 +8,24 @@ import classnames from 'classnames';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetails.css';
 import { Redirect } from 'react-router';
 import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
+import _ from 'lodash';
 
 class CrossingDetails extends Component {
   constructor(props) {
     super(props);
+
+    const { crossing, allCommunities, crossingCommunities } = props;
+    var dropdownCommunities = allCommunities.slice();
+    _.pullAllBy(dropdownCommunities, crossingCommunities, 'id');
+
     this.state = {
-      name: props.crossing.name,
-      description: props.crossing.description,
+      name: crossing.name,
+      description: crossing.description,
       delete: false,
       addCommunity: false,
-      selectedCommunityId: null,
-      redirectToNewCrossingId: null
+      selectedCommunityId: dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
+      redirectToNewCrossingId: null,
+      dropdownCommunities: dropdownCommunities
     };
   }
 
@@ -107,6 +114,12 @@ class CrossingDetails extends Component {
     })
     .then(({ data }) => {
       console.log('success', data);
+
+      const { allCommunities, crossingCommunities } = this.props;
+      var dropdownCommunities = allCommunities.slice();
+      _.pullAllBy(dropdownCommunities, crossingCommunities, 'id');
+
+      this.setState({addCommunity: false, dropdownCommunities: dropdownCommunities});
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
@@ -166,8 +179,8 @@ class CrossingDetails extends Component {
       return <Redirect push to={`/dashboard/crossing/${this.state.redirectToNewCrossingId}`} />
     }
 
-    const { crossing, crossingCommunities, allCommunities, addMode } = this.props;
-    const { name, humanAddress, description } = this.state;
+    const { crossing, crossingCommunities, addMode } = this.props;
+    const { dropdownCommunities, name, humanAddress, description } = this.state;
 
     return (
 
@@ -225,7 +238,7 @@ class CrossingDetails extends Component {
                   );
                 })
               }
-              { !this.state.addCommunity && (
+              { !this.state.addCommunity && dropdownCommunities.length > 0 && (
                 <button
                   className="button button--secondary mlv2--r mlv2--b"
                   onClick={this.addCommunityClicked}
@@ -237,7 +250,7 @@ class CrossingDetails extends Component {
         { this.state.addCommunity && (
           <div>
             <Dropdown
-              options={allCommunities}
+              options={dropdownCommunities}
               selected={this.state.selectedCommunityId}
               onChange={this.selectedCommunityChanged} />
 
