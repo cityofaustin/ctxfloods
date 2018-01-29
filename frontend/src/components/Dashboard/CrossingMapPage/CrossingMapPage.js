@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CrossingMap from 'components/Map/CrossingMap';
-import CrossingMapOverlay from 'components/Dashboard/CrossingMapPage/CrossingMapOverlay';
+import CrossingMapSidebar from 'components/Dashboard/CrossingMapPage/CrossingMapSidebar';
 import 'components/Dashboard/CrossingMapPage/CrossingMapPage.css';
 import Fullscreen from 'react-full-screen';
 import FontAwesome from 'react-fontawesome';
@@ -42,7 +42,7 @@ class CrossingMapPage extends Component {
         <Fullscreen enabled={this.state.fullscreen} onChange={fullscreen => this.setState({fullscreen})}>
           <div className="CrossingMapPage">
             <FontAwesome name='arrows-alt' size='2x' onClick={this.toggleFull} className='CrossingMapPage__fullscreen-toggle'/>
-            {selectedCrossingId ? <CrossingMapOverlay crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/> : null}
+            <CrossingMapSidebar />
             <div className="CrossingMapPage__map-container">
               <CrossingMap 
                 mapHeight="100%"

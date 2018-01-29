@@ -81,9 +81,24 @@ body {
 .CrossingMapPage {
   flex: auto;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
+  position: relative;
 }
 
 .mapboxgl-map {
   flex: auto;
+}
+
+.CrossingMapPage_sidebar-container {
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+}
+
+.CrossingMapPage_sidebar-content {
+  background: red;
+}
+
+.CrossingMapPage_sidebar-toggle {
+  background: red;
 }
