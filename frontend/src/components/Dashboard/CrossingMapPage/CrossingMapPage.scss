@@ -35,13 +35,17 @@
   margin: 0;
 }
 
-.CrossingMapPage__fullscreen-toggle {
+.CrossingMapPage__fullscreen-toggle-container {
   position: absolute;
-  margin-left: 50px;
-  margin-top: 10px;
   z-index: 1;
+  text-align: right;
+  width: 100%;
+}
+
+.CrossingMapPage__fullscreen-toggle {
   background: white;
-  padding: 5px;
+  padding: 4px;
+  margin: 7px;
 }
 
 html {

@@ -3,8 +3,8 @@ import { graphql, compose } from 'react-apollo';
 import * as MapboxGl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 import mapboxstyle from 'components/Map/mapboxstyle.json';
-import { ZoomControl } from "react-mapbox-gl";
 import allCrossings from 'components/Map/queries/allCrossingsQuery';
+import 'components/Map/CrossingMap.css';
 
 const Map = ReactMapboxGl({ accessToken: null });
 
@@ -43,6 +43,7 @@ class CrossingMap extends React.Component {
 
   onMapboxStyleLoad = (map) => {
     this.setState({ map: map });
+    this.addZoomControl(map);
     this.addGeoLocateControl(map);
     this.addCrossingClickHandlers(map);
   }
@@ -59,7 +60,15 @@ class CrossingMap extends React.Component {
       showUserLocation: true
     });
 
-    map.addControl(geolocateControl, 'top-left');
+    map.addControl(geolocateControl, 'bottom-right');
+  }
+
+  addZoomControl (map) {
+    const zoomControl = new MapboxGl.NavigationControl({
+
+    });
+
+    map.addControl(zoomControl, 'bottom-right');
   }
 
   addCrossingClickHandlers (map) {
@@ -124,7 +133,6 @@ class CrossingMap extends React.Component {
         }}
         fitBounds={this.props.viewport}
         center={this.state.center}>
-        <ZoomControl />
         <Layer
           type="symbol"
           id="openCrossings"
