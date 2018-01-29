@@ -94,6 +94,7 @@ body {
 }
 
 .CrossingMapPage_sidebar-container {
+  @include flexcontainer;
   position: absolute;
   z-index: 1;
   height: 100%;
@@ -104,5 +105,9 @@ body {
 }
 
 .CrossingMapPage_sidebar-toggle {
-  background: red;
+  background: white;
+  height: fit-content;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 0px 5px 5px 0px;
 }
