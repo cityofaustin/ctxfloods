@@ -44,7 +44,7 @@ class CrossingMapPage extends Component {
             <div className="CrossingMapPage__fullscreen-toggle-container">
               <FontAwesome name='arrows-alt' size='2x' onClick={this.toggleFull} className='CrossingMapPage__fullscreen-toggle'/>
             </div>
-            <CrossingMapSidebar />
+            <CrossingMapSidebar selectedCrossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/>
             <div className="CrossingMapPage__map-container">
               <CrossingMap 
                 mapHeight="100%"

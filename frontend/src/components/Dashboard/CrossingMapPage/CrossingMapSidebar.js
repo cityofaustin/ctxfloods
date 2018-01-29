@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CrossingMapOverlay from 'components/Dashboard/CrossingMapPage/CrossingMapOverlay';
+import SelectedCrossingContainer from 'components/Dashboard/CrossingMapPage/SelectedCrossingContainer';
 import 'components/Dashboard/CrossingMapPage/CrossingMapPage.css';
 import FontAwesome from 'react-fontawesome';
 
@@ -18,6 +18,7 @@ class CrossingMapSidebar extends Component {
 
   render() {
     const { visible } = this.state;
+    const { selectedCrossingId, currentUser, selectCrossing } = this.props;
 
     return (
       <div className="CrossingMapPage_sidebar-container">{visible && (
@@ -28,6 +29,7 @@ class CrossingMapSidebar extends Component {
           <div className="CrossingMapPage_sidebar-search-container">
             TODO SEARCH BOX HERE
           </div>
+          {selectedCrossingId && <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={selectCrossing}/>}
         </div>
         )}
         <div className="CrossingMapPage_sidebar-toggle" onClick={this.toggleSidebar}>
