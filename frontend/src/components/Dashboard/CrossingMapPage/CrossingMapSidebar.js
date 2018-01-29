@@ -21,7 +21,14 @@ class CrossingMapSidebar extends Component {
 
     return (
       <div className="CrossingMapPage_sidebar-container">{visible && (
-        <div className="CrossingMapPage_sidebar-content"> SIDEBAR </div>
+        <div className="CrossingMapPage_sidebar-content">
+          <div className="CrossingMapPage_sidebar-search-header">
+            SEARCH FOR A PLACE, AREA, OR CROSSING
+          </div>
+          <div className="CrossingMapPage_sidebar-search-container">
+            TODO SEARCH BOX HERE
+          </div>
+        </div>
         )}
         <div className="CrossingMapPage_sidebar-toggle" onClick={this.toggleSidebar}>
           { visible ?

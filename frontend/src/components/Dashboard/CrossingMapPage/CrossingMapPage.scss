@@ -101,7 +101,22 @@ body {
 }
 
 .CrossingMapPage_sidebar-content {
-  background: red;
+  background: #F8F8F9;
+  width: 430px;
+}
+
+.CrossingMapPage_sidebar-search-header {
+  background: #004D90;
+  color: white;
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  letter-spacing: .11em;
+}
+
+.CrossingMapPage_sidebar-search-container {
+  background: #006CB5;
+  color: #8BBADB;
 }
 
 .CrossingMapPage_sidebar-toggle {
