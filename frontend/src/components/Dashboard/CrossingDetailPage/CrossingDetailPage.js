@@ -38,7 +38,7 @@ class CrossingDetailPage extends Component {
       <ContainerQuery query={containerQuery}>
         {(params) => (
           <div className="CrossingDetailPage">
-            <div className={classnames(params, "CrossingDetails__container mlv2--b")}>
+            <div className={classnames(params, "CrossingDetails__container")}>
               <CrossingStaticMap crossing={crossing}/>
               <CrossingDetails crossing={crossing} crossingCommunities={crossingCommunities} allCommunities={allCommunities} currentUser={currentUser} addMode={false}/>
             </div>
