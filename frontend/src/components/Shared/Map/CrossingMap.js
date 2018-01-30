@@ -18,6 +18,7 @@ class CrossingMap extends React.Component {
     selectedCrossingId: -1, // Mapbox filters don't support null values
     selectedCrossing: null,
     selectedCrossingCoordinates: null,
+    firstLoadComplete: false,
     center: [
       (this.props.viewport[0][0]+this.props.viewport[1][0])/2,
       (this.props.viewport[0][1]+this.props.viewport[1][1])/2
@@ -38,6 +39,20 @@ class CrossingMap extends React.Component {
     if (selectedCrossing && nextProps.selectedCrossingStatus && (nextProps.selectedCrossingStatus !== selectedCrossing.crossingStatus) ) {
       selectedCrossing.crossingStatus = nextProps.selectedCrossingStatus;
       this.setState({selectedCrossing: selectedCrossing});
+    }
+
+    // This is a slightly strange litle fix here, we used to check loading in render, and not render the map until it loaded
+    // that worked well for a single query, but led to the map disappearing on search. I then updated it to hide the crossing
+    // layers instead of hiding the whole map on load, but this led to the map not correctly filling the containing div. By checking
+    // that it has fully loaded before rendering the first time this problem can be avoided.
+    if (!this.state.firstLoadComplete) {
+      const isLoading = (
+        !nextProps.openCrossings || nextProps.openCrossings.loading ||
+        !nextProps.closedCrossings || nextProps.closedCrossings.loading ||
+        !nextProps.cautionCrossings || nextProps.cautionCrossings.loading ||
+        !nextProps.longtermCrossings || nextProps.longtermCrossings.loading
+      );
+      this.setState({firstLoadComplete: this.state.firstLoadComplete || !isLoading});
     }
   }
 
@@ -113,6 +128,9 @@ class CrossingMap extends React.Component {
       // TODO: add error logging
       return (<div>Error Loading Crossings</div>);
     }
+
+    const { firstLoadComplete } = this.state;
+    if (!firstLoadComplete) return null;
 
     const openCrossings = !isLoading ? this.props.openCrossings.searchCrossings.nodes : null;
     const closedCrossings = !isLoading ? this.props.closedCrossings.searchCrossings.nodes : null;
