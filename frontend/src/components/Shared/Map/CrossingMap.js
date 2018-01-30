@@ -62,7 +62,7 @@ class CrossingMap extends React.Component {
     this.addZoomControl(map);
     this.addGeoLocateControl(map);
     this.addCrossingClickHandlers(map);
-    this.addMapMoveHandlers(map);
+    this.addUpdateVisibleCrossingHandlers(map);
   }
 
   addGeoLocateControl (map) {
@@ -88,15 +88,19 @@ class CrossingMap extends React.Component {
     map.addControl(zoomControl, 'bottom-right');
   }
 
-  addMapMoveHandlers (map) {
-    map.on('moveend', this.onMapMove);
+  addUpdateVisibleCrossingHandlers (map) {
+    map.on('moveend', this.updateVisibleCrossings);
+    map.on('data', this.updateVisibleCrossings);
   }
 
-  onMapMove = () => {
+  updateVisibleCrossings = (e) => {
+    if (e.type === 'data' && !e.isSourceLoaded ) return;
     const { map } = this.state;
     const features = map.queryRenderedFeatures({layers:['openCrossings', 'closedCrossings', 'cautionCrossings', 'longtermCrossings']});
     const crossings = _.uniqBy(features.map(f => ({id: f.properties.crossingId, latestStatus: f.properties.latestStatusCreatedAt})), 'id');
-    this.props.setVisibleCrossings(crossings);
+    
+    // Get the first 10 visible crossings by latest status for the results
+    this.props.setVisibleCrossings(_.slice(_.orderBy(crossings, ['latestStatus'], ['desc']), 0, 10));
   }
 
   addCrossingClickHandlers (map) {

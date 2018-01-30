@@ -41,9 +41,6 @@ class CrossingMapSidebar extends Component {
             currentUser,
             visibleCrossings } = this.props;
 
-    // Get the first 10 visible crossings by latest status for the results
-    const resultCrossings = _.slice(_.orderBy(visibleCrossings, ['latestStatus'], ['desc']), 0, 10);
-
     return (
       <div className="CrossingMapPage_sidebar-container">{visible && (
         <div className="CrossingMapPage_sidebar-content">
@@ -76,7 +73,7 @@ class CrossingMapSidebar extends Component {
             </label>
           </div> }
           <div className="SEARCH RESULTS BLARG BLARG">
-            {resultCrossings.map(c => (
+            {visibleCrossings.map(c => (
               <div>
                 Crossing Id: {c.id}
                 Latest Status: {c.latestStatus}
