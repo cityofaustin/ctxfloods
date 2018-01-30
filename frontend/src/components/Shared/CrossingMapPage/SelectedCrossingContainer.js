@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CrossingListItem from 'components/Dashboard/CrossingListPage/CrossingListItem/CrossingListItem';
+import PublicCrossingListItem from 'components/Public/CrossingListItem/PublicCrossingListItem';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import statusUpdateFragment from 'components/Dashboard/CrossingListPage/queries/statusUpdateFragment';
@@ -32,14 +33,21 @@ class SelectedCrossingContainer extends Component {
 
     return (
       <div className="CrossingMapSidebar_selected-crossing-container">
-        <CrossingListItem
-          key={crossing.id}
-          crossing={crossing}
-          reasons={statusReasons} 
-          durations={statusDurations}
-          currentUser={currentUser}
-          listOrMap="map"
-          selectCrossing={selectCrossing} />
+        {currentUser ? 
+          <CrossingListItem
+            key={crossing.id}
+            crossing={crossing}
+            reasons={statusReasons} 
+            durations={statusDurations}
+            currentUser={currentUser}
+            listOrMap="map"
+            selectCrossing={selectCrossing} /> :
+          <PublicCrossingListItem
+            key={crossing.id}
+            crossing={crossing}
+            reasons={statusReasons} 
+            durations={statusDurations} />
+        }
       </div>
     );
   }

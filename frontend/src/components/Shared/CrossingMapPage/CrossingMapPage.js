@@ -9,7 +9,11 @@ class CrossingMapPage extends Component {
   constructor(props) {
     super(props);
 
-    const envelope = JSON.parse(this.props.currentUser.communityByCommunityId.viewportgeojson);
+    // If we have a current user, we're on the dashboard, we should get their viewport
+    const envelope = this.props.currentUser ? 
+      JSON.parse(this.props.currentUser.communityByCommunityId.viewportgeojson) :
+      JSON.parse(`{"type":"Polygon","coordinates":[[[-98.086914,30.148464],[-98.086914,30.433285],[-97.615974,30.433285],[-97.615974,30.148464],[-98.086914,30.148464]]]}`);
+    
     // I actually like doing the padding here because it keeps the data/view separation
     const viewport = [
       [Math.min(...envelope.coordinates[0].map(arr => arr[0])) - 0.1, Math.min(...envelope.coordinates[0].map(arr => arr[1])) - 0.1],

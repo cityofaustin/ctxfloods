@@ -40,7 +40,7 @@ class CrossingMapSidebar extends Component {
               <FontAwesome name='times' size='2x'/>  
             </div>
           </div>
-          {selectedCrossingId && <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={selectCrossing}/>}
+          {selectedCrossingId && <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={selectCrossing}/> }
         </div>
         )}
         <div className="CrossingMapPage_sidebar-toggle" onClick={this.toggleSidebar}>
