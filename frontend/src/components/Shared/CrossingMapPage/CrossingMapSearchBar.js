@@ -5,8 +5,14 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class CrossingMapSearchBar extends Component {
+
+  clearSearch = () => {
+    this.props.searchQueryUpdated({target:{value:''}});
+    this.props.selectCrossing(null,null);
+  }
+
   render() {
-    const { selectedCrossingId } = this.props;
+    const { searchQuery, selectedCrossingId, searchQueryUpdated } = this.props;
     const crossingName = 
       (this.props.data && !this.props.data.loading && this.props.data.crossingById) ?
         this.props.data.crossingById.name : null;
@@ -23,12 +29,13 @@ class CrossingMapSearchBar extends Component {
           <div className="CrossingMapPage_sidebar-search-text-entry">
             <input type="text"
                    placeholder="Search..."
-                   value={selectedCrossingId && crossingName ? crossingName : ""} />
+                   value={selectedCrossingId && crossingName ? crossingName : searchQuery}
+                   onChange={searchQueryUpdated} />
           </div>
           <div className="CrossingMapPage_sidebar-search-glass-icon">
             <FontAwesome name='search' size='2x'/>  
           </div>
-          <div className="CrossingMapPage_sidebar-search-cancel-icon">
+          <div className="CrossingMapPage_sidebar-search-cancel-icon" onClick={this.clearSearch}>
             <FontAwesome name='times' size='2x'/>  
           </div>
         </div>

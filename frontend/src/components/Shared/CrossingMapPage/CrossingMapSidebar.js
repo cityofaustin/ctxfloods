@@ -19,13 +19,13 @@ class CrossingMapSidebar extends Component {
 
   render() {
     const { visible } = this.state;
-    const { selectedCrossingId, currentUser, selectCrossing } = this.props;
+    const { selectedCrossingId, currentUser, selectCrossing, searchQueryUpdated, searchQuery } = this.props;
 
     return (
       <div className="CrossingMapPage_sidebar-container">{visible && (
         <div className="CrossingMapPage_sidebar-content">
-          <CrossingMapSearchBar selectedCrossingId={selectedCrossingId}/>
-          {selectedCrossingId && <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={selectCrossing}/> }
+          <CrossingMapSearchBar selectedCrossingId={selectedCrossingId} selectCrossing={selectCrossing} searchQuery={searchQuery} searchQueryUpdated={searchQueryUpdated}/>
+          {selectedCrossingId && <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={selectCrossing} /> }
         </div>
         )}
         <div className="CrossingMapPage_sidebar-toggle" onClick={this.toggleSidebar}>
