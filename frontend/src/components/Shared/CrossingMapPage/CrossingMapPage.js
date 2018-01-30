@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import CrossingMap from 'components/Shared/Map/CrossingMap';
 import CrossingMapSidebar from 'components/Shared/CrossingMapPage/CrossingMapSidebar';
+import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
+import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
 import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
 import Fullscreen from 'react-full-screen';
 import FontAwesome from 'react-fontawesome';
+import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
+import { ContainerQuery } from 'react-container-query';
+
+const containerQuery = {
+  'fullsize': {
+    minWidth: LARGE_ITEM_MIN_WIDTH,
+  }
+};
 
 class CrossingMapPage extends Component {
   constructor(props) {
@@ -42,26 +52,33 @@ class CrossingMapPage extends Component {
     const { currentUser } = this.props;
 
     return (
-      <div className="CrossingMapPage__page-container">        
-        <Fullscreen enabled={this.state.fullscreen} onChange={fullscreen => this.setState({fullscreen})}>
-          <div className="CrossingMapPage">
-            <div className="CrossingMapPage__fullscreen-toggle-container">
-              <FontAwesome name='arrows-alt' size='2x' onClick={this.toggleFull} className='CrossingMapPage__fullscreen-toggle'/>
+
+      <ContainerQuery query={containerQuery}>
+      {(params) => (
+        <div className="CrossingMapPage__page-container">        
+          <Fullscreen enabled={this.state.fullscreen} onChange={fullscreen => this.setState({fullscreen})}>
+            <div className="CrossingMapPage">
+              {!params.fullsize && <CrossingMapSearchBar />}
+              {params.fullsize && <div className="CrossingMapPage__fullscreen-toggle-container">
+                <FontAwesome name='arrows-alt' size='2x' onClick={this.toggleFull} className='CrossingMapPage__fullscreen-toggle'/>
+              </div>}
+              {params.fullsize && <CrossingMapSidebar selectedCrossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/>}
+              <div className="CrossingMapPage__map-container">
+                <CrossingMap 
+                  mapHeight="100%"
+                  mapWidth="100%"
+                  viewport={viewport}
+                  selectedCrossingId={selectedCrossingId}
+                  selectedCrossingStatus={selectedCrossingStatus}
+                  selectCrossing={this.selectCrossing}
+                  currentUser={currentUser} />
+              </div>
+              {!params.fullsize && selectedCrossingId && <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/>}
             </div>
-            <CrossingMapSidebar selectedCrossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/>
-            <div className="CrossingMapPage__map-container">
-              <CrossingMap 
-                mapHeight="100%"
-                mapWidth="100%"
-                viewport={viewport}
-                selectedCrossingId={selectedCrossingId}
-                selectedCrossingStatus={selectedCrossingStatus}
-                selectCrossing={this.selectCrossing}
-                currentUser={currentUser} />
-            </div>
-          </div>
-        </Fullscreen>
-      </div>
+          </Fullscreen>
+        </div>      
+      )}
+      </ContainerQuery>
     );
   }
 }
