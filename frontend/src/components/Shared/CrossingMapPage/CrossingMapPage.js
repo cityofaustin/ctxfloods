@@ -107,7 +107,11 @@ class CrossingMapPage extends Component {
                   selectedCrossingStatus={selectedCrossingStatus}
                   selectCrossing={this.selectCrossing}
                   currentUser={currentUser}
-                  searchQuery={formattedSearchQuery} />
+                  searchQuery={formattedSearchQuery}
+                  showOpen={this.state.showOpen}
+                  showClosed={this.state.showClosed}
+                  showCaution={this.state.showCaution}
+                  showLongterm={this.state.showLongterm} />
               </div>
               {!params.fullsize && selectedCrossingId &&
                 <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/>

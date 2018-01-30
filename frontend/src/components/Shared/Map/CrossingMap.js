@@ -137,6 +137,8 @@ class CrossingMap extends React.Component {
     const cautionCrossings = !isLoading ? this.props.cautionCrossings.searchCrossings.nodes : null;
     const longtermCrossings = !isLoading ? this.props.longtermCrossings.searchCrossings.nodes : null;
 
+    const { showOpen, showClosed, showCaution, showLongterm } = this.props;
+
     return (
       <Map
         onStyleLoad={this.onMapboxStyleLoad}
@@ -148,7 +150,7 @@ class CrossingMap extends React.Component {
         }}
         fitBounds={this.props.viewport}
         center={this.state.center}>
-        {!isLoading && (
+        {!isLoading && showOpen && (
           <Layer
             type="symbol"
             id="openCrossings"
@@ -171,7 +173,7 @@ class CrossingMap extends React.Component {
             }
           </Layer>
         )}
-        {!isLoading && (
+        {!isLoading && showLongterm && (
           <Layer
             type="symbol"
             id="longtermCrossings"
@@ -194,7 +196,7 @@ class CrossingMap extends React.Component {
             }
           </Layer>
         )}
-        {!isLoading && (
+        {!isLoading && showCaution && (
           <Layer
             type="symbol"
             id="cautionCrossings"
@@ -217,7 +219,7 @@ class CrossingMap extends React.Component {
             }
           </Layer>
         )}
-        {!isLoading && (
+        {!isLoading && showClosed && (
           <Layer
             type="symbol"
             id="closedCrossings"
