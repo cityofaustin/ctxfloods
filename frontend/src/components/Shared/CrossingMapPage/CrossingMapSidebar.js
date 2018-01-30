@@ -37,7 +37,8 @@ class CrossingMapSidebar extends Component {
             searchQueryUpdated,
             selectedCrossingId,
             selectCrossing,
-            currentUser } = this.props;
+            currentUser,
+            visibleCrossings } = this.props;
 
     return (
       <div className="CrossingMapPage_sidebar-container">{visible && (
@@ -70,6 +71,9 @@ class CrossingMapSidebar extends Component {
               Long Term Closure
             </label>
           </div> }
+          <div className="SEARCH RESULTS BLARG BLARG">
+            {visibleCrossings.map(c => c.id)}
+          </div>
         </div>
         )}
         <div className="CrossingMapPage_sidebar-toggle" onClick={this.toggleSidebar}>

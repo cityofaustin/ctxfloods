@@ -5,6 +5,7 @@ import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 import mapboxstyle from 'components/Shared/Map/mapboxstyle.json';
 import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
 import 'components/Shared/Map/CrossingMap.css';
+import _ from 'lodash';
 
 const Map = ReactMapboxGl({ accessToken: null });
 
@@ -61,6 +62,7 @@ class CrossingMap extends React.Component {
     this.addZoomControl(map);
     this.addGeoLocateControl(map);
     this.addCrossingClickHandlers(map);
+    this.addMapMoveHandlers(map);
   }
 
   addGeoLocateControl (map) {
@@ -84,6 +86,17 @@ class CrossingMap extends React.Component {
     });
 
     map.addControl(zoomControl, 'bottom-right');
+  }
+
+  addMapMoveHandlers (map) {
+    map.on('moveend', this.onMapMove);
+  }
+
+  onMapMove = () => {
+    const { map } = this.state;
+    const features = map.queryRenderedFeatures({layers:['openCrossings', 'closedCrossings', 'cautionCrossings', 'longtermCrossings']});
+    const crossings = _.uniqBy(features.map(f => ({id: f.properties.crossingId, latestStatus: f.properties.latestStatusCreatedAt})), 'id');
+    this.props.setVisibleCrossings(crossings);
   }
 
   addCrossingClickHandlers (map) {
@@ -167,7 +180,7 @@ class CrossingMap extends React.Component {
                 return(
                      <Feature key={i}
                               coordinates={JSON.parse(crossing.geojson).coordinates}
-                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
+                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson, "latestStatusCreatedAt": crossing.latestStatusCreatedAt}}/>
                 )}
               )
             }
@@ -190,7 +203,7 @@ class CrossingMap extends React.Component {
                 return(
                      <Feature key={i}
                               coordinates={JSON.parse(crossing.geojson).coordinates}
-                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
+                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson, "latestStatusCreatedAt": crossing.latestStatusCreatedAt}}/>
                 )}
               )
             }
@@ -213,7 +226,7 @@ class CrossingMap extends React.Component {
                 return(
                      <Feature key={i}
                               coordinates={JSON.parse(crossing.geojson).coordinates}
-                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
+                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson, "latestStatusCreatedAt": crossing.latestStatusCreatedAt}}/>
                 )}
               )
             }
@@ -236,7 +249,7 @@ class CrossingMap extends React.Component {
                 return(
                      <Feature key={i}
                               coordinates={JSON.parse(crossing.geojson).coordinates}
-                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
+                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson, "latestStatusCreatedAt": crossing.latestStatusCreatedAt}}/>
                 )}
               )
             }

@@ -40,7 +40,8 @@ class CrossingMapPage extends Component {
       showOpen: true,
       showClosed: true,
       showCaution: true,
-      showLongterm: true
+      showLongterm: true,
+      visibleCrossings: []
     };
   }
 
@@ -58,6 +59,10 @@ class CrossingMapPage extends Component {
     this.setState({selectedCrossingStatus: crossingStatus});
   }
 
+  setVisibleCrossings = (visibleCrossings) => {
+    this.setState({visibleCrossings: visibleCrossings});
+  }
+
   toggleFull = () => {
     this.setState({fullscreen: !this.state.fullscreen});
   }
@@ -68,7 +73,7 @@ class CrossingMapPage extends Component {
   toggleShowLongterm = () => { this.setState({ showLongterm: !this.state.showLongterm }) }
 
   render() {
-    const { viewport, selectedCrossingId, selectedCrossingStatus, searchQuery, formattedSearchQuery } = this.state;
+    const { viewport, selectedCrossingId, selectedCrossingStatus, searchQuery, formattedSearchQuery, visibleCrossings } = this.state;
     const { currentUser } = this.props;
 
     return (
@@ -96,7 +101,8 @@ class CrossingMapPage extends Component {
                   showCaution={this.state.showCaution}
                   toggleShowCaution={this.toggleShowCaution}
                   showLongterm={this.state.showLongterm}
-                  toggleShowLongterm={this.toggleShowLongterm} />
+                  toggleShowLongterm={this.toggleShowLongterm}
+                  visibleCrossings={visibleCrossings} />
               }
               <div className="CrossingMapPage__map-container">
                 <CrossingMap 
@@ -111,7 +117,10 @@ class CrossingMapPage extends Component {
                   showOpen={this.state.showOpen}
                   showClosed={this.state.showClosed}
                   showCaution={this.state.showCaution}
-                  showLongterm={this.state.showLongterm} />
+                  showLongterm={this.state.showLongterm}
+                  setVisibleCrossings={this.setVisibleCrossings}
+                   />
+                  }
               </div>
               {!params.fullsize && selectedCrossingId &&
                 <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/>
