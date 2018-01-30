@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
 import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
+import CrossingSidebarSearchResultItem from 'components/Shared/CrossingMapPage/CrossingSidebarSearchResultItem';
 import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
 import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
@@ -74,10 +75,7 @@ class CrossingMapSidebar extends Component {
           </div> }
           <div className="SEARCH RESULTS BLARG BLARG">
             {visibleCrossings.map(c => (
-              <div>
-                Crossing Id: {c.id}
-                Latest Status: {c.latestStatus}
-              </div>
+              <CrossingSidebarSearchResultItem id={c.id} latestStatus={c.latestStatus} />
             ))}
           </div>
         </div>
