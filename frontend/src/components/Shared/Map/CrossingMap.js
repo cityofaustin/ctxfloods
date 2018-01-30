@@ -105,22 +105,19 @@ class CrossingMap extends React.Component {
       !this.props.longtermCrossings || this.props.longtermCrossings.loading
     );
 
-    if ( isLoading ) {
-      return (<div>Loading</div>)
-    }
-
-    if (this.props.openCrossings.searchCrossings == null ||
+    if (!isLoading && (
+        this.props.openCrossings.searchCrossings == null ||
         this.props.closedCrossings.searchCrossings == null ||
         this.props.cautionCrossings.searchCrossings == null ||
-        this.props.longtermCrossings.searchCrossings == null) {
+        this.props.longtermCrossings.searchCrossings == null)) {
       // TODO: add error logging
       return (<div>Error Loading Crossings</div>);
     }
 
-    const openCrossings = this.props.openCrossings.searchCrossings.nodes;
-    const closedCrossings = this.props.closedCrossings.searchCrossings.nodes;
-    const cautionCrossings = this.props.cautionCrossings.searchCrossings.nodes;
-    const longtermCrossings = this.props.longtermCrossings.searchCrossings.nodes;
+    const openCrossings = !isLoading ? this.props.openCrossings.searchCrossings.nodes : null;
+    const closedCrossings = !isLoading ? this.props.closedCrossings.searchCrossings.nodes : null;
+    const cautionCrossings = !isLoading ? this.props.cautionCrossings.searchCrossings.nodes : null;
+    const longtermCrossings = !isLoading ? this.props.longtermCrossings.searchCrossings.nodes : null;
 
     return (
       <Map
@@ -133,139 +130,154 @@ class CrossingMap extends React.Component {
         }}
         fitBounds={this.props.viewport}
         center={this.state.center}>
-        <Layer
-          type="symbol"
-          id="openCrossings"
-          layout={{ 'icon-image': 'open', 'icon-allow-overlap': true }}
-          layerOptions={{"filter":
-            [
-              "all",
-              ["!=", "crossingId", this.state.selectedCrossingId],
-            ]
-          }}
-          >
-          {
-            openCrossings.map((crossing, i) => {
-              return(
-                   <Feature key={i}
-                            coordinates={JSON.parse(crossing.geojson).coordinates}
-                            properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
-              )}
-            )
-          }
-        </Layer>
-        <Layer
-          type="symbol"
-          id="longtermCrossings"
-          layout={{ 'icon-image': 'longterm', 'icon-allow-overlap': true }}
-          layerOptions={{"filter":
-            [
-              "all",
-              ["!=", "crossingId", this.state.selectedCrossingId],
-            ]
-          }}
-          >
-          {
-            longtermCrossings.map((crossing, i) => {
-              return(
-                   <Feature key={i}
-                            coordinates={JSON.parse(crossing.geojson).coordinates}
-                            properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
-              )}
-            )
-          }
-        </Layer>
-        <Layer
-          type="symbol"
-          id="cautionCrossings"
-          layout={{ 'icon-image': 'caution', 'icon-allow-overlap': true }}
-          layerOptions={{"filter":
-            [
-              "all",
-              ["!=", "crossingId", this.state.selectedCrossingId],
-            ]
-          }}
-          >
-          {
-            cautionCrossings.map((crossing, i) => {
-              return(
-                   <Feature key={i}
-                            coordinates={JSON.parse(crossing.geojson).coordinates}
-                            properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
-              )}
-            )
-          }
-        </Layer>
-        <Layer
-          type="symbol"
-          id="closedCrossings"
-          layout={{ 'icon-image': 'closed', 'icon-allow-overlap': true }}
-          layerOptions={{"filter":
-            [
-              "all",
-              ["!=", "crossingId", this.state.selectedCrossingId],
-            ]
-          }}
-          >
-          {
-            closedCrossings.map((crossing, i) => {
-              return(
-                   <Feature key={i}
-                            coordinates={JSON.parse(crossing.geojson).coordinates}
-                            properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
-              )}
-            )
-          }
-        </Layer>
-
-        <Layer
-          type="symbol"
-          id="selectedLongtermCrossing"
-          layout={{ 'icon-image': 'longterm_selected', 'icon-allow-overlap': true }}
-          >
-          { (this.state.selectedCrossing && (this.state.selectedCrossing.crossingStatus === STATUS_LONGTERM)) ?
-              <Feature key={1}
-                coordinates={JSON.parse(this.state.selectedCrossing.geojson).coordinates}
-                properties={{"crossingStatus": this.state.selectedCrossing.crossingStatus, "crossingId": this.state.selectedCrossing.crossingId, "geojson": this.state.selectedCrossing.geojson}} />
-            : null
-          }
-        </Layer>
-        <Layer
-          type="symbol"
-          id="selectedCautionCrossing"
-          layout={{ 'icon-image': 'caution_selected', 'icon-allow-overlap': true }}
-          >
-          { (this.state.selectedCrossing && (this.state.selectedCrossing.crossingStatus === STATUS_CAUTION)) ?
-              <Feature key={1}
-                coordinates={JSON.parse(this.state.selectedCrossing.geojson).coordinates}
-                properties={{"crossingStatus": this.state.selectedCrossing.crossingStatus, "crossingId": this.state.selectedCrossing.crossingId, "geojson": this.state.selectedCrossing.geojson}} />
-            : null
-          }
-        </Layer>
-        <Layer
-          type="symbol"
-          id="selectedClosedCrossing"
-          layout={{ 'icon-image': 'closed_selected', 'icon-allow-overlap': true }}
-          >
-          { (this.state.selectedCrossing && (this.state.selectedCrossing.crossingStatus === STATUS_CLOSED)) ?
-              <Feature key={1}
-                coordinates={JSON.parse(this.state.selectedCrossing.geojson).coordinates}
-                properties={{"crossingStatus": this.state.selectedCrossing.crossingStatus, "crossingId": this.state.selectedCrossing.crossingId, "geojson": this.state.selectedCrossing.geojson}} />
-            : null
-          }
-        </Layer>
-        <Layer
-          type="symbol"
-          id="selectedOpenCrossing"
-          layout={{ 'icon-image': 'open_selected', 'icon-allow-overlap': true }}
-          >
-          { (this.state.selectedCrossing && (this.state.selectedCrossing.crossingStatus === STATUS_OPEN)) ?
-              <Feature key={1}
-                coordinates={JSON.parse(this.state.selectedCrossing.geojson).coordinates}
-                properties={{"crossingStatus": this.state.selectedCrossing.crossingStatus, "crossingId": this.state.selectedCrossing.crossingId, "geojson": this.state.selectedCrossing.geojson}} />
-            : null
-          }
-        </Layer>
+        {!isLoading && (
+          <Layer
+            type="symbol"
+            id="openCrossings"
+            layout={{ 'icon-image': 'open', 'icon-allow-overlap': true }}
+            layerOptions={{"filter":
+              [
+                "all",
+                ["!=", "crossingId", this.state.selectedCrossingId],
+              ]
+            }}
+            >
+            {
+              openCrossings.map((crossing, i) => {
+                return(
+                     <Feature key={i}
+                              coordinates={JSON.parse(crossing.geojson).coordinates}
+                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
+                )}
+              )
+            }
+          </Layer>
+        )}
+        {!isLoading && (
+          <Layer
+            type="symbol"
+            id="longtermCrossings"
+            layout={{ 'icon-image': 'longterm', 'icon-allow-overlap': true }}
+            layerOptions={{"filter":
+              [
+                "all",
+                ["!=", "crossingId", this.state.selectedCrossingId],
+              ]
+            }}
+            >
+            {
+              longtermCrossings.map((crossing, i) => {
+                return(
+                     <Feature key={i}
+                              coordinates={JSON.parse(crossing.geojson).coordinates}
+                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
+                )}
+              )
+            }
+          </Layer>
+        )}
+        {!isLoading && (
+          <Layer
+            type="symbol"
+            id="cautionCrossings"
+            layout={{ 'icon-image': 'caution', 'icon-allow-overlap': true }}
+            layerOptions={{"filter":
+              [
+                "all",
+                ["!=", "crossingId", this.state.selectedCrossingId],
+              ]
+            }}
+            >
+            {
+              cautionCrossings.map((crossing, i) => {
+                return(
+                     <Feature key={i}
+                              coordinates={JSON.parse(crossing.geojson).coordinates}
+                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
+                )}
+              )
+            }
+          </Layer>
+        )}
+        {!isLoading && (
+          <Layer
+            type="symbol"
+            id="closedCrossings"
+            layout={{ 'icon-image': 'closed', 'icon-allow-overlap': true }}
+            layerOptions={{"filter":
+              [
+                "all",
+                ["!=", "crossingId", this.state.selectedCrossingId],
+              ]
+            }}
+            >
+            {
+              closedCrossings.map((crossing, i) => {
+                return(
+                     <Feature key={i}
+                              coordinates={JSON.parse(crossing.geojson).coordinates}
+                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson}}/>
+                )}
+              )
+            }
+          </Layer>
+        )}
+        {!isLoading && (
+          <Layer
+            type="symbol"
+            id="selectedLongtermCrossing"
+            layout={{ 'icon-image': 'longterm_selected', 'icon-allow-overlap': true }}
+            >
+            { (this.state.selectedCrossing && (this.state.selectedCrossing.crossingStatus === STATUS_LONGTERM)) ?
+                <Feature key={1}
+                  coordinates={JSON.parse(this.state.selectedCrossing.geojson).coordinates}
+                  properties={{"crossingStatus": this.state.selectedCrossing.crossingStatus, "crossingId": this.state.selectedCrossing.crossingId, "geojson": this.state.selectedCrossing.geojson}} />
+              : null
+            }
+          </Layer>
+        )}
+        {!isLoading && (
+          <Layer
+            type="symbol"
+            id="selectedCautionCrossing"
+            layout={{ 'icon-image': 'caution_selected', 'icon-allow-overlap': true }}
+            >
+            { (this.state.selectedCrossing && (this.state.selectedCrossing.crossingStatus === STATUS_CAUTION)) ?
+                <Feature key={1}
+                  coordinates={JSON.parse(this.state.selectedCrossing.geojson).coordinates}
+                  properties={{"crossingStatus": this.state.selectedCrossing.crossingStatus, "crossingId": this.state.selectedCrossing.crossingId, "geojson": this.state.selectedCrossing.geojson}} />
+              : null
+            }
+          </Layer>
+        )}
+        {!isLoading && (
+          <Layer
+            type="symbol"
+            id="selectedClosedCrossing"
+            layout={{ 'icon-image': 'closed_selected', 'icon-allow-overlap': true }}
+            >
+            { (this.state.selectedCrossing && (this.state.selectedCrossing.crossingStatus === STATUS_CLOSED)) ?
+                <Feature key={1}
+                  coordinates={JSON.parse(this.state.selectedCrossing.geojson).coordinates}
+                  properties={{"crossingStatus": this.state.selectedCrossing.crossingStatus, "crossingId": this.state.selectedCrossing.crossingId, "geojson": this.state.selectedCrossing.geojson}} />
+              : null
+            }
+          </Layer>
+        )}
+        {!isLoading && (
+          <Layer
+            type="symbol"
+            id="selectedOpenCrossing"
+            layout={{ 'icon-image': 'open_selected', 'icon-allow-overlap': true }}
+            >
+            { (this.state.selectedCrossing && (this.state.selectedCrossing.crossingStatus === STATUS_OPEN)) ?
+                <Feature key={1}
+                  coordinates={JSON.parse(this.state.selectedCrossing.geojson).coordinates}
+                  properties={{"crossingStatus": this.state.selectedCrossing.crossingStatus, "crossingId": this.state.selectedCrossing.crossingId, "geojson": this.state.selectedCrossing.geojson}} />
+              : null
+            }
+          </Layer>
+        )}
       </Map>
     );
   }
@@ -277,6 +289,7 @@ export default compose(
     name: 'openCrossings',
     options: (ownProps) => ({
       variables: {
+        search: ownProps.searchQuery,
         showOpen: true,
         showClosed: false,
         showCaution: false,
@@ -289,6 +302,7 @@ export default compose(
     name: 'closedCrossings',
     options: (ownProps) => ({
       variables: {
+        search: ownProps.searchQuery,
         showOpen: false,
         showClosed: true,
         showCaution: false,
@@ -301,6 +315,7 @@ export default compose(
     name: 'cautionCrossings',
     options: (ownProps) => ({
       variables: {
+        search: ownProps.searchQuery,
         showOpen: false,
         showClosed: false,
         showCaution: true,
@@ -313,6 +328,7 @@ export default compose(
     name: 'longtermCrossings',
     options: (ownProps) => ({
       variables: {
+        search: ownProps.searchQuery,
         showOpen: false,
         showClosed: false,
         showCaution: false,

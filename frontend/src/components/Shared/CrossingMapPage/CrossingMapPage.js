@@ -59,7 +59,7 @@ class CrossingMapPage extends Component {
   }
 
   render() {
-    const { viewport, selectedCrossingId, selectedCrossingStatus, searchQuery } = this.state;
+    const { viewport, selectedCrossingId, selectedCrossingStatus, searchQuery, formattedSearchQuery } = this.state;
     const { currentUser } = this.props;
 
     return (
@@ -82,7 +82,8 @@ class CrossingMapPage extends Component {
                   selectedCrossingId={selectedCrossingId}
                   selectedCrossingStatus={selectedCrossingStatus}
                   selectCrossing={this.selectCrossing}
-                  currentUser={currentUser} />
+                  currentUser={currentUser}
+                  searchQuery={formattedSearchQuery} />
               </div>
               {!params.fullsize && selectedCrossingId &&
                 <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/>
