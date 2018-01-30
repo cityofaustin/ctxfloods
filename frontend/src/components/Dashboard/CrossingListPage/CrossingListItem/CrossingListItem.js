@@ -9,7 +9,7 @@ import StatusToggle from 'components/Dashboard/CrossingListPage/CrossingListItem
 import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
 import newStatusUpdateMutation from 'components/Dashboard/CrossingListPage/queries/newStatusUpdateMutation';
 import crossingsQuery from 'components/Dashboard/CrossingListPage/queries/crossingsQuery';
-import allCrossings from 'components/Map/queries/allCrossingsQuery';
+import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
 import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/statusCountsQuery';
 import statusUpdateFragment from 'components/Dashboard/CrossingListPage/queries/statusUpdateFragment';
 import * as statusConstants from 'constants/StatusConstants';

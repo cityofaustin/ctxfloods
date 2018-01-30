@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SelectedCrossingContainer from 'components/Dashboard/CrossingMapPage/SelectedCrossingContainer';
-import 'components/Dashboard/CrossingMapPage/CrossingMapPage.css';
+import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
+import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
 import FontAwesome from 'react-fontawesome';
 
 class CrossingMapSidebar extends Component {

@@ -2,9 +2,9 @@ import React from 'react';
 import { graphql, compose } from 'react-apollo';
 import * as MapboxGl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
-import mapboxstyle from 'components/Map/mapboxstyle.json';
-import allCrossings from 'components/Map/queries/allCrossingsQuery';
-import 'components/Map/CrossingMap.css';
+import mapboxstyle from 'components/Shared/Map/mapboxstyle.json';
+import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
+import 'components/Shared/Map/CrossingMap.css';
 
 const Map = ReactMapboxGl({ accessToken: null });
 
