@@ -36,7 +36,11 @@ class CrossingMapPage extends Component {
       selectedCrossingStatus: null,
       fullscreen: false,
       searchQuery: '',
-      formattedSearchQuery: '%%'
+      formattedSearchQuery: '%%',
+      showOpen: true,
+      showClosed: true,
+      showCaution: true,
+      showLongterm: true
     };
   }
 
@@ -47,7 +51,7 @@ class CrossingMapPage extends Component {
   searchQueryUpdated = (e) => {
     this.setState({ searchQuery: e.target.value });
     this.setState({ formattedSearchQuery: this.formatSearchQuery(e.target.value) });
-  };
+  }
 
   selectCrossing = (crossingId, crossingStatus) => {
     this.setState({selectedCrossingId: crossingId});
@@ -57,6 +61,11 @@ class CrossingMapPage extends Component {
   toggleFull = () => {
     this.setState({fullscreen: !this.state.fullscreen});
   }
+
+  toggleShowOpen = () => { this.setState({ showOpen: !this.state.showOpen }) }
+  toggleShowClosed = () => { this.setState({ showClosed: !this.state.showClosed }) }
+  toggleShowCaution = () => { this.setState({ showCaution: !this.state.showCaution }) }
+  toggleShowLongterm = () => { this.setState({ showLongterm: !this.state.showLongterm }) }
 
   render() {
     const { viewport, selectedCrossingId, selectedCrossingStatus, searchQuery, formattedSearchQuery } = this.state;
@@ -73,7 +82,22 @@ class CrossingMapPage extends Component {
               {params.fullsize && <div className="CrossingMapPage__fullscreen-toggle-container">
                 <FontAwesome name='arrows-alt' size='2x' onClick={this.toggleFull} className='CrossingMapPage__fullscreen-toggle'/>
               </div>}
-              {params.fullsize && <CrossingMapSidebar selectedCrossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing} searchQuery={searchQuery} searchQueryUpdated={this.searchQueryUpdated}/>}
+              {params.fullsize && 
+                <CrossingMapSidebar
+                  selectedCrossingId={selectedCrossingId}
+                  currentUser={currentUser}
+                  selectCrossing={this.selectCrossing}
+                  searchQuery={searchQuery}
+                  searchQueryUpdated={this.searchQueryUpdated}
+                  showOpen={this.state.showOpen}
+                  toggleShowOpen={this.toggleShowOpen}
+                  showClosed={this.state.showClosed}
+                  toggleShowClosed={this.toggleShowClosed}
+                  showCaution={this.state.showCaution}
+                  toggleShowCaution={this.toggleShowCaution}
+                  showLongterm={this.state.showLongterm}
+                  toggleShowLongterm={this.toggleShowLongterm} />
+              }
               <div className="CrossingMapPage__map-container">
                 <CrossingMap 
                   mapHeight="100%"

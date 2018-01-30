@@ -167,3 +167,27 @@ body {
   margin-top: 20px;
   border-radius: 0px 5px 5px 0px;
 }
+
+.CrossingMapPage_sidebar-filter-sort-toggle-container {
+  background: #004D90;
+  height: 30px;
+}
+
+.CrossingMapPage_sidebar-filter-toggle-text {
+  color: white;
+  padding: 5px;
+  padding-left: 15px;
+  font-size: small;
+}
+
+.CrossingMapPage_sidebar-filter-container {
+  background: #006CB5;
+  height: 60px;
+}
+
+.CrossingMapPage_sidebar-filter {
+  color: white;
+  line-height: 60px;
+  font-size: small;
+  margin: 20px;
+}
