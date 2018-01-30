@@ -24,7 +24,7 @@ class CrossingMapSidebar extends Component {
     return (
       <div className="CrossingMapPage_sidebar-container">{visible && (
         <div className="CrossingMapPage_sidebar-content">
-          <CrossingMapSearchBar />
+          <CrossingMapSearchBar selectedCrossingId={selectedCrossingId}/>
           {selectedCrossingId && <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={selectCrossing}/> }
         </div>
         )}
