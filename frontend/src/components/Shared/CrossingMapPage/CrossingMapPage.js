@@ -120,7 +120,6 @@ class CrossingMapPage extends Component {
                   showLongterm={this.state.showLongterm}
                   setVisibleCrossings={this.setVisibleCrossings}
                    />
-                  }
               </div>
               {!params.fullsize && selectedCrossingId &&
                 <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/>
