@@ -81,10 +81,7 @@ class CrossingMap extends React.Component {
   }
 
   addZoomControl (map) {
-    const zoomControl = new MapboxGl.NavigationControl({
-
-    });
-
+    const zoomControl = new MapboxGl.NavigationControl();
     map.addControl(zoomControl, 'bottom-right');
   }
 
@@ -96,7 +93,12 @@ class CrossingMap extends React.Component {
   updateVisibleCrossings = (e) => {
     if (e.type === 'data' && !e.isSourceLoaded ) return;
     const { map } = this.state;
-    const features = map.queryRenderedFeatures({layers:['openCrossings', 'closedCrossings', 'cautionCrossings', 'longtermCrossings']});
+    const { showOpen, showClosed, showCaution, showLongterm } = this.props;
+    const layersToQuery = [showOpen ? 'openCrossings' : null,
+                           showClosed ? 'closedCrossings' : null,
+                           showCaution ? 'cautionCrossings' : null,
+                           showLongterm ? 'longtermCrossings' : null].filter(l => l !== null);
+    const features = map.queryRenderedFeatures({layers:layersToQuery});
     const crossings = _.uniqBy(features.map(f => (
                                              {id: f.properties.crossingId,
                                               latestStatus: f.properties.latestStatusCreatedAt,
