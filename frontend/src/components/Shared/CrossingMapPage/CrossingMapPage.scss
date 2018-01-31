@@ -198,8 +198,10 @@ body {
 }
 
 .CrossingMapPage_sidebar-search-result-status-icon {
-  background: red;
   width: 60px;
+  img {
+    margin-left: 5px;
+  }
 }
 
 .CrossingMapPage_sidebar-search-result-details {

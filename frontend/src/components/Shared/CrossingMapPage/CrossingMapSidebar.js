@@ -75,7 +75,7 @@ class CrossingMapSidebar extends Component {
           </div> }
           <div className="SEARCH RESULTS BLARG BLARG">
             {visibleCrossings.map(c => (
-              <CrossingSidebarSearchResultItem id={c.id} latestStatus={c.latestStatus} />
+              <CrossingSidebarSearchResultItem id={c.id} latestStatus={c.latestStatus} statusId={c.statusId} />
             ))}
           </div>
         </div>

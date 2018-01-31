@@ -97,7 +97,7 @@ class CrossingMap extends React.Component {
     if (e.type === 'data' && !e.isSourceLoaded ) return;
     const { map } = this.state;
     const features = map.queryRenderedFeatures({layers:['openCrossings', 'closedCrossings', 'cautionCrossings', 'longtermCrossings']});
-    const crossings = _.uniqBy(features.map(f => ({id: f.properties.crossingId, latestStatus: f.properties.latestStatusCreatedAt})), 'id');
+    const crossings = _.uniqBy(features.map(f => ({id: f.properties.crossingId, latestStatus: f.properties.latestStatusCreatedAt, statusId: f.properties.crossingStatus})), 'id');
     
     // Get the first 10 visible crossings by latest status for the results
     this.props.setVisibleCrossings(_.slice(_.orderBy(crossings, ['latestStatus'], ['desc']), 0, 10));
