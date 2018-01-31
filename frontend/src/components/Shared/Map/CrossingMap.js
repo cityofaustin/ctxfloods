@@ -97,7 +97,11 @@ class CrossingMap extends React.Component {
     if (e.type === 'data' && !e.isSourceLoaded ) return;
     const { map } = this.state;
     const features = map.queryRenderedFeatures({layers:['openCrossings', 'closedCrossings', 'cautionCrossings', 'longtermCrossings']});
-    const crossings = _.uniqBy(features.map(f => ({id: f.properties.crossingId, latestStatus: f.properties.latestStatusCreatedAt, statusId: f.properties.crossingStatus})), 'id');
+    const crossings = _.uniqBy(features.map(f => (
+                                             {id: f.properties.crossingId,
+                                              latestStatus: f.properties.latestStatusCreatedAt,
+                                              statusId: f.properties.crossingStatus,
+                                              crossingName: f.properties.crossingName })), 'id');
     
     // Get the first 10 visible crossings by latest status for the results
     this.props.setVisibleCrossings(_.slice(_.orderBy(crossings, ['latestStatus'], ['desc']), 0, 10));
@@ -184,7 +188,11 @@ class CrossingMap extends React.Component {
                 return(
                      <Feature key={i}
                               coordinates={JSON.parse(crossing.geojson).coordinates}
-                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson, "latestStatusCreatedAt": crossing.latestStatusCreatedAt}}/>
+                              properties={{"crossingStatus": crossing.latestStatusId,
+                                           "crossingId": crossing.id,
+                                           "geojson": crossing.geojson,
+                                           "latestStatusCreatedAt": crossing.latestStatusCreatedAt,
+                                           "crossingName": crossing.name }}/>
                 )}
               )
             }
@@ -207,7 +215,11 @@ class CrossingMap extends React.Component {
                 return(
                      <Feature key={i}
                               coordinates={JSON.parse(crossing.geojson).coordinates}
-                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson, "latestStatusCreatedAt": crossing.latestStatusCreatedAt}}/>
+                              properties={{"crossingStatus": crossing.latestStatusId,
+                                           "crossingId": crossing.id,
+                                           "geojson": crossing.geojson,
+                                           "latestStatusCreatedAt": crossing.latestStatusCreatedAt,
+                                           "crossingName": crossing.name }}/>
                 )}
               )
             }
@@ -230,7 +242,11 @@ class CrossingMap extends React.Component {
                 return(
                      <Feature key={i}
                               coordinates={JSON.parse(crossing.geojson).coordinates}
-                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson, "latestStatusCreatedAt": crossing.latestStatusCreatedAt}}/>
+                              properties={{"crossingStatus": crossing.latestStatusId,
+                                           "crossingId": crossing.id,
+                                           "geojson": crossing.geojson,
+                                           "latestStatusCreatedAt": crossing.latestStatusCreatedAt,
+                                           "crossingName": crossing.name }}/>
                 )}
               )
             }
@@ -253,7 +269,11 @@ class CrossingMap extends React.Component {
                 return(
                      <Feature key={i}
                               coordinates={JSON.parse(crossing.geojson).coordinates}
-                              properties={{"crossingStatus": crossing.latestStatusId, "crossingId": crossing.id, "geojson": crossing.geojson, "latestStatusCreatedAt": crossing.latestStatusCreatedAt}}/>
+                              properties={{"crossingStatus": crossing.latestStatusId,
+                                           "crossingId": crossing.id,
+                                           "geojson": crossing.geojson,
+                                           "latestStatusCreatedAt": crossing.latestStatusCreatedAt,
+                                           "crossingName": crossing.name }}/>
                 )}
               )
             }

@@ -5,6 +5,7 @@ const allCrossings = gql`
     searchCrossings(search: $search, showOpen: $showOpen, showClosed: $showClosed, showCaution: $showCaution, showLongterm: $showLongterm, communityId: $communityId) {
       nodes {
         id
+        name
         geojson
         latestStatusId
         latestStatusCreatedAt
