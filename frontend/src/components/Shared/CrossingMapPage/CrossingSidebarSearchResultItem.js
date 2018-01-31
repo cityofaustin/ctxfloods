@@ -1,6 +1,7 @@
 import React from 'react';
 import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
 import { strings, statusIcons } from 'constants/StatusConstants';
+import moment from 'moment';
 
 class CrossingSidebarSearchResultItem extends React.Component {
   render () {
@@ -16,7 +17,22 @@ class CrossingSidebarSearchResultItem extends React.Component {
           <div className="CrossingMapPage_sidebar-search-result-details-name">{crossingName}</div>
           <div className="CrossingMapPage_sidebar-search-result-details-communities">TODO: Communities</div>
         </div>
-        <div className="CrossingMapPage_sidebar-search-result-update-time">Latest Status: {latestStatus}</div>
+        <div className="CrossingMapPage_sidebar-search-result-update-datetime">
+          <div className="CrossingMapPage_sidebar-search-result-update-datetime-date">
+            {
+              moment(latestStatus).calendar(null, {
+                lastDay: '[Yesterday]',
+                sameDay: '[Today]',
+                sameElse: 'MM/DD/YYYY'
+              })
+            }
+          </div>
+          <div className="CrossingMapPage_sidebar-search-result-update-datetime-time">
+            {
+              moment(latestStatus).format('hh:mm A')
+            }
+          </div>
+        </div>
       </div>
     );
   }
