@@ -63,6 +63,11 @@ class CrossingMap extends React.Component {
     this.addGeoLocateControl(map);
     this.addCrossingClickHandlers(map);
     this.addUpdateVisibleCrossingHandlers(map);
+    // disable map rotation using right click + drag
+    map.dragRotate.disable();
+
+    // disable map rotation using touch rotation gesture
+    map.touchZoomRotate.disableRotation();
   }
 
   addGeoLocateControl (map) {
