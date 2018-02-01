@@ -168,7 +168,6 @@ class CrossingListItem extends React.Component {
       data = store.readQuery({ query: allCrossings, variables: qvars });
       index = data.searchCrossings.nodes.findIndex(node => node.id === updatedCrossing.id);
     } catch(err) {
-      console.log(err);
       return;
     }
 
