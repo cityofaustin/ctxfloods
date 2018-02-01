@@ -7,7 +7,7 @@ import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
 import 'components/Shared/Map/CrossingMap.css';
 import _ from 'lodash';
 
-const Map = ReactMapboxGl({ accessToken: null });
+const Map = ReactMapboxGl({ accessToken: null, attributionControl: false });
 
 const STATUS_OPEN = 1;
 const STATUS_CLOSED = 2;
@@ -178,7 +178,7 @@ class CrossingMap extends React.Component {
           display: "block"
         }}
         fitBounds={this.props.viewport}
-        center={this.state.center}>
+        center={this.state.center} >
         {!isLoading && showOpen && (
           <Layer
             type="symbol"
