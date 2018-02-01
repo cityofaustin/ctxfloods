@@ -1,12 +1,5 @@
 @import "css/mixins/flexbox";
 
-@mixin placeholder {
-  &::-webkit-input-placeholder {@content}
-  &:-moz-placeholder           {@content}
-  &::-moz-placeholder          {@content}
-  &:-ms-input-placeholder      {@content}  
-}
-
 .CrossingMapSidebar__overlay-container {
   @include flexcontainer;
   position: absolute;
@@ -14,58 +7,19 @@
   height: 100%;
 }
 
-.CrossingMapSidebar_content {
+.CrossingMapSidebar__content {
   background: #F8F8F9;
   width: 430px;
   @include flexcontainer;
   flex-direction: column;
-}
 
-.CrossingMapPage_sidebar-search-header {
-  background: #004D90;
-  color: white;
-  padding-left: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  letter-spacing: .11em;
-}
+  .CrossingListItem {
+    margin-bottom: 0px;
+  }
 
-.CrossingMapPage_sidebar-search-container {
-  background: #006CB5;
-  color: #8BBADB;
-  height: 50px;
-  @include flexcontainer;
-}
-
-.CrossingMapPage_sidebar-search-location-icon {
-  padding-left: 20px;
-  padding-top: 13px;
-}
-
-.CrossingMapPage_sidebar-search-glass-icon {
-  padding-top: 13px;
-  padding-right: 10px;
-}
-
-.CrossingMapPage_sidebar-search-cancel-icon {
-  padding-top: 13px;
-  padding-right: 10px;  
-}
-
-.CrossingMapPage_sidebar-search-text-entry {
-  width: 100%;
-  margin: auto;
-  input {
-    font-size: medium;
-    color: white;
-    margin-left: 3%;
-    margin-right: 3%;
-    width: 94%;
-    border: none;
-    background: none;
-    @include placeholder {
-      color: white;
-    }
+  .CrossingListItem--dirty {
+    outline: none;
+    box-shadow: 0 4px #40B3FF inset, 0 -4px #40B3FF inset;
   }
 }
 
@@ -164,8 +118,4 @@
 
 .CrossingMapPage_sidebar-searchresults {
   overflow: hidden;
-}
-
-.CrossingMapPage__mobile-overlay {
-  background: red;
 }

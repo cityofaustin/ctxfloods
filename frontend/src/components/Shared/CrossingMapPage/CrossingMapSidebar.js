@@ -45,7 +45,7 @@ class CrossingMapSidebar extends Component {
 
     return (
       <div className="CrossingMapSidebar__overlay-container">{visible && (
-        <div className="CrossingMapSidebar_content">
+        <div className="CrossingMapSidebar__content">
           <CrossingMapSearchBar selectedCrossingId={selectedCrossingId}
                                 selectCrossing={selectCrossing}
                                 searchQuery={searchQuery}

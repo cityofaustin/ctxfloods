@@ -7,7 +7,6 @@ import statusUpdateFragment from 'components/Dashboard/CrossingListPage/queries/
 import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/statusReasonsQuery';
 import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
-import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
 
 class SelectedCrossingContainer extends Component {
 

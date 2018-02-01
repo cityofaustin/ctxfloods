@@ -11,19 +11,17 @@
   display: none;
 }
 
-.CrossingMapOverlay__close-button {
-  position: absolute;
-  z-index: 1;
-  margin-left: 290px;
-  margin-top: 5px;
-  font-size: 2em;
-}
-
 .CrossingMapPage__mobile-overlay {
   width: 100%;
 
   .CrossingListItem {
+    box-shadow: none;
     margin-bottom: 0px;
+  }
+
+  .CrossingListItem--dirty {
+    outline: none;
+    box-shadow: 0 4px #40B3FF inset, 0 -4px #40B3FF inset;
   }
 }
 
