@@ -21,15 +21,20 @@ class CrossingMapSearchBar extends Component {
           <div className="CrossingMapSearchBar__location-icon">
             <FontAwesome name='map-marker' size='2x'/>  
           </div>
-          <div className="CrossingMapSearchBar__text-entry">
-            <input type="text"
-                   placeholder="Search..."
-                   value={selectedCrossingId ? selectedCrossingName : searchQuery}
-                   onChange={searchQueryUpdated} />
-          </div>
-          <div className="CrossingMapSearchBar__glass-icon">
-            <FontAwesome name='search' size='2x'/>  
-          </div>
+          { selectedCrossingId && <div className="CrossingMapSearchBar__selected-item">{selectedCrossingName}</div> }
+          { !selectedCrossingId &&
+            <div className="CrossingMapSearchBar__text-entry">
+              <input type="text"
+                     placeholder="Search..."
+                     value={searchQuery}
+                     onChange={searchQueryUpdated} />
+            </div> 
+          }
+          { !selectedCrossingId && 
+            <div className="CrossingMapSearchBar__glass-icon">
+              <FontAwesome name='search' size='2x'/>  
+            </div>
+          }
           <div className="CrossingMapSearchBar__cancel-icon" onClick={this.clearSearch}>
             <FontAwesome name='times' size='2x'/>  
           </div>
