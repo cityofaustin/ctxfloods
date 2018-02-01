@@ -40,7 +40,8 @@ class CrossingMapSidebar extends Component {
             selectedCrossingId,
             selectCrossing,
             currentUser,
-            visibleCrossings } = this.props;
+            visibleCrossings,
+            allCommunities } = this.props;
 
     return (
       <div className="CrossingMapPage_sidebar-container">{visible && (
@@ -75,7 +76,7 @@ class CrossingMapSidebar extends Component {
           </div> }
           <div className="CrossingMapPage_sidebar-searchresults">
             {visibleCrossings.map(c => (
-              <CrossingSidebarSearchResultItem id={c.id} latestStatus={c.latestStatus} statusId={c.statusId} crossingName={c.crossingName} communityIds={c.communityIds} />
+              <CrossingSidebarSearchResultItem id={c.id} latestStatus={c.latestStatus} statusId={c.statusId} crossingName={c.crossingName} communityIds={c.communityIds} allCommunities={allCommunities} />
             ))}
           </div>
         </div>

@@ -8,6 +8,8 @@ import Fullscreen from 'react-full-screen';
 import FontAwesome from 'react-fontawesome';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import { ContainerQuery } from 'react-container-query';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const containerQuery = {
   'fullsize': {
@@ -73,8 +75,13 @@ class CrossingMapPage extends Component {
   toggleShowLongterm = () => { this.setState({ showLongterm: !this.state.showLongterm }) }
 
   render() {
+    const isLoading = !this.props.data || this.props.data.loading;
+
     const { viewport, selectedCrossingId, selectedCrossingStatus, searchQuery, formattedSearchQuery, visibleCrossings } = this.state;
     const { currentUser } = this.props;
+    const allCommunities = 
+      (this.props.data && !this.props.data.loading && this.props.data.allCommunities) ?
+        this.props.data.allCommunities.nodes : null;
 
     return (
 
@@ -102,7 +109,8 @@ class CrossingMapPage extends Component {
                   toggleShowCaution={this.toggleShowCaution}
                   showLongterm={this.state.showLongterm}
                   toggleShowLongterm={this.toggleShowLongterm}
-                  visibleCrossings={visibleCrossings} />
+                  visibleCrossings={visibleCrossings}
+                  allCommunities={allCommunities} />
               }
               <div className="CrossingMapPage__map-container">
                 <CrossingMap 
@@ -133,6 +141,15 @@ class CrossingMapPage extends Component {
   }
 }
 
-export default CrossingMapPage;
+const allCommunities = gql`
+  {
+    allCommunities {
+      nodes {
+        id
+        name
+      }
+    }
+  }
+`;
 
-
+export default graphql(allCommunities)(CrossingMapPage);
