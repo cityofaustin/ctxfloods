@@ -124,7 +124,7 @@ class CrossingMap extends React.Component {
     this.setState({ selectedCrossing: crossing.properties });
     this.setState({ selectedCrossingCoordinates: crossing.geometry.coordinates });
     this.setState({ center: crossing.geometry.coordinates });
-    this.props.selectCrossing(crossing.properties.crossingId, crossing.properties.crossingStatus);
+    this.props.selectCrossing(crossing.properties.crossingId, crossing.properties.crossingStatus, crossing.properties.crossingName);
   }
 
   onMapClick = (e) => {

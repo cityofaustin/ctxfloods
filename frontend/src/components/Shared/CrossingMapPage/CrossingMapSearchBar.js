@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
 import FontAwesome from 'react-fontawesome';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 
 class CrossingMapSearchBar extends Component {
 
@@ -12,10 +10,7 @@ class CrossingMapSearchBar extends Component {
   }
 
   render() {
-    const { searchQuery, selectedCrossingId, searchQueryUpdated } = this.props;
-    const crossingName = 
-      (this.props.data && !this.props.data.loading && this.props.data.crossingById) ?
-        this.props.data.crossingById.name : null;
+    const { searchQuery, selectedCrossingId, searchQueryUpdated, selectedCrossingName } = this.props;
 
     return (
       <div>
@@ -29,7 +24,7 @@ class CrossingMapSearchBar extends Component {
           <div className="CrossingMapPage_sidebar-search-text-entry">
             <input type="text"
                    placeholder="Search..."
-                   value={selectedCrossingId && crossingName ? crossingName : searchQuery}
+                   value={selectedCrossingId ? selectedCrossingName : searchQuery}
                    onChange={searchQueryUpdated} />
           </div>
           <div className="CrossingMapPage_sidebar-search-glass-icon">
@@ -44,19 +39,4 @@ class CrossingMapSearchBar extends Component {
   }
 }
 
-const crossingQuery = gql`
-  query crossingById($crossingId:Int!) {
-    crossingById(id:$crossingId) {
-      id
-      name
-    }
-  }
-`;
-
-export default graphql(crossingQuery, {
-  options: (ownProps) => ({
-    variables: {
-      crossingId: ownProps.selectedCrossingId
-    }
-  })
-})(CrossingMapSearchBar);
+export default CrossingMapSearchBar;

@@ -5,7 +5,6 @@ import CrossingSidebarSearchResultItem from 'components/Shared/CrossingMapPage/C
 import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
 import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
-import _ from 'lodash';
 
 class CrossingMapSidebar extends Component {
   constructor(props) {
@@ -41,12 +40,17 @@ class CrossingMapSidebar extends Component {
             selectCrossing,
             currentUser,
             visibleCrossings,
-            allCommunities } = this.props;
+            allCommunities,
+            selectedCrossingName } = this.props;
 
     return (
       <div className="CrossingMapPage_sidebar-container">{visible && (
         <div className="CrossingMapPage_sidebar-content">
-          <CrossingMapSearchBar selectedCrossingId={selectedCrossingId} selectCrossing={selectCrossing} searchQuery={searchQuery} searchQueryUpdated={searchQueryUpdated}/>
+          <CrossingMapSearchBar selectedCrossingId={selectedCrossingId}
+                                selectCrossing={selectCrossing}
+                                searchQuery={searchQuery}
+                                searchQueryUpdated={searchQueryUpdated}
+                                selectedCrossingName={selectedCrossingName} />
           {selectedCrossingId && <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={selectCrossing} /> }
           <div className="CrossingMapPage_sidebar-filter-sort-toggle-container">
             <div className={classnames('CrossingMapPage_sidebar-filter-toggle', {'selected': this.state.showFilters})} onClick={this.toggleFilters}>
@@ -76,7 +80,7 @@ class CrossingMapSidebar extends Component {
           </div> }
           <div className="CrossingMapPage_sidebar-searchresults">
             {visibleCrossings.map(c => (
-              <CrossingSidebarSearchResultItem id={c.id} latestStatus={c.latestStatus} statusId={c.statusId} crossingName={c.crossingName} communityIds={c.communityIds} allCommunities={allCommunities} />
+              <CrossingSidebarSearchResultItem key={c.id} latestStatus={c.latestStatus} statusId={c.statusId} crossingName={c.crossingName} communityIds={c.communityIds} allCommunities={allCommunities} />
             ))}
           </div>
         </div>

@@ -5,7 +5,7 @@ import moment from 'moment';
 
 class CrossingSidebarSearchResultItem extends React.Component {
   render () {
-    const { id, latestStatus, statusId, crossingName, communityIds, allCommunities } = this.props;
+    const { latestStatus, statusId, crossingName, communityIds, allCommunities } = this.props;
 
     return (
       <div className="CrossingMapPage_sidebar-search-result-container">

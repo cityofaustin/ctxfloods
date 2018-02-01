@@ -56,9 +56,10 @@ class CrossingMapPage extends Component {
     this.setState({ formattedSearchQuery: this.formatSearchQuery(e.target.value) });
   }
 
-  selectCrossing = (crossingId, crossingStatus) => {
-    this.setState({selectedCrossingId: crossingId});
-    this.setState({selectedCrossingStatus: crossingStatus});
+  selectCrossing = (crossingId, crossingStatus, crossingName) => {
+    this.setState({selectedCrossingId: crossingId,
+                   selectedCrossingStatus: crossingStatus,
+                   selectedCrossingName: crossingName });
   }
 
   setVisibleCrossings = (visibleCrossings) => {
@@ -75,9 +76,7 @@ class CrossingMapPage extends Component {
   toggleShowLongterm = () => { this.setState({ showLongterm: !this.state.showLongterm }) }
 
   render() {
-    const isLoading = !this.props.data || this.props.data.loading;
-
-    const { viewport, selectedCrossingId, selectedCrossingStatus, searchQuery, formattedSearchQuery, visibleCrossings } = this.state;
+    const { viewport, selectedCrossingId, selectedCrossingStatus, searchQuery, formattedSearchQuery, visibleCrossings, selectedCrossingName } = this.state;
     const { currentUser } = this.props;
     const allCommunities = 
       (this.props.data && !this.props.data.loading && this.props.data.allCommunities) ?
@@ -90,13 +89,20 @@ class CrossingMapPage extends Component {
         <div className="CrossingMapPage__page-container">        
           <Fullscreen enabled={this.state.fullscreen} onChange={fullscreen => this.setState({fullscreen})}>
             <div className="CrossingMapPage">
-              {!params.fullsize && <CrossingMapSearchBar selectedCrossingId={selectedCrossingId} selectCrossing={this.selectCrossing} searchQuery={searchQuery} searchQueryUpdated={this.searchQueryUpdated}/>}
+              {!params.fullsize && 
+                <CrossingMapSearchBar selectedCrossingId={selectedCrossingId}
+                                      selectCrossing={this.selectCrossing}
+                                      searchQuery={searchQuery}
+                                      searchQueryUpdated={this.searchQueryUpdated}
+                                      selectedCrossingName={selectedCrossingName} />
+              }
               {params.fullsize && <div className="CrossingMapPage__fullscreen-toggle-container">
                 <FontAwesome name='arrows-alt' size='2x' onClick={this.toggleFull} className='CrossingMapPage__fullscreen-toggle'/>
               </div>}
               {params.fullsize && 
                 <CrossingMapSidebar
                   selectedCrossingId={selectedCrossingId}
+                  selectedCrossingName={selectedCrossingName}
                   currentUser={currentUser}
                   selectCrossing={this.selectCrossing}
                   searchQuery={searchQuery}
