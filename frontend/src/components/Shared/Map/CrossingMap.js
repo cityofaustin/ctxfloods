@@ -108,7 +108,8 @@ class CrossingMap extends React.Component {
                                              {id: f.properties.crossingId,
                                               latestStatus: f.properties.latestStatusCreatedAt,
                                               statusId: f.properties.crossingStatus,
-                                              crossingName: f.properties.crossingName })), 'id');
+                                              crossingName: f.properties.crossingName,
+                                              communityIds: JSON.parse(f.properties.communityIds) })), 'id');
     
     // Get the first 10 visible crossings by latest status for the results
     this.props.setVisibleCrossings(_.slice(_.orderBy(crossings, ['latestStatus'], ['desc']), 0, 10));
@@ -199,7 +200,8 @@ class CrossingMap extends React.Component {
                                            "crossingId": crossing.id,
                                            "geojson": crossing.geojson,
                                            "latestStatusCreatedAt": crossing.latestStatusCreatedAt,
-                                           "crossingName": crossing.name }}/>
+                                           "crossingName": crossing.name,
+                                           "communityIds": crossing.communityIds }}/>
                 )}
               )
             }
@@ -226,7 +228,8 @@ class CrossingMap extends React.Component {
                                            "crossingId": crossing.id,
                                            "geojson": crossing.geojson,
                                            "latestStatusCreatedAt": crossing.latestStatusCreatedAt,
-                                           "crossingName": crossing.name }}/>
+                                           "crossingName": crossing.name,
+                                           "communityIds": crossing.communityIds }}/>
                 )}
               )
             }
@@ -253,7 +256,8 @@ class CrossingMap extends React.Component {
                                            "crossingId": crossing.id,
                                            "geojson": crossing.geojson,
                                            "latestStatusCreatedAt": crossing.latestStatusCreatedAt,
-                                           "crossingName": crossing.name }}/>
+                                           "crossingName": crossing.name,
+                                           "communityIds": crossing.communityIds }}/>
                 )}
               )
             }
@@ -280,7 +284,8 @@ class CrossingMap extends React.Component {
                                            "crossingId": crossing.id,
                                            "geojson": crossing.geojson,
                                            "latestStatusCreatedAt": crossing.latestStatusCreatedAt,
-                                           "crossingName": crossing.name }}/>
+                                           "crossingName": crossing.name,
+                                           "communityIds": crossing.communityIds }}/>
                 )}
               )
             }

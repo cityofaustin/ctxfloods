@@ -73,9 +73,9 @@ class CrossingMapSidebar extends Component {
               Long Term Closure
             </label>
           </div> }
-          <div className="SEARCH RESULTS BLARG BLARG">
+          <div className="CrossingMapPage_sidebar-searchresults">
             {visibleCrossings.map(c => (
-              <CrossingSidebarSearchResultItem id={c.id} latestStatus={c.latestStatus} statusId={c.statusId} crossingName={c.crossingName} />
+              <CrossingSidebarSearchResultItem id={c.id} latestStatus={c.latestStatus} statusId={c.statusId} crossingName={c.crossingName} communityIds={c.communityIds} />
             ))}
           </div>
         </div>

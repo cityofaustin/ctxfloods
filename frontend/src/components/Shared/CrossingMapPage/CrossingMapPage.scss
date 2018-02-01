@@ -224,7 +224,8 @@ body {
 
 .CrossingMapPage_sidebar-search-result-details-name {
   font-size: small;
-  font-weight: 600; 
+  font-weight: 600;
+  margin-top: 2px;
 }
 
 .CrossingMapPage_sidebar-search-result-update-datetime {
@@ -242,4 +243,12 @@ body {
 
 .CrossingMapPage_sidebar-search-result-update-datetime-time {
   font-size: small;
+  font-weight: 300;
+}
+
+.CrossingMapPage_sidebar-search-result-details-communities {
+  font-size: small;
+  font-weight: 300;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
