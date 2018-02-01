@@ -110,6 +110,8 @@ body {
 .CrossingMapPage_sidebar-content {
   background: #F8F8F9;
   width: 430px;
+  @include flexcontainer;
+  flex-direction: column;
 }
 
 .CrossingMapPage_sidebar-search-header {
@@ -251,4 +253,8 @@ body {
   font-weight: 300;
   margin-top: 5px;
   margin-bottom: 10px;
+}
+
+.CrossingMapPage_sidebar-searchresults {
+  overflow: hidden;
 }
