@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
 import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
 import CrossingSidebarSearchResultItem from 'components/Shared/CrossingMapPage/CrossingSidebarSearchResultItem';
-import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
+import 'components/Shared/CrossingMapPage/CrossingMapSidebar.css';
 import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
 
@@ -44,8 +44,8 @@ class CrossingMapSidebar extends Component {
             selectedCrossingName } = this.props;
 
     return (
-      <div className="CrossingMapPage_sidebar-container">{visible && (
-        <div className="CrossingMapPage_sidebar-content">
+      <div className="CrossingMapSidebar__overlay-container">{visible && (
+        <div className="CrossingMapSidebar_content">
           <CrossingMapSearchBar selectedCrossingId={selectedCrossingId}
                                 selectCrossing={selectCrossing}
                                 searchQuery={searchQuery}

@@ -32,8 +32,7 @@ class SelectedCrossingContainer extends Component {
 
 
     return (
-      <div className="CrossingMapSidebar_selected-crossing-container">
-        {currentUser ? 
+        currentUser ? 
           <CrossingListItem
             key={crossing.id}
             crossing={crossing}
@@ -47,8 +46,6 @@ class SelectedCrossingContainer extends Component {
             crossing={crossing}
             reasons={statusReasons} 
             durations={statusDurations} />
-        }
-      </div>
     );
   }
 }

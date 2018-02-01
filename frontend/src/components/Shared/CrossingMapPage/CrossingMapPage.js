@@ -10,6 +10,7 @@ import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import { ContainerQuery } from 'react-container-query';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import classnames from 'classnames';
 
 const containerQuery = {
   'fullsize': {
@@ -118,7 +119,7 @@ class CrossingMapPage extends Component {
                   visibleCrossings={visibleCrossings}
                   allCommunities={allCommunities} />
               }
-              <div className="CrossingMapPage__map-container">
+              <div className={classnames("CrossingMapPage__map-container", {"CrossingMapPage__map-container--hidden": (!params.fullsize && selectedCrossingId)})}>
                 <CrossingMap 
                   mapHeight="100%"
                   mapWidth="100%"
@@ -136,7 +137,9 @@ class CrossingMapPage extends Component {
                    />
               </div>
               {!params.fullsize && selectedCrossingId &&
-                <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/>
+                <div className="CrossingMapPage__mobile-overlay">
+                  <SelectedCrossingContainer crossingId={selectedCrossingId} currentUser={currentUser} selectCrossing={this.selectCrossing}/>
+                </div>
               }
             </div>
           </Fullscreen>
