@@ -187,6 +187,8 @@ class CrossingListItem extends React.Component {
         geojson: updatedCrossing.geojson,
         latestStatusId: updatedCrossing.latestStatusId,
         communityIds: updatedCrossing.communityIds,
+        name: updatedCrossing.name,
+        latestStatusCreatedAt: updatedCrossing.latestStatusCreatedAt,
         __typename: "Crossing"
       })
     }
@@ -203,6 +205,7 @@ class CrossingListItem extends React.Component {
     const updateData = {
       id: Math.round(Math.random() * -1000000),
       crossingId: this.props.crossing.id,
+      name: this.props.crossing.name,
       geojson: this.props.crossing.geojson,
       communityIds: this.props.crossing.communityIds,
       statusId: this.state.selectedStatus,
@@ -255,6 +258,7 @@ class CrossingListItem extends React.Component {
               communityIds: updateData.communityIds,
               latestStatusUpdateId: updateData.id,
               latestStatusCreatedAt: moment().format(),
+              name: updateData.name,
               statusUpdateByLatestStatusUpdateId: {
                 id: updateData.id,
                 crossingId: updateData.crossingId,
