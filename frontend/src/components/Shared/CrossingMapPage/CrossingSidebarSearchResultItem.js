@@ -29,7 +29,7 @@ class CrossingSidebarSearchResultItem extends React.Component {
           </div>
           <div className="CrossingMapPage_sidebar-search-result-update-datetime-time">
             {
-              moment(latestStatus).format('hh:mm A')
+              moment(latestStatus).format('h:mm A')
             }
           </div>
         </div>

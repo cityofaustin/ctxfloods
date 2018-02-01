@@ -200,10 +200,11 @@ body {
 .CrossingMapPage_sidebar-search-result-container {
   @include flexcontainer;
   background: white;
+  margin-bottom: 4px;
 }
 
 .CrossingMapPage_sidebar-search-result-status-icon {
-  width: 60px;
+  min-width: 60px;
   img {
     margin-left: 5px;
   }
@@ -213,7 +214,32 @@ body {
   flex: auto;
 }
 
-.CrossingMapPage_sidebar-search-result-update-time {
-  background: green;
-  width: 100px;
+.CrossingMapPage_sidebar-search-result-details-status {
+  font-size: x-small;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #757575;
+  padding-top: 10px;
+}
+
+.CrossingMapPage_sidebar-search-result-details-name {
+  font-size: small;
+  font-weight: 600; 
+}
+
+.CrossingMapPage_sidebar-search-result-update-datetime {
+  margin-right: 10px;
+  text-align: right;
+}
+
+.CrossingMapPage_sidebar-search-result-update-datetime-date {
+  font-size: x-small;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #757575;
+  padding-top: 10px;
+}
+
+.CrossingMapPage_sidebar-search-result-update-datetime-time {
+  font-size: small;
 }
