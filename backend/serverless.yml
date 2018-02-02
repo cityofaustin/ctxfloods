@@ -27,7 +27,6 @@ functions:
                   "variables" : $input.json('$.variables'),
                   "operationName" : "$util.escapeJavaScript($input.path('$.operationName'))",
                   "headers" : {
-                     "Access-Control-Allow-Origin" : "*",
                      #if( $input.params().header.get('Authorization').toString() != "" )
                         "authorization" : "$input.params().header.get('Authorization')"
                      #end
@@ -37,7 +36,6 @@ functions:
                 {
                   "query" : "$util.escapeJavaScript($input.body)",
                   "headers" : {
-                     "Access-Control-Allow-Origin" : "*",
                      #if( $input.params().header.get('Authorization').toString() != "" )
                         "authorization" : "$input.params().header.get('Authorization')"
                      #end
@@ -63,7 +61,6 @@ functions:
                   "variables" : "$util.escapeJavaScript($input.params('variables'))",
                   "operationName" : "$util.escapeJavaScript($input.params('operationName'))",
                   "headers" : {
-                     "Access-Control-Allow-Origin" : "*",
                      #if( $input.params().header.get('Authorization').toString() != "" )
                         "authorization" : "$input.params().header.get('Authorization')"
                      #end
