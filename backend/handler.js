@@ -43,7 +43,13 @@ module.exports.graphql = (event, context, cb) => {
                             event.variables, event.operationName)
                             .then((response) => {
                               pgClient.end();
-                              cb(null, response)
+                              cb(null, {
+                                statusCode: 200,
+                                headers: {
+                                  "Access-Control-Allow-Origin" : "*",
+                                },
+                                body: response
+                              });
                             })
                             .catch(() => cb(e));
                   })
