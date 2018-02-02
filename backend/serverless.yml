@@ -2,7 +2,7 @@ service: ctxfloods-${env:CURRENT_FLOODS_BRANCH_NAME}
 
 provider:
   name: aws
-  runtime: nodejs6.1
+  runtime: nodejs
   # profile: reportingtool
   # region: eu-central-1
 
