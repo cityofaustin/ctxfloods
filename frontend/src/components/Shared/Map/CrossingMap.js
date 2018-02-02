@@ -97,12 +97,22 @@ class CrossingMap extends React.Component {
 
   updateVisibleCrossings = (e) => {
     if (e.type === 'data' && !e.isSourceLoaded ) return;
+
+    const { showOpen,
+            showClosed,
+            showCaution,
+            showLongterm,
+            openCrossings,
+            closedCrossings,
+            cautionCrossings,
+            longtermCrossings } = this.props;
+
     const { map } = this.state;
-    const { showOpen, showClosed, showCaution, showLongterm } = this.props;
-    const layersToQuery = [showOpen ? 'openCrossings' : null,
-                           showClosed ? 'closedCrossings' : null,
-                           showCaution ? 'cautionCrossings' : null,
-                           showLongterm ? 'longtermCrossings' : null].filter(l => l !== null);
+
+    const layersToQuery = [showOpen && !openCrossings.loading ? 'openCrossings' : null,
+                           showClosed && !closedCrossings.loading ? 'closedCrossings' : null,
+                           showCaution && !cautionCrossings.loading ? 'cautionCrossings' : null,
+                           showLongterm && !longtermCrossings.loading ? 'longtermCrossings' : null].filter(l => l !== null);
     const features = map.queryRenderedFeatures({layers:layersToQuery});
     const crossings = _.uniqBy(features.map(f => (
                                              {id: f.properties.crossingId,
