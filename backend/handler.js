@@ -48,7 +48,7 @@ module.exports.graphql = (event, context, cb) => {
                                 headers: {
                                   "Access-Control-Allow-Origin" : "*",
                                 },
-                                body: response
+                                response
                               });
                             })
                             .catch(() => cb(e));
