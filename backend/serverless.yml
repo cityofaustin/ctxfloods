@@ -2,7 +2,7 @@ service: ctxfloods-${env:CURRENT_FLOODS_BRANCH_NAME}
 
 provider:
   name: aws
-  runtime: nodejs4.3
+  runtime: nodejs6.1
   # profile: reportingtool
   # region: eu-central-1
 
@@ -27,6 +27,7 @@ functions:
                   "variables" : $input.json('$.variables'),
                   "operationName" : "$util.escapeJavaScript($input.path('$.operationName'))",
                   "headers" : {
+                     "Access-Control-Allow-Origin" : "*",
                      #if( $input.params().header.get('Authorization').toString() != "" )
                         "authorization" : "$input.params().header.get('Authorization')"
                      #end
@@ -36,6 +37,7 @@ functions:
                 {
                   "query" : "$util.escapeJavaScript($input.body)",
                   "headers" : {
+                     "Access-Control-Allow-Origin" : "*",
                      #if( $input.params().header.get('Authorization').toString() != "" )
                         "authorization" : "$input.params().header.get('Authorization')"
                      #end
@@ -61,6 +63,7 @@ functions:
                   "variables" : "$util.escapeJavaScript($input.params('variables'))",
                   "operationName" : "$util.escapeJavaScript($input.params('operationName'))",
                   "headers" : {
+                     "Access-Control-Allow-Origin" : "*",
                      #if( $input.params().header.get('Authorization').toString() != "" )
                         "authorization" : "$input.params().header.get('Authorization')"
                      #end
