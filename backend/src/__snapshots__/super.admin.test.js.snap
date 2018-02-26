@@ -1,8 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[
-  `As a super admin When adding and editing a community the new community should show up in the DB 1`
-] = `
+exports[`As a super admin When adding and editing a community the new community should show up in the DB 1`] = `
 Object {
   "communityById": Object {
     "name": "New Community",
@@ -10,9 +8,7 @@ Object {
 }
 `;
 
-exports[
-  `As a super admin When adding and editing a community the renamed community should show up in the DB 1`
-] = `
+exports[`As a super admin When adding and editing a community the renamed community should show up in the DB 1`] = `
 Object {
   "communityById": Object {
     "name": "Renamed Community",
@@ -20,9 +16,7 @@ Object {
 }
 `;
 
-exports[
-  `As a super admin When adding and editing a status duration the new status duration should show up in the DB 1`
-] = `
+exports[`As a super admin When adding and editing a status duration the new status duration should show up in the DB 1`] = `
 Object {
   "statusDurationById": Object {
     "name": "New Status Duration",
@@ -30,9 +24,7 @@ Object {
 }
 `;
 
-exports[
-  `As a super admin When adding and editing a status duration the renamed status duration should show up in the DB 1`
-] = `
+exports[`As a super admin When adding and editing a status duration the renamed status duration should show up in the DB 1`] = `
 Object {
   "statusDurationById": Object {
     "name": "Renamed Status Duration",
@@ -40,9 +32,7 @@ Object {
 }
 `;
 
-exports[
-  `As a super admin When adding and editing a status reason the new status reason should show up in the DB 1`
-] = `
+exports[`As a super admin When adding and editing a status reason the new status reason should show up in the DB 1`] = `
 Object {
   "statusReasonById": Object {
     "name": "New Status Reason",
@@ -50,9 +40,7 @@ Object {
 }
 `;
 
-exports[
-  `As a super admin When adding and editing a status reason the renamed status reason should show up in the DB 1`
-] = `
+exports[`As a super admin When adding and editing a status reason the renamed status reason should show up in the DB 1`] = `
 Object {
   "statusReasonById": Object {
     "name": "Renamed Status Reason",
@@ -60,9 +48,7 @@ Object {
 }
 `;
 
-exports[
-  `As a super admin When adding and editing a status the new status should show up in the DB 1`
-] = `
+exports[`As a super admin When adding and editing a status the new status should show up in the DB 1`] = `
 Object {
   "statusById": Object {
     "name": "New Status",
@@ -70,9 +56,7 @@ Object {
 }
 `;
 
-exports[
-  `As a super admin When adding and editing a status the renamed status should show up in the DB 1`
-] = `
+exports[`As a super admin When adding and editing a status the renamed status should show up in the DB 1`] = `
 Object {
   "statusById": Object {
     "name": "Renamed Status",

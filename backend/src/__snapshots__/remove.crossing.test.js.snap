@@ -1,8 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[
-  `When removing a crossing as admin@community.floods  the new crossing should show up in the DB 1`
-] = `
+exports[`When removing a crossing as admin@community.floods  the new crossing should show up in the DB 1`] = `
 Object {
   "crossingById": Object {
     "communities": Object {
@@ -19,13 +17,9 @@ Object {
 }
 `;
 
-exports[
-  `When removing a crossing as editor@community.floods  should fail to delete the new crossing 1`
-] = `[Error: GraphQL Error: permission denied for function remove_crossing]`;
+exports[`When removing a crossing as editor@community.floods  should fail to delete the new crossing 1`] = `[Error: GraphQL Error: permission denied for function remove_crossing]`;
 
-exports[
-  `When removing a crossing as editor@community.floods  the new crossing should show up in the DB 1`
-] = `
+exports[`When removing a crossing as editor@community.floods  the new crossing should show up in the DB 1`] = `
 Object {
   "crossingById": Object {
     "communities": Object {
@@ -42,9 +36,7 @@ Object {
 }
 `;
 
-exports[
-  `When removing a crossing as superadmin@flo.ods  the new crossing should show up in the DB 1`
-] = `
+exports[`When removing a crossing as superadmin@flo.ods  the new crossing should show up in the DB 1`] = `
 Object {
   "crossingById": Object {
     "communities": Object {
@@ -61,9 +53,7 @@ Object {
 }
 `;
 
-exports[
-  `When removing a crossing as superadmin@flo.ods  the new crossing should show up in the DB 2`
-] = `
+exports[`When removing a crossing as superadmin@flo.ods  the new crossing should show up in the DB 2`] = `
 Object {
   "crossingById": Object {
     "communities": Object {
