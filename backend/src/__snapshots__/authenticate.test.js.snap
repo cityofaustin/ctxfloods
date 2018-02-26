@@ -8,7 +8,9 @@ Object {
 }
 `;
 
-exports[`When authenticating as admin@community.floods  should not generate a valid jwtToken 1`] = `
+exports[
+  `When authenticating as admin@community.floods  should not generate a valid jwtToken 1`
+] = `
 Object {
   "authenticate": Object {
     "jwtToken": null,
@@ -16,7 +18,9 @@ Object {
 }
 `;
 
-exports[`When authenticating as editor@community.floods  should not generate a valid jwtToken 1`] = `
+exports[
+  `When authenticating as editor@community.floods  should not generate a valid jwtToken 1`
+] = `
 Object {
   "authenticate": Object {
     "jwtToken": null,
@@ -24,7 +28,9 @@ Object {
 }
 `;
 
-exports[`When authenticating as inactive@community.floods  should not generate a valid jwtToken 1`] = `
+exports[
+  `When authenticating as inactive@community.floods  should not generate a valid jwtToken 1`
+] = `
 Object {
   "authenticate": Object {
     "jwtToken": null,
@@ -32,7 +38,9 @@ Object {
 }
 `;
 
-exports[`When authenticating as superadmin@flo.ods  should not generate a valid jwtToken 1`] = `
+exports[
+  `When authenticating as superadmin@flo.ods  should not generate a valid jwtToken 1`
+] = `
 Object {
   "authenticate": Object {
     "jwtToken": null,

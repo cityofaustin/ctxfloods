@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`When registering a community admin As the new community admin should get the correct current user 1`] = `
+exports[
+  `When registering a community admin As the new community admin should get the correct current user 1`
+] = `
 Object {
   "currentUser": Object {
     "firstName": "New",
@@ -10,7 +12,9 @@ Object {
 }
 `;
 
-exports[`When registering a community admin the new user should show up in the DB 1`] = `
+exports[
+  `When registering a community admin the new user should show up in the DB 1`
+] = `
 Object {
   "userById": Object {
     "firstName": "New",
@@ -20,7 +24,9 @@ Object {
 }
 `;
 
-exports[`When registering a community editor As the new community editor should get the correct current user 1`] = `
+exports[
+  `When registering a community editor As the new community editor should get the correct current user 1`
+] = `
 Object {
   "currentUser": Object {
     "firstName": "New",
@@ -30,7 +36,9 @@ Object {
 }
 `;
 
-exports[`When registering a community editor the new user should show up in the DB 1`] = `
+exports[
+  `When registering a community editor the new user should show up in the DB 1`
+] = `
 Object {
   "userById": Object {
     "firstName": "New",
@@ -40,7 +48,9 @@ Object {
 }
 `;
 
-exports[`When registering a super admin As the new super admin should get the correct current user 1`] = `
+exports[
+  `When registering a super admin As the new super admin should get the correct current user 1`
+] = `
 Object {
   "currentUser": Object {
     "firstName": "New",
@@ -50,7 +60,9 @@ Object {
 }
 `;
 
-exports[`When registering a super admin the new user should show up in the DB 1`] = `
+exports[
+  `When registering a super admin the new user should show up in the DB 1`
+] = `
 Object {
   "userById": Object {
     "firstName": "New",

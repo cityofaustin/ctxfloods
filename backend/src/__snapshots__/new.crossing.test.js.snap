@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`When adding a new crossing as admin@community.floods  the new crossing should show up in the DB 1`] = `
+exports[
+  `When adding a new crossing as admin@community.floods  the new crossing should show up in the DB 1`
+] = `
 Object {
   "crossingById": Object {
     "communities": Object {
@@ -19,7 +21,9 @@ Object {
 }
 `;
 
-exports[`When adding a new crossing as editor@community.floods  the new crossing should show up in the DB 1`] = `
+exports[
+  `When adding a new crossing as editor@community.floods  the new crossing should show up in the DB 1`
+] = `
 Object {
   "crossingById": Object {
     "communities": Object {
@@ -38,7 +42,9 @@ Object {
 }
 `;
 
-exports[`When adding a new crossing as superadmin@flo.ods  the new crossing should show up in the DB 1`] = `
+exports[
+  `When adding a new crossing as superadmin@flo.ods  the new crossing should show up in the DB 1`
+] = `
 Object {
   "crossingById": Object {
     "communities": Object {
@@ -57,7 +63,9 @@ Object {
 }
 `;
 
-exports[`When adding a new crossing as superadmin@flo.ods  the new crossing should show up in the DB 2`] = `
+exports[
+  `When adding a new crossing as superadmin@flo.ods  the new crossing should show up in the DB 2`
+] = `
 Object {
   "crossingById": Object {
     "communities": Object {
