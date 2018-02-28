@@ -169,14 +169,14 @@ class CrossingMapSidebar extends Component {
                             selected: this.state.showNearby,
                           },
                         )} onClick={() => this.toggleNearbyHistory('nearby')}>
-                      Nearby
+                      <FontAwesome name="map-marker" /> Nearby
                     </div>
                     <div className={classnames('CrossingMapPage_sidebar-history-tab',
                           {
                             selected: this.state.showHistory,
                           },
                         )} onClick={() => this.toggleNearbyHistory('history')}>
-                      History
+                      <FontAwesome name="history" /> History
                     </div>
                   </div>
                 )}
