@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
 import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
 import CrossingSidebarNearbyCrossingItem from 'components/Shared/CrossingMapPage/CrossingSidebarNearbyCrossingItem';
+import InfiniteCrossingStatusHistoryPaginationContainer from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryPaginationContainer';
 import 'components/Shared/CrossingMapPage/CrossingMapSidebar.css';
 import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
@@ -29,6 +30,16 @@ class CrossingMapSidebar extends Component {
       showNearby: true,
       showHistory: false,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // If we're unselecting a crossing, stop trying to show the history
+    if(this.props.selectedCrossingId && !nextProps.selectedCrossingId) {
+      this.setState({
+        showNearby: true,
+        showHistory: false,
+      });
+    }
   }
 
   toggleSidebar = () => {
@@ -194,7 +205,10 @@ class CrossingMapSidebar extends Component {
                 )}
                 {showHistory && (
                   <div className="CrossingMapPage_sidebar-crossing-status-history">
-                    HISTORY
+                    <InfiniteCrossingStatusHistoryPaginationContainer
+                      crossingId={selectedCrossingId}
+                      showNames={false}
+                    />
                   </div>
                 )}
               </div>
