@@ -7,7 +7,7 @@ import 'components/Shared/CrossingMapPage/CrossingMapSidebar.css';
 import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
 
-const FilterCheckbox = ({defaultChecked, onClick, title}) => (
+const FilterCheckbox = ({ defaultChecked, onClick, title }) => (
   <label className="CrossingMapPage_sidebar-filter">
     <input
       className="CrossingMapPage_sidebar-filter-checkbox"
@@ -15,9 +15,9 @@ const FilterCheckbox = ({defaultChecked, onClick, title}) => (
       defaultChecked={defaultChecked}
       onClick={onClick}
     />
-     {title}
+    {title}
   </label>
-)
+);
 
 class CrossingMapSidebar extends Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class CrossingMapSidebar extends Component {
 
   componentWillReceiveProps(nextProps) {
     // If we're unselecting a crossing, stop trying to show the history
-    if(this.props.selectedCrossingId && !nextProps.selectedCrossingId) {
+    if (this.props.selectedCrossingId && !nextProps.selectedCrossingId) {
       this.setState({
         showNearby: true,
         showHistory: false,
@@ -55,20 +55,20 @@ class CrossingMapSidebar extends Component {
   };
 
   toggleNearbyHistory = tab => {
-    if(tab === 'nearby') {
+    if (tab === 'nearby') {
       this.setState({
         showNearby: true,
         showHistory: false,
-      })
+      });
     }
 
-    if(tab === 'history') {
+    if (tab === 'history') {
       this.setState({
         showNearby: false,
         showHistory: true,
-      })
+      });
     }
-  }
+  };
 
   render() {
     const { visible, searchFocused, showNearby, showHistory } = this.state;
@@ -145,44 +145,52 @@ class CrossingMapSidebar extends Component {
                     </div>
                     {this.state.showFilters && (
                       <div className="CrossingMapPage_sidebar-filter-container">
-                    <FilterCheckbox
-                      title="Open"
-                        defaultChecked={showOpen}
-                        onClick={toggleShowOpen}
-                      />
-                    <FilterCheckbox
-                      title="Closed"
-                        defaultChecked={showClosed}
-                        onClick={toggleShowClosed}
-                      />
-                    <FilterCheckbox
-                      title="Caution"
-                      defaultChecked={showCaution}
-                      onClick={toggleShowCaution}
-                    />
-                    <FilterCheckbox
-                      title="Long Term Closure"
-                        defaultChecked={showLongterm}
-                        onClick={toggleShowLongterm}
-                      />
+                        <FilterCheckbox
+                          title="Open"
+                          defaultChecked={showOpen}
+                          onClick={toggleShowOpen}
+                        />
+                        <FilterCheckbox
+                          title="Closed"
+                          defaultChecked={showClosed}
+                          onClick={toggleShowClosed}
+                        />
+                        <FilterCheckbox
+                          title="Caution"
+                          defaultChecked={showCaution}
+                          onClick={toggleShowCaution}
+                        />
+                        <FilterCheckbox
+                          title="Long Term Closure"
+                          defaultChecked={showLongterm}
+                          onClick={toggleShowLongterm}
+                        />
                       </div>
                     )}
                   </div>
                 )}
                 {selectedCrossingId && (
                   <div className="CrossingMapPage_sidebar-nearby-history-toggle">
-                    <div className={classnames('CrossingMapPage_sidebar-nearby-tab',
-                          {
-                            selected: this.state.showNearby,
-                          },
-                        )} onClick={() => this.toggleNearbyHistory('nearby')}>
+                    <div
+                      className={classnames(
+                        'CrossingMapPage_sidebar-nearby-tab',
+                        {
+                          selected: this.state.showNearby,
+                        },
+                      )}
+                      onClick={() => this.toggleNearbyHistory('nearby')}
+                    >
                       <FontAwesome name="map-marker" /> Nearby
                     </div>
-                    <div className={classnames('CrossingMapPage_sidebar-history-tab',
-                          {
-                            selected: this.state.showHistory,
-                          },
-                        )} onClick={() => this.toggleNearbyHistory('history')}>
+                    <div
+                      className={classnames(
+                        'CrossingMapPage_sidebar-history-tab',
+                        {
+                          selected: this.state.showHistory,
+                        },
+                      )}
+                      onClick={() => this.toggleNearbyHistory('history')}
+                    >
                       <FontAwesome name="history" /> History
                     </div>
                   </div>
