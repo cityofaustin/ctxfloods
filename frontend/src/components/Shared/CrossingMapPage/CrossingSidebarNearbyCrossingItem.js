@@ -1,6 +1,6 @@
 import React from 'react';
 import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
-import { strings, statusIcons } from 'constants/StatusConstants';
+import { statusNames, statusIcons } from 'constants/StatusConstants';
 import moment from 'moment';
 
 class CrossingSidebarNearbyCrossingItem extends React.Component {
@@ -23,13 +23,13 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
         <div className="CrossingMapPage_sidebar-nearby-crossing-status-icon">
           <img
             src={statusIcons[statusId]}
-            alt={strings[statusId]}
+            alt={statusNames[statusId]}
             className="CrossingStatusHistory__status-icon"
           />
         </div>
         <div className="CrossingMapPage_sidebar-nearby-crossing-details">
           <div className="CrossingMapPage_sidebar-nearby-crossing-details-status">
-            {strings[statusId]}
+            {statusNames[statusId]}
           </div>
           <div className="CrossingMapPage_sidebar-nearby-crossing-details-name">
             {crossingName}
