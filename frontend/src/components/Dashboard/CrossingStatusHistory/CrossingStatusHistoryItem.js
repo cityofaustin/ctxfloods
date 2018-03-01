@@ -7,7 +7,7 @@ import moment from 'moment';
 import classnames from 'classnames';
 
 const ReasonDurationNotes = ({shouldDisplayReason, shouldDisplayDuration, shouldDisplayNotes, reason, duration, notes, smallSize}) => (
-  <div className={classnames({'smallsize': smallSize}, 'CrossingStatusHistoryItem__reason-duration-notes')}>
+  <div className="CrossingStatusHistoryItem__reason-duration-notes">
     <div className="CrossingStatusHistoryItem__reason-duration">
       {shouldDisplayReason && (
         <div className="CrossingStatusHistoryItem__reason">
@@ -21,8 +21,14 @@ const ReasonDurationNotes = ({shouldDisplayReason, shouldDisplayDuration, should
           <div className="CrossingStatusHistoryItem__subdetails-content">{duration}</div>
         </div>
       )}
+      {shouldDisplayNotes && smallSize && (
+        <div className="CrossingStatusHistoryItem__notes">
+          <span className="CrossingStatusHistoryItem__subdetails-title">Notes</span>
+          <div className="CrossingStatusHistoryItem__subdetails-content">{notes}</div>
+        </div>
+      )}
     </div>
-    {shouldDisplayNotes && (
+    {shouldDisplayNotes && !smallSize && (
       <div className="CrossingStatusHistoryItem__notes">
         <span className="CrossingStatusHistoryItem__subdetails-title">Notes</span>
         <div className="CrossingStatusHistoryItem__subdetails-content">{notes}</div>
@@ -63,7 +69,7 @@ class CrossingStatusHistoryItem extends Component {
             </a>
           </div>
         )}
-        <div className="CrossingStatusHistoryItem__details">
+        <div className="CrossingStatusHistoryItem__status">
           <div>
             <img
               onLoad={measure}
@@ -72,33 +78,37 @@ class CrossingStatusHistoryItem extends Component {
               className="CrossingStatusHistoryItem__status-icon"
             />
           </div>
-          <div className="CrossingStatusHistoryItem__status-and-author">
-            <span className="CrossingStatusHistoryItem__subdetails-title">{status}</span>
-            <div className="CrossingStatusHistoryItem__author">
-              <span>by </span><span className="CrossingStatusHistoryItem__author-name">{user.firstName.substring(0, 1) + '. ' + user.lastName}</span>
+          <div className="CrossingStatusHistoryItem__details-container">
+            <div className="CrossingStatusHistoryItem__details">
+              <div className="CrossingStatusHistoryItem__status-and-author">
+                <span className="CrossingStatusHistoryItem__subdetails-title">{status}</span>
+                <div className="CrossingStatusHistoryItem__author">
+                  <span>by </span><span className="CrossingStatusHistoryItem__author-name">{user.firstName.substring(0, 1) + '. ' + user.lastName}</span>
+                </div>
+              </div>
+              {cqParams.fullsize && (
+                <ReasonDurationNotes shouldDisplayReason={shouldDisplay.reason} shouldDisplayDuration={shouldDisplay.duration} shouldDisplayNotes={shouldDisplay.notes} reason={reason} duration={duration} notes={notes} />
+              )}
+              <div className={classnames({'smallsize': cqParams.smallsize}, 'CrossingStatusHistoryItem__datetime')}>
+                <div className="CrossingStatusHistoryItem__datetime-date">
+                  {moment(createdAt).calendar(null, {
+                    lastDay: '[Yesterday]',
+                    sameDay: '[Today]',
+                    sameElse: 'MM/DD/YYYY',
+                  })}
+                </div>
+                <div className="CrossingStatusHistoryItem__datetime-time">
+                  {moment(createdAt).format('h:mm A')}
+                </div>
+              </div>
             </div>
-          </div>
-          {cqParams.fullsize && (
-            <ReasonDurationNotes shouldDisplayReason={shouldDisplay.reason} shouldDisplayDuration={shouldDisplay.duration} shouldDisplayNotes={shouldDisplay.notes} reason={reason} duration={duration} notes={notes} />
-          )}
-          <div className="CrossingStatusHistoryItem__datetime">
-            <div className="CrossingStatusHistoryItem__datetime-date">
-              {moment(createdAt).calendar(null, {
-                lastDay: '[Yesterday]',
-                sameDay: '[Today]',
-                sameElse: 'MM/DD/YYYY',
-              })}
-            </div>
-            <div className="CrossingStatusHistoryItem__datetime-time">
-              {moment(createdAt).format('h:mm A')}
-            </div>
+            {cqParams.smallsize && (
+              <div className="CrossingStatusHistoryItem__details">
+                <ReasonDurationNotes smallSize={true} shouldDisplayReason={shouldDisplay.reason} shouldDisplayDuration={shouldDisplay.duration} shouldDisplayNotes={shouldDisplay.notes} reason={reason} duration={duration} notes={notes} />
+              </div>
+            )}
           </div>
         </div>
-        {cqParams.smallsize && (
-          <div className="CrossingStatusHistoryItem__details">
-            <ReasonDurationNotes smallSize={true} shouldDisplayReason={shouldDisplay.reason} shouldDisplayDuration={shouldDisplay.duration} shouldDisplayNotes={shouldDisplay.notes} reason={reason} duration={duration} notes={notes} />
-          </div>
-        )}
       </div>
     );
   }
