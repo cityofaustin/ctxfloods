@@ -77,13 +77,9 @@ class CrossingMap extends React.Component {
     if (!this.state.firstLoadComplete) {
       const isLoading =
         !nextProps.openCrossings ||
-        nextProps.openCrossings.loading ||
         !nextProps.closedCrossings ||
-        nextProps.closedCrossings.loading ||
         !nextProps.cautionCrossings ||
-        nextProps.cautionCrossings.loading ||
-        !nextProps.longtermCrossings ||
-        nextProps.longtermCrossings.loading;
+        !nextProps.longtermCrossings;
       this.setState({
         firstLoadComplete: this.state.firstLoadComplete || !isLoading,
       });
@@ -129,6 +125,23 @@ class CrossingMap extends React.Component {
   addCrossingClickHandlers(map) {
     map.on('click', this.onMapClick);
   }
+
+  getMapCenter = () => { 
+    const { map } = this.state;  
+    const center = map.getCenter();  
+ 
+    this.props.getMapCenter(center); 
+  };
+ 
+  flyTo = point => { 
+    const { map } = this.state;  
+    if (map) { 
+      map.flyTo({  
+        center: point, 
+        zoom: 13,  
+      });  
+    }  
+  };
 
   selectCrossing = crossing => {
     const coordinates = JSON.parse(crossing.geojson).coordinates;
@@ -181,11 +194,8 @@ class CrossingMap extends React.Component {
   };
 
   render() {
-
-
     const { firstLoadComplete } = this.state;
     if (!firstLoadComplete) return null;
-
 
     const {
       showOpen,
@@ -221,7 +231,7 @@ class CrossingMap extends React.Component {
                 ['!=', 'crossingId', this.state.selectedCrossingId],
               ]}
             >
-              {openCrossings.map((crossing, i) => {
+              {openCrossings && openCrossings.map((crossing, i) => {
                 return (
                   <Feature
                     key={i}
@@ -249,7 +259,7 @@ class CrossingMap extends React.Component {
                 ['!=', 'crossingId', this.state.selectedCrossingId],
               ]}
             >
-              {longtermCrossings.map((crossing, i) => {
+              {longtermCrossings && longtermCrossings.map((crossing, i) => {
                 return (
                   <Feature
                     key={i}
@@ -277,7 +287,7 @@ class CrossingMap extends React.Component {
                 ['!=', 'crossingId', this.state.selectedCrossingId],
               ]}
             >
-              {cautionCrossings.map((crossing, i) => {
+              {cautionCrossings && cautionCrossings.map((crossing, i) => {
                 return (
                   <Feature
                     key={i}
@@ -305,7 +315,7 @@ class CrossingMap extends React.Component {
                 ['!=', 'crossingId', this.state.selectedCrossingId],
               ]}
             >
-              {closedCrossings.map((crossing, i) => {
+              {closedCrossings && closedCrossings.map((crossing, i) => {
                 return (
                   <Feature
                     key={i}
