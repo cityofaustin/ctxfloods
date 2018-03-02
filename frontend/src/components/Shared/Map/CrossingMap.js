@@ -1,9 +1,8 @@
 import React from 'react';
-import { graphql, compose } from 'react-apollo';
+
 import * as MapboxGl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import mapboxstyle from 'components/Shared/Map/mapboxstyle.json';
-import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
 import 'components/Shared/Map/CrossingMap.css';
 import _ from 'lodash';
 
@@ -245,42 +244,11 @@ class CrossingMap extends React.Component {
   };
 
   render() {
-    const isLoading =
-      !this.props.openCrossings ||
-      this.props.openCrossings.loading ||
-      !this.props.closedCrossings ||
-      this.props.closedCrossings.loading ||
-      !this.props.cautionCrossings ||
-      this.props.cautionCrossings.loading ||
-      !this.props.longtermCrossings ||
-      this.props.longtermCrossings.loading;
 
-    if (
-      !isLoading &&
-      (this.props.openCrossings.searchCrossings == null ||
-        this.props.closedCrossings.searchCrossings == null ||
-        this.props.cautionCrossings.searchCrossings == null ||
-        this.props.longtermCrossings.searchCrossings == null)
-    ) {
-      // TODO: add error logging
-      return <div>Error Loading Crossings</div>;
-    }
 
     const { firstLoadComplete } = this.state;
     if (!firstLoadComplete) return null;
 
-    const openCrossings = !isLoading
-      ? this.props.openCrossings.searchCrossings.nodes
-      : null;
-    const closedCrossings = !isLoading
-      ? this.props.closedCrossings.searchCrossings.nodes
-      : null;
-    const cautionCrossings = !isLoading
-      ? this.props.cautionCrossings.searchCrossings.nodes
-      : null;
-    const longtermCrossings = !isLoading
-      ? this.props.longtermCrossings.searchCrossings.nodes
-      : null;
 
     const {
       showOpen,
@@ -288,6 +256,10 @@ class CrossingMap extends React.Component {
       showCaution,
       showLongterm,
       center,
+      openCrossings,
+      closedCrossings,
+      cautionCrossings,
+      longtermCrossings,
     } = this.props;
 
     return (
@@ -302,8 +274,7 @@ class CrossingMap extends React.Component {
         fitBounds={this.props.viewport}
         center={center}
       >
-        {!isLoading &&
-          showOpen && (
+        {showOpen && (
             <Layer
               type="symbol"
               id="openCrossings"
@@ -331,8 +302,7 @@ class CrossingMap extends React.Component {
               })}
             </Layer>
           )}
-        {!isLoading &&
-          showLongterm && (
+        {showLongterm && (
             <Layer
               type="symbol"
               id="longtermCrossings"
@@ -360,8 +330,7 @@ class CrossingMap extends React.Component {
               })}
             </Layer>
           )}
-        {!isLoading &&
-          showCaution && (
+        {showCaution && (
             <Layer
               type="symbol"
               id="cautionCrossings"
@@ -389,8 +358,7 @@ class CrossingMap extends React.Component {
               })}
             </Layer>
           )}
-        {!isLoading &&
-          showClosed && (
+        {showClosed && (
             <Layer
               type="symbol"
               id="closedCrossings"
@@ -418,8 +386,7 @@ class CrossingMap extends React.Component {
               })}
             </Layer>
           )}
-        {!isLoading && (
-          <Layer
+        <Layer
             type="symbol"
             id="selectedLongtermCrossing"
             layout={{
@@ -442,9 +409,7 @@ class CrossingMap extends React.Component {
               />
             ) : null}
           </Layer>
-        )}
-        {!isLoading && (
-          <Layer
+        <Layer
             type="symbol"
             id="selectedCautionCrossing"
             layout={{
@@ -467,9 +432,7 @@ class CrossingMap extends React.Component {
               />
             ) : null}
           </Layer>
-        )}
-        {!isLoading && (
-          <Layer
+        <Layer
             type="symbol"
             id="selectedClosedCrossing"
             layout={{
@@ -492,9 +455,7 @@ class CrossingMap extends React.Component {
               />
             ) : null}
           </Layer>
-        )}
-        {!isLoading && (
-          <Layer
+        <Layer
             type="symbol"
             id="selectedOpenCrossing"
             layout={{
@@ -517,79 +478,9 @@ class CrossingMap extends React.Component {
               />
             ) : null}
           </Layer>
-        )}
       </Map>
     );
   }
 }
 
-export default compose(
-  graphql(allCrossings, {
-    name: 'openCrossings',
-    options: ownProps => ({
-      variables: {
-        search: ownProps.searchQuery,
-        showOpen: true,
-        showClosed: false,
-        showCaution: false,
-        showLongterm: false,
-        communityId:
-          ownProps.currentUser &&
-          ownProps.currentUser.role !== 'floods_super_admin'
-            ? ownProps.currentUser.communityId
-            : ownProps.selectedCommunityId,
-      },
-    }),
-  }),
-  graphql(allCrossings, {
-    name: 'closedCrossings',
-    options: ownProps => ({
-      variables: {
-        search: ownProps.searchQuery,
-        showOpen: false,
-        showClosed: true,
-        showCaution: false,
-        showLongterm: false,
-        communityId:
-          ownProps.currentUser &&
-          ownProps.currentUser.role !== 'floods_super_admin'
-            ? ownProps.currentUser.communityId
-            : ownProps.selectedCommunityId,
-      },
-    }),
-  }),
-  graphql(allCrossings, {
-    name: 'cautionCrossings',
-    options: ownProps => ({
-      variables: {
-        search: ownProps.searchQuery,
-        showOpen: false,
-        showClosed: false,
-        showCaution: true,
-        showLongterm: false,
-        communityId:
-          ownProps.currentUser &&
-          ownProps.currentUser.role !== 'floods_super_admin'
-            ? ownProps.currentUser.communityId
-            : ownProps.selectedCommunityId,
-      },
-    }),
-  }),
-  graphql(allCrossings, {
-    name: 'longtermCrossings',
-    options: ownProps => ({
-      variables: {
-        search: ownProps.searchQuery,
-        showOpen: false,
-        showClosed: false,
-        showCaution: false,
-        showLongterm: true,
-        communityId:
-          ownProps.currentUser &&
-          ownProps.currentUser.role !== 'floods_super_admin'
-            ? ownProps.currentUser.communityId
-            : ownProps.selectedCommunityId,
-      },
-    }),
-  }),
-)(CrossingMap);
+export default CrossingMap;

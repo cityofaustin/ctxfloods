@@ -8,9 +8,10 @@ import Fullscreen from 'react-full-screen';
 import FontAwesome from 'react-fontawesome';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import { ContainerQuery } from 'react-container-query';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import classnames from 'classnames';
+import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
 
 const containerQuery = {
   fullsize: {
@@ -71,17 +72,6 @@ class CrossingMapPage extends Component {
       viewport: viewport,
       center: center,
     };
-  };
-
-  formatSearchQuery(query) {
-    return `%${query.replace(/ /g, '%')}%`;
-  }
-
-  searchQueryUpdated = e => {
-    this.setState({ searchQuery: e.target.value });
-    this.setState({
-      formattedSearchQuery: this.formatSearchQuery(e.target.value),
-    });
   };
 
   selectCrossing = (crossingId, crossingStatus, crossingName) => {
@@ -149,12 +139,45 @@ class CrossingMapPage extends Component {
       selectedCommunity,
     } = this.state;
     const { currentUser } = this.props;
-    const allCommunities =
-      this.props.data &&
-      !this.props.data.loading &&
-      this.props.data.allCommunities
-        ? this.props.data.allCommunities.nodes
-        : null;
+
+    const isLoading =
+      !this.props.openCrossings ||
+      this.props.openCrossings.loading ||
+      !this.props.closedCrossings ||
+      this.props.closedCrossings.loading ||
+      !this.props.cautionCrossings ||
+      this.props.cautionCrossings.loading ||
+      !this.props.longtermCrossings ||
+      this.props.longtermCrossings.loading ||
+      !this.props.allCommunities ||
+      this.props.allCommunities.loading;
+
+    if (
+      !isLoading &&
+      (this.props.openCrossings.searchCrossings == null ||
+        this.props.closedCrossings.searchCrossings == null ||
+        this.props.cautionCrossings.searchCrossings == null ||
+        this.props.longtermCrossings.searchCrossings == null)
+    ) {
+      // TODO: add error logging
+      return <div>Error Loading</div>;
+    }
+
+    const allCommunities = !isLoading
+      ? this.props.allCommunities.allCommunities.nodes
+      : null;
+    const openCrossings = !isLoading
+      ? this.props.openCrossings.searchCrossings.nodes
+      : null;
+    const closedCrossings = !isLoading
+      ? this.props.closedCrossings.searchCrossings.nodes
+      : null;
+    const cautionCrossings = !isLoading
+      ? this.props.cautionCrossings.searchCrossings.nodes
+      : null;
+    const longtermCrossings = !isLoading
+      ? this.props.longtermCrossings.searchCrossings.nodes
+      : null;
 
     return (
       <ContainerQuery query={containerQuery}>
@@ -231,6 +254,10 @@ class CrossingMapPage extends Component {
                     showClosed={this.state.showClosed}
                     showCaution={this.state.showCaution}
                     showLongterm={this.state.showLongterm}
+                    openCrossings={openCrossings}
+                    closedCrossings={closedCrossings}
+                    longtermCrossings={longtermCrossings}
+                    cautionCrossings={cautionCrossings}
                     setVisibleCrossings={this.setVisibleCrossings}
                     selectedCommunityId={
                       selectedCommunity && selectedCommunity.id
@@ -268,4 +295,76 @@ const allCommunities = gql`
   }
 `;
 
-export default graphql(allCommunities)(CrossingMapPage);
+export default compose(
+  graphql(allCrossings, {
+    name: 'openCrossings',
+    options: ownProps => ({
+      variables: {
+        search: '%',
+        showOpen: true,
+        showClosed: false,
+        showCaution: false,
+        showLongterm: false,
+        communityId:
+          ownProps.currentUser &&
+          ownProps.currentUser.role !== 'floods_super_admin'
+            ? ownProps.currentUser.communityId
+            : ownProps.selectedCommunityId,
+      },
+    }),
+  }),
+  graphql(allCrossings, {
+    name: 'closedCrossings',
+    options: ownProps => ({
+      variables: {
+        search: '%',
+        showOpen: false,
+        showClosed: true,
+        showCaution: false,
+        showLongterm: false,
+        communityId:
+          ownProps.currentUser &&
+          ownProps.currentUser.role !== 'floods_super_admin'
+            ? ownProps.currentUser.communityId
+            : ownProps.selectedCommunityId,
+      },
+    }),
+  }),
+  graphql(allCrossings, {
+    name: 'cautionCrossings',
+    options: ownProps => ({
+      variables: {
+        search: '%',
+        showOpen: false,
+        showClosed: false,
+        showCaution: true,
+        showLongterm: false,
+        communityId:
+          ownProps.currentUser &&
+          ownProps.currentUser.role !== 'floods_super_admin'
+            ? ownProps.currentUser.communityId
+            : ownProps.selectedCommunityId,
+      },
+    }),
+  }),
+  graphql(allCrossings, {
+    name: 'longtermCrossings',
+    options: ownProps => ({
+      variables: {
+        search: '%',
+        showOpen: false,
+        showClosed: false,
+        showCaution: false,
+        showLongterm: true,
+        communityId:
+          ownProps.currentUser &&
+          ownProps.currentUser.role !== 'floods_super_admin'
+            ? ownProps.currentUser.communityId
+            : ownProps.selectedCommunityId,
+      },
+    }),
+  }),
+  graphql(allCommunities, {
+    name: 'allCommunities',
+  }), 
+)(CrossingMapPage);
