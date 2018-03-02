@@ -28,16 +28,16 @@ class CrossingMap extends React.Component {
       if (nextProps.selectedCrossingId) {
         this.setState({ selectedCrossingId: nextProps.selectedCrossingId });
         const crossing =
-          this.props.openCrossings.searchCrossings.nodes.find(
+          this.props.openCrossings.find(
             c => c.id === nextProps.selectedCrossingId,
           ) ||
-          this.props.closedCrossings.searchCrossings.nodes.find(
+          this.props.closedCrossings.find(
             c => c.id === nextProps.selectedCrossingId,
           ) ||
-          this.props.cautionCrossings.searchCrossings.nodes.find(
+          this.props.cautionCrossings.find(
             c => c.id === nextProps.selectedCrossingId,
           ) ||
-          this.props.longtermCrossings.searchCrossings.nodes.find(
+          this.props.longtermCrossings.find(
             c => c.id === nextProps.selectedCrossingId,
           );
         this.selectCrossing(crossing);
