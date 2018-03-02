@@ -226,6 +226,10 @@ class CrossingMapPage extends Component {
                     toggleShowLongterm={this.toggleShowLongterm}
                     visibleCrossings={visibleCrossings}
                     allCommunities={allCommunities}
+                    openCrossings={openCrossings}
+                    closedCrossings={closedCrossings}
+                    longtermCrossings={longtermCrossings}
+                    cautionCrossings={cautionCrossings}
                     center={mapCenter}
                     setSelectedLocationCoordinates={
                       this.setSelectedLocationCoordinates

@@ -95,7 +95,6 @@ class CrossingMap extends React.Component {
     this.addZoomControl(map);
     this.addGeoLocateControl(map);
     this.addCrossingClickHandlers(map);
-    this.addUpdateVisibleCrossingHandlers(map);
 
     // update the map page center on map move
     map.on('moveend', this.getMapCenter);
@@ -126,68 +125,6 @@ class CrossingMap extends React.Component {
     const zoomControl = new MapboxGl.NavigationControl();
     map.addControl(zoomControl, 'bottom-right');
   }
-
-  addUpdateVisibleCrossingHandlers(map) {
-    map.on('moveend', this.updateVisibleCrossings);
-    map.on('data', this.updateVisibleCrossings);
-  }
-
-  getMapCenter = () => {
-    const { map } = this.state;
-    const center = map.getCenter();
-
-    this.props.getMapCenter(center);
-  };
-
-  flyTo = point => {
-    const { map } = this.state;
-    if (map) {
-      map.flyTo({
-        center: point,
-        zoom: 13,
-      });
-    }
-  };
-
-  updateVisibleCrossings = e => {
-    if (e.type === 'data' && !e.isSourceLoaded) return;
-
-    const {
-      showOpen,
-      showClosed,
-      showCaution,
-      showLongterm,
-      openCrossings,
-      closedCrossings,
-      cautionCrossings,
-      longtermCrossings,
-    } = this.props;
-
-    const { map } = this.state;
-
-    const layersToQuery = [
-      showOpen && !openCrossings.loading ? 'openCrossings' : null,
-      showClosed && !closedCrossings.loading ? 'closedCrossings' : null,
-      showCaution && !cautionCrossings.loading ? 'cautionCrossings' : null,
-      showLongterm && !longtermCrossings.loading ? 'longtermCrossings' : null,
-    ].filter(l => l !== null);
-    const features = map.queryRenderedFeatures({ layers: layersToQuery });
-    const crossings = _.uniqBy(
-      features.map(f => ({
-        id: f.properties.crossingId,
-        latestStatus: f.properties.latestStatusCreatedAt,
-        statusId: f.properties.crossingStatus,
-        crossingName: f.properties.crossingName,
-        communityIds: JSON.parse(f.properties.communityIds),
-      })),
-      'id',
-    );
-
-    // Get the first 10 visible crossings by latest status for the results
-    this.props.setVisibleCrossings(
-      _.slice(_.orderBy(crossings, ['latestStatus'], ['desc']), 0, 10),
-    );
-  };
 
   addCrossingClickHandlers(map) {
     map.on('click', this.onMapClick);
