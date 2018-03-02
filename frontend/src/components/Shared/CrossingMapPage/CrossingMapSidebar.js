@@ -6,6 +6,8 @@ import InfiniteCrossingStatusHistoryPaginationContainer from 'components/Dashboa
 import 'components/Shared/CrossingMapPage/CrossingMapSidebar.css';
 import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
+import geolib from 'geolib';
+import _ from 'lodash';
 
 const FilterCheckbox = ({ defaultChecked, onClick, title }) => (
   <label className="CrossingMapPage_sidebar-filter">
@@ -40,6 +42,8 @@ class CrossingMapSidebar extends Component {
         showHistory: false,
       });
     }
+
+
   }
 
   toggleSidebar = () => {
@@ -76,9 +80,25 @@ class CrossingMapSidebar extends Component {
       closedCrossings,
       cautionCrossings,
       longtermCrossings,
+      showOpen,
+      showClosed,
+      showCaution,
+      showLongterm,
+      center,
     } = this.props;
 
-    return closedCrossings || [];
+    let nearbyCrossings = [];
+
+    if(showOpen && openCrossings) nearbyCrossings.push(...openCrossings);
+    if(showClosed && closedCrossings) nearbyCrossings.push(...closedCrossings);
+    if(showCaution && cautionCrossings) nearbyCrossings.push(...cautionCrossings);
+    if(showLongterm && longtermCrossings) nearbyCrossings.push(...longtermCrossings);
+
+    return nearbyCrossings.length ?
+      _.sortBy(nearbyCrossings, c => geolib.getDistance(
+        center,
+        JSON.parse(c.geojson).coordinates
+      )) : [];
   }
 
   render() {
@@ -105,7 +125,6 @@ class CrossingMapSidebar extends Component {
     } = this.props;
 
     const nearbyCrossings = this.getNearbyCrossings();
-    // debugger;
 
     return (
       <div className="CrossingMapSidebar__overlay-container">
