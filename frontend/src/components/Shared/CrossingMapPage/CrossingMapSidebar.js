@@ -42,19 +42,6 @@ class CrossingMapSidebar extends Component {
         showHistory: false,
       });
     }
-
-    // // If we've moved the map, update the nearby crossings
-    // if( this.props.center !== nextProps.center ||
-    //     this.props.openCrossings !== nextProps.openCrossings ||
-    //     this.props.closedCrossings !== nextProps.closedCrossings ||
-    //     this.props.cautionCrossings !== nextProps.cautionCrossings ||
-    //     this.props.longtermCrossings !== nextProps.longtermCrossings ||
-    //     this.props.showOpen !== nextProps.showOpen ||
-    //     this.props.showClosed !== nextProps.showClosed ||
-    //     this.props.showCaution !== nextProps.showCaution ||
-    //     this.props.showLongterm !== nextProps.showLongterm) {
-    //   this.getNearbyCrossings();
-    // }
   }
 
   toggleSidebar = () => {
