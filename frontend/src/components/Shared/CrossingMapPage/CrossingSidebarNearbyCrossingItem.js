@@ -1,7 +1,7 @@
 import React from 'react';
-import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
-import { statusNames, statusIcons } from 'constants/StatusConstants';
 import moment from 'moment';
+import { statusNames, statusIcons } from 'constants/StatusConstants';
+import 'components/Shared/CrossingMapPage/CrossingSidebarNearbyCrossingItem.css';
 
 class CrossingSidebarNearbyCrossingItem extends React.Component {
   render() {
@@ -35,10 +35,13 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
             {crossingName}
           </div>
           <div className="CrossingMapPage_sidebar-nearby-crossing-details-communities">
+            <a href="/">
+            {/* TODO: Link to community */}
             {allCommunities &&
               communityIds
                 .map(id => allCommunities.find(c => c.id === id).name)
                 .join(', ')}
+              </a>
           </div>
         </div>
         <div className="CrossingMapPage_sidebar-nearby-crossing-update-datetime">
@@ -46,7 +49,7 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
             {moment(latestStatus).calendar(null, {
               lastDay: '[Yesterday]',
               sameDay: '[Today]',
-              sameElse: 'MM/DD/YYYY',
+              sameElse: 'M/D/YYYY',
             })}
           </div>
           <div className="CrossingMapPage_sidebar-nearby-crossing-update-datetime-time">
