@@ -181,7 +181,15 @@ class CrossingMap extends React.Component {
 
   onMapClick = e => {
     const { map } = this.state;
-    const features = map.queryRenderedFeatures(e.point);
+
+    const width = 10;
+    const height = 10;
+    const features = map.queryRenderedFeatures([
+      [e.point.x - width / 2, e.point.y - height / 2],
+      [e.point.x + width / 2, e.point.y + height / 2]
+    ], { layers: ['openCrossings'] });
+
+    // const features = map.queryRenderedFeatures(e.point);
 
     if (features && features[0] && features[0].properties.crossingId) {
       this.onCrossingClick(features[0]);

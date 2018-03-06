@@ -109,7 +109,7 @@ class CrossingMapSidebar extends Component {
       _.sortBy(nearbyCrossings, c => geolib.getDistance(
         center,
         JSON.parse(c.geojson).coordinates
-      )) : [];
+      )).slice(0, 20) : [];
   }
 
   render() {
