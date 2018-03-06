@@ -151,7 +151,6 @@ class CrossingMapSearchBar extends Component {
   };
 
   clearSearch = () => {
-    this.props.searchQueryUpdated({ target: { value: '' } });
     this.props.selectCrossing(null, null);
     this.props.setSelectedCommunity(null);
     this.setState({ typedValue: '', selectedValue: null });
