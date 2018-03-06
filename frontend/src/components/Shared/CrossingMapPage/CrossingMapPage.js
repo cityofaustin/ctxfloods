@@ -196,6 +196,12 @@ class CrossingMapPage extends Component {
                     searchQueryUpdated={this.searchQueryUpdated}
                     selectedCrossingName={selectedCrossingName}
                     setSelectedCommunity={this.setSelectedCommunity}
+                    toggleSearchFocus={() => null}
+                    communities={allCommunities}
+                    center={mapCenter}
+                    setSelectedLocationCoordinates={
+                      this.setSelectedLocationCoordinates
+                    }
                   />
                 )}
                 {params.fullsize && (
