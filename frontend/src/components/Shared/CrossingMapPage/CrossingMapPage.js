@@ -376,5 +376,5 @@ export default compose(
   }),
   graphql(allCommunities, {
     name: 'allCommunities',
-  }), 
+  }),
 )(CrossingMapPage);

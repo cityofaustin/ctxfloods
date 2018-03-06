@@ -100,17 +100,19 @@ class CrossingMapSidebar extends Component {
 
     let nearbyCrossings = [];
 
-    if(showOpen && openCrossings) nearbyCrossings.push(...openCrossings);
-    if(showClosed && closedCrossings) nearbyCrossings.push(...closedCrossings);
-    if(showCaution && cautionCrossings) nearbyCrossings.push(...cautionCrossings);
-    if(showLongterm && longtermCrossings) nearbyCrossings.push(...longtermCrossings);
+    if (showOpen && openCrossings) nearbyCrossings.push(...openCrossings);
+    if (showClosed && closedCrossings) nearbyCrossings.push(...closedCrossings);
+    if (showCaution && cautionCrossings)
+      nearbyCrossings.push(...cautionCrossings);
+    if (showLongterm && longtermCrossings)
+      nearbyCrossings.push(...longtermCrossings);
 
-    return nearbyCrossings.length ?
-      _.sortBy(nearbyCrossings, c => geolib.getDistance(
-        center,
-        JSON.parse(c.geojson).coordinates
-      )).slice(0, 20) : [];
-  }
+    return nearbyCrossings.length
+      ? _.sortBy(nearbyCrossings, c =>
+          geolib.getDistance(center, JSON.parse(c.geojson).coordinates),
+        ).slice(0, 20)
+      : [];
+  };
 
   render() {
     const { visible, searchFocused, showNearby, showHistory } = this.state;
