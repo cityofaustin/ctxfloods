@@ -40,7 +40,6 @@ class CrossingMapPage extends Component {
       showClosed: true,
       showCaution: true,
       showLongterm: true,
-      visibleCrossings: [],
       selectedLocationCoordinates: null,
       selectedCommunity: null,
       viewport: viewportAndCenter.viewport,
@@ -80,10 +79,6 @@ class CrossingMapPage extends Component {
       selectedCrossingStatus: crossingStatus,
       selectedCrossingName: crossingName,
     });
-  };
-
-  setVisibleCrossings = visibleCrossings => {
-    this.setState({ visibleCrossings: visibleCrossings });
   };
 
   toggleFull = () => {
@@ -133,7 +128,6 @@ class CrossingMapPage extends Component {
       selectedCrossingStatus,
       searchQuery,
       formattedSearchQuery,
-      visibleCrossings,
       selectedCrossingName,
       selectedLocationCoordinates,
       selectedCommunity,
@@ -230,7 +224,6 @@ class CrossingMapPage extends Component {
                     toggleShowCaution={this.toggleShowCaution}
                     showLongterm={this.state.showLongterm}
                     toggleShowLongterm={this.toggleShowLongterm}
-                    visibleCrossings={visibleCrossings}
                     allCommunities={allCommunities}
                     openCrossings={openCrossings}
                     closedCrossings={closedCrossings}
@@ -268,7 +261,6 @@ class CrossingMapPage extends Component {
                     closedCrossings={closedCrossings}
                     longtermCrossings={longtermCrossings}
                     cautionCrossings={cautionCrossings}
-                    setVisibleCrossings={this.setVisibleCrossings}
                     selectedCommunityId={
                       selectedCommunity && selectedCommunity.id
                     }

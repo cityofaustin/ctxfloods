@@ -1,10 +1,8 @@
 import React from 'react';
-
 import * as MapboxGl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import mapboxstyle from 'components/Shared/Map/mapboxstyle.json';
 import 'components/Shared/Map/CrossingMap.css';
-import _ from 'lodash';
 
 const Map = ReactMapboxGl({ accessToken: null, attributionControl: false });
 
