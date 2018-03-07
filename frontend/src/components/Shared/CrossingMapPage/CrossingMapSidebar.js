@@ -51,29 +51,10 @@ class CrossingMapSidebar extends Component {
       this.props.showClosed !== nextProps.showClosed ||
       this.props.showCaution !== nextProps.showCaution ||
       this.props.showClosed !== nextProps.showClosed ||
-      (this.props.openCrossings && !nextProps.openCrossings) ||
-      (!this.props.openCrossings && nextProps.openCrossings) ||
-      (this.props.closedCrossings && !nextProps.closedCrossings) ||
-      (!this.props.closedCrossings && nextProps.closedCrossings) ||
-      (this.props.cautionCrossings && !nextProps.cautionCrossings) ||
-      (!this.props.cautionCrossings && nextProps.cautionCrossings) ||
-      (this.props.longtermCrossings && !nextProps.longtermCrossings) ||
-      (!this.props.longtermCrossings && nextProps.longtermCrossings) ||
-      (this.props.openCrossings &&
-        nextProps.openCrossings &&
-        this.props.openCrossings.length !== nextProps.openCrossings.length) ||
-      (this.props.closedCrossings &&
-        nextProps.closedCrossings &&
-        this.props.closedCrossings.length !==
-          nextProps.closedCrossings.length) ||
-      (this.props.cautionCrossings &&
-        nextProps.cautionCrossings &&
-        this.props.cautionCrossings.length !==
-          nextProps.cautionCrossings.length) ||
-      (this.props.longtermCrossings &&
-        nextProps.longtermCrossings &&
-        this.props.longtermCrossings.length !==
-          nextProps.longtermCrossings.length)
+      this.props.openCrossings !== nextProps.openCrossings ||
+      this.props.closedCrossings !== nextProps.closedCrossings ||
+      this.props.cautionCrossings !== nextProps.cautionCrossings ||
+      this.props.longtermCrossings !== nextProps.longtermCrossings
     ) {
       const nearbyCrossings = this.getNearbyCrossings(
         nextProps.center,
