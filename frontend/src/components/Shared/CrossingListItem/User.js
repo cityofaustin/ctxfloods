@@ -9,5 +9,4 @@ User.propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
   }),
-  datetime: PropTypes.string.isRequired,
 };

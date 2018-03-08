@@ -30,6 +30,7 @@ const openCrossing = {
   communities: {
     nodes: [
       {
+        id: 1234,
         name: 'All of Texas.',
       },
     ],
@@ -54,6 +55,7 @@ const closedCrossing = {
   communities: {
     nodes: [
       {
+        id: 1234,
         name: 'All of Texas.',
       },
     ],
@@ -78,6 +80,7 @@ const cautionCrossing = {
   communities: {
     nodes: [
       {
+        id: 1234,
         name: 'All of Texas.',
       },
     ],
@@ -103,6 +106,7 @@ const longtermCrossing = {
   communities: {
     nodes: [
       {
+        id: 1234,
         name: 'All of Texas.',
       },
     ],

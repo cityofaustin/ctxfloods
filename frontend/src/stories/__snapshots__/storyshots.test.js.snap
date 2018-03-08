@@ -408,7 +408,7 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
   className=""
 >
   <div
-    className="DashboardCrossingListItem"
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
   >
     <div
       className="DashboardCrossingListItem__overview"
@@ -627,7 +627,7 @@ exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
   className="DashboardCrossingListItem--dirty"
 >
   <div
-    className="DashboardCrossingListItem"
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
   >
     <div
       className="DashboardCrossingListItem__overview"
@@ -867,7 +867,7 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
   className=""
 >
   <div
-    className="DashboardCrossingListItem"
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
   >
     <div
       className="DashboardCrossingListItem__overview"
@@ -1086,7 +1086,7 @@ exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
   className="DashboardCrossingListItem--dirty"
 >
   <div
-    className="DashboardCrossingListItem"
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
   >
     <div
       className="DashboardCrossingListItem__overview"
@@ -1329,7 +1329,7 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
     className=""
   >
     <div
-      className="DashboardCrossingListItem"
+      className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
     >
       <div
         className="DashboardCrossingListItem__overview"
@@ -1611,7 +1611,7 @@ exports[`Storyshots Crossing List Item Long Term Closure 1`] = `
   className=""
 >
   <div
-    className="DashboardCrossingListItem"
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
   >
     <div
       className="DashboardCrossingListItem__overview"
@@ -1877,7 +1877,7 @@ exports[`Storyshots Crossing List Item Long Term Closure Dirty 1`] = `
   className="DashboardCrossingListItem--dirty"
 >
   <div
-    className="DashboardCrossingListItem"
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
   >
     <div
       className="DashboardCrossingListItem__overview"
@@ -2169,7 +2169,7 @@ exports[`Storyshots Crossing List Item Open 1`] = `
   className=""
 >
   <div
-    className="DashboardCrossingListItem"
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
   >
     <div
       className="DashboardCrossingListItem__overview"
@@ -2341,7 +2341,7 @@ exports[`Storyshots Crossing List Item Open Dirty 1`] = `
   className="DashboardCrossingListItem--dirty"
 >
   <div
-    className="DashboardCrossingListItem"
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
   >
     <div
       className="DashboardCrossingListItem__overview"
@@ -2532,7 +2532,7 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
     className=""
   >
     <div
-      className="DashboardCrossingListItem"
+      className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
     >
       <div
         className="DashboardCrossingListItem__overview"
