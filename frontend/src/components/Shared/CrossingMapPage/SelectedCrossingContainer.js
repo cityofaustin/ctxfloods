@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CrossingListItem from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItem';
+import DashboardCrossingListItem from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItem';
 import PublicCrossingListItem from 'components/Public/CrossingListItem/PublicCrossingListItem';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -31,7 +31,7 @@ class SelectedCrossingContainer extends Component {
       .nodes;
 
     return currentUser ? (
-      <CrossingListItem
+      <DashboardCrossingListItem
         key={crossing.id}
         crossing={crossing}
         reasons={statusReasons}

@@ -8,9 +8,17 @@
   padding: 2rem;
 }
 
+.DashboardCrossingListItem--layout-list, .DashboardCrossingListItem--layout-list .DashboardCrossingListItem__overview {
+    background: #fff;
+}
+
 .DashboardCrossingListItem__controls {
   background: #fff;
-  padding: 0 1rem 1.5rem
+  padding: 0 1rem;
+}
+.DashboardCrossingListItem--layout-map .DashboardCrossingListItem__controls {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .DashboardCrossingListItem--lg .DashboardCrossingListItem__controls {
@@ -68,6 +76,7 @@
   flex-grow: 1;
   flex-shrink: 0;
   background: #fff;
+  padding: 0 2rem 1rem;
 }
 
 .DashboardCrossingListItem__cancel-button {

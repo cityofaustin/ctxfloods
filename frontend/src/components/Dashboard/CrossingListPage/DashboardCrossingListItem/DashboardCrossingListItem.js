@@ -510,7 +510,7 @@ class DashboardCrossingListItem extends React.Component {
     }
 
     const CrossingListItemJSX = (
-      <div className="DashboardCrossingListItem">
+      <div className={`DashboardCrossingListItem DashboardCrossingListItem--layout-${this.props.listOrMap}`}>
         <div className="DashboardCrossingListItem__overview">
           <div className="DashboardCrossingListItem__crossing-name">
             <a href={`/dashboard/crossing/${crossing.id}`}>{crossing.name}</a>
