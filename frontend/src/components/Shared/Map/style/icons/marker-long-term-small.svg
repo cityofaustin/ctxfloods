@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>marker/marker-long-term-small</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="14" cy="14" r="14"></circle>
+        <circle id="path-3" cx="14" cy="14" r="14"></circle>
+        <path d="M9.22834295,9.88418109 L5.86958574,13.2429383 L3.63041426,11.0037668 L6.98917147,7.64500961 L3.63041426,4.2862524 L5.86958574,2.04708093 L9.22834295,5.40583814 L12.5871002,2.04708093 L14.8262716,4.2862524 L11.4675144,7.64500961 L14.8262716,11.0037668 L12.5871002,13.2429383 L9.22834295,9.88418109 Z M1.58333333,17.4166667 L1.58333333,14.25 L17.4166667,14.25 L17.4166667,17.4166667 L1.58333333,17.4166667 Z" id="path-5"></path>
+    </defs>
+    <g id="marker/marker-long-term-small" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Oval" fill="#F44336" xlink:href="#path-1"></use>
+        <g id="color/red500" mask="url(#mask-2)" fill="#F44336">
+            <rect id="Rectangle-5" x="0" y="0" width="28" height="28"></rect>
+        </g>
+        <mask id="mask-4" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+        <circle stroke-opacity="0.3" stroke="#000000" stroke-width="2" cx="14" cy="14" r="13"></circle>
+        <g id="ic/status_closed-long/black" mask="url(#mask-4)">
+            <g transform="translate(4.666667, 4.666667)">
+                <polygon id="Shape" stroke="none" fill="none" points="0 0 19 0 19 19 0 19"></polygon>
+                <mask id="mask-6" fill="white">
+                    <use xlink:href="#path-5"></use>
+                </mask>
+                <g id="Combined-Shape" stroke="none" fill="none" fill-rule="nonzero"></g>
+                <g id="color/white" stroke="none" fill="none" mask="url(#mask-6)" fill-rule="evenodd">
+                    <rect id="Rectangle-5" fill="#FFFFFF" x="0" y="0" width="19" height="19"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

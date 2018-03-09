@@ -1,58 +1,58 @@
 {
-  "caution": {
-    "height": 25,
+  "marker-caution-small": {
+    "height": 28,
     "pixelRatio": 1,
-    "width": 25,
-    "x": 74,
-    "y": 0
-  },
-  "caution_selected": {
-    "height": 25,
-    "pixelRatio": 1,
-    "width": 25,
-    "x": 99,
-    "y": 0
-  },
-  "closed": {
-    "height": 32,
-    "pixelRatio": 1,
-    "width": 32,
-    "x": 0,
-    "y": 37
-  },
-  "closed_selected": {
-    "height": 32,
-    "pixelRatio": 1,
-    "width": 32,
-    "x": 32,
-    "y": 37
-  },
-  "longterm": {
-    "height": 32,
-    "pixelRatio": 1,
-    "width": 32,
-    "x": 64,
-    "y": 37
-  },
-  "longterm_selected": {
-    "height": 32,
-    "pixelRatio": 1,
-    "width": 32,
-    "x": 96,
-    "y": 37
-  },
-  "open": {
-    "height": 37,
-    "pixelRatio": 1,
-    "width": 37,
+    "width": 28,
     "x": 0,
     "y": 0
   },
-  "open_selected": {
-    "height": 37,
+  "marker-caution-tiny": {
+    "height": 14,
     "pixelRatio": 1,
-    "width": 37,
-    "x": 37,
+    "width": 14,
+    "x": 56,
+    "y": 0
+  },
+  "marker-closed-small": {
+    "height": 28,
+    "pixelRatio": 1,
+    "width": 28,
+    "x": 28,
+    "y": 0
+  },
+  "marker-closed-tiny": {
+    "height": 14,
+    "pixelRatio": 1,
+    "width": 14,
+    "x": 70,
+    "y": 0
+  },
+  "marker-long-term-small": {
+    "height": 28,
+    "pixelRatio": 1,
+    "width": 28,
+    "x": 0,
+    "y": 28
+  },
+  "marker-long-term-tiny": {
+    "height": 14,
+    "pixelRatio": 1,
+    "width": 14,
+    "x": 84,
+    "y": 0
+  },
+  "marker-open-small": {
+    "height": 28,
+    "pixelRatio": 1,
+    "width": 28,
+    "x": 28,
+    "y": 28
+  },
+  "marker-open-tiny": {
+    "height": 14,
+    "pixelRatio": 1,
+    "width": 14,
+    "x": 98,
     "y": 0
   }
 }
