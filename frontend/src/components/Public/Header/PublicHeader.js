@@ -44,6 +44,15 @@ class PublicHeader extends React.Component {
               </li>
               <li
                 className={
+                  pathname.endsWith('data')
+                    ? 'Header__tab--active'
+                    : 'Header__tab'
+                }
+              >
+                <Link to="/data">Open Data</Link>
+              </li>
+              <li
+                className={
                   pathname.endsWith('about')
                     ? 'Header__tab--active'
                     : 'Header__tab'
