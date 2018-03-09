@@ -48,7 +48,7 @@ comment on column floods.user.role is 'The user’s authorization role.';
 -- Create the Crossings table
 create table floods.crossing (
   id                serial primary key,
-  legacy_id         integer
+  legacy_id         integer,
   name              text not null check (char_length(name) < 180),
   human_address     text not null check (char_length(human_address) < 800),
   description       text not null check (char_length(description) < 800),
@@ -61,6 +61,7 @@ create table floods.crossing (
 
 comment on table floods.crossing is 'A road crossing that might flood.';
 comment on column floods.crossing.id is 'The primary unique identifier for the crossing.';
+comment on column floods.crossing.legacy_id is 'The legacy id of the crossing from ATXFloods.';
 comment on column floods.crossing.name is 'The name of the crossing.';
 comment on column floods.crossing.human_address is 'The human readable address of the crossing.';
 comment on column floods.crossing.description is 'The description of the crossing.';
