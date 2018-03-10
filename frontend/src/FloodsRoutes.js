@@ -11,7 +11,7 @@ import CrossingDetailPage from 'components/Dashboard/CrossingDetailPage/Crossing
 import AddCrossingPage from 'components/Dashboard/AddCrossingPage/AddCrossingPage';
 import CrossingStatusHistoryPage from 'components/Dashboard/CrossingStatusHistoryPage/CrossingStatusHistoryPage';
 import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
-
+import LegacyXML from 'components/Shared/OpenDataPage/LegacyXML';
 import PublicHeader from 'components/Public/Header/PublicHeader';
 
 import auth from 'services/gqlAuth';
@@ -46,11 +46,12 @@ class FloodsRoutes extends Component {
               )
             }
           />
+          <Route path="/data/legacy" component={LegacyXML} />
           <Route component={PublicHeader} />
         </Switch>
 
         <Route path="/map" component={CrossingMapPage} />
-        <Route path="/data" component={OpenDataPage} />
+        <Route exact path="/data" component={OpenDataPage} />
 
         <PrivateRoute
           path="/dashboard/users"

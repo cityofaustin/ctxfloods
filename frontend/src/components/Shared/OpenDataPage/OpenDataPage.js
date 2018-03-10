@@ -3,6 +3,7 @@ import GraphiQL from 'graphiql';
 import fetch from 'isomorphic-fetch';
 import 'components/Shared/OpenDataPage/graphiql.css';
 import 'components/Shared/OpenDataPage/OpenDataPage.css';
+import { Link } from 'react-router-dom';
 
 function graphQLFetcher(graphQLParams) {
   return fetch(process.env.REACT_APP_AWS_ENDPOINT, {
@@ -15,9 +16,12 @@ function graphQLFetcher(graphQLParams) {
 export default function OpenDataPage() {
   return (
     <div className='OpenDataPage'>
-      <div> Open Data </div>
-      <a> Legacy XML </a>
+      <h2>Open Data</h2>
+      <Link to="/data/legacy">Legacy XML</Link>
       <GraphiQL fetcher={graphQLFetcher} />
     </div>
   );
 }
+
+
+
