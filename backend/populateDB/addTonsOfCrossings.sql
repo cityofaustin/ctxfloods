@@ -1991,24 +1991,24 @@ insert into floods.crossing (id, legacy_id, name, human_address, description, co
 alter sequence floods.crossing_id_seq restart with 2395;
 
 -- Add communities for the tons of crossings
-insert into floods.community (id, name, viewportgeojson) values (9001, 'Leander', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9002, 'ALL', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9003, 'Cedar Park', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9004, 'Round Rock', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9005, 'West Lake Hills', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9006, 'Marble Falls', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9007, 'Sunset Valley', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9008, 'Pflugerville', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9009, 'City of Austin', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9010, 'Travis County', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9011, 'Caldwell County', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9012, 'Bastrop County', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9013, 'Lee County', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9014, 'Rollingwood', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9015, 'Georgetown', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9016, 'Hays County', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9017, 'Williamson County', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
-insert into floods.community (id, name, viewportgeojson) values (9018, 'Fayette County', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9001, 'Leander', 'LEA', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9002, 'ALL', 'ALL', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9003, 'Cedar Park', 'CPK', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9004, 'Round Rock', 'RRK', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9005, 'West Lake Hills', 'WLH', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9006, 'Marble Falls', 'MBF', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9007, 'Sunset Valley', 'SSV', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9008, 'Pflugerville', 'pfl', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9009, 'City of Austin', 'COA', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9010, 'Travis County', 'TCO', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9011, 'Caldwell County', 'CCO', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9012, 'Bastrop County', 'BCO', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9013, 'Lee County', 'LEECO',ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9014, 'Rollingwood', 'ROL', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9015, 'Georgetown', 'GEO', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9016, 'Hays County', 'HCO', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9017, 'Williamson County', 'WCO', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
+insert into floods.community (id, name, abbreviation, viewportgeojson) values (9018, 'Fayette County', 'FCO', ST_AsGeoJSON(ST_MakeEnvelope(-97.785240, 30.259219, -97.753574, 30.276096)));
 
 -- Set the jwt claim settings so the register user function works
 -- Make sure they're local so we actually use the token outside of this script
