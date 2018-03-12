@@ -7,6 +7,9 @@ const Client = require('pg').Client;
 const pgClientFromContext = require("postgraphql/build/postgres/inventory/pgClientFromContext");
 const setupRequestPgClientTransaction = require("postgraphql/build/postgraphql/http/setupRequestPgClientTransaction");
 const PgCat = JSON.parse(fs.readFileSync('pgCatalog/pgCatalog.json', 'utf8'));
+const serverless = require('serverless-http');
+const express = require('express')
+const xmlApp = express()
 
 module.exports.graphql = (event, context, cb) => {
   // Setup connection to PostgresDB
@@ -66,3 +69,9 @@ module.exports.graphql = (event, context, cb) => {
         cb(null, {"errors": [err]});
       });
     }
+
+xmlApp.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+module.exports.xml = serverless(xmlApp);
