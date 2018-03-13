@@ -11,10 +11,10 @@ Array [
 exports[`When searching users should search by last name correctly 1`] = `
 Array [
   Object {
-    "id": 3,
+    "id": 5,
   },
   Object {
-    "id": 5,
+    "id": 3,
   },
 ]
 `;
