@@ -15,8 +15,11 @@ function graphQLFetcher(graphQLParams) {
 export default function OpenDataPage() {
   return (
     <div className='OpenDataPage'>
-      <h2>Open Data</h2>
-      <a href={process.env.REACT_APP_XML_ENDPOINT}>Legacy XML</a>
+      <div className="OpenDataPage__header">
+        <h1 className="OpenDataPage__heading">Open Data</h1>
+        <a className="OpenDataPage__api-link" href={process.env.REACT_APP_XML_ENDPOINT}>Legacy XML</a>
+        <a className="OpenDataPage__api-link" href={process.env.REACT_APP_GRAPHQL_ENDPOINT}>GraphQL Endpoint</a>
+      </div>
       <GraphiQL fetcher={graphQLFetcher} />
     </div>
   );
