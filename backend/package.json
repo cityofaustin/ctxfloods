@@ -33,6 +33,7 @@
   "author": "Richard",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.16.3",
     "graphql": "^0.8.2",
     "lokka": "^1.7.0",
     "lokka-transport-http": "^1.6.1",
@@ -40,6 +41,7 @@
     "postgraphql": "^2.5.0",
     "prettier": "^1.10.2",
     "react-scripts": "^1.0.10",
+    "serverless-http": "^1.5.3",
     "uuid": "^3.1.0",
     "xml2js": "^0.4.19"
   },
