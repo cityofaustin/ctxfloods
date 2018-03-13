@@ -73,8 +73,9 @@ functions:
   xml:
     handler: handler.xml
     events:
-      - http: ANY /
-      - http: 'ANY {proxy+}'
+      - http:
+          method: get
+          path: xml
 
     environment:
       PGCON: ${env:npm_config_PGRUNCON}

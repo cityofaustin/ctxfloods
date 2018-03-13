@@ -71,7 +71,7 @@ module.exports.graphql = (event, context, cb) => {
 
 const xmlApp = express();
 
-xmlApp.get('/', (req, res) => {
+xmlApp.get('/xml', (req, res) => {
   // Setup connection to PostgresDB
   const pgClient = new Client(process.env.PGCON);
   pgClient.connect();
