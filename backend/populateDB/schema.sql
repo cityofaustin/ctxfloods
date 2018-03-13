@@ -14,12 +14,14 @@ create extension if not exists "postgis";
 create table floods.community (
   id               serial primary key,
   name             text not null check (char_length(name) < 200),
+  abbreviation     text not null,
   viewportgeojson  text
 );
 
 comment on table floods.community is 'A community defined by a geospatial area.';
 comment on column floods.community.id is 'The primary unique identifier for the community.';
 comment on column floods.community.name is 'The name of the community.';
+comment on column floods.community.name is 'The abbreviation for the community.';
 comment on column floods.community.viewportgeojson is 'The viewport of the community.';
 
 -- Create the users table
@@ -48,6 +50,7 @@ comment on column floods.user.role is 'The user’s authorization role.';
 -- Create the Crossings table
 create table floods.crossing (
   id                serial primary key,
+  legacy_id         integer,
   name              text not null check (char_length(name) < 180),
   human_address     text not null check (char_length(human_address) < 800),
   description       text not null check (char_length(description) < 800),
@@ -60,6 +63,7 @@ create table floods.crossing (
 
 comment on table floods.crossing is 'A road crossing that might flood.';
 comment on column floods.crossing.id is 'The primary unique identifier for the crossing.';
+comment on column floods.crossing.legacy_id is 'The legacy id of the crossing from ATXFloods.';
 comment on column floods.crossing.name is 'The name of the crossing.';
 comment on column floods.crossing.human_address is 'The human readable address of the crossing.';
 comment on column floods.crossing.description is 'The description of the crossing.';
@@ -664,6 +668,37 @@ $$ language sql stable security definer;
 
 comment on function floods.crossing_communities(floods.crossing) is 'Get all the communities for a crossing.';
 
+create function floods.legacy_jurisdiction_abbreviation(crossing floods.crossing) returns text as $$
+  select com.abbreviation from floods.community com
+  where array_position(crossing.community_ids, com.id) >= 0
+  limit 1;
+$$ language sql stable security definer;
+
+comment on function floods.legacy_jurisdiction_abbreviation(floods.crossing) is 'Gets the legacy abbreviation of the first community for a crossing.';
+
+-- Create function to generate legacy xml
+create function floods.legacy_xml(
+) returns xml as $$
+  select xmlelement(name markers,
+    xmlagg(xmlelement(name marker,
+      xmlattributes(c.name as name,
+              floods.legacy_jurisdiction_abbreviation(c) as jurisdiction,
+              c.human_address as address,
+              ST_Y (c.coordinates) as lat,
+              ST_X (c.coordinates) as lng,
+              case c.latest_status_id
+                when 1 then 'on'
+                else 'off'
+              end as type,
+              case c.legacy_id
+                when null then c.id
+                else c.legacy_id
+              end as id
+              )))) from floods.crossing c;
+$$ language sql stable security definer;
+
+comment on function floods.legacy_xml() is 'Generates legacy xml from current data.';
+
 -- Create function to edit crossing
 create function floods.edit_crossing(
   crossing_id integer,
@@ -964,6 +999,9 @@ grant select on table floods.crossing to floods_anonymous;
 
 -- Allow all users to log in and get an auth token
 grant execute on function floods.authenticate(text, text) to floods_anonymous;
+
+-- Allow all users to get the legacy xml
+grant execute on function floods.legacy_xml() to floods_anonymous;
 
 -- Allow all users to search users
 grant execute on function floods.search_users(text, integer) to floods_anonymous;

@@ -70,6 +70,11 @@ functions:
     environment:
       PGCON: ${env:npm_config_PGRUNCON}
       JWT_SECRET: keyboard_kitten
+  xml:
+    handler: handler.xml
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
 
 # For a pgDB inside a VPC look e.g. here:
 # http://www.stojanveselinovski.com/blog/2016/01/12/simple-postgresql-rds-cloudformation-template/
