@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="42px" height="48px" viewBox="0 0 42 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-    <title>status-long-term</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <path d="M23.5882353,22 L28,17.5882353 L25.4117647,15 L21,19.4117647 L16.5882353,15 L14,17.5882353 L18.4117647,22 L14,26.4117647 L16.5882353,29 L21,24.5882353 L25.4117647,29 L28,26.4117647 L23.5882353,22 Z M13,30 L29,30 L29,33 L13,33 L13,30 Z" id="path-1"></path>
-    </defs>
-    <g id="_icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="status-long-term">
-            <mask id="mask-2" fill="white">
-                <use xlink:href="#path-1"></use>
-            </mask>
-            <use id="Mask" fill="#FF9159" fill-rule="nonzero" xlink:href="#path-1"></use>
-        </g>
-    </g>
-</svg>
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.657 12.485l-4.243 4.243-2.828-2.829 4.242-4.242-4.242-4.243 2.828-2.828 4.243 4.242 4.242-4.242 2.829 2.828-4.243 4.243 4.243 4.242-2.829 2.829-4.242-4.243zM2 22v-4h20v4H2z" id="a"/></defs><g fill="none" fill-rule="evenodd"><path d="M0 0h24v24H0z"/><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><g mask="url(#b)" fill="#FFF"><path d="M0 0h24v24H0z"/></g></g></svg>
