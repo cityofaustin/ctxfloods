@@ -17,7 +17,7 @@ export default function OpenDataPage() {
   return (
     <div className='OpenDataPage'>
       <h2>Open Data</h2>
-      <Link to={process.env.REACT_APP_XML_ENDPOINT}>Legacy XML</Link>
+      <a href={process.env.REACT_APP_XML_ENDPOINT}>Legacy XML</a>
       <GraphiQL fetcher={graphQLFetcher} />
     </div>
   );
