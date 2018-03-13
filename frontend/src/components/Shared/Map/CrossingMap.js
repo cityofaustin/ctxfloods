@@ -270,7 +270,7 @@ class CrossingMap extends React.Component {
           <Layer
             type="symbol"
             id="longtermCrossings"
-            layout={{ 'icon-image': 'marker-longterm-small', 'icon-allow-overlap': true }}
+            layout={{ 'icon-image': 'marker-long-term-small', 'icon-allow-overlap': true }}
             filter={[
               'all',
               ['!=', 'crossingId', this.state.selectedCrossingId],
@@ -357,7 +357,7 @@ class CrossingMap extends React.Component {
           type="symbol"
           id="selectedLongtermCrossing"
           layout={{
-            'icon-image': 'marker-longterm_selected-small',
+            'icon-image': 'marker-long-term-small',
             'icon-allow-overlap': true,
           }}
         >
@@ -380,7 +380,7 @@ class CrossingMap extends React.Component {
           type="symbol"
           id="selectedCautionCrossing"
           layout={{
-            'icon-image': 'marker-caution_selected-small',
+            'icon-image': 'marker-caution-small',
             'icon-allow-overlap': true,
           }}
         >
@@ -403,7 +403,7 @@ class CrossingMap extends React.Component {
           type="symbol"
           id="selectedClosedCrossing"
           layout={{
-            'icon-image': 'marker-closed_selected-small',
+            'icon-image': 'marker-closed-small',
             'icon-allow-overlap': true,
           }}
         >
@@ -426,7 +426,7 @@ class CrossingMap extends React.Component {
           type="symbol"
           id="selectedOpenCrossing"
           layout={{
-            'icon-image': 'marker-open_selected-small',
+            'icon-image': 'marker-open-small',
             'icon-allow-overlap': true,
           }}
         >
