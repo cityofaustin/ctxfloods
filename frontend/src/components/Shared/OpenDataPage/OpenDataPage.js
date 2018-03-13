@@ -3,7 +3,6 @@ import GraphiQL from 'graphiql';
 import fetch from 'isomorphic-fetch';
 import 'components/Shared/OpenDataPage/graphiql.css';
 import 'components/Shared/OpenDataPage/OpenDataPage.css';
-import { Link } from 'react-router-dom';
 
 function graphQLFetcher(graphQLParams) {
   return fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
