@@ -881,20 +881,21 @@ comment on function floods.delete_status_duration(integer) is 'Deletes a status 
 
 -- Create function to create new communities
 create function floods.new_community(
-  name text
+  name text,
+  abbreviation text
 ) returns floods.community as $$
 declare
   floods_community floods.community;
 begin
-  insert into floods.community (name) values
-    (name)
+  insert into floods.community (name, abbreviation) values
+    (name, abbreviation)
     returning * into floods_community;
 
   return floods_community;
 end;
 $$ language plpgsql strict security definer;
 
-comment on function floods.new_community(text) is 'Adds a community.';
+comment on function floods.new_community(text, text) is 'Adds a community.';
 
 -- Create function to change community names
 create function floods.change_community_name(
@@ -1044,7 +1045,7 @@ grant execute on function floods.add_crossing_to_community(integer, integer) to 
 grant execute on function floods.remove_crossing_from_community(integer, integer) to floods_super_admin;
 
 -- Allow super admins to create/edit/delete communities
-grant execute on function floods.new_community(text) to floods_super_admin;
+grant execute on function floods.new_community(text, text) to floods_super_admin;
 grant execute on function floods.change_community_name(integer, text) to floods_super_admin;
 grant execute on function floods.delete_community(integer) to floods_super_admin;
 
