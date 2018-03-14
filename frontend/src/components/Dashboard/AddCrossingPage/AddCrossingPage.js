@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import AddCrossingMap from 'components/Shared/Map/AddCrossingMap';
 import CrossingDetails from 'components/Dashboard/CrossingDetailPage/CrossingDetails';
 import { ContainerQuery } from 'react-container-query';
@@ -31,6 +33,16 @@ class AddCrossingPage extends Component {
       return <div>Adding crossings is not yet supported on mobile.</div>;
     }
 
+    const isLoading =
+      !this.props.data ||
+      this.props.data.loading;
+
+    if (isLoading) {
+      return <div>Loading</div>;
+    }
+
+    const allCommunities = this.props.data.allCommunities.nodes;
+
     const crossing = {
       name: null,
       description: null,
@@ -60,7 +72,8 @@ class AddCrossingPage extends Component {
               />
               <CrossingDetails
                 crossing={crossing}
-                communities={communities}
+                allCommunities={allCommunities}
+                crossingCommunities={communities}
                 addMode={true}
                 currentUser={this.props.currentUser}
               />
@@ -72,4 +85,15 @@ class AddCrossingPage extends Component {
   }
 }
 
-export default AddCrossingPage;
+const allCommunities = gql`
+  query {
+    allCommunities {
+      nodes {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export default graphql(allCommunities)(AddCrossingPage);
