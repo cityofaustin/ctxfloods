@@ -1,0 +1,24 @@
+.OpenDataPage {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.graphiql-container {
+  flex: auto;
+}
+
+.OpenDataPage__header {
+  display: flex;
+}
+
+.OpenDataPage__heading {
+  flex: auto;
+  padding-left: 2rem;
+}
+
+.OpenDataPage__api-link {
+  flex: auto;
+  font-size: 1.5rem;
+  padding-top: 1.5rem;
+}

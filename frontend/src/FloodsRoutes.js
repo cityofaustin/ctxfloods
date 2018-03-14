@@ -10,7 +10,7 @@ import CrossingListPage from 'components/Dashboard/CrossingListPage/CrossingList
 import CrossingDetailPage from 'components/Dashboard/CrossingDetailPage/CrossingDetailPage';
 import AddCrossingPage from 'components/Dashboard/AddCrossingPage/AddCrossingPage';
 import CrossingStatusHistoryPage from 'components/Dashboard/CrossingStatusHistoryPage/CrossingStatusHistoryPage';
-
+import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
 import PublicHeader from 'components/Public/Header/PublicHeader';
 
 import auth from 'services/gqlAuth';
@@ -49,6 +49,7 @@ class FloodsRoutes extends Component {
         </Switch>
 
         <Route path="/map" component={CrossingMapPage} />
+        <Route exact path="/data" component={OpenDataPage} />
 
         <PrivateRoute
           path="/dashboard/users"
