@@ -47,6 +47,7 @@ describe('As a super admin', async () => {
         mutation {
           newCommunity(input: {
             name: "New Community"
+            abbreviation: "NCO"
           }) {
             community {
               id

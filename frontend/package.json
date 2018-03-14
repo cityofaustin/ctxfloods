@@ -15,6 +15,7 @@
     "formatcoords": "^1.1.3",
     "geolib": "^2.0.24",
     "get-graphql-schema": "^2.1.0",
+    "graphiql": "^0.11.11",
     "graphql": "0.13.0",
     "graphql-tag": "2.8.0",
     "jwt-decode": "^2.2.0",
@@ -46,7 +47,7 @@
   "scripts": {
     "start-js": "NODE_PATH=src react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "start-local": "REACT_APP_AWS_ENDPOINT='http://localhost:5000/graphql' yarn run start",
+    "start-local": "REACT_APP_GRAPHQL_ENDPOINT='http://localhost:5000/graphql' yarn run start",
     "validate-map-style": "node src/Map/style/scripts/validate.js",
     "build-map-style-json": "node src/components/Shared/Map/style/scripts/build.js",
     "build-map-style": "yarn build-map-icons; yarn build-map-style-json",
