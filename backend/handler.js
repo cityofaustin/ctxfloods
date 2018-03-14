@@ -7,8 +7,6 @@ const Client = require('pg').Client;
 const pgClientFromContext = require("postgraphql/build/postgres/inventory/pgClientFromContext");
 const setupRequestPgClientTransaction = require("postgraphql/build/postgraphql/http/setupRequestPgClientTransaction");
 const PgCat = JSON.parse(fs.readFileSync('pgCatalog/pgCatalog.json', 'utf8'));
-const serverless = require('serverless-http');
-const express = require('express');
 
 module.exports.graphql = (event, context, cb) => {
   // Setup connection to PostgresDB
@@ -69,21 +67,23 @@ module.exports.graphql = (event, context, cb) => {
       });
     }
 
-const xmlApp = express();
-
-xmlApp.get('/xml', (req, res) => {
-  // Setup connection to PostgresDB
+module.exports.xml = (event, context, cb) => {
   const pgClient = new Client(process.env.PGCON);
   pgClient.connect();
 
   pgClient.query('select floods.legacy_xml()')
     .then(pgres => 
     {
-      res.type('.xml');
-      res.send(`<xml>${pgres.rows[0].legacy_xml}</xml>`);
-    })
-    .catch(e => console.error(e.stack))
-    .then(() => pgClient.end());
-})
+      const response = {
+          statusCode: 200,
+          headers: {
+            'Content-Type': 'text/xml',
+          },
+          body: pgres.rows[0].legacy_xml,
+      };
 
-module.exports.xml = serverless(xmlApp);
+      cb(null, response);
+    })
+    .catch(err => cb(null, {"errors": [err]}))
+    .then(() => pgClient.end());    
+}
