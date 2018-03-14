@@ -693,8 +693,9 @@ create function floods.legacy_xml(
               case c.legacy_id
                 when null then c.id
                 else c.legacy_id
-              end as id
-              )))) from floods.crossing c;
+              end as id,
+              su.notes as comment
+              )))) from floods.crossing c join floods.status_update su on c.latest_status_update_id = su.id;
 $$ language sql stable security definer;
 
 comment on function floods.legacy_xml() is 'Generates legacy xml from current data.';
