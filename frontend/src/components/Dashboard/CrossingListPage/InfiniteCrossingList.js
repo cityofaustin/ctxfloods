@@ -1,5 +1,5 @@
 import React from 'react';
-import CrossingListItem from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItem';
+import DashboardCrossingListItem from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItem';
 import {
   InfiniteLoader,
   AutoSizer,
@@ -105,7 +105,7 @@ export default class InfiniteCrossingList extends React.Component {
       >
         {({ measure }) => (
           <div className="CrossingListItemMeasureContainer" style={style}>
-            <CrossingListItem
+            <DashboardCrossingListItem
               onLoad={measure}
               key={crossing.id}
               crossing={crossing}

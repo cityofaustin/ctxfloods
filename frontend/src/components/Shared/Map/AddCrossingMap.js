@@ -22,7 +22,7 @@ class AddCrossingMap extends Component {
         <Layer
           type="symbol"
           id="newCrossing"
-          layout={{ 'icon-image': 'open', 'icon-allow-overlap': true }}
+          layout={{ 'icon-image': 'marker-open-small', 'icon-allow-overlap': true }}
         >
           <Feature
             coordinates={crossingCoordinates}
