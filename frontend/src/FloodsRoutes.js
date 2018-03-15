@@ -12,6 +12,7 @@ import AddCrossingPage from 'components/Dashboard/AddCrossingPage/AddCrossingPag
 import CrossingStatusHistoryPage from 'components/Dashboard/CrossingStatusHistoryPage/CrossingStatusHistoryPage';
 import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
 import PublicHeader from 'components/Public/Header/PublicHeader';
+import ForgotPasswordPage from 'components/Dashboard/ForgotPasswordPage/ForgotPasswordPage';
 
 import auth from 'services/gqlAuth';
 import { graphql } from 'react-apollo';
@@ -35,6 +36,7 @@ class FloodsRoutes extends Component {
         />
 
         <Switch>
+          <Route exact path="/dashboard/forgot_password" component={ForgotPasswordPage} />
           <Route
             path="/dashboard"
             render={props =>

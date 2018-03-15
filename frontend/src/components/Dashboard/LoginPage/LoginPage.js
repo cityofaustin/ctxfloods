@@ -42,20 +42,17 @@ class LoginPage extends Component {
     return (
       <div className="LoginPage">
         <div className="LoginPage__form-controls">
-          <h1 className="LoginPage__h1"> Log in to the CTXFloods Dashboard </h1>
+          <h1> Log in to the CTXFloods Dashboard </h1>
           <form
-            className="LoginPage__form"
             onSubmit={this.handleSubmit.bind(this)}
           >
             <input
-              className="LoginPage__input"
               type="text"
               value={this.state.email}
               placeholder="Email"
               onChange={this.handleEmailChange.bind(this)}
             />
             <input
-              className="LoginPage__input"
               type="password"
               value={this.state.password}
               placeholder="Password"
