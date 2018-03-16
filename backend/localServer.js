@@ -2,6 +2,7 @@ const http = require('http');
 const parser = require('url');
 const xmlHandler = require('./handlers/xmlHandler');
 const graphqlHandler = require('./handlers/graphqlHandler');
+const resetEmailHandler = require('./handlers/resetEmailHandler');
 
 const hostname = '127.0.0.1';
 const port = 5000;
@@ -28,13 +29,11 @@ const server = http.createServer((req, res) => {
           break;
 
         case 'POST':
-          console.log("blarg");
           var body = '';
           req.on('data', data => {
             body += data;
           })
           req.on('end', () => {
-            // debugger;
             var event = JSON.parse(body);
             event.headers = req.headers;
             graphqlHandler.handle(event, null, (error, response) => {
@@ -45,6 +44,12 @@ const server = http.createServer((req, res) => {
           });
           break;
       }
+      break;
+
+    case '/send_reset_email':
+      resetEmailHandler.handle(null, null, (error, response) => {
+        res.end();
+      })
       break;
   }
 });
