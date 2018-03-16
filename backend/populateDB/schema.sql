@@ -947,6 +947,9 @@ create role floods_super_admin;
 grant floods_community_admin to floods_super_admin;
 grant floods_super_admin to floods_postgraphql;
 
+create role floods_password_resetter;
+grant floods_password_resetter to floods_postgraphql;
+
 -- Create JWT token type for authentication
 create type floods.jwt_token as (
   role text,
@@ -976,6 +979,38 @@ $$ language plpgsql strict security definer;
 
 comment on function floods.authenticate(text, text) is 'Creates a JWT token that will securely identify a user and give them certain permissions.';
 
+-- Create function to reset password and authenticate, returning a jwt token
+create function floods.reset_password(
+  new_password text
+) returns floods.jwt_token as $$
+declare
+  account floods_private.user_account;
+begin
+  -- Update the password
+  update floods_private.user_account
+    set password_hash = crypt(new_password, gen_salt('bf'))
+    where user_id = current_setting('jwt.claims.user_id')::integer; 
+
+  -- Get the account
+  select a.* into account
+  from floods_private.user_account as a
+  where a.user_id = current_setting('jwt.claims.user_id')::integer;
+
+  -- If we didn't get an account, return null
+  if account is null then
+    return null;
+  end if;
+
+  if account.password_hash = crypt(new_password, account.password_hash) then
+    return (account.role, account.user_id, account.community_id)::floods.jwt_token;
+  else
+    return null;
+  end if;
+end;
+$$ language plpgsql strict security definer;
+
+comment on function floods.reset_password(text) is 'Resets the password for a user and returns an authenticated JWT.';
+
 -- Create a function to get the current user
 create function floods.current_user() returns floods.user as $$
   select *
@@ -987,6 +1022,7 @@ comment on function floods.current_user() is 'Gets the user who was identified b
 
 -- Define permissions for roles
 grant usage on schema floods to floods_anonymous;
+grant usage on schema floods to floods_password_resetter;
 
 -- Allow all users to view some data
 -- TODO: Column Level Security, PostgraphQL doesn't currently support it (https://github.com/postgraphql/postgraphql/issues/151)
@@ -1001,6 +1037,8 @@ grant select on table floods.crossing to floods_anonymous;
 
 -- Allow all users to log in and get an auth token
 grant execute on function floods.authenticate(text, text) to floods_anonymous;
+
+grant execute on function floods.reset_password(text) to floods_password_resetter;
 
 -- Allow all users to get the legacy xml
 grant execute on function floods.legacy_xml() to floods_anonymous;

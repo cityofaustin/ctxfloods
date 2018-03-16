@@ -8,11 +8,11 @@ class ForgotPasswordPage extends Component {
     emailSentSuccessfully: false,
   };
 
-  handleEmailChange(e) {
+  handleEmailChange = (e) => {
     this.setState({ email: e.target.value });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     this.setState({emailSentSuccessfully: true});
   }
 
@@ -25,13 +25,13 @@ class ForgotPasswordPage extends Component {
         <div className="ForgotPasswordPage__form-controls">
           <h1> Reset your password </h1>
           <form
-            onSubmit={this.handleSubmit.bind(this)}
+            onSubmit={this.handleSubmit}
           >
             <input
               type="text"
               value={this.state.email}
               placeholder="Email"
-              onChange={this.handleEmailChange.bind(this)}
+              onChange={this.handleEmailChange}
             />
             <input type="submit" className="ForgotPasswordPage__submit" value="Send Reset Email" />
           </form>

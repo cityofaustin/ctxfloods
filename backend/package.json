@@ -34,6 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "graphql": "^0.8.2",
+    "jsonwebtoken": "^8.2.0",
     "lokka": "^1.7.0",
     "lokka-transport-http": "^1.6.1",
     "pg-minify": "^0.4.2",

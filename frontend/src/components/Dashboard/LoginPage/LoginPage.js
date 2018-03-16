@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Link } from 'react-router-dom';
 
 import 'components/Dashboard/LoginPage/LoginPage.css';
 
@@ -11,15 +12,15 @@ class LoginPage extends Component {
     password: '',
   };
 
-  handleEmailChange(e) {
+  handleEmailChange = (e) => {
     this.setState({ email: e.target.value });
   }
 
-  handlePasswordChange(e) {
+  handlePasswordChange = (e) => {
     this.setState({ password: e.target.value });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     var email = this.state.email.trim().toLowerCase();
     var password = this.state.password.trim();
@@ -44,23 +45,24 @@ class LoginPage extends Component {
         <div className="LoginPage__form-controls">
           <h1> Log in to the CTXFloods Dashboard </h1>
           <form
-            onSubmit={this.handleSubmit.bind(this)}
+            onSubmit={this.handleSubmit}
           >
             <input
               type="text"
               value={this.state.email}
               placeholder="Email"
-              onChange={this.handleEmailChange.bind(this)}
+              onChange={this.handleEmailChange}
             />
             <input
               type="password"
               value={this.state.password}
               placeholder="Password"
-              onChange={this.handlePasswordChange.bind(this)}
+              onChange={this.handlePasswordChange}
             />
             <input type="submit" className="LoginPage__submit" />
           </form>
         </div>
+        <Link to="/dashboard/forgot_password">Forgot Password?</Link>
       </div>
     );
   }

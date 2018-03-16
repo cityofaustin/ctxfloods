@@ -13,6 +13,7 @@ import CrossingStatusHistoryPage from 'components/Dashboard/CrossingStatusHistor
 import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
 import PublicHeader from 'components/Public/Header/PublicHeader';
 import ForgotPasswordPage from 'components/Dashboard/ForgotPasswordPage/ForgotPasswordPage';
+import ResetPasswordPage from 'components/Dashboard/ResetPasswordPage/ResetPasswordPage';
 
 import auth from 'services/gqlAuth';
 import { graphql } from 'react-apollo';
@@ -32,11 +33,19 @@ class FloodsRoutes extends Component {
         <Route
           path="/dashboard"
           exact
-          render={() => <Redirect to="/dashboard/crossings/list" />}
+          render={() => <Redirect to="/dashboard/crossings/map" />}
         />
 
         <Switch>
           <Route exact path="/dashboard/forgot_password" component={ForgotPasswordPage} />
+          <PrivateRoute
+            path="/dashboard/reset_password"
+            component={ResetPasswordPage}
+            authenticated={auth.isAuthenticated()}
+            authorized={auth.roleAuthorized([
+              'floods_reset_password',
+            ])}
+          />
           <Route
             path="/dashboard"
             render={props =>
