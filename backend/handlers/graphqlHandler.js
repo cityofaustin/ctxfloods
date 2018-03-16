@@ -8,7 +8,7 @@ const pgClientFromContext = require("postgraphql/build/postgres/inventory/pgClie
 const setupRequestPgClientTransaction = require("postgraphql/build/postgraphql/http/setupRequestPgClientTransaction");
 const PgCat = JSON.parse(fs.readFileSync('pgCatalog/pgCatalog.json', 'utf8'));
 
-module.exports.handler = (event, context, cb) => {
+module.exports.handle = (event, context, cb) => {
   // Setup connection to PostgresDB
   const pgClient = new Client(process.env.PGCON);
   pgClient.connect();

@@ -12,7 +12,7 @@ package:
 
 functions:
   graphql:
-    handler: handlers/graphqlHandler.handler
+    handler: handlers/graphqlHandler.handle
     events:
       - http:
           method: post
@@ -71,7 +71,7 @@ functions:
       PGCON: ${env:npm_config_PGRUNCON}
       JWT_SECRET: keyboard_kitten
   xml:
-    handler: handlers/xmlHandler.handler
+    handler: handlers/xmlHandler.handle
     events:
       - http:
           method: get

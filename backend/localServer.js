@@ -1,31 +1,40 @@
 const http = require('http');
 const parser = require('url');
 const xmlHandler = require('./handlers/xmlHandler');
-
-console.log(xmlHandler);
+const graphqlHandler = require('./handlers/graphqlHandler');
 
 const hostname = '127.0.0.1';
 const port = 5000;
 
 const server = http.createServer((req, res) => {
-  // console.log(req);
   const url = parser.parse(req.url, true);
-  console.log(url.pathname);
 
   switch (url.pathname) {
     case '/xml':
-      xmlHandler.handler(null, null, (error, response) => {
-        console.log(response);
+      xmlHandler.handle(null, null, (error, response) => {
         res.statusCode = response.statusCode;
         res.setHeader('Content-Type', 'text/xml');
         res.end(response.body);
+      });
+      break;
+
+    case '/graphql':
+      console.log("blarg");
+      var body = '';
+      req.on('data', data => {
+        body += data;
       })
+      req.on('end', () => {
+        debugger;
+        var event = JSON.parse(body);
+        event.headers = req.headers;
+        graphqlHandler.handle(event, null, (error, response) => {
+          res.statusCode = response.statusCode;
+          res.end(JSON.stringify(response.data));
+        })
+      });
+      break;
   }
-
-
-  // res.statusCode = 200;
-  // res.setHeader('Content-Type', 'text/plain');
-  // res.end('Hello World\n');
 });
 
 server.listen(port, hostname, () => {

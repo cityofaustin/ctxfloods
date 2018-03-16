@@ -1,6 +1,6 @@
 const Client = require('pg').Client;
 
-module.exports.handler = (event, context, cb) => {
+module.exports.handle = (event, context, cb) => {
   const pgClient = new Client(process.env.PGCON);
   pgClient.connect();
 
