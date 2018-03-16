@@ -23,7 +23,7 @@ const server = http.createServer((req, res) => {
         case 'OPTIONS':
           res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
           res.setHeader('Access-Control-Allow-Origin', '*');
-          res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+          res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type, Accept');
           res.end();
           break;
 
