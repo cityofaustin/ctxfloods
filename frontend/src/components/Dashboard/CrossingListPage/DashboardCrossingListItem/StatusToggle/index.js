@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as statusConstants from 'constants/StatusConstants';
-import StatusItem from './StatusItem';
+import StatusToggleItem from './StatusToggleItem';
 import './StatusToggle.css';
 
 import StatusCautionSvg from 'images/status-caution.svg';
@@ -13,43 +14,55 @@ import StatusLongTermInactiveSvg from 'images/status-long-term-inactive.svg';
 import StatusOpenSvg from 'images/status-open.svg';
 import StatusOpenInactiveSvg from 'images/status-open-inactive.svg';
 
-export default class StatusToggle extends React.Component {
-  render() {
-    return (
-      <div className="StatusToggleContainer">
-        <StatusItem
-          isActive={this.props.status === statusConstants.OPEN}
-          className="StatusToggle__open"
-          iconSrc={StatusOpenInactiveSvg}
-          activeIconSrc={StatusOpenSvg}
-          alt="Open"
-          onClick={this.props.openClicked}
-        />
-        <StatusItem
-          isActive={this.props.status === statusConstants.CAUTION}
-          className="StatusToggle__caution"
-          iconSrc={StatusCautionInactiveSvg}
-          activeIconSrc={StatusCautionSvg}
-          alt="Caution"
-          onClick={this.props.cautionClicked}
-        />
-        <StatusItem
-          isActive={this.props.status === statusConstants.CLOSED}
-          className="StatusToggle__closed"
-          iconSrc={StatusClosedInactiveSvg}
-          activeIconSrc={StatusClosedSvg}
-          alt="Closed"
-          onClick={this.props.closedClicked}
-        />
-        <StatusItem
-          isActive={this.props.status === statusConstants.LONGTERM}
-          className="StatusToggle__longterm"
-          iconSrc={StatusLongTermInactiveSvg}
-          activeIconSrc={StatusLongTermSvg}
-          alt="Closed Long-Term"
-          onClick={this.props.longtermClicked}
-        />
-      </div>
-    );
-  }
+export default function StatusToggle({
+  activeStatus,
+  toggleOpen,
+  toggleCaution,
+  toggleClosed,
+  toggleLongterm,
+}) {
+  return (
+    <div className="StatusToggleContainer">
+      <StatusToggleItem
+        isActive={activeStatus === statusConstants.OPEN}
+        className="StatusToggleItem__open"
+        iconSrc={StatusOpenInactiveSvg}
+        activeIconSrc={StatusOpenSvg}
+        alt="Open"
+        onClick={toggleOpen}
+      />
+      <StatusToggleItem
+        isActive={activeStatus === statusConstants.CAUTION}
+        className="StatusToggleItem__caution"
+        iconSrc={StatusCautionInactiveSvg}
+        activeIconSrc={StatusCautionSvg}
+        alt="Caution"
+        onClick={toggleCaution}
+      />
+      <StatusToggleItem
+        isActive={activeStatus === statusConstants.CLOSED}
+        className="StatusToggleItem__closed"
+        iconSrc={StatusClosedInactiveSvg}
+        activeIconSrc={StatusClosedSvg}
+        alt="Closed"
+        onClick={toggleClosed}
+      />
+      <StatusToggleItem
+        isActive={activeStatus === statusConstants.LONGTERM}
+        className="StatusToggleItem__longterm"
+        iconSrc={StatusLongTermInactiveSvg}
+        activeIconSrc={StatusLongTermSvg}
+        alt="Closed Long-Term"
+        onClick={toggleLongterm}
+      />
+    </div>
+  );
 }
+
+StatusToggle.propTypes = {
+  activeStatus: PropTypes.string.isRequired,
+  toggleOpen: PropTypes.func.isRequired,
+  toggleCaution: PropTypes.func.isRequired,
+  toggleClosed: PropTypes.func.isRequired,
+  toggleLongterm: PropTypes.func.isRequired,
+};

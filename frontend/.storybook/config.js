@@ -4,7 +4,7 @@ import '../src/index.css';
 function loadStories() {
   require('../src/stories/userList.js');
   require('../src/stories/crossingListItem.js');
-  require('../src/stories/statusToggle.js');
+  require('../src/stories/StatusToggle.js');
   require('../src/stories/crossingListItemLocation.js');
   require('../src/stories/crossingListHeader.js');
   require('../src/stories/crossingDetails.js');

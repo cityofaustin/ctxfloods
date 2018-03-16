@@ -366,7 +366,7 @@ class DashboardCrossingListItem extends React.Component {
       });
   };
 
-  openClicked = () => {
+  toggleOpen = () => {
     this.setState({
       selectedStatus: statusConstants.OPEN,
       notes: '',
@@ -378,7 +378,7 @@ class DashboardCrossingListItem extends React.Component {
     }
   };
 
-  cautionClicked = () => {
+  toggleCaution = () => {
     this.setState({
       selectedStatus: statusConstants.CAUTION,
       notes: '',
@@ -393,7 +393,7 @@ class DashboardCrossingListItem extends React.Component {
     }
   };
 
-  closedClicked = () => {
+  toggleClosed = () => {
     this.setState({
       selectedStatus: statusConstants.CLOSED,
       notes: '',
@@ -408,7 +408,7 @@ class DashboardCrossingListItem extends React.Component {
     }
   };
 
-  longtermClicked = () => {
+  toggleLongterm = () => {
     this.setState({
       selectedStatus: statusConstants.LONGTERM,
       notes: '',
@@ -510,7 +510,11 @@ class DashboardCrossingListItem extends React.Component {
     }
 
     const CrossingListItemJSX = (
-      <div className={`DashboardCrossingListItem DashboardCrossingListItem--layout-${this.props.listOrMap}`}>
+      <div
+        className={`DashboardCrossingListItem DashboardCrossingListItem--layout-${
+          this.props.listOrMap
+        }`}
+      >
         <div className="DashboardCrossingListItem__overview">
           <div className="DashboardCrossingListItem__crossing-name">
             <a href={`/dashboard/crossing/${crossing.id}`}>{crossing.name}</a>
@@ -545,11 +549,11 @@ class DashboardCrossingListItem extends React.Component {
             className="DashboardCrossingListItem__control--status"
           >
             <StatusToggle
-              status={this.state.selectedStatus}
-              openClicked={this.openClicked}
-              cautionClicked={this.cautionClicked}
-              closedClicked={this.closedClicked}
-              longtermClicked={this.longtermClicked}
+              activeStatus={this.state.selectedStatus}
+              toggleOpen={this.toggleOpen}
+              toggleCaution={this.toggleCaution}
+              toggleClosed={this.toggleClosed}
+              toggleLongterm={this.toggleLongterm}
             />
           </DashboardCrossingListItemControl>
 

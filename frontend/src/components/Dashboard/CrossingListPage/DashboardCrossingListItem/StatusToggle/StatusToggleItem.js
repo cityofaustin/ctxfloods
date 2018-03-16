@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 
 import classNames from 'classnames';
 
-export default class StatusItem extends Component {
+export default class StatusToggleItem extends Component {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
     iconSrc: PropTypes.string.isRequired,
-    // hoverIconSrc: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
     className: PropTypes.string.isRequired,
   };
+  
   render() {
     return (
       <div
         className={classNames([
-          'StatusToggle',
+          'StatusToggleItem',
           this.props.className,
           this.props.isActive && 'active',
         ])}

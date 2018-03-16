@@ -475,7 +475,7 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
       className="DashboardCrossingListItem__controls"
     >
       <div
-        className="DashboardCrossingListItem__control"
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
       >
         <div
           className="DashboardCrossingListItem__control-meta"
@@ -496,52 +496,39 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
             className="StatusToggleContainer"
           >
             <div
-              className="StatusToggle__open"
+              className="StatusToggleItem StatusToggleItem__open"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-circle-o"
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__caution--selected"
+              className="StatusToggleItem StatusToggleItem__caution active"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-exclamation-triangle"
+              <img
+                alt="Caution"
+                src="status-caution.svg"
               />
             </div>
             <div
-              className="StatusToggle__closed"
+              className="StatusToggleItem StatusToggleItem__closed"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__longterm"
+              className="StatusToggleItem StatusToggleItem__longterm"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
-                style={
-                  Object {
-                    "textDecoration": "underline",
-                  }
-                }
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
               />
             </div>
           </div>
@@ -694,7 +681,7 @@ exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
       className="DashboardCrossingListItem__controls"
     >
       <div
-        className="DashboardCrossingListItem__control"
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
       >
         <div
           className="DashboardCrossingListItem__control-meta"
@@ -715,52 +702,39 @@ exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
             className="StatusToggleContainer"
           >
             <div
-              className="StatusToggle__open"
+              className="StatusToggleItem StatusToggleItem__open"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-circle-o"
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__caution--selected"
+              className="StatusToggleItem StatusToggleItem__caution active"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-exclamation-triangle"
+              <img
+                alt="Caution"
+                src="status-caution.svg"
               />
             </div>
             <div
-              className="StatusToggle__closed"
+              className="StatusToggleItem StatusToggleItem__closed"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__longterm"
+              className="StatusToggleItem StatusToggleItem__longterm"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
-                style={
-                  Object {
-                    "textDecoration": "underline",
-                  }
-                }
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
               />
             </div>
           </div>
@@ -934,7 +908,7 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
       className="DashboardCrossingListItem__controls"
     >
       <div
-        className="DashboardCrossingListItem__control"
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
       >
         <div
           className="DashboardCrossingListItem__control-meta"
@@ -955,52 +929,39 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
             className="StatusToggleContainer"
           >
             <div
-              className="StatusToggle__open"
+              className="StatusToggleItem StatusToggleItem__open"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-circle-o"
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__caution"
+              className="StatusToggleItem StatusToggleItem__caution"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-exclamation-triangle"
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__closed--selected"
+              className="StatusToggleItem StatusToggleItem__closed active"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
+              <img
+                alt="Closed"
+                src="status-closed.svg"
               />
             </div>
             <div
-              className="StatusToggle__longterm"
+              className="StatusToggleItem StatusToggleItem__longterm"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
-                style={
-                  Object {
-                    "textDecoration": "underline",
-                  }
-                }
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
               />
             </div>
           </div>
@@ -1153,7 +1114,7 @@ exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
       className="DashboardCrossingListItem__controls"
     >
       <div
-        className="DashboardCrossingListItem__control"
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
       >
         <div
           className="DashboardCrossingListItem__control-meta"
@@ -1174,52 +1135,39 @@ exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
             className="StatusToggleContainer"
           >
             <div
-              className="StatusToggle__open"
+              className="StatusToggleItem StatusToggleItem__open"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-circle-o"
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__caution"
+              className="StatusToggleItem StatusToggleItem__caution"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-exclamation-triangle"
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__closed--selected"
+              className="StatusToggleItem StatusToggleItem__closed active"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
+              <img
+                alt="Closed"
+                src="status-closed.svg"
               />
             </div>
             <div
-              className="StatusToggle__longterm"
+              className="StatusToggleItem StatusToggleItem__longterm"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
-                style={
-                  Object {
-                    "textDecoration": "underline",
-                  }
-                }
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
               />
             </div>
           </div>
@@ -1396,7 +1344,7 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
         className="DashboardCrossingListItem__controls"
       >
         <div
-          className="DashboardCrossingListItem__control"
+          className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
         >
           <div
             className="DashboardCrossingListItem__control-meta"
@@ -1417,52 +1365,39 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
               className="StatusToggleContainer"
             >
               <div
-                className="StatusToggle__open"
+                className="StatusToggleItem StatusToggleItem__open"
                 onClick={[Function]}
-                onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
-                <span
-                  aria-hidden={true}
-                  className="fa fa-circle-o"
+                <img
+                  alt="Open"
+                  src="status-open-inactive.svg"
                 />
               </div>
               <div
-                className="StatusToggle__caution"
+                className="StatusToggleItem StatusToggleItem__caution"
                 onClick={[Function]}
-                onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
-                <span
-                  aria-hidden={true}
-                  className="fa fa-exclamation-triangle"
+                <img
+                  alt="Caution"
+                  src="status-caution-inactive.svg"
                 />
               </div>
               <div
-                className="StatusToggle__closed"
+                className="StatusToggleItem StatusToggleItem__closed"
                 onClick={[Function]}
-                onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
-                <span
-                  aria-hidden={true}
-                  className="fa fa-times"
+                <img
+                  alt="Closed"
+                  src="status-closed-inactive.svg"
                 />
               </div>
               <div
-                className="StatusToggle__longterm--selected"
+                className="StatusToggleItem StatusToggleItem__longterm active"
                 onClick={[Function]}
-                onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
-                <span
-                  aria-hidden={true}
-                  className="fa fa-times"
-                  style={
-                    Object {
-                      "textDecoration": "underline",
-                    }
-                  }
+                <img
+                  alt="Closed Long-Term"
+                  src="status-long-term.svg"
                 />
               </div>
             </div>
@@ -1678,7 +1613,7 @@ exports[`Storyshots Crossing List Item Long Term Closure 1`] = `
       className="DashboardCrossingListItem__controls"
     >
       <div
-        className="DashboardCrossingListItem__control"
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
       >
         <div
           className="DashboardCrossingListItem__control-meta"
@@ -1699,52 +1634,39 @@ exports[`Storyshots Crossing List Item Long Term Closure 1`] = `
             className="StatusToggleContainer"
           >
             <div
-              className="StatusToggle__open"
+              className="StatusToggleItem StatusToggleItem__open"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-circle-o"
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__caution"
+              className="StatusToggleItem StatusToggleItem__caution"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-exclamation-triangle"
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__closed"
+              className="StatusToggleItem StatusToggleItem__closed"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__longterm--selected"
+              className="StatusToggleItem StatusToggleItem__longterm active"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
-                style={
-                  Object {
-                    "textDecoration": "underline",
-                  }
-                }
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term.svg"
               />
             </div>
           </div>
@@ -1944,7 +1866,7 @@ exports[`Storyshots Crossing List Item Long Term Closure Dirty 1`] = `
       className="DashboardCrossingListItem__controls"
     >
       <div
-        className="DashboardCrossingListItem__control"
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
       >
         <div
           className="DashboardCrossingListItem__control-meta"
@@ -1965,52 +1887,39 @@ exports[`Storyshots Crossing List Item Long Term Closure Dirty 1`] = `
             className="StatusToggleContainer"
           >
             <div
-              className="StatusToggle__open"
+              className="StatusToggleItem StatusToggleItem__open"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-circle-o"
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__caution"
+              className="StatusToggleItem StatusToggleItem__caution"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-exclamation-triangle"
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__closed"
+              className="StatusToggleItem StatusToggleItem__closed"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__longterm--selected"
+              className="StatusToggleItem StatusToggleItem__longterm active"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
-                style={
-                  Object {
-                    "textDecoration": "underline",
-                  }
-                }
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term.svg"
               />
             </div>
           </div>
@@ -2236,7 +2145,7 @@ exports[`Storyshots Crossing List Item Open 1`] = `
       className="DashboardCrossingListItem__controls"
     >
       <div
-        className="DashboardCrossingListItem__control"
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
       >
         <div
           className="DashboardCrossingListItem__control-meta"
@@ -2257,52 +2166,39 @@ exports[`Storyshots Crossing List Item Open 1`] = `
             className="StatusToggleContainer"
           >
             <div
-              className="StatusToggle__open--selected"
+              className="StatusToggleItem StatusToggleItem__open active"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-circle-o"
+              <img
+                alt="Open"
+                src="status-open.svg"
               />
             </div>
             <div
-              className="StatusToggle__caution"
+              className="StatusToggleItem StatusToggleItem__caution"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-exclamation-triangle"
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__closed"
+              className="StatusToggleItem StatusToggleItem__closed"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__longterm"
+              className="StatusToggleItem StatusToggleItem__longterm"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
-                style={
-                  Object {
-                    "textDecoration": "underline",
-                  }
-                }
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
               />
             </div>
           </div>
@@ -2408,7 +2304,7 @@ exports[`Storyshots Crossing List Item Open Dirty 1`] = `
       className="DashboardCrossingListItem__controls"
     >
       <div
-        className="DashboardCrossingListItem__control"
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
       >
         <div
           className="DashboardCrossingListItem__control-meta"
@@ -2429,52 +2325,39 @@ exports[`Storyshots Crossing List Item Open Dirty 1`] = `
             className="StatusToggleContainer"
           >
             <div
-              className="StatusToggle__open--selected"
+              className="StatusToggleItem StatusToggleItem__open active"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-circle-o"
+              <img
+                alt="Open"
+                src="status-open.svg"
               />
             </div>
             <div
-              className="StatusToggle__caution"
+              className="StatusToggleItem StatusToggleItem__caution"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-exclamation-triangle"
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__closed"
+              className="StatusToggleItem StatusToggleItem__closed"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
               />
             </div>
             <div
-              className="StatusToggle__longterm"
+              className="StatusToggleItem StatusToggleItem__longterm"
               onClick={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
             >
-              <span
-                aria-hidden={true}
-                className="fa fa-times"
-                style={
-                  Object {
-                    "textDecoration": "underline",
-                  }
-                }
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
               />
             </div>
           </div>
@@ -2599,7 +2482,7 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
         className="DashboardCrossingListItem__controls"
       >
         <div
-          className="DashboardCrossingListItem__control"
+          className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
         >
           <div
             className="DashboardCrossingListItem__control-meta"
@@ -2620,52 +2503,39 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
               className="StatusToggleContainer"
             >
               <div
-                className="StatusToggle__open"
+                className="StatusToggleItem StatusToggleItem__open"
                 onClick={[Function]}
-                onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
-                <span
-                  aria-hidden={true}
-                  className="fa fa-circle-o"
+                <img
+                  alt="Open"
+                  src="status-open-inactive.svg"
                 />
               </div>
               <div
-                className="StatusToggle__caution"
+                className="StatusToggleItem StatusToggleItem__caution"
                 onClick={[Function]}
-                onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
-                <span
-                  aria-hidden={true}
-                  className="fa fa-exclamation-triangle"
+                <img
+                  alt="Caution"
+                  src="status-caution-inactive.svg"
                 />
               </div>
               <div
-                className="StatusToggle__closed"
+                className="StatusToggleItem StatusToggleItem__closed"
                 onClick={[Function]}
-                onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
-                <span
-                  aria-hidden={true}
-                  className="fa fa-times"
+                <img
+                  alt="Closed"
+                  src="status-closed-inactive.svg"
                 />
               </div>
               <div
-                className="StatusToggle__longterm--selected"
+                className="StatusToggleItem StatusToggleItem__longterm active"
                 onClick={[Function]}
-                onMouseLeave={[Function]}
-                onMouseOver={[Function]}
               >
-                <span
-                  aria-hidden={true}
-                  className="fa fa-times"
-                  style={
-                    Object {
-                      "textDecoration": "underline",
-                    }
-                  }
+                <img
+                  alt="Closed Long-Term"
+                  src="status-long-term.svg"
                 />
               </div>
             </div>
@@ -2799,52 +2669,39 @@ exports[`Storyshots Crossing List Item Status Toggle Caution 1`] = `
   className="StatusToggleContainer"
 >
   <div
-    className="StatusToggle__open"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__open"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-circle-o"
+    <img
+      alt="Open"
+      src="status-open-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__caution--selected"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__caution"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-exclamation-triangle"
+    <img
+      alt="Caution"
+      src="status-caution-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__closed"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__closed"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-times"
+    <img
+      alt="Closed"
+      src="status-closed-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__longterm"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__longterm"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-times"
-      style={
-        Object {
-          "textDecoration": "underline",
-        }
-      }
+    <img
+      alt="Closed Long-Term"
+      src="status-long-term-inactive.svg"
     />
   </div>
 </div>
@@ -2855,52 +2712,39 @@ exports[`Storyshots Crossing List Item Status Toggle Closed 1`] = `
   className="StatusToggleContainer"
 >
   <div
-    className="StatusToggle__open"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__open"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-circle-o"
+    <img
+      alt="Open"
+      src="status-open-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__caution"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__caution"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-exclamation-triangle"
+    <img
+      alt="Caution"
+      src="status-caution-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__closed--selected"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__closed"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-times"
+    <img
+      alt="Closed"
+      src="status-closed-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__longterm"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__longterm"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-times"
-      style={
-        Object {
-          "textDecoration": "underline",
-        }
-      }
+    <img
+      alt="Closed Long-Term"
+      src="status-long-term-inactive.svg"
     />
   </div>
 </div>
@@ -2911,52 +2755,39 @@ exports[`Storyshots Crossing List Item Status Toggle Long Term Closure 1`] = `
   className="StatusToggleContainer"
 >
   <div
-    className="StatusToggle__open"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__open"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-circle-o"
+    <img
+      alt="Open"
+      src="status-open-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__caution"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__caution"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-exclamation-triangle"
+    <img
+      alt="Caution"
+      src="status-caution-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__closed"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__closed"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-times"
+    <img
+      alt="Closed"
+      src="status-closed-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__longterm--selected"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__longterm"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-times"
-      style={
-        Object {
-          "textDecoration": "underline",
-        }
-      }
+    <img
+      alt="Closed Long-Term"
+      src="status-long-term-inactive.svg"
     />
   </div>
 </div>
@@ -2967,52 +2798,39 @@ exports[`Storyshots Crossing List Item Status Toggle Open 1`] = `
   className="StatusToggleContainer"
 >
   <div
-    className="StatusToggle__open--selected"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__open"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-circle-o"
+    <img
+      alt="Open"
+      src="status-open-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__caution"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__caution"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-exclamation-triangle"
+    <img
+      alt="Caution"
+      src="status-caution-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__closed"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__closed"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-times"
+    <img
+      alt="Closed"
+      src="status-closed-inactive.svg"
     />
   </div>
   <div
-    className="StatusToggle__longterm"
-    onClick={undefined}
-    onMouseLeave={[Function]}
-    onMouseOver={[Function]}
+    className="StatusToggleItem StatusToggleItem__longterm"
+    onClick={[Function]}
   >
-    <span
-      aria-hidden={true}
-      className="fa fa-times"
-      style={
-        Object {
-          "textDecoration": "underline",
-        }
-      }
+    <img
+      alt="Closed Long-Term"
+      src="status-long-term-inactive.svg"
     />
   </div>
 </div>

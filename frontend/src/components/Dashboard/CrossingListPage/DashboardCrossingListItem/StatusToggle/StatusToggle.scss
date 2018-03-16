@@ -18,7 +18,7 @@ $closed-color: #f44336;
   overflow: hidden;
 }
 
-.StatusToggle {
+.StatusToggleItem {
   flex: 1;
   display: flex;
   align-items: center;
@@ -26,29 +26,29 @@ $closed-color: #f44336;
   cursor: pointer;
   padding: 0 2rem;
 }
-.StatusToggle:hover {
+.StatusToggleItem:hover {
   background-color: #eeeef3;
 }
 
-.StatusToggle__open.active {
+.StatusToggleItem__open.active {
   background-color: $open-color;
   &:hover {
     background-color: darken($open-color, 10%);
   }
 }
-.StatusToggle__caution.active {
+.StatusToggleItem__caution.active {
   background-color: $caution-color;
   &:hover {
     background-color: lighten($caution-color, 10%);
   }
 }
-.StatusToggle__closed.active {
+.StatusToggleItem__closed.active {
   background-color: $closed-color;
   &:hover {
     background-color: darken($closed-color, 10%);
   }
 }
-.StatusToggle__longterm.active {
+.StatusToggleItem__longterm.active {
   background-color: $closed-color;
   &:hover {
     background-color: darken($closed-color, 10%);
