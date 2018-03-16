@@ -37,6 +37,7 @@
     "jsonwebtoken": "^8.2.0",
     "lokka": "^1.7.0",
     "lokka-transport-http": "^1.6.1",
+    "nodemailer": "^4.6.3",
     "pg-minify": "^0.4.2",
     "postgraphql": "^2.5.0",
     "prettier": "^1.10.2",

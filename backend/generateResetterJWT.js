@@ -8,7 +8,6 @@ pgClient.connect();
 pgClient.query('select id from floods.user where email_address = $1::text', ['superadmin@flo.ods'])
   .then(pgres => 
   {
-    console.log(pgres.rows[0].id);
     const token = jwt.sign({ user_id: pgres.rows[0].id, role: 'floods_password_resetter' }, 'keyboard_kitten', {expiresIn: '30m', audience: 'postgraphql'});
     console.log(token);
   })
