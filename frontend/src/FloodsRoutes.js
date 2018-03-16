@@ -44,14 +44,7 @@ class FloodsRoutes extends Component {
 
         <Switch>
           <Route exact path="/dashboard/forgot_password" component={ForgotPasswordPage} />
-          <PrivateRoute
-            path="/dashboard/reset_password"
-            component={ResetPasswordPage}
-            authenticated={auth.isAuthenticated()}
-            authorized={auth.roleAuthorized([
-              'floods_reset_password',
-            ])}
-          />
+          <Route path="/dashboard/reset_password/:resetterJwt"  component={ResetPasswordPage} />
           <Route
             path="/dashboard"
             render={props =>

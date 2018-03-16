@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import 'components/Dashboard/ResetPasswordPage/ResetPasswordPage.css';
 
 class ResetPasswordPage extends Component {
-  state = {
-    password: '',
-    confirmPassword: '',
-    passwordResetSuccessfully: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      password: '',
+      confirmPassword: '',
+      passwordResetSuccessfully: false,
+    };
+
+    const { resetterJwt } = props.match.params;
+
+    if (resetterJwt) {
+      localStorage.setItem('jwt_user_token', resetterJwt)
+    }
+  }
 
   handlePasswordChange = (e) => {
     this.setState({ password: e.target.value });
@@ -18,7 +30,20 @@ class ResetPasswordPage extends Component {
   }
 
   handleSubmit = (e) => {
-    this.setState({passwordResetSuccessfully: true});
+    const password = this.state.password.trim();
+
+    this.props
+      .mutate({
+        variables: { newPassword: password },
+      })
+      .then(({ data }) => {
+        localStorage.setItem('jwt_user_token', data.resetPassword.jwtToken);
+        this.setState({passwordResetSuccessfully: true});
+        // this.props.onLogin();
+      })
+      .catch(error => {
+        console.log('there was an error sending the query', error);
+      });
   }
 
   render() {
@@ -56,4 +81,12 @@ class ResetPasswordPage extends Component {
   }
 }
 
-export default ResetPasswordPage;
+const resetPassword = gql`
+  mutation($newPassword: String!) {
+    resetPassword(input:{newPassword:$newPassword}) {
+      jwtToken
+    }
+  }
+`;
+
+export default graphql(resetPassword)(ResetPasswordPage);
