@@ -48,10 +48,10 @@ module.exports.handle = (event, context, cb) => {
 
               console.log('Message sent: %s', info.messageId);
               // Preview only available when sending through an Ethereal account
-              console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+              const previewURL = nodemailer.getTestMessageUrl(info);
+              console.log('Preview URL: %s', previewURL);
+              cb(null, previewURL);
           });
-
-          cb(null, null);
       });
     })
     .catch(err => console.log({"errors": [err]}))

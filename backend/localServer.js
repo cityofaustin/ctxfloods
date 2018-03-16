@@ -40,7 +40,7 @@ const server = http.createServer((req, res) => {
               res.statusCode = response.statusCode;
               res.setHeader('Access-Control-Allow-Origin', '*');
               res.end(JSON.stringify({data: response.data}));
-            })
+            });
           });
           break;
       }
@@ -48,8 +48,10 @@ const server = http.createServer((req, res) => {
 
     case '/send_reset_email':
       resetEmailHandler.handle(null, null, (error, response) => {
-        res.end();
-      })
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain');
+        res.end(response);
+      });
       break;
   }
 });
