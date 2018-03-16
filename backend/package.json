@@ -9,6 +9,7 @@
     "PGLOCALINITCON": "postgresql://postgres@localhost:5432/"
   },
   "scripts": {
+    "local-server-new": "PGCON=$npm_package_config_PGLOCALRUNCON node localServer.js",
     "local-drop-rebuild": "yarn run drop-local-data;yarn run populate-local-schema;yarn run populate-local-data;yarn run build-local-schema;",
     "local-drop-rebuild-with-tons-of-crossings": "yarn run drop-local-data;yarn run populate-local-schema;yarn run add-tons-of-crossings-to-local-db;yarn run build-local-schema;",
     "local-server": "yarn run local-drop-rebuild;yarn run postgraphql-local",
