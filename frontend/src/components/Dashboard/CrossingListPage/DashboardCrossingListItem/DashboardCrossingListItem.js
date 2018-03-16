@@ -542,6 +542,7 @@ class DashboardCrossingListItem extends React.Component {
                 Status: {statusConstants.statusNames[this.state.selectedStatus]}
               </div>
             }
+            className="DashboardCrossingListItem__control--status"
           >
             <StatusToggle
               status={this.state.selectedStatus}
