@@ -19,20 +19,32 @@ const server = http.createServer((req, res) => {
       break;
 
     case '/graphql':
-      console.log("blarg");
-      var body = '';
-      req.on('data', data => {
-        body += data;
-      })
-      req.on('end', () => {
-        debugger;
-        var event = JSON.parse(body);
-        event.headers = req.headers;
-        graphqlHandler.handle(event, null, (error, response) => {
-          res.statusCode = response.statusCode;
-          res.end(JSON.stringify(response.data));
-        })
-      });
+      switch (req.method) {
+        case 'OPTIONS':
+          res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+          res.end();
+          break;
+
+        case 'POST':
+          console.log("blarg");
+          var body = '';
+          req.on('data', data => {
+            body += data;
+          })
+          req.on('end', () => {
+            // debugger;
+            var event = JSON.parse(body);
+            event.headers = req.headers;
+            graphqlHandler.handle(event, null, (error, response) => {
+              res.statusCode = response.statusCode;
+              res.setHeader('Access-Control-Allow-Origin', '*');
+              res.end(JSON.stringify({data: response.data}));
+            })
+          });
+          break;
+      }
       break;
   }
 });
