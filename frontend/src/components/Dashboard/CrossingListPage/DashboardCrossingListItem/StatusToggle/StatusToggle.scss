@@ -16,8 +16,6 @@ $closed-color: #f44336;
   border: 1px solid $border-color;
   border-radius: 8px;
   overflow: hidden;
-  flex-grow: 0;
-  flex-shrink: 0;
 }
 
 .StatusToggle {
@@ -25,10 +23,8 @@ $closed-color: #f44336;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  vertical-align: bottom;
-  line-height: $container-height;
   cursor: pointer;
+  padding: 0 2rem;
 }
 .StatusToggle:hover {
   background-color: #eeeef3;
