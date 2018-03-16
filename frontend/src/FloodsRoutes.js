@@ -20,6 +20,12 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class FloodsRoutes extends Component {
+  onLogin = () => {
+    this.props.data.refetch({
+      skip: !auth.isAuthenticated(),
+    });
+  };
+
   render() {
     const currentUser = this.props.data && this.props.data.currentUser;
 
@@ -52,7 +58,7 @@ class FloodsRoutes extends Component {
               currentUser ? (
                 <Header currentUser={currentUser} {...props} />
               ) : (
-                <LoginPage />
+                <LoginPage onLogin={this.onLogin} />
               )
             }
           />
@@ -130,9 +136,12 @@ class FloodsRoutes extends Component {
   }
 }
 
+// https://github.com/apollographql/react-apollo/issues/289#issuecomment-340718130
+// Use the `@skip` directive instead of apollo's `skip`.
+// This allows us to call refetch() in the component, so we can rerender after logging in.
 const currentUser = gql`
-  {
-    currentUser {
+  query currentUserQuery($skip: Boolean!) {
+    currentUser @skip(if: $skip) {
       id
       communityId
       communityByCommunityId {
@@ -148,5 +157,9 @@ const currentUser = gql`
 `;
 
 export default graphql(currentUser, {
-  skip: ownProps => !auth.isAuthenticated(),
+  options: {
+    variables: {
+      skip: !auth.isAuthenticated(),
+    },
+  },
 })(FloodsRoutes);

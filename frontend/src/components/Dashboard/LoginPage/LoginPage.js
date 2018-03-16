@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
@@ -6,6 +7,10 @@ import { Link } from 'react-router-dom';
 import 'components/Dashboard/LoginPage/LoginPage.css';
 
 class LoginPage extends Component {
+  static propTypes = {
+    onLogin: PropTypes.func.isRequired,
+  };
+
   state = {
     redirectToReferrer: false,
     email: '',
@@ -30,9 +35,8 @@ class LoginPage extends Component {
         variables: { email: email, password: password },
       })
       .then(({ data }) => {
-        console.log('got data', data);
         localStorage.setItem('jwt_user_token', data.authenticate.jwtToken);
-        window.location.reload();
+        this.props.onLogin();
       })
       .catch(error => {
         console.log('there was an error sending the query', error);
