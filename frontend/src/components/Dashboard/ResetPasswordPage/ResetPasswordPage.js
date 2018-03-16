@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import 'components/Dashboard/ResetPasswordPage/ResetPasswordPage.css';
 
 class ResetPasswordPage extends Component {
+  static propTypes = {
+    onLogin: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -30,6 +36,7 @@ class ResetPasswordPage extends Component {
   }
 
   handleSubmit = (e) => {
+    e.preventDefault();
     const password = this.state.password.trim();
 
     this.props
@@ -39,7 +46,7 @@ class ResetPasswordPage extends Component {
       .then(({ data }) => {
         localStorage.setItem('jwt_user_token', data.resetPassword.jwtToken);
         this.setState({passwordResetSuccessfully: true});
-        // this.props.onLogin();
+        this.props.onLogin();
       })
       .catch(error => {
         console.log('there was an error sending the query', error);
@@ -74,7 +81,7 @@ class ResetPasswordPage extends Component {
         </div>
         }
         {
-          passwordResetSuccessfully && <h1> Password Reset. </h1>
+          passwordResetSuccessfully && <Redirect to="/dashboard" />
         }
       </div>
     );
