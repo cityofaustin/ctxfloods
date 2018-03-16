@@ -8,6 +8,14 @@ const hostname = '127.0.0.1';
 const port = 5000;
 
 const server = http.createServer((req, res) => {
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type, Accept');
+    res.end();
+    return;
+  }
+
   const url = parser.parse(req.url, true);
 
   switch (url.pathname) {
@@ -20,35 +28,25 @@ const server = http.createServer((req, res) => {
       break;
 
     case '/graphql':
-      switch (req.method) {
-        case 'OPTIONS':
-          res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+      var body = '';
+      req.on('data', data => {
+        body += data;
+      })
+      req.on('end', () => {
+        var event = JSON.parse(body);
+        event.headers = req.headers;
+        graphqlHandler.handle(event, null, (error, response) => {
+          res.statusCode = response.statusCode;
           res.setHeader('Access-Control-Allow-Origin', '*');
-          res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type, Accept');
-          res.end();
-          break;
-
-        case 'POST':
-          var body = '';
-          req.on('data', data => {
-            body += data;
-          })
-          req.on('end', () => {
-            var event = JSON.parse(body);
-            event.headers = req.headers;
-            graphqlHandler.handle(event, null, (error, response) => {
-              res.statusCode = response.statusCode;
-              res.setHeader('Access-Control-Allow-Origin', '*');
-              res.end(JSON.stringify({data: response.data}));
-            });
-          });
-          break;
-      }
+          res.end(JSON.stringify({data: response.data}));
+        });
+      });
       break;
 
     case '/send_reset_email':
       resetEmailHandler.handle(null, null, (error, response) => {
         res.statusCode = 200;
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Content-Type', 'text/plain');
         res.end(response);
       });

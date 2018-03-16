@@ -13,7 +13,17 @@ class ForgotPasswordPage extends Component {
   }
 
   handleSubmit = (e) => {
-    this.setState({emailSentSuccessfully: true});
+    e.preventDefault();
+    fetch('http://localhost:5000/send_reset_email', {
+      method: 'POST',
+      body: JSON.stringify({email: this.state.email}),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(res => {
+      console.log(res);
+      this.setState({emailSentSuccessfully: true});
+    }).catch(error => console.error(error));
   }
 
   render() {
