@@ -16,10 +16,10 @@ import StatusOpenInactiveSvg from 'images/status-open-inactive.svg';
 
 export default function StatusToggle({
   activeStatus,
-  toggleOpen,
-  toggleCaution,
-  toggleClosed,
-  toggleLongterm,
+  activateOpenToggle,
+  activateCautionToggle,
+  activateClosedToggle,
+  activateLongtermToggle,
 }) {
   return (
     <div className="StatusToggleContainer">
@@ -29,7 +29,7 @@ export default function StatusToggle({
         iconSrc={StatusOpenInactiveSvg}
         activeIconSrc={StatusOpenSvg}
         alt="Open"
-        onClick={toggleOpen}
+        onClick={activateOpenToggle}
       />
       <StatusToggleItem
         isActive={activeStatus === statusConstants.CAUTION}
@@ -37,7 +37,7 @@ export default function StatusToggle({
         iconSrc={StatusCautionInactiveSvg}
         activeIconSrc={StatusCautionSvg}
         alt="Caution"
-        onClick={toggleCaution}
+        onClick={activateCautionToggle}
       />
       <StatusToggleItem
         isActive={activeStatus === statusConstants.CLOSED}
@@ -45,7 +45,7 @@ export default function StatusToggle({
         iconSrc={StatusClosedInactiveSvg}
         activeIconSrc={StatusClosedSvg}
         alt="Closed"
-        onClick={toggleClosed}
+        onClick={activateClosedToggle}
       />
       <StatusToggleItem
         isActive={activeStatus === statusConstants.LONGTERM}
@@ -53,7 +53,7 @@ export default function StatusToggle({
         iconSrc={StatusLongTermInactiveSvg}
         activeIconSrc={StatusLongTermSvg}
         alt="Closed Long-Term"
-        onClick={toggleLongterm}
+        onClick={activateLongtermToggle}
       />
     </div>
   );
@@ -61,8 +61,8 @@ export default function StatusToggle({
 
 StatusToggle.propTypes = {
   activeStatus: PropTypes.number.isRequired,
-  toggleOpen: PropTypes.func.isRequired,
-  toggleCaution: PropTypes.func.isRequired,
-  toggleClosed: PropTypes.func.isRequired,
-  toggleLongterm: PropTypes.func.isRequired,
+  activateOpenToggle: PropTypes.func.isRequired,
+  activateCautionToggle: PropTypes.func.isRequired,
+  activateClosedToggle: PropTypes.func.isRequired,
+  activateLongtermToggle: PropTypes.func.isRequired,
 };

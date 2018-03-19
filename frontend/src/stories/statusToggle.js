@@ -5,10 +5,10 @@ import StatusToggle from 'components/Dashboard/CrossingListPage/DashboardCrossin
 import * as statusConstants from 'constants/StatusConstants';
 
 const clickProps = {
-  toggleOpen: function() {},
-  toggleCaution: function() {},
-  toggleClosed: function() {},
-  toggleLongterm: function() {},
+  activateOpenToggle: function() {},
+  activateCautionToggle: function() {},
+  activateClosedToggle: function() {},
+  activateLongtermToggle: function() {},
 };
 
 storiesOf('Crossing List Item Status Toggle', module)

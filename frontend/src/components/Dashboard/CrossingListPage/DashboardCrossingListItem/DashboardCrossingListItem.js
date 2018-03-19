@@ -366,7 +366,7 @@ class DashboardCrossingListItem extends React.Component {
       });
   };
 
-  toggleOpen = () => {
+  activateOpenToggle = () => {
     this.setState({
       selectedStatus: statusConstants.OPEN,
       notes: '',
@@ -378,7 +378,7 @@ class DashboardCrossingListItem extends React.Component {
     }
   };
 
-  toggleCaution = () => {
+  activateCautionToggle = () => {
     this.setState({
       selectedStatus: statusConstants.CAUTION,
       notes: '',
@@ -393,7 +393,7 @@ class DashboardCrossingListItem extends React.Component {
     }
   };
 
-  toggleClosed = () => {
+  activateClosedToggle = () => {
     this.setState({
       selectedStatus: statusConstants.CLOSED,
       notes: '',
@@ -408,7 +408,7 @@ class DashboardCrossingListItem extends React.Component {
     }
   };
 
-  toggleLongterm = () => {
+  activateLongtermToggle = () => {
     this.setState({
       selectedStatus: statusConstants.LONGTERM,
       notes: '',
@@ -550,10 +550,10 @@ class DashboardCrossingListItem extends React.Component {
           >
             <StatusToggle
               activeStatus={this.state.selectedStatus}
-              toggleOpen={this.toggleOpen}
-              toggleCaution={this.toggleCaution}
-              toggleClosed={this.toggleClosed}
-              toggleLongterm={this.toggleLongterm}
+              activateOpenToggle={this.activateOpenToggle}
+              activateCautionToggle={this.activateCautionToggle}
+              activateClosedToggle={this.activateClosedToggle}
+              activateLongtermToggle={this.activateLongtermToggle}
             />
           </DashboardCrossingListItemControl>
 
