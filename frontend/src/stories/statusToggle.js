@@ -13,14 +13,14 @@ const clickProps = {
 
 storiesOf('Crossing List Item Status Toggle', module)
   .add('Open', () => (
-    <StatusToggle status={statusConstants.OPEN} {...clickProps} />
+    <StatusToggle activeStatus={statusConstants.OPEN} {...clickProps} />
   ))
   .add('Caution', () => (
-    <StatusToggle status={statusConstants.CAUTION} {...clickProps} />
+    <StatusToggle activeStatus={statusConstants.CAUTION} {...clickProps} />
   ))
   .add('Closed', () => (
-    <StatusToggle status={statusConstants.CLOSED} {...clickProps} />
+    <StatusToggle activeStatus={statusConstants.CLOSED} {...clickProps} />
   ))
   .add('Long Term Closure', () => (
-    <StatusToggle status={statusConstants.LONGTERM} {...clickProps} />
+    <StatusToggle activeStatus={statusConstants.LONGTERM} {...clickProps} />
   ));

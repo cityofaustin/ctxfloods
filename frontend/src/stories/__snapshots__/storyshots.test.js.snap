@@ -2678,12 +2678,12 @@ exports[`Storyshots Crossing List Item Status Toggle Caution 1`] = `
     />
   </div>
   <div
-    className="StatusToggleItem StatusToggleItem__caution"
+    className="StatusToggleItem StatusToggleItem__caution active"
     onClick={[Function]}
   >
     <img
       alt="Caution"
-      src="status-caution-inactive.svg"
+      src="status-caution.svg"
     />
   </div>
   <div
@@ -2730,12 +2730,12 @@ exports[`Storyshots Crossing List Item Status Toggle Closed 1`] = `
     />
   </div>
   <div
-    className="StatusToggleItem StatusToggleItem__closed"
+    className="StatusToggleItem StatusToggleItem__closed active"
     onClick={[Function]}
   >
     <img
       alt="Closed"
-      src="status-closed-inactive.svg"
+      src="status-closed.svg"
     />
   </div>
   <div
@@ -2782,12 +2782,12 @@ exports[`Storyshots Crossing List Item Status Toggle Long Term Closure 1`] = `
     />
   </div>
   <div
-    className="StatusToggleItem StatusToggleItem__longterm"
+    className="StatusToggleItem StatusToggleItem__longterm active"
     onClick={[Function]}
   >
     <img
       alt="Closed Long-Term"
-      src="status-long-term-inactive.svg"
+      src="status-long-term.svg"
     />
   </div>
 </div>
@@ -2798,12 +2798,12 @@ exports[`Storyshots Crossing List Item Status Toggle Open 1`] = `
   className="StatusToggleContainer"
 >
   <div
-    className="StatusToggleItem StatusToggleItem__open"
+    className="StatusToggleItem StatusToggleItem__open active"
     onClick={[Function]}
   >
     <img
       alt="Open"
-      src="status-open-inactive.svg"
+      src="status-open.svg"
     />
   </div>
   <div

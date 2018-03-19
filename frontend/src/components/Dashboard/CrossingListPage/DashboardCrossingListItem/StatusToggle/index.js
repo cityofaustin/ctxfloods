@@ -60,7 +60,7 @@ export default function StatusToggle({
 }
 
 StatusToggle.propTypes = {
-  activeStatus: PropTypes.string.isRequired,
+  activeStatus: PropTypes.number.isRequired,
   toggleOpen: PropTypes.func.isRequired,
   toggleCaution: PropTypes.func.isRequired,
   toggleClosed: PropTypes.func.isRequired,

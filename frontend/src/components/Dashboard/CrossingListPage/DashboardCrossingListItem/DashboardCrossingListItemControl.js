@@ -31,7 +31,7 @@ DashboardCrossingListItemControl.propTypes = {
   isRequired: PropTypes.bool,
   label: PropTypes.node.isRequired,
   children: PropTypes.node.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 DashboardCrossingListItemControl.defaultProps = {
