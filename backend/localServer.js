@@ -44,11 +44,18 @@ const server = http.createServer((req, res) => {
       break;
 
     case '/send_reset_email':
-      resetEmailHandler.handle(null, null, (error, response) => {
-        res.statusCode = 200;
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Content-Type', 'text/plain');
-        res.end(response);
+      var body = '';
+      req.on('data', data => {
+        body += data;
+      })
+      req.on('end', () => {
+        var event = JSON.parse(body);
+        resetEmailHandler.handle(event, null, (error, response) => {
+          res.statusCode = 200;
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.setHeader('Content-Type', 'text/plain');
+          res.end(response);
+        });
       });
       break;
   }

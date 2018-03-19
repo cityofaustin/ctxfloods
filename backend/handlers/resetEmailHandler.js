@@ -4,11 +4,19 @@ const jwt = require('jsonwebtoken');
 
 module.exports.handle = (event, context, cb) => {
   const pgClient = new Client(process.env.PGCON);
+
   pgClient.connect();
 
-  pgClient.query('select id from floods.user where email_address = $1::text', ['superadmin@flo.ods'])
+  pgClient.query('select id, last_name, first_name from floods.user where email_address = $1::text', [event.email])
     .then(pgres => 
     {
+      if (!pgres.rowCount) {
+        console.log(`Could not find user account for email: ${event.email}`);
+        return;
+      }
+
+      const firstname = pgres.rows[0].first_name;
+      const lastname = pgres.rows[0].last_name;
       const token = jwt.sign({ user_id: pgres.rows[0].id, role: 'floods_password_resetter' }, 'keyboard_kitten', {expiresIn: '30m', audience: 'postgraphql'});
 
       // Generate SMTP service account from ethereal.email
@@ -34,7 +42,7 @@ module.exports.handle = (event, context, cb) => {
           // Message object
           let message = {
               from: 'CTXfloods <resetpassword@ctx.floods>',
-              to: 'Recipient <recipient@example.com>',
+              to: `${firstname} ${lastname} <${event.email}>`,
               subject: 'Reset CTXfloods Password',
               text: `CTXfloods password reset url: http://localhost:3000/dashboard/reset_password/${token}`,
               html: `<p>Click <a href="http://localhost:3000/dashboard/reset_password/${token}">here</a> to reset your CTXfloods password.</p>`
