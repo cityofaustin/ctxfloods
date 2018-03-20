@@ -50,5 +50,9 @@
     "semi": true,
     "singleQuote": true,
     "trailingComma": "all"
+  },
+  "devDependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3"
   }
 }

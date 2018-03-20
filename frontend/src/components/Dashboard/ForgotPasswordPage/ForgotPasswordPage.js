@@ -14,7 +14,7 @@ class ForgotPasswordPage extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:5000/send_reset_email', {
+    fetch('http://localhost:5000/email/reset', {
       method: 'POST',
       body: JSON.stringify({email: this.state.email}),
       headers: new Headers({
