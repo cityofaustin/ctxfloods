@@ -88,8 +88,9 @@ functions:
           cors: true
           integration: lambda
           request:
-            template:
-              application/json: '{ "email": "$.email" }'
+            template: 
+              application/json: 
+                body: "$input.json('$')"
 
     environment:
       PGCON: ${env:npm_config_PGRUNCON}
