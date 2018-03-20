@@ -85,6 +85,7 @@ functions:
       - http:
           method: post
           path: email/reset
+          cors: true
 
     environment:
       PGCON: ${env:npm_config_PGRUNCON}
