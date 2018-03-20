@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 
 import 'components/Dashboard/ForgotPasswordPage/ForgotPasswordPage.css';
 
 class ForgotPasswordPage extends Component {
   state = {
     email: '',
+    waiting: false,
     emailSentSuccessfully: false,
   };
 
@@ -13,8 +15,9 @@ class ForgotPasswordPage extends Component {
   }
 
   handleSubmit = (e) => {
+    this.setState({waiting: true});
     e.preventDefault();
-    fetch('http://localhost:5000/email/reset', {
+    fetch(process.env.REACT_APP_EMAIL_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify({email: this.state.email}),
       headers: new Headers({
@@ -23,15 +26,18 @@ class ForgotPasswordPage extends Component {
     }).then(res => {
       console.log(res);
       this.setState({emailSentSuccessfully: true});
-    }).catch(error => console.error(error));
+    }).catch(error => console.error(error))
+    .then(() => {
+      this.setState({waiting: false});
+    });
   }
 
   render() {
-    const { emailSentSuccessfully } = this.state;
+    const { emailSentSuccessfully, waiting } = this.state;
 
     return (
       <div className="ForgotPasswordPage">
-        { !emailSentSuccessfully &&
+        { !emailSentSuccessfully && !waiting &&
         <div className="ForgotPasswordPage__form-controls">
           <h1> Reset your password </h1>
           <form
@@ -46,6 +52,9 @@ class ForgotPasswordPage extends Component {
             <input type="submit" className="ForgotPasswordPage__submit" value="Send Reset Email" />
           </form>
         </div>
+        }
+        { waiting &&
+          <FontAwesome name="spinner" size="4x" className="ForgotPasswordPage__waiting" />
         }
         {
           emailSentSuccessfully && <h1> Email Sent! </h1>
