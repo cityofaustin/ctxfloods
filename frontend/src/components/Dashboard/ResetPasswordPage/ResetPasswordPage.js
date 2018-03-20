@@ -54,7 +54,7 @@ class ResetPasswordPage extends Component {
   }
 
   render() {
-    const { passwordResetSuccessfully, password, confirm } = this.state;
+    const { passwordResetSuccessfully, password, confirmPassword } = this.state;
 
     return (
       <div className="ResetPasswordPage">
@@ -66,13 +66,13 @@ class ResetPasswordPage extends Component {
           >
             <input
               type="password"
-              value={this.state.password}
+              value={password}
               placeholder="Password"
               onChange={this.handlePasswordChange}
             />
             <input
               type="password"
-              value={this.state.confirmPassword}
+              value={confirmPassword}
               placeholder="Confirm"
               onChange={this.handleConfirmPasswordChange}
             />
