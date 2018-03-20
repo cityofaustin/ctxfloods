@@ -86,6 +86,10 @@ functions:
           method: post
           path: email/reset
           cors: true
+          integration: lambda
+          request:
+            template:
+              application/json: '{ "email": "$.email" }'
 
     environment:
       PGCON: ${env:npm_config_PGRUNCON}
