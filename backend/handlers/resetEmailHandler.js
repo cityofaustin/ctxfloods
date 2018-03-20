@@ -58,7 +58,14 @@ module.exports.handle = (event, context, cb) => {
               // Preview only available when sending through an Ethereal account
               const previewURL = nodemailer.getTestMessageUrl(info);
               console.log('Preview URL: %s', previewURL);
-              cb(null, previewURL);
+
+              const response = {
+                  statusCode: 200,
+                  headers: { "Access-Control-Allow-Origin" : "*" },
+                  body: previewURL,
+              };
+
+              cb(null, response);
           });
       });
     })
