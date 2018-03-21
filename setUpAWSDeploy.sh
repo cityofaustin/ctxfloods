@@ -21,6 +21,10 @@ read -s AWS_SECRET_ACCESS_KEY
 export AWS_SECRET_ACCESS_KEY
 travis encrypt AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --add
 
+echo "Generating JWT secret"
+export JWT_SECRET=$(openssl rand -base64 32)
+travis encrypt JWT_SECRET=$JWT_SECRET --add
+
 tput bold 
 echo "Deploying to AWS to get a cloudformation/endpoint"
 tput sgr0

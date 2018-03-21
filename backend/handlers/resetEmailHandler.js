@@ -56,7 +56,7 @@ module.exports.handle = (event, context, cb) => {
 
       const firstname = pgres.rows[0].first_name;
       const lastname = pgres.rows[0].last_name;
-      const token = jwt.sign({ user_id: pgres.rows[0].id, role: 'floods_password_resetter' }, 'keyboard_kitten', {expiresIn: '30m', audience: 'postgraphql'});
+      const token = jwt.sign({ user_id: pgres.rows[0].id, role: 'floods_password_resetter' }, process.env.JWT_SECRET, {expiresIn: '30m', audience: 'postgraphql'});
 
       // If we have AWS credentials, use the AWS sdk to send the email
       if (aws.config.credentials) {
