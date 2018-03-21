@@ -12,10 +12,10 @@ jobs:
   include:
   - stage: Test Backend Locally
     before_script: cd backend; yarn; yarn init-local-db; yarn local-drop-rebuild;
-    script: cd backend; yarn postgraphql-local & yarn test
+    script: cd backend; yarn start-express-server & yarn test
   - stage: Test Frontend Locally
     before_script: cd backend; yarn; yarn init-local-db; yarn local-drop-rebuild;
-    script: cd backend; yarn postgraphql-local & cd ../frontend; yarn; yarn get-schema;
+    script: cd backend; yarn start-express-server & cd ../frontend; yarn; yarn get-schema;
       yarn test
   - stage: Deploy Backend to AWS
     before_script:
