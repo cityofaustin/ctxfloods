@@ -240,6 +240,7 @@ class CrossingMap extends React.Component {
     return (
       <Map
         onStyleLoad={this.onMapboxStyleLoad}
+        // eslint-disable-next-line
         style="mapbox://styles/croweatx/cjeynr3z01k492so57s8lo34o"
         containerStyle={{
           height: this.props.mapHeight,
