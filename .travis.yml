@@ -11,7 +11,7 @@ services:
 jobs:
   include:
   - stage: Test Backend Locally
-    before_script: cd backend; yarn; yarn init-local-db; yarn local-drop-rebuild;
+    before_script: echo $JWT_SECRET; cd backend; yarn; yarn init-local-db; yarn local-drop-rebuild;
     script: cd backend; yarn start-express-server & yarn test
   - stage: Test Frontend Locally
     before_script: cd backend; yarn; yarn init-local-db; yarn local-drop-rebuild;
