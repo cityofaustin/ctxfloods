@@ -18,6 +18,7 @@ class ResetPasswordPage extends Component {
       password: '',
       confirmPassword: '',
       passwordResetSuccessfully: false,
+      errorHappened: false,
     };
 
     const { resetterJwt } = props.match.params;
@@ -45,22 +46,30 @@ class ResetPasswordPage extends Component {
       })
       .then(({ data }) => {
         localStorage.setItem('jwt_user_token', data.resetPassword.jwtToken);
-        this.setState({passwordResetSuccessfully: true});
+        this.setState({
+          passwordResetSuccessfully: true,
+          errorHappened: false,
+        });
         this.props.onLogin();
       })
       .catch(error => {
         console.log('there was an error sending the query', error);
+        this.setState({
+          passwordResetSuccessfully: false,
+          errorHappened: true,
+        });
       });
   }
 
   render() {
-    const { passwordResetSuccessfully, password, confirmPassword } = this.state;
+    const { passwordResetSuccessfully, password, confirmPassword, errorHappened } = this.state;
 
     return (
       <div className="ResetPasswordPage">
         { !passwordResetSuccessfully &&
         <div className="ResetPasswordPage__form-controls">
           <h1> Reset your password </h1>
+          {errorHappened && <div className="ResetPasswordPage__error-text"> Failed to reset password </div>}
           <form
             onSubmit={this.handleSubmit}
           >

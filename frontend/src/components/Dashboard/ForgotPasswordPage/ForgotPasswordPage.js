@@ -8,6 +8,7 @@ class ForgotPasswordPage extends Component {
     email: '',
     waiting: false,
     emailSentSuccessfully: false,
+    errorHappened: false,
   };
 
   handleEmailChange = (e) => {
@@ -25,22 +26,37 @@ class ForgotPasswordPage extends Component {
       })
     }).then(res => {
       if (res.status === 204) {
-        this.setState({emailSentSuccessfully: true});
+        this.setState({
+          emailSentSuccessfully: true,
+          errorHappened: false,
+        });
+      } else if (res.status === 400) {
+        this.setState({
+          emailSentSuccessfully: false,
+          errorHappened: true,
+        });
       };
-    }).catch(error => console.error(error))
+    }).catch(error => {
+      console.error(error);
+      this.setState({
+        emailSentSuccessfully: false,
+        errorHappened: true,
+      });
+    })
     .then(() => {
       this.setState({waiting: false});
     });
   }
 
   render() {
-    const { emailSentSuccessfully, waiting } = this.state;
+    const { emailSentSuccessfully, waiting, errorHappened } = this.state;
 
     return (
       <div className="ForgotPasswordPage">
         { !emailSentSuccessfully && !waiting &&
         <div className="ForgotPasswordPage__form-controls">
           <h1> Reset your password </h1>
+          {errorHappened && <div className="ForgotPasswordPage__error-text"> Failed to send password reset email </div>}
           <form
             onSubmit={this.handleSubmit}
           >
