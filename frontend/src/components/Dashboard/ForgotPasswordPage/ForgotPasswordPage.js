@@ -24,8 +24,9 @@ class ForgotPasswordPage extends Component {
         'Content-Type': 'application/json'
       })
     }).then(res => {
-      console.log(res);
-      this.setState({emailSentSuccessfully: true});
+      if (res.status === 204) {
+        this.setState({emailSentSuccessfully: true});
+      };
     }).catch(error => console.error(error))
     .then(() => {
       this.setState({waiting: false});

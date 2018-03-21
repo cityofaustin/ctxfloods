@@ -33,6 +33,8 @@ app.post('/email/reset', (req, res) => {
   const body = JSON.stringify(req.body);
   req.body = body;
   resetEmailHandler.handle(req, null, (error, response) => {
+    res.statusCode = response.statusCode;
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send(response);
   });
 });

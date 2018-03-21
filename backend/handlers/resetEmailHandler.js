@@ -12,7 +12,16 @@ module.exports.handle = (event, context, cb) => {
     .then(pgres => 
     {
       if (!pgres.rowCount) {
-        console.log(`Could not find user account for email: ${email}`);
+        const response = {
+          statusCode: 400,
+          headers: { 
+            'Access-Control-Allow-Origin' : '*',
+            'Content-Type': 'text/plain',
+          },
+          body: `Could not find user account for email: ${email}`,
+        };
+
+        cb(null, response);
         return;
       }
 
@@ -60,7 +69,7 @@ module.exports.handle = (event, context, cb) => {
               const previewURL = nodemailer.getTestMessageUrl(info);
               console.log('Preview URL: %s', previewURL);
               const response = {
-                statusCode: 200,
+                statusCode: 204,
                 headers: { "Access-Control-Allow-Origin" : "*" },
               };
 
