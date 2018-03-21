@@ -34,6 +34,7 @@
   "author": "Richard",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.212.1",
     "graphql": "^0.8.2",
     "jsonwebtoken": "^8.2.0",
     "lokka": "^1.7.0",
