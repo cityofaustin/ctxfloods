@@ -33,9 +33,7 @@ class AddCrossingPage extends Component {
       return <div>Adding crossings is not yet supported on mobile.</div>;
     }
 
-    const isLoading =
-      !this.props.data ||
-      this.props.data.loading;
+    const isLoading = !this.props.data || this.props.data.loading;
 
     if (isLoading) {
       return <div>Loading</div>;

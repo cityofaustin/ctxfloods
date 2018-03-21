@@ -1,10 +1,15 @@
 import React from 'react';
 import * as MapboxGl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
-import mapboxstyle from 'components/Shared/Map/mapboxstyle.json';
+
+import { MapboxAccessToken } from 'constants/MapboxConstants';
+
 import 'components/Shared/Map/CrossingMap.css';
 
-const Map = ReactMapboxGl({ accessToken: null, attributionControl: false });
+const Map = ReactMapboxGl({
+  accessToken: MapboxAccessToken,
+  attributionControl: false,
+});
 
 const STATUS_OPEN = 1;
 const STATUS_CLOSED = 2;
@@ -235,7 +240,7 @@ class CrossingMap extends React.Component {
     return (
       <Map
         onStyleLoad={this.onMapboxStyleLoad}
-        style={mapboxstyle}
+        style="mapbox://styles/croweatx/cjeynr3z01k492so57s8lo34o"
         containerStyle={{
           height: this.props.mapHeight,
           width: this.props.mapWidth,

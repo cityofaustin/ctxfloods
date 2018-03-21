@@ -3,11 +3,11 @@ import 'components/Shared/CrossingMapPage/CrossingMapSearchBar.css';
 import FontAwesome from 'react-fontawesome';
 import Autosuggest from 'react-autosuggest';
 import MapboxClient from 'mapbox';
-import CrossingMapSearchCrossingSuggestions from 'components/Shared/CrossingMapPage/CrossingMapSearchCrossingSuggestions';
 
-const mapboxClient = new MapboxClient(
-  'pk.eyJ1IjoiY3Jvd2VhdHgiLCJhIjoiY2o1NDFvYmxkMHhkcDMycDF2a3pseDFpZiJ9.UcnizcFDleMpv5Vbv8Rngw',
-);
+import CrossingMapSearchCrossingSuggestions from 'components/Shared/CrossingMapPage/CrossingMapSearchCrossingSuggestions';
+import { MapboxAccessToken } from 'constants/MapboxConstants';
+
+const mapboxClient = new MapboxClient(MapboxAccessToken);
 
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the

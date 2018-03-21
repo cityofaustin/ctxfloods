@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
-import mapboxstyle from 'components/Shared/Map/mapboxstyle.json';
 
-const Map = ReactMapboxGl({ accessToken: null });
+import { MapboxAccessToken } from 'constants/MapboxConstants';
+
+const Map = ReactMapboxGl({
+  accessToken: MapboxAccessToken,
+});
 
 class AddCrossingMap extends Component {
   onStyleLoad = map => {
@@ -15,14 +18,17 @@ class AddCrossingMap extends Component {
     return (
       <Map
         className="CrossingStaticMap"
-        style={mapboxstyle}
+        style="mapbox://styles/croweatx/cjeynr3z01k492so57s8lo34o"
         center={crossingCoordinates}
         onStyleLoad={this.onStyleLoad}
       >
         <Layer
           type="symbol"
           id="newCrossing"
-          layout={{ 'icon-image': 'marker-open-small', 'icon-allow-overlap': true }}
+          layout={{
+            'icon-image': 'marker-open-small',
+            'icon-allow-overlap': true,
+          }}
         >
           <Feature
             coordinates={crossingCoordinates}

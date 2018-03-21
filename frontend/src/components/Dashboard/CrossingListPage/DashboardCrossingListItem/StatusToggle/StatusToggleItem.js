@@ -10,7 +10,7 @@ export default class StatusToggleItem extends Component {
     alt: PropTypes.string.isRequired,
     className: PropTypes.string.isRequired,
   };
-  
+
   render() {
     return (
       <div

@@ -22,4 +22,4 @@ export const ButtonPropTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Button.propTypes = ButtonPropTypes
+Button.propTypes = ButtonPropTypes;
