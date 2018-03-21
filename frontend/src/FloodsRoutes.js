@@ -12,12 +12,20 @@ import AddCrossingPage from 'components/Dashboard/AddCrossingPage/AddCrossingPag
 import CrossingStatusHistoryPage from 'components/Dashboard/CrossingStatusHistoryPage/CrossingStatusHistoryPage';
 import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
 import PublicHeader from 'components/Public/Header/PublicHeader';
+import ForgotPasswordPage from 'components/Dashboard/ForgotPasswordPage/ForgotPasswordPage';
+import ResetPasswordPage from 'components/Dashboard/ResetPasswordPage/ResetPasswordPage';
 
 import auth from 'services/gqlAuth';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class FloodsRoutes extends Component {
+  onLogin = () => {
+    this.props.data.refetch({
+      skip: !auth.isAuthenticated(),
+    });
+  };
+
   render() {
     const currentUser = this.props.data && this.props.data.currentUser;
 
@@ -31,17 +39,19 @@ class FloodsRoutes extends Component {
         <Route
           path="/dashboard"
           exact
-          render={() => <Redirect to="/dashboard/crossings/list" />}
+          render={() => <Redirect to="/dashboard/crossings/map" />}
         />
 
         <Switch>
+          <Route exact path="/dashboard/forgot_password" component={ForgotPasswordPage} />
+          <Route path="/dashboard/reset_password/:resetterJwt" render={props => <ResetPasswordPage onLogin={this.onLogin} {...props}/>} />
           <Route
             path="/dashboard"
             render={props =>
               currentUser ? (
                 <Header currentUser={currentUser} {...props} />
               ) : (
-                <LoginPage />
+                <LoginPage onLogin={this.onLogin} />
               )
             }
           />
@@ -119,9 +129,12 @@ class FloodsRoutes extends Component {
   }
 }
 
+// https://github.com/apollographql/react-apollo/issues/289#issuecomment-340718130
+// Use the `@skip` directive instead of apollo's `skip`.
+// This allows us to call refetch() in the component, so we can rerender after logging in.
 const currentUser = gql`
-  {
-    currentUser {
+  query currentUserQuery($skip: Boolean!) {
+    currentUser @skip(if: $skip) {
       id
       communityId
       communityByCommunityId {
@@ -137,5 +150,9 @@ const currentUser = gql`
 `;
 
 export default graphql(currentUser, {
-  skip: ownProps => !auth.isAuthenticated(),
+  options: {
+    variables: {
+      skip: !auth.isAuthenticated(),
+    },
+  },
 })(FloodsRoutes);

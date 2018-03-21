@@ -3,15 +3,24 @@ import { isTokenExpired } from './jwtHelper';
 
 const auth = {
   isAuthenticated() {
-    var token = localStorage.getItem('jwt_user_token');
-    if (token === null || token === 'null') return false;
-    return !isTokenExpired(token);
+    try {
+      var token = localStorage.getItem('jwt_user_token');
+      if (token === null || token === 'null') return false;
+      return !isTokenExpired(token);
+    } catch(e) {
+      return false;
+    }
+
   },
 
   getRole() {
-    var token = localStorage.getItem('jwt_user_token');
-    if (token === null || token === 'null') return false;
-    return isTokenExpired(token) ? false : decode(token).role;
+    try {
+      var token = localStorage.getItem('jwt_user_token');
+      if (token === null || token === 'null') return null;
+      return isTokenExpired(token) ? false : decode(token).role;
+    } catch(e) {
+      return null;
+    }
   },
 
   roleAuthorized(permittedRoles) {

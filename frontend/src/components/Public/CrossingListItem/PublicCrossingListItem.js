@@ -23,9 +23,7 @@ const containerQuery = {
 class PublicCrossingListItem extends React.Component {
   render() {
     const { crossing } = this.props;
-    const {
-      createdAt,
-    } = crossing.statusUpdateByLatestStatusUpdateId;
+    const { createdAt } = crossing.statusUpdateByLatestStatusUpdateId;
 
     var show = [];
     switch (crossing.latestStatusId) {
@@ -63,7 +61,7 @@ class PublicCrossingListItem extends React.Component {
           </div>
           <div className="PublicCrossingListItem__datetime">
             <div className="PublicCrossingListItem__datetime-date">
-                <Date date={createdAt} />
+              <Date date={createdAt} />
             </div>
             <div>
               <Hour date={createdAt} />

@@ -1,0 +1,56 @@
+@import 'css/mixins/flexbox';
+
+$container-height: 40px;
+
+$container-background-color: #f9f9fa;
+$border-color: #b0bec5;
+
+$open-color: #00bfa5;
+$caution-color: #ffc108;
+$closed-color: #f44336;
+
+.StatusToggleContainer {
+  display: flex;
+  height: $container-height;
+  background-color: $container-background-color;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.StatusToggleItem {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0 2rem;
+}
+.StatusToggleItem:hover {
+  background-color: #eeeef3;
+}
+
+.StatusToggleItem__open.active {
+  background-color: $open-color;
+  &:hover {
+    background-color: darken($open-color, 10%);
+  }
+}
+.StatusToggleItem__caution.active {
+  background-color: $caution-color;
+  &:hover {
+    background-color: lighten($caution-color, 10%);
+  }
+}
+.StatusToggleItem__closed.active {
+  background-color: $closed-color;
+  &:hover {
+    background-color: darken($closed-color, 10%);
+  }
+}
+.StatusToggleItem__longterm.active {
+  background-color: $closed-color;
+  &:hover {
+    background-color: darken($closed-color, 10%);
+  }
+}

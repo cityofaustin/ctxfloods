@@ -6,13 +6,15 @@
   "config": {
     "PGLOCALCON": "postgresql://postgres@localhost:5432/floods",
     "PGLOCALRUNCON": "postgresql://floods_postgraphql@localhost:5432/floods",
-    "PGLOCALINITCON": "postgresql://postgres@localhost:5432/"
+    "PGLOCALINITCON": "postgresql://postgres@localhost:5432/",
+    "FRONTEND_URL_LOCAL": "localhost:3000"
   },
   "scripts": {
+    "start-express-server": "PGCON=$npm_package_config_PGLOCALRUNCON FRONTEND_URL=$npm_package_config_FRONTEND_URL_LOCAL JWT_SECRET='insecure' node --inspect localServer.js",
     "local-drop-rebuild": "yarn run drop-local-data;yarn run populate-local-schema;yarn run populate-local-data;yarn run build-local-schema;",
     "local-drop-rebuild-with-tons-of-crossings": "yarn run drop-local-data;yarn run populate-local-schema;yarn run add-tons-of-crossings-to-local-db;yarn run build-local-schema;",
-    "local-server": "yarn run local-drop-rebuild;yarn run postgraphql-local",
-    "local-server-with-tons-of-crossings": "yarn run local-drop-rebuild-with-tons-of-crossings;yarn run postgraphql-local",
+    "start": "yarn run local-drop-rebuild;yarn run start-express-server",
+    "start-with-tons-of-crossings": "yarn run local-drop-rebuild-with-tons-of-crossings;yarn run start-express-server",
     "rebuild-and-deploy": "yarn run drop-data;yarn run populate-schema;yarn run populate-data;yarn run build-schema;sls deploy -v",
     "rebuild-and-deploy-with-tons-of-crossings": "yarn run drop-data;yarn run populate-schema;yarn run add-tons-of-crossings-to-db;yarn run build-schema;sls deploy -v",
     "test": "react-scripts test",
@@ -27,15 +29,17 @@
     "add-tons-of-crossings-to-db": "psql $npm_config_PGCON -f ./populateDB/addTonsOfCrossings.sql",
     "add-tons-of-crossings-to-local-db": "psql $npm_package_config_PGLOCALCON -f ./populateDB/addTonsOfCrossings.sql",
     "build-schema": "node ./pgCatalog/buildPgCatalog.js $npm_config_PGCON floods",
-    "build-local-schema": "node ./pgCatalog/buildPgCatalog.js $npm_package_config_PGLOCALCON floods",
-    "postgraphql-local": "postgraphql --connection $npm_package_config_PGLOCALRUNCON --schema floods --default-role floods_anonymous --secret keyboard_kitten --token floods.jwt_token --cors --disable-default-mutations"
+    "build-local-schema": "node ./pgCatalog/buildPgCatalog.js $npm_package_config_PGLOCALCON floods"
   },
   "author": "Richard",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.212.1",
     "graphql": "^0.8.2",
+    "jsonwebtoken": "^8.2.0",
     "lokka": "^1.7.0",
     "lokka-transport-http": "^1.6.1",
+    "nodemailer": "^4.6.3",
     "pg-minify": "^0.4.2",
     "postgraphql": "^2.5.0",
     "prettier": "^1.10.2",
@@ -47,5 +51,9 @@
     "semi": true,
     "singleQuote": true,
     "trailingComma": "all"
+  },
+  "devDependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3"
   }
 }
