@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import classnames from 'classnames';
 
 import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/statusCountsQuery';
 import FilterCheckbox from 'components/Shared/FilterCheckbox';
 
-import 'components/Dashboard/CrossingListPage/CrossingListHeader/CrossingListHeader.css';
-
-class CrossingListStatusCounts extends Component {
+class CrossingListFilter extends Component {
   render() {
     const isLoading = !this.props.data || this.props.data.loading;
 
@@ -20,15 +17,12 @@ class CrossingListStatusCounts extends Component {
       showClosed,
       showCaution,
       showLongterm,
-      params,
     } = this.props;
 
     let openCrossingCount,
       closedCrossingCount,
       cautionCrossingCount,
       longtermCrossingCount;
-    openCrossingCount = closedCrossingCount = cautionCrossingCount = longtermCrossingCount =
-      ' ... ';
     if (!isLoading) {
       const {
         openCrossings,
@@ -43,18 +37,21 @@ class CrossingListStatusCounts extends Component {
     }
 
     return (
-      <div className={classnames(params, 'CrossingListFilter')}>
-        <FilterCheckbox isChecked={showOpen} onClick={toggleShowOpen}>
-          Open ({openCrossingCount})
+      <div className="CrossingListFilter">
+        <FilterCheckbox isChecked={showOpen} onClick={toggleShowOpen} className="CrossingListFilterCheckbox">
+          Open {openCrossingCount !== undefined && `(${openCrossingCount})`}
         </FilterCheckbox>
-        <FilterCheckbox isChecked={showCaution} onClick={toggleShowCaution}>
-          Caution ({cautionCrossingCount})
+        <FilterCheckbox isChecked={showCaution} onClick={toggleShowCaution} className="CrossingListFilterCheckbox">
+          Caution{' '}
+          {cautionCrossingCount !== undefined && `(${cautionCrossingCount})`}
         </FilterCheckbox>
-        <FilterCheckbox isChecked={showClosed} onClick={toggleShowClosed}>
-          Closed ({closedCrossingCount})
+        <FilterCheckbox isChecked={showClosed} onClick={toggleShowClosed} className="CrossingListFilterCheckbox">
+          Closed{' '}
+          {closedCrossingCount !== undefined && `(${closedCrossingCount})`}
         </FilterCheckbox>
-        <FilterCheckbox isChecked={showLongterm} onClick={toggleShowLongterm}>
-          Long-Term Closure ({longtermCrossingCount})
+        <FilterCheckbox isChecked={showLongterm} onClick={toggleShowLongterm} className="CrossingListFilterCheckbox">
+          Long-Term Closure{' '}
+          {longtermCrossingCount !== undefined && `(${longtermCrossingCount})`}
         </FilterCheckbox>
       </div>
     );
@@ -71,4 +68,4 @@ export default graphql(statusCountsQuery, {
           : null,
     },
   }),
-})(CrossingListStatusCounts);
+})(CrossingListFilter);
