@@ -171,7 +171,7 @@ storiesOf('Crossing List Item', module)
       saveDirtyState={() => null}
     />
   ))
-  .add('Long Term Closure', () => (
+  .add('Long-Term Closure', () => (
     <CrossingListItem
       reasons={reasons}
       durations={durations}
@@ -180,7 +180,7 @@ storiesOf('Crossing List Item', module)
       saveDirtyState={() => null}
     />
   ))
-  .add('Long Term Closure Dirty', () => (
+  .add('Long-Term Closure Dirty', () => (
     <CrossingListItem
       reasons={reasons}
       durations={durations}

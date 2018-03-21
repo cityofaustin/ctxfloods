@@ -225,7 +225,7 @@ class CrossingMapSidebar extends Component {
                           isChecked={showLongterm}
                           onClick={toggleShowLongterm}
                         >
-                          Long Term Closure
+                          Long-Term Closure
                         </FilterCheckbox>
                       </div>
                     )}

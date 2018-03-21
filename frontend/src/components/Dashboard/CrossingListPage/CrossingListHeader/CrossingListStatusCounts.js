@@ -54,7 +54,7 @@ class CrossingListStatusCounts extends Component {
           Closed ({closedCrossingCount})
         </FilterCheckbox>
         <FilterCheckbox isChecked={showLongterm} onClick={toggleShowLongterm}>
-          Long Term Closure ({longtermCrossingCount})
+          Long-Term Closure ({longtermCrossingCount})
         </FilterCheckbox>
       </div>
     );
