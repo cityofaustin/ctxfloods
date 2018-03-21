@@ -207,56 +207,84 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
         className="CrossingListFilter"
       >
         <label
-          className="CrossingListFilterItem"
+          className="FilterCheckbox"
         >
           <input
-            className="CrossingListFilterCheckbox"
-            defaultChecked={undefined}
+            alt="Disabled"
+            aria-checked={undefined}
+            className="FilterCheckbox__button"
             onClick={undefined}
-            type="checkbox"
+            role="checkbox"
+            src="checkbox-disabled.svg"
+            type="image"
           />
-          Open (
-           ... 
-          )
+          <div
+            className="FilterCheckbox__children"
+          >
+            Open (
+             ... 
+            )
+          </div>
         </label>
         <label
-          className="CrossingListFilterItem"
+          className="FilterCheckbox"
         >
           <input
-            className="CrossingListFilterCheckbox"
-            defaultChecked={undefined}
+            alt="Disabled"
+            aria-checked={undefined}
+            className="FilterCheckbox__button"
             onClick={undefined}
-            type="checkbox"
+            role="checkbox"
+            src="checkbox-disabled.svg"
+            type="image"
           />
-          Caution (
-           ... 
-          )
+          <div
+            className="FilterCheckbox__children"
+          >
+            Caution (
+             ... 
+            )
+          </div>
         </label>
         <label
-          className="CrossingListFilterItem"
+          className="FilterCheckbox"
         >
           <input
-            className="CrossingListFilterCheckbox"
-            defaultChecked={undefined}
+            alt="Disabled"
+            aria-checked={undefined}
+            className="FilterCheckbox__button"
             onClick={undefined}
-            type="checkbox"
+            role="checkbox"
+            src="checkbox-disabled.svg"
+            type="image"
           />
-          Closed (
-           ... 
-          )
+          <div
+            className="FilterCheckbox__children"
+          >
+            Closed (
+             ... 
+            )
+          </div>
         </label>
         <label
-          className="CrossingListFilterItem"
+          className="FilterCheckbox"
         >
           <input
-            className="CrossingListFilterCheckbox"
-            defaultChecked={undefined}
+            alt="Disabled"
+            aria-checked={undefined}
+            className="FilterCheckbox__button"
             onClick={undefined}
-            type="checkbox"
+            role="checkbox"
+            src="checkbox-disabled.svg"
+            type="image"
           />
-          Long Term Closure (
-           ... 
-          )
+          <div
+            className="FilterCheckbox__children"
+          >
+            Long-Term Closure (
+             ... 
+            )
+          </div>
         </label>
       </div>
     </div>
@@ -346,56 +374,84 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
         className="CrossingListFilter"
       >
         <label
-          className="CrossingListFilterItem"
+          className="FilterCheckbox"
         >
           <input
-            className="CrossingListFilterCheckbox"
-            defaultChecked={undefined}
+            alt="Disabled"
+            aria-checked={undefined}
+            className="FilterCheckbox__button"
             onClick={undefined}
-            type="checkbox"
+            role="checkbox"
+            src="checkbox-disabled.svg"
+            type="image"
           />
-          Open (
-          6
-          )
+          <div
+            className="FilterCheckbox__children"
+          >
+            Open (
+            6
+            )
+          </div>
         </label>
         <label
-          className="CrossingListFilterItem"
+          className="FilterCheckbox"
         >
           <input
-            className="CrossingListFilterCheckbox"
-            defaultChecked={undefined}
+            alt="Disabled"
+            aria-checked={undefined}
+            className="FilterCheckbox__button"
             onClick={undefined}
-            type="checkbox"
+            role="checkbox"
+            src="checkbox-disabled.svg"
+            type="image"
           />
-          Caution (
-          6
-          )
+          <div
+            className="FilterCheckbox__children"
+          >
+            Caution (
+            6
+            )
+          </div>
         </label>
         <label
-          className="CrossingListFilterItem"
+          className="FilterCheckbox"
         >
           <input
-            className="CrossingListFilterCheckbox"
-            defaultChecked={undefined}
+            alt="Disabled"
+            aria-checked={undefined}
+            className="FilterCheckbox__button"
             onClick={undefined}
-            type="checkbox"
+            role="checkbox"
+            src="checkbox-disabled.svg"
+            type="image"
           />
-          Closed (
-          6
-          )
+          <div
+            className="FilterCheckbox__children"
+          >
+            Closed (
+            6
+            )
+          </div>
         </label>
         <label
-          className="CrossingListFilterItem"
+          className="FilterCheckbox"
         >
           <input
-            className="CrossingListFilterCheckbox"
-            defaultChecked={undefined}
+            alt="Disabled"
+            aria-checked={undefined}
+            className="FilterCheckbox__button"
             onClick={undefined}
-            type="checkbox"
+            role="checkbox"
+            src="checkbox-disabled.svg"
+            type="image"
           />
-          Long Term Closure (
-          6
-          )
+          <div
+            className="FilterCheckbox__children"
+          >
+            Long-Term Closure (
+            6
+            )
+          </div>
         </label>
       </div>
     </div>
@@ -1541,7 +1597,7 @@ exports[`Storyshots Crossing List Item Location Location 1`] = `
 </div>
 `;
 
-exports[`Storyshots Crossing List Item Long Term Closure 1`] = `
+exports[`Storyshots Crossing List Item Long-Term Closure 1`] = `
 <div
   className=""
 >
@@ -1794,7 +1850,7 @@ exports[`Storyshots Crossing List Item Long Term Closure 1`] = `
 </div>
 `;
 
-exports[`Storyshots Crossing List Item Long Term Closure Dirty 1`] = `
+exports[`Storyshots Crossing List Item Long-Term Closure Dirty 1`] = `
 <div
   className="DashboardCrossingListItem--dirty"
 >
@@ -2750,7 +2806,7 @@ exports[`Storyshots Crossing List Item Status Toggle Closed 1`] = `
 </div>
 `;
 
-exports[`Storyshots Crossing List Item Status Toggle Long Term Closure 1`] = `
+exports[`Storyshots Crossing List Item Status Toggle Long-Term Closure 1`] = `
 <div
   className="StatusToggleContainer"
 >

@@ -21,6 +21,6 @@ storiesOf('Crossing List Item Status Toggle', module)
   .add('Closed', () => (
     <StatusToggle activeStatus={statusConstants.CLOSED} {...clickProps} />
   ))
-  .add('Long Term Closure', () => (
+  .add('Long-Term Closure', () => (
     <StatusToggle activeStatus={statusConstants.LONGTERM} {...clickProps} />
   ));

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import 'components/Dashboard/CrossingListPage/CrossingListHeader/CrossingListHeader.css';
-import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/statusCountsQuery';
 import { graphql } from 'react-apollo';
 import classnames from 'classnames';
+
+import statusCountsQuery from 'components/Dashboard/CrossingListPage/queries/statusCountsQuery';
+import FilterCheckbox from 'components/Shared/FilterCheckbox';
+
+import 'components/Dashboard/CrossingListPage/CrossingListHeader/CrossingListHeader.css';
 
 class CrossingListStatusCounts extends Component {
   render() {
@@ -41,42 +44,18 @@ class CrossingListStatusCounts extends Component {
 
     return (
       <div className={classnames(params, 'CrossingListFilter')}>
-        <label className={classnames(params, 'CrossingListFilterItem')}>
-          <input
-            className={classnames(params, 'CrossingListFilterCheckbox')}
-            type="checkbox"
-            defaultChecked={showOpen}
-            onClick={toggleShowOpen}
-          />
+        <FilterCheckbox isChecked={showOpen} onClick={toggleShowOpen}>
           Open ({openCrossingCount})
-        </label>
-        <label className={classnames(params, 'CrossingListFilterItem')}>
-          <input
-            className={classnames(params, 'CrossingListFilterCheckbox')}
-            type="checkbox"
-            defaultChecked={showCaution}
-            onClick={toggleShowCaution}
-          />
+        </FilterCheckbox>
+        <FilterCheckbox isChecked={showCaution} onClick={toggleShowCaution}>
           Caution ({cautionCrossingCount})
-        </label>
-        <label className={classnames(params, 'CrossingListFilterItem')}>
-          <input
-            className={classnames(params, 'CrossingListFilterCheckbox')}
-            type="checkbox"
-            defaultChecked={showClosed}
-            onClick={toggleShowClosed}
-          />
+        </FilterCheckbox>
+        <FilterCheckbox isChecked={showClosed} onClick={toggleShowClosed}>
           Closed ({closedCrossingCount})
-        </label>
-        <label className={classnames(params, 'CrossingListFilterItem')}>
-          <input
-            className={classnames(params, 'CrossingListFilterCheckbox')}
-            type="checkbox"
-            defaultChecked={showLongterm}
-            onClick={toggleShowLongterm}
-          />
-          Long Term Closure ({longtermCrossingCount})
-        </label>
+        </FilterCheckbox>
+        <FilterCheckbox isChecked={showLongterm} onClick={toggleShowLongterm}>
+          Long-Term Closure ({longtermCrossingCount})
+        </FilterCheckbox>
       </div>
     );
   }
