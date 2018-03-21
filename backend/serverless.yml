@@ -12,7 +12,7 @@ package:
 
 functions:
   graphql:
-    handler: handler.graphql
+    handler: handlers/graphqlHandler.handle
     events:
       - http:
           method: post
@@ -69,9 +69,9 @@ functions:
 
     environment:
       PGCON: ${env:npm_config_PGRUNCON}
-      JWT_SECRET: keyboard_kitten
+      JWT_SECRET: ${env:JWT_SECRET}
   xml:
-    handler: handler.xml
+    handler: handlers/xmlHandler.handle
     events:
       - http:
           method: get
@@ -79,6 +79,18 @@ functions:
 
     environment:
       PGCON: ${env:npm_config_PGRUNCON}
+  emailreset:
+    handler: handlers/resetEmailHandler.handle
+    events:
+      - http:
+          method: post
+          path: email/reset
+          cors: true
+
+    environment:
+      PGCON: ${env:npm_config_PGRUNCON}
+      FRONTEND_URL: ${env:FRONTEND_URL}
+      JWT_SECRET: ${env:JWT_SECRET}
 
 # For a pgDB inside a VPC look e.g. here:
 # http://www.stojanveselinovski.com/blog/2016/01/12/simple-postgresql-rds-cloudformation-template/

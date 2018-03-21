@@ -2,6 +2,8 @@ export CURRENT_FLOODS_BRANCH_NAME=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 export S3_BUCKET=$(echo "ctxfloods-frontend-$CURRENT_FLOODS_BRANCH_NAME" | tr '[:upper:]' '[:lower:]')
 
+export FRONTEND_URL=$(echo $S3_BUCKET.s3-website-us-east-1.amazonaws.com)
+
 export npm_config_PGCON=""
 export npm_config_PGRUNCON=""
 
@@ -18,6 +20,10 @@ echo "Secret access key"
 read -s AWS_SECRET_ACCESS_KEY
 export AWS_SECRET_ACCESS_KEY
 travis encrypt AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --add
+
+echo "Generating JWT secret"
+export JWT_SECRET=$(openssl rand -base64 32)
+travis encrypt JWT_SECRET=$JWT_SECRET --add
 
 tput bold 
 echo "Deploying to AWS to get a cloudformation/endpoint"
@@ -45,12 +51,15 @@ tput sgr0
 yarn rebuild-and-deploy | tee out.tmp
 export POSTGRAPHQL_ENDPOINT=$(grep "POST" out.tmp | cut -f2- -d- | cut -c2-)
 export XML_ENDPOINT=$(grep "GET.*xml" out.tmp | cut -f2- -d- | cut -c2-)
+export EMAIL_ENDPOINT=$(grep "POST.*email/reset" out.tmp | cut -f2- -d- | cut -c2-)
 
 rm out.tmp
 travis encrypt POSTGRAPHQL_ENDPOINT=$POSTGRAPHQL_ENDPOINT --add
 travis encrypt REACT_APP_GRAPHQL_ENDPOINT=$POSTGRAPHQL_ENDPOINT --add
 travis encrypt REACT_APP_XML_ENDPOINT=$XML_ENDPOINT --add
+travis encrypt REACT_APP_EMAIL_ENDPOINT=$EMAIL_ENDPOINT --add
 
 cd ..
 echo "  - CURRENT_FLOODS_BRANCH_NAME=$CURRENT_FLOODS_BRANCH_NAME" >> .travis.yml
 echo "  - S3_BUCKET=$S3_BUCKET" >> .travis.yml
+echo "  - FRONTEND_URL=$FRONTEND_URL" >> .travis.yml
