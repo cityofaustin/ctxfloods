@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './CrossingCommunityList.css'
+import './CrossingCommunityList.css';
 
 export default function CrossingCommunityList({ crossing }) {
   return (
@@ -12,5 +12,5 @@ export default function CrossingCommunityList({ crossing }) {
         </a>
       ))}
     </div>
-  )
+  );
 }

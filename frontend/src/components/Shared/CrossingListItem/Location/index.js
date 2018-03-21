@@ -9,7 +9,9 @@ class Location extends React.Component {
     return (
       <div className="CrossingListItemLocationContainer">
         <div>{crossing.humanAddress}</div>
-        <div className="CrossingListItemLocationContainer__description">{crossing.description}</div>
+        <div className="CrossingListItemLocationContainer__description">
+          {crossing.description}
+        </div>
       </div>
     );
   }

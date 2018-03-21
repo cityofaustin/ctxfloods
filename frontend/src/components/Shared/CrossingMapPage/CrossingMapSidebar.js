@@ -192,16 +192,22 @@ class CrossingMapSidebar extends Component {
                       >
                         <div className="CrossingMapPage_sidebar-filter-toggle-text">
                           {this.state.showFilters ? (
-                            <span className="CrossingMapPage_sidebar-filter-toggle-icon"><FontAwesome name="minus" ariaLabel="Hide" /></span>
+                            <span className="CrossingMapPage_sidebar-filter-toggle-icon">
+                              <FontAwesome name="minus" ariaLabel="Hide" />
+                            </span>
                           ) : (
-                            <span className="CrossingMapPage_sidebar-filter-toggle-icon"><FontAwesome name="plus" ariaLabel="Show" /></span>
+                            <span className="CrossingMapPage_sidebar-filter-toggle-icon">
+                              <FontAwesome name="plus" ariaLabel="Show" />
+                            </span>
                           )}{' '}
                           Filter
                         </div>
                       </div>
                       <div className="CrossingMapPage_sidebar-sort-toggle">
                         Last Updated
-                        <span className="CrossingMapPage_sidebar-sort-toggle-icon"><FontAwesome name="chevron-down" ariaLabel="Sort" /></span>
+                        <span className="CrossingMapPage_sidebar-sort-toggle-icon">
+                          <FontAwesome name="chevron-down" ariaLabel="Sort" />
+                        </span>
                       </div>
                     </div>
                     {this.state.showFilters && (

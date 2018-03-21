@@ -11,7 +11,9 @@ export default function DashboardCrossingListItemControl({
   className,
 }) {
   return (
-    <div className={classNames("DashboardCrossingListItem__control", className)}>
+    <div
+      className={classNames('DashboardCrossingListItem__control', className)}
+    >
       <div className="DashboardCrossingListItem__control-meta">
         <div className="DashboardCrossingListItem__control-label">{label}</div>
         {isRequired && (

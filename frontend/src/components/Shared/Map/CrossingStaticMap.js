@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
-import mapboxstyle from 'components/Shared/Map/mapboxstyle.json';
-import StatusIcon from 'components/Shared/StatusIcon';
 
-const Map = ReactMapboxGl({ accessToken: null, interactive: false });
+import StatusIcon from 'components/Shared/StatusIcon';
+import { MapboxAccessToken } from 'constants/MapboxConstants';
+
+const Map = ReactMapboxGl({
+  accessToken: MapboxAccessToken,
+  interactive: false,
+});
 
 class CrossingStaticMap extends Component {
   onStyleLoad = map => {
@@ -19,7 +23,7 @@ class CrossingStaticMap extends Component {
       <Map
         className="CrossingStaticMap"
         center={coordinates}
-        style={mapboxstyle}
+        style="mapbox://styles/croweatx/cjeynr3z01k492so57s8lo34o"
         onStyleLoad={this.onStyleLoad}
       >
         <Marker coordinates={coordinates} anchor="bottom">
