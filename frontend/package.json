@@ -46,11 +46,10 @@
     "start-js": "NODE_PATH=src react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "start-local": "REACT_APP_GRAPHQL_ENDPOINT='http://localhost:5000/graphql' REACT_APP_XML_ENDPOINT='http://localhost:5000/xml' REACT_APP_EMAIL_ENDPOINT='http://localhost:5000/email/reset' yarn run start",
-    "validate-map-style": "node src/Map/style/scripts/validate.js",
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",
     "watch-css": "yarn run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive",
     "get-schema": "./src/stories/schema/getSchema.sh",
-    "build": "yarn build-map-style-json; yarn build-css; NODE_PATH=src react-scripts build",
+    "build": "yarn build-css; NODE_PATH=src react-scripts build",
     "test": "yarn build-css; NODE_PATH=src react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "NODE_PATH=src start-storybook -p 9001 -c .storybook & yarn watch-css"

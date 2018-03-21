@@ -18,6 +18,7 @@ class AddCrossingMap extends Component {
     return (
       <Map
         className="CrossingStaticMap"
+        // eslint-disable-next-line
         style="mapbox://styles/croweatx/cjeynr3z01k492so57s8lo34o"
         center={crossingCoordinates}
         onStyleLoad={this.onStyleLoad}
