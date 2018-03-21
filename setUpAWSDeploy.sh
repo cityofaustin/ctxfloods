@@ -2,6 +2,8 @@ export CURRENT_FLOODS_BRANCH_NAME=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 export S3_BUCKET=$(echo "ctxfloods-frontend-$CURRENT_FLOODS_BRANCH_NAME" | tr '[:upper:]' '[:lower:]')
 
+export FRONTEND_URL=$(echo $S3_BUCKET.s3-website-us-east-1.amazonaws.com)
+
 export npm_config_PGCON=""
 export npm_config_PGRUNCON=""
 
@@ -56,3 +58,4 @@ travis encrypt REACT_APP_EMAIL_ENDPOINT=$EMAIL_ENDPOINT --add
 cd ..
 echo "  - CURRENT_FLOODS_BRANCH_NAME=$CURRENT_FLOODS_BRANCH_NAME" >> .travis.yml
 echo "  - S3_BUCKET=$S3_BUCKET" >> .travis.yml
+echo "  - FRONTEND_URL=$FRONTEND_URL" >> .travis.yml

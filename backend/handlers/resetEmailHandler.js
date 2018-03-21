@@ -54,8 +54,8 @@ module.exports.handle = (event, context, cb) => {
               from: 'CTXfloods <resetpassword@ctx.floods>',
               to: `${firstname} ${lastname} <${email}>`,
               subject: 'Reset CTXfloods Password',
-              text: `CTXfloods password reset url: http://localhost:3000/dashboard/reset_password/${token}`,
-              html: `<p>Click <a href="http://localhost:3000/dashboard/reset_password/${token}">here</a> to reset your CTXfloods password.</p>`
+              text: `CTXfloods password reset url: http://${process.env.FRONTEND_URL}/dashboard/reset_password/${token}`,
+              html: `<p>Click <a href="http://${process.env.FRONTEND_URL}/dashboard/reset_password/${token}">here</a> to reset your CTXfloods password.</p>`
           };
 
           transporter.sendMail(message, (err, info) => {
