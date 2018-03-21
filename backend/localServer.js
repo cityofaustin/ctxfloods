@@ -29,7 +29,10 @@ app.all('/graphql', (req, res) => {
 });
 
 app.post('/email/reset', (req, res) => {
-  resetEmailHandler.handle(req.body, null, (error, response) => {
+  // AWS gets body as stringified json
+  const body = JSON.stringify(req.body);
+  req.body = body;
+  resetEmailHandler.handle(req, null, (error, response) => {
     res.send(response);
   });
 });

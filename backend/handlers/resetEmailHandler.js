@@ -4,14 +4,15 @@ const jwt = require('jsonwebtoken');
 
 module.exports.handle = (event, context, cb) => {
   const pgClient = new Client(process.env.PGCON);
+  const { email } = JSON.parse(event.body);
 
   pgClient.connect();
 
-  pgClient.query('select id, last_name, first_name from floods.user where email_address = $1::text', [event.email])
+  pgClient.query('select id, last_name, first_name from floods.user where email_address = $1::text', [email])
     .then(pgres => 
     {
       if (!pgres.rowCount) {
-        console.log(`Could not find user account for email: ${event.email}`);
+        console.log(`Could not find user account for email: ${email}`);
         return;
       }
 
@@ -42,7 +43,7 @@ module.exports.handle = (event, context, cb) => {
           // Message object
           let message = {
               from: 'CTXfloods <resetpassword@ctx.floods>',
-              to: `${firstname} ${lastname} <${event.email}>`,
+              to: `${firstname} ${lastname} <${email}>`,
               subject: 'Reset CTXfloods Password',
               text: `CTXfloods password reset url: http://localhost:3000/dashboard/reset_password/${token}`,
               html: `<p>Click <a href="http://localhost:3000/dashboard/reset_password/${token}">here</a> to reset your CTXfloods password.</p>`
@@ -58,7 +59,12 @@ module.exports.handle = (event, context, cb) => {
               // Preview only available when sending through an Ethereal account
               const previewURL = nodemailer.getTestMessageUrl(info);
               console.log('Preview URL: %s', previewURL);
-              cb(null, previewURL);
+              const response = {
+                statusCode: 200,
+                headers: { "Access-Control-Allow-Origin" : "*" },
+              };
+
+              cb(null, response);
           });
       });
     })
