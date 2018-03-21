@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
-import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
-import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
-import CrossingSidebarNearbyCrossingItem from 'components/Shared/CrossingMapPage/CrossingSidebarNearbyCrossingItem';
-import InfiniteCrossingStatusHistoryPaginationContainer from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryPaginationContainer';
-import 'components/Shared/CrossingMapPage/CrossingMapSidebar.css';
 import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
 import geolib from 'geolib';
 import _ from 'lodash';
 
-const FilterCheckbox = ({ defaultChecked, onClick, title }) => (
-  <label className="CrossingMapPage_sidebar-filter">
-    <input
-      className="CrossingMapPage_sidebar-filter-checkbox"
-      type="checkbox"
-      defaultChecked={defaultChecked}
-      onClick={onClick}
-    />
-    <div>{title}</div>
-  </label>
-);
+import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
+import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
+import CrossingSidebarNearbyCrossingItem from 'components/Shared/CrossingMapPage/CrossingSidebarNearbyCrossingItem';
+import FilterCheckbox from 'components/Shared/FilterCheckbox';
+import InfiniteCrossingStatusHistoryPaginationContainer from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryPaginationContainer';
+
+import 'components/Shared/CrossingMapPage/CrossingMapSidebar.css';
 
 class CrossingMapSidebar extends Component {
   constructor(props) {
@@ -213,25 +204,29 @@ class CrossingMapSidebar extends Component {
                     {this.state.showFilters && (
                       <div className="CrossingMapPage_sidebar-filter-container">
                         <FilterCheckbox
-                          title="Open"
-                          defaultChecked={showOpen}
+                          isChecked={showOpen}
                           onClick={toggleShowOpen}
-                        />
+                        >
+                          Open
+                        </FilterCheckbox>
                         <FilterCheckbox
-                          title="Closed"
-                          defaultChecked={showClosed}
+                          isChecked={showClosed}
                           onClick={toggleShowClosed}
-                        />
+                        >
+                          Closed
+                        </FilterCheckbox>
                         <FilterCheckbox
-                          title="Caution"
-                          defaultChecked={showCaution}
+                          isChecked={showCaution}
                           onClick={toggleShowCaution}
-                        />
+                        >
+                          Caution
+                        </FilterCheckbox>
                         <FilterCheckbox
-                          title="Long Term Closure"
-                          defaultChecked={showLongterm}
+                          isChecked={showLongterm}
                           onClick={toggleShowLongterm}
-                        />
+                        >
+                          Long Term Closure
+                        </FilterCheckbox>
                       </div>
                     )}
                   </div>
