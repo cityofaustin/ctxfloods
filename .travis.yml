@@ -10,24 +10,10 @@ services:
 - postgresql
 jobs:
   include:
-  - stage: Test Backend Locally
-    before_script: cd backend; yarn; yarn init-local-db; yarn local-drop-rebuild;
-    script: cd backend; yarn start-express-server & yarn test
   - stage: Test Frontend Locally
     before_script: cd backend; yarn; yarn init-local-db; yarn local-drop-rebuild;
-    script: cd backend; yarn start-express-server & cd ../frontend; yarn; yarn get-schema;
+    script: cd backend; yarn start-express-server & cd ..; yarn; yarn get-schema;
       yarn test
-  - stage: Deploy Backend to AWS
-    before_script:
-    - if [ -z "$AWS_ACCESS_KEY_ID" ]; then echo "AWS Credentials not set. Skipping
-      deployment."; travis_terminate 0; else npm install -g serverless@1.25.0; fi
-    script: cd backend; yarn; yarn rebuild-and-deploy
-  - stage: Test backend against AWS endpoint
-    before_script:
-    - if [ -z "$AWS_ACCESS_KEY_ID" ]; then echo "AWS Credentials not set. Skipping
-      tests."; travis_terminate 0; else npm install -g serverless@1.25.0; fi
-    script: cd backend; yarn; yarn test-on-aws
-    after_script: cd backend; yarn; yarn rebuild-and-deploy-with-tons-of-crossings
   - stage: Deploy frontend to s3
     before_script:
     - if [ -z "$AWS_ACCESS_KEY_ID" ]; then echo "AWS Credentials not set. Skipping
@@ -43,3 +29,12 @@ jobs:
       acl: public_read
       on:
         all_branches: true
+env:
+  global:
+  - secure: H5GPibG3y7HDno3v8+DD7+wrd0TpfvpfwaTDj+OdhX8lPB7NDESPS5QGjx2ovgKC4C9pT+BcXPS7N4StyUNA6U6uy3z9zUbi1l6EAxyOH6NRtI36kBYDF83R5Pc4RYtT8gxEYxbhYWTqQc7stkgM9d5dJ+8UvG112pAQ99aFMVtp1hx/1DC7HXznb2DSEJVi1w4W9wexLO8GCNQEW2hngirPCzFy/Dwaa60LQa6iCxcGWb0Yn6Ya2BMJRYGvzvf3pN8SNsgkNO/roORQ/pIPdMSXBmw6k/FkphuYceR3O/mkYqnVLjOpzjrvHUMp+YHlc39YezPgNbWfPzxYCdzIoG28yX2o3ofNxIanSWuaarorJei5p+ByWC5t2TG/eSx+feRemxUc6msb2PFPinhPrpfiLVBM8MZ4PTYzqlxaGNNWqQSSUUEnjgib/4OUpkydLVSr4hH1FlLPV3jVqbVG1FUd0kUCEXplmcXohWWfS5voVjn08IRweOjMXs2hhNH3gk8VJLP/i0HTcdQnazChD2AnUm8fwWU/VNFsXrMxGb/mIGSx5rf0BwF9+A/fFi5RM3V8vicVveex52sHDjNUSmz4S1kMQeqClRpaMC/Gi0QNq5mwOroc+GnH0Xf1Ej4ylcVVO+ktsya6eFdy6YEQMLnEGDYJ1oxtynOgHyTSsr8=
+  - secure: kWRnQjwCJTrKsOvy0o/UVHC2/l5EJMSMH2mlwZCtl6JTnMF4LRITAzdOo+ie2ThCO61OrChpad/vpiSwzbsFntybRDBqAh9z/B5l2iI91CP/doOOYaVobaxI34ShifM2hzFa+DkBbWXivoYQVBHizpYhxheo78IHKKfVCEKe0dXDUnjrsCv9kPuy5ZGwBMw8UzBPwkC1dXI4guffWMDqPtDMHT/mfZyLsrY3C/HMOmDJ67ZhtfUuoyuIV2uec2cdgfWnfzDyosLlx2+1z2EwnLnLO2FUMU6rxm+/zA3qC9leljVE1D/RJLh1jS9eGSCDHcmsA2SMJc68Ev14PAsHzHcivPHSUjieMYAprWBZ584DQcVba7VmmWEn4hR83mUwcuMBDSqINVZhrFJGjDi+RIMEPvRl2anOIRFwJwnG9IVGlrz4W6xuGpsMNkZOHfRXJkn4eGBBkWrx+M+yFh9b0deyF7yxh79dBWka/7EItgIMvU7S+8ND8rBVwYiKOS25mqIP5HtwLfM0Rt6X2zbRBzRcjoGpN3nLaAO7rAdh3u/dzzPkm7XDHtpGyQFIc8ygrG6GkswDa8Uv1M7oQeuWAsbCkc5RFg4eX2xFMpjpmcF3Vd4lh6DifcHySX4v20fjYmZaKppYeKmJX/73fJfedFyE9IhyNQEcBR/7NFENS/o=
+  - CURRENT_FLOODS_BRANCH_NAME=split-out-backend
+  - S3_BUCKET=ctxfloods-frontend-split-out-backend
+  - REACT_APP_GRAPHQL_ENDPOINT=test/graphql
+  - REACT_APP_XML_ENDPOINT=test/xml
+  - REACT_APP_EMAIL_ENDPOINT=test/email/reset
