@@ -1,0 +1,64 @@
+.CrossingMapPage__map-container {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 0; }
+
+.CrossingMapPage__map-container--hidden {
+  display: none; }
+
+.CrossingMapPage__mobile-overlay {
+  width: 100%; }
+  .CrossingMapPage__mobile-overlay .CrossingListItem {
+    box-shadow: none;
+    margin-bottom: 0px; }
+  .CrossingMapPage__mobile-overlay .CrossingListItem--dirty {
+    outline: none;
+    box-shadow: 0 4px #40b3ff inset, 0 -4px #40b3ff inset; }
+
+.CrossingMapPage__fullscreen-toggle-container {
+  position: absolute;
+  z-index: 1;
+  text-align: right;
+  width: 100%; }
+
+.CrossingMapPage__fullscreen-toggle {
+  background: white;
+  padding: 4px;
+  margin: 7px; }
+
+html {
+  height: 100%; }
+
+body {
+  height: 100%; }
+
+.RootContainer {
+  height: 100%; }
+
+.PageLayout {
+  height: 100%;
+  display: flex;
+  flex-direction: column; }
+
+.Header {
+  flex: none; }
+
+.CrossingMapPage__page-container {
+  flex: auto;
+  display: flex;
+  flex-direction: column; }
+
+.fullscreen {
+  flex: auto;
+  display: flex;
+  flex-direction: column; }
+
+.CrossingMapPage {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative; }
+
+.mapboxgl-map {
+  flex: auto; }

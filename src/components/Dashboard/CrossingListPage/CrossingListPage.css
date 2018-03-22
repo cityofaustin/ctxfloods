@@ -1,0 +1,17 @@
+.CrossingList {
+  background-color: #f1f1f1;
+  border-top: 10px solid #f1f1f1; }
+
+.ReactVirtualized__Grid {
+  outline: none; }
+
+.CrossingListItemMeasureContainer {
+  width: calc(100% - 8px) !important;
+  left: 4px !important; }
+
+.CrossingListPage_crossing-list-container {
+  max-width: 1100px;
+  margin: auto; }
+
+.CrossingListPage {
+  background: #f8f8f9; }

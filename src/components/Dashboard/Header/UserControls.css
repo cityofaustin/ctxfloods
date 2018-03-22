@@ -1,0 +1,6 @@
+.UserControls {
+  display: flex; }
+
+.UserControls__link {
+  padding: 0 0.5em;
+  cursor: pointer; }

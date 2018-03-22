@@ -1,0 +1,36 @@
+.PublicCrossingListItem {
+  font-size: 1.5rem; }
+
+.PublicCrossingListItem__overview {
+  padding: 15px;
+  background: #fff;
+  display: flex; }
+
+.PublicCrossingListItem__details {
+  padding: 15px;
+  padding-left: 60px; }
+
+.PublicCrossingListItem__status-name,
+.PublicCrossingListItem__datetime-date {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: #5f7d8c;
+  padding-bottom: 0.5rem; }
+
+.PublicCrossingListItem__status-icon {
+  width: 45px; }
+
+.PublicCrossingListItem__info {
+  flex: 1; }
+
+.PublicCrossingListItem__datetime {
+  text-align: right; }
+
+.PublicCrossingListItem__crossing-name {
+  color: #000;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.7rem;
+  text-decoration: none; }

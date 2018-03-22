@@ -1,0 +1,29 @@
+.Dropdown {
+  height: 40px;
+  background-color: #f9f9fa;
+  border: 1px solid #d6d4dc;
+  background-size: 22px;
+  border-radius: 5px;
+  display: flex;
+  overflow: hidden; }
+
+.Chevron {
+  background: #5f7d8c;
+  color: #fff;
+  font-size: 1.3rem;
+  display: flex;
+  padding: 18px;
+  align-items: center;
+  justify-content: center; }
+
+.Dropdown__select {
+  flex: 1;
+  background: transparent;
+  padding: 10px;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  border: 0;
+  border-radius: 0;
+  height: 40px;
+  -webkit-appearance: none;
+  width: 100%; }
