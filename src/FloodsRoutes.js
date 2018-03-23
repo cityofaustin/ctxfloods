@@ -19,6 +19,8 @@ import auth from 'services/gqlAuth';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
+var x = 3;
+
 class FloodsRoutes extends Component {
   onLogin = () => {
     this.props.data.refetch({
