@@ -16,8 +16,13 @@ read -s AWS_SECRET_ACCESS_KEY
 export AWS_SECRET_ACCESS_KEY
 travis encrypt AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --add
 
+echo "Backend URL (in https://blarg.execute-api.us-east-1.amazonaws.com/dev format)"
+read REACT_APP_BACKEND_URL
+export REACT_APP_BACKEND_URL
+
 # If we haven't created the S3 bucket yet create it
 node createS3Bucket.js $S3_BUCKET
 
 echo "  - CURRENT_FLOODS_BRANCH_NAME=$CURRENT_FLOODS_BRANCH_NAME" >> ../.travis.yml
 echo "  - S3_BUCKET=$S3_BUCKET" >> ../.travis.yml
+echo "  - REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL" >> ../.travis.yml

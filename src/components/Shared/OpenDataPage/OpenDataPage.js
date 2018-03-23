@@ -5,7 +5,7 @@ import 'components/Shared/OpenDataPage/graphiql.css';
 import 'components/Shared/OpenDataPage/OpenDataPage.css';
 
 function graphQLFetcher(graphQLParams) {
-  return fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT, {
+  return fetch(`${process.env.REACT_APP_BACKEND_URL}/graphql`, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(graphQLParams),
@@ -19,13 +19,13 @@ export default function OpenDataPage() {
         <h1 className="OpenDataPage__heading">Open Data</h1>
         <a
           className="OpenDataPage__api-link"
-          href={process.env.REACT_APP_XML_ENDPOINT}
+          href={`${process.env.REACT_APP_BACKEND_URL}/xml`}
         >
           Legacy XML
         </a>
         <a
           className="OpenDataPage__api-link"
-          href={process.env.REACT_APP_GRAPHQL_ENDPOINT}
+          href={`${process.env.REACT_APP_BACKEND_URL}/graphql`}
         >
           GraphQL Endpoint
         </a>

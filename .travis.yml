@@ -10,10 +10,10 @@ services:
 - postgresql
 jobs:
   include:
-  - stage: Test Frontend Locally
+  - stage: Test
     script: yarn; yarn test
-  - stage: Deploy frontend to s3
-    script: if [ $BACKEND_URL ]; then echo "BACKEND_URL set."; fi; yarn; yarn build
+  - stage: Deploy
+    script: yarn; yarn build
     deploy:
       provider: s3
       access_key_id: "$AWS_ACCESS_KEY_ID"
@@ -24,10 +24,11 @@ jobs:
       acl: public_read
       on:
         all_branches: true
-        condition: $AWS_ACCESS_KEY_ID
+        condition: "$AWS_ACCESS_KEY_ID"
 env:
   global:
-  - secure: dACKpOguTmUkotpztSUlf4cYuq3EM9G6PkfMJN8Pcl8ByGKDy6XAwqQIW/2YuNLJp1Gg2x1j8XGzm6FmJ3FJr/SGvwzx6hIqubRWKVUZwqb8mzStDgn+A7VAx9sQf/+bc9rQSSt2nVHCUs08o0NUA9a4GtO4tcIH5Pnc2VC6daQu8zeA4dkDyD/4M0CJ4VmCL9CIp3jy8oIHSZbsWtVBXyraHT9Cj1J0P2SMkSIj2991cS+hnz+fGP+zMOHHiEhRforGX0yMpZC8ThX9NNFVHdgElllJZXq2HZh/m09b/jiY2ChbZute5F5f9wRzY/ZAwFAvsq4qW5M/MoUOgSd+uwVHcpEkK+m/2I96QuV2qWqHxBCgjDDFqCUhqHXWMNGsy/fPUFv93VHy0PDraY+E44QuMa+CRfb9dJLMvmtdTuTUho+xl9QhLh83EYraLT2qYlZiWCHS1ye0e9+8igD7yPqgI/0Ru8/i63qVWt1BlI2DPe15A6aVrBfNBUCCzbcShkHmRWJWe/8M/6D+dvIOAwEfo+07Q95MWYrhhoL0Go4SvLaOYIpq5HE9fAn6n3/VVkO81kerZWxu0ZmqhYwwhvn7kkA3XfjI45kGBsTT2g8wjifkrYgzU6r1d1b0o7XtWfd7wG/mLkDVw/qp9zcTcbE5VUAxATLhKYvnalZULE0=
-  - secure: oROTF7HHBuhZ7rt5wPAD9mzZX1Uydg4GF/Cmwo+3XU1ScTGK3O86gz/SlZz2onovVk128FsP1wknJTZ6PmZagaSMjdmAwQlrLlQBEF98gwVTo5vtOExGe32aJqeqyKfBFGPL08Gl8Y8YHkzoXbL1gJK4nUvKk7+dCPVGxsacgOsxAXKqlpCRSFNpCzYSgWgvhil9afIV7VVdjGKOYieVeeNWHHPquiJxH5CC52BRW8GfcNwLzKvXGzXqkNqfFcS0xtbICgl2KNzQOnOQ7XLE/E8tTqZSje/TX3Ulvjzol/HYzaQ3SEVsH2Ihzs9STM+3wuj27pG/ZrUkP1eqU9KDSiBXJipOIf7FdCid/XYcrD4zYCZ9WmK1utISc3BggYpI1EwNiJhxbdhbs5by8MFI4tn8q+By1YGqMxEW3V7ZkKYXN9hPX5q6xcO83rADE89pCstOipVcSFZv29/7Fh8nY2+OM2EKAECokn4RPBf2+ePvZb55ma9ZCOBjfj1CYV2PGG0AXzxyFlgrCB48doil8PUZBuez9n+RFaKztzjr88p++oL+hV9d8R6G0Fbs6ZJsxHPFa7DdMvncNUI4ojNhu6AyszOkBbYOCZ3ZX++PAauNLH26AMkcJnwj0KK24kMe19eb/CmsDte0QIGnBAVMbP2CGaVaaJPPLlFFyTaimic=
+  - secure: K9te+K9nuHtD0jGmUAYRIqdXM5aJgOE0zDxOyRDTdlbi71yM2a50GU1Q/SXr68ggG8dPLz38JmW+iFlqD/FMQc9e8bMnkjmzh7PmNPUkEn4OD8fllBhyGFa/91ln06RLlomX+iL3ZcljByyTVa4rIPZbJyXpCu51OzHFRxsSVlJ0Z7Cf+kmRDc0c+YD3NEaxbRtzEh39g5HGEmk66RR28YH5qe3FJVT7cjptzW3YOEyFw6KL8J0p5w+R+n8gIt44ihFPrtTbIdOvqD+2eaw5pz8TvK6Hjd4zQBq3m+A4jSaKLxT7P2h02C6L6Ye4jRGBClSKdVniPNNS7OJyRf5ILETW8aZfdThgxDMtlYU0w8imdGrlGAtHx7HANZtQfUQst9lqNh+FDBRd77vxlLC+CTqh6+O/NtvHK/0JT7Fdgt5x+juFOupG7EBfdS2Bs4FY0p/JuzLHaw54nH6yu2eV18SXbgDH1uE+01UdcMD2heLF/pCf0dNR3yumP6yG60N/ZPzaUXS+5hVlbp0pagKqck3tVbyQ/aRNp4Ws3oYgMcCwV/egzIThNe5PNtRyeHbEfVD69R9WBFbfdMmF4Dcw77n0m1plsxMeXP9Srq+ZRDxN85/3tPBxvDXc3qWh76oE6lBIbDm/55UWy13Oeztz++bOJIbfeRSbxhaJ/rtFUe8=
+  - secure: FfQ3IC0JZ6fPusM9iaqhQm3mTg3btHGsAX27lZmqkJBIGeDsmu3HkwUgl4+E57FxhqZiDAjUxaxJN7lYaHmdGLflWJcOydVWe9uI0zkq1FwmExS2WowoJwo4DidxZ69y5VV5jwe5cYElxwEyzytgcwvwgkTKEDb519wWmGMRaknUJo7UO8gA7rSNWnt6JhwQq390IvR+V/bUs63j61BRoA/LuCO4G/1OyYUMBzQ7pKoXjm1VmMKWs6+AUOJs4MAk6jPgsX1o7tp11rfkEmBp3ZFU8F3PhcI0eA/zc3wzGH5MkjcVgiGTffhlp3T7GkXIcQAJ1vEcwsDlNnnd/raxLNA/29t74I4GdxxPSAZJBmuS/NJeJyTs8w3lI98AaU9BoNqgxm979DC1zA83KdTgrvjLm0wTLlYt6weF6YHSxXpIKiU2zGdfCViTwv165nJo+WNaCY8aKpxksIYOenn32fXg/0y/UbKoq/uwzbgA0vpmTf5qWyrDdgCQstAngHd98cIisMcSXTSu9N/0td4aFRVQNnArR24sP+H+yTBz0+bFtOG+l74s/bwDpwCOoF1VCeG90TDCMziAU3ET7b0kZkwT+dq25cCQabkvetKEbnzifj5R95ISRRz4JPEQ8LNzmtzCBJ9g1zm90CL4SnQvwkP32AHKB6lpirSZVkoxcUk=
   - CURRENT_FLOODS_BRANCH_NAME=split-out-backend
   - S3_BUCKET=ctxfloods-frontend-split-out-backend
+  - REACT_APP_BACKEND_URL=https://2omhorg3mc.execute-api.us-east-1.amazonaws.com/dev

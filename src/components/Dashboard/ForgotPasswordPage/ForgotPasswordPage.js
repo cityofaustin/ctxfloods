@@ -18,7 +18,7 @@ class ForgotPasswordPage extends Component {
   handleSubmit = (e) => {
     this.setState({waiting: true});
     e.preventDefault();
-    fetch(process.env.REACT_APP_EMAIL_ENDPOINT, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/email/reset`, {
       method: 'POST',
       body: JSON.stringify({email: this.state.email}),
       headers: new Headers({

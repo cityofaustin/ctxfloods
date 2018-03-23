@@ -6,7 +6,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { isTokenExpired } from './jwtHelper';
 
 const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
+  uri: `${process.env.REACT_APP_BACKEND_URL}/graphql`,
 });
 
 const jwtMiddleware = new ApolloLink((operation, forward) => {
