@@ -43,10 +43,13 @@
     "ctxfloods-backend": "https://github.com/cityofaustin/ctxfloods-backend.git#dev",
     "react-scripts": "1.1.1"
   },
+  "config": {
+    "BACKEND_URL": "http://localhost:5000"
+  },
   "scripts": {
     "start-js": "NODE_PATH=src react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "start-local": "REACT_APP_GRAPHQL_ENDPOINT='http://localhost:5000/graphql' REACT_APP_XML_ENDPOINT='http://localhost:5000/xml' REACT_APP_EMAIL_ENDPOINT='http://localhost:5000/email/reset' yarn run start",
+    "start-local": "REACT_APP_GRAPHQL_ENDPOINT=$npm_package_config_BACKEND_URL/graphql REACT_APP_XML_ENDPOINT=$npm_package_config_BACKEND_URL/xml REACT_APP_EMAIL_ENDPOINT=$npm_package_config_BACKEND_URL/email/reset yarn run start",
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",
     "watch-css": "yarn run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive",
     "get-schema": "./src/stories/schema/getSchema.sh",
