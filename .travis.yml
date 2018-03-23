@@ -13,10 +13,7 @@ jobs:
   - stage: Test Frontend Locally
     script: yarn; yarn test
   - stage: Deploy frontend to s3
-    before_script:
-    - if [ -z "$AWS_ACCESS_KEY_ID" ]; then echo "AWS Credentials not set. Skipping
-      deployment."; travis_terminate 0; fi
-    script: yarn; yarn build
+    script: if [ $BACKEND_URL ]; then echo "BACKEND_URL set."; fi; yarn; yarn build
     deploy:
       provider: s3
       access_key_id: "$AWS_ACCESS_KEY_ID"
@@ -27,6 +24,7 @@ jobs:
       acl: public_read
       on:
         all_branches: true
+        condition: $AWS_ACCESS_KEY_ID
 env:
   global:
   - secure: dACKpOguTmUkotpztSUlf4cYuq3EM9G6PkfMJN8Pcl8ByGKDy6XAwqQIW/2YuNLJp1Gg2x1j8XGzm6FmJ3FJr/SGvwzx6hIqubRWKVUZwqb8mzStDgn+A7VAx9sQf/+bc9rQSSt2nVHCUs08o0NUA9a4GtO4tcIH5Pnc2VC6daQu8zeA4dkDyD/4M0CJ4VmCL9CIp3jy8oIHSZbsWtVBXyraHT9Cj1J0P2SMkSIj2991cS+hnz+fGP+zMOHHiEhRforGX0yMpZC8ThX9NNFVHdgElllJZXq2HZh/m09b/jiY2ChbZute5F5f9wRzY/ZAwFAvsq4qW5M/MoUOgSd+uwVHcpEkK+m/2I96QuV2qWqHxBCgjDDFqCUhqHXWMNGsy/fPUFv93VHy0PDraY+E44QuMa+CRfb9dJLMvmtdTuTUho+xl9QhLh83EYraLT2qYlZiWCHS1ye0e9+8igD7yPqgI/0Ru8/i63qVWt1BlI2DPe15A6aVrBfNBUCCzbcShkHmRWJWe/8M/6D+dvIOAwEfo+07Q95MWYrhhoL0Go4SvLaOYIpq5HE9fAn6n3/VVkO81kerZWxu0ZmqhYwwhvn7kkA3XfjI45kGBsTT2g8wjifkrYgzU6r1d1b0o7XtWfd7wG/mLkDVw/qp9zcTcbE5VUAxATLhKYvnalZULE0=
