@@ -8,20 +8,18 @@ addons:
     - postgresql-9.5-postgis-2.3
 services:
 - postgresql
-jobs:
-  include:
-  - stage: Test
-    script: yarn; yarn test
-  - stage: Deploy
-    script: yarn; yarn build
-    deploy:
-      provider: s3
-      access_key_id: "$AWS_ACCESS_KEY_ID"
-      secret_access_key: "$AWS_SECRET_ACCESS_KEY"
-      bucket: "$S3_BUCKET"
-      skip_cleanup: true
-      local_dir: build
-      acl: public_read
-      on:
-        all_branches: true
-        condition: "$AWS_ACCESS_KEY_ID"
+  
+script:
+  yarn; yarn test; yarn build;
+
+deploy:
+  provider: s3
+  access_key_id: "$AWS_ACCESS_KEY_ID"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+  bucket: "$S3_BUCKET"
+  skip_cleanup: true
+  local_dir: build
+  acl: public_read
+  on:
+    all_branches: true
+    condition: "$AWS_ACCESS_KEY_ID"
