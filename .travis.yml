@@ -8,7 +8,8 @@ addons:
     - postgresql-9.5-postgis-2.3
 services:
 - postgresql
-script: yarn; yarn test; yarn build;
+before_script: yarn; yarn test;
+script: yarn build;
 deploy:
   provider: s3
   access_key_id: "$AWS_ACCESS_KEY_ID"
