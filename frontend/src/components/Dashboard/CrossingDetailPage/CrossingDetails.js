@@ -395,9 +395,7 @@ class CrossingDetails extends Component {
             currentUser.role !== 'floods_community_editor' &&
             crossingCommunities.length === 1 && (
               <div className="CrossingDetails__buttons flexcontainer">
-                <DeleteCrossingButton
-                  overlayRef={this.state.overlayRef}
-                />
+                <DeleteCrossingButton crossingId={crossing.id} />
               </div>
             )
           )
@@ -437,16 +435,6 @@ class CrossingDetails extends Component {
             </div>
           </div>
         )}
-
-        <div
-          ref={ref => {
-            if (ref !== this.state.ref) {
-              console.log("ref changed")
-              this.setState({ overlayRef: ref });
-            }
-          }}
-          className="CrossingDetails__delete overlay-container flexcontainer--center"
-        />
       </div>
     );
   }

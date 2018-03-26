@@ -1,60 +1,40 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
+import Modal from 'components/Shared/Modal';
+import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
+import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
+import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
+
 import deleteCrossingFragment from 'components/Dashboard/CrossingListPage/queries/deleteCrossingFragment';
 
-function ConfirmDeleteCrossing({ onCancel, deleteCrossing }) {
-  return (
-    <div className="CrossingDetails__delete overlay-container flexcontainer--center">
-      <div className="plv2">
-        <p>
-          The historical data for this crossing will be saved, but you will no
-          longer be able to view or change the change this crossing’s status
-        </p>
-        <p>Do you want to continue?</p>
-        <div className="flexcontainer">
-          <button
-            className="flexitem button button--cancel mlv2--r"
-            onClick={onCancel}
-          >
-            No, Go Back
-          </button>
-          <button
-            className="flexitem button button--confirm mlv2--l"
-            onClick={deleteCrossing}
-          >
-            Yes, Delete
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+import './DeleteCrossingButton.css';
 
-export default class DeleteCrossingButton extends Component {
+class DeleteCrossingButton extends Component {
   constructor(...args) {
     super(...args);
 
     this.state = {
-      pendingDelete: false,
+      isModalOpen: false,
+      errorMessage: null,
     };
   }
 
-  onDelete = () => {
-    this.setState({ pendingDelete: true });
+  showDeleteModal = () => {
+    this.setState({ isModalOpen: true, errorMessage: null });
   };
 
-  onCancel = () => {
-    this.setState({ pendingDelete: false });
+  closeDeleteModal = () => {
+    this.setState({ isModalOpen: false, errorMessage: null });
   };
 
-  deleteCrossing = e => {
+  deleteCrossing = () => {
+    this.setState({ errorMessage: null });
     this.props
       .deleteCrossingMutation({
         variables: {
-          crossingId: this.props.crossing.id,
+          crossingId: this.props.crossingId,
         },
         update: (store, { data: { removeCrossing } }) => {
           const deletedCrossing = removeCrossing.crossing;
@@ -65,13 +45,13 @@ export default class DeleteCrossingButton extends Component {
           });
         },
       })
-      .then(({ data }) => {
-        console.log('success', data);
-        this.setState({ pendingDelete: false });
+      .then(() => {
+        // FIXME: <DeleteCrossingButton> is unmounted before this is run
+        this.setState({ isModalOpen: false });
       })
       .catch(error => {
-        // FIXME: Show error
-        console.log('there was an error sending the query', error);
+        this.setState({ errorMessage: error.message });
+        console.log('There was an error sending the query', error);
       });
   };
 
@@ -80,13 +60,37 @@ export default class DeleteCrossingButton extends Component {
       <div>
         <button
           className="button button--plaintext color-highlight"
-          onClick={this.onDelete}
+          onClick={this.showDeleteModal}
         >
           Delete Crossing
         </button>
-        {this.props.overlayRef && <div>"hi"</div>}
-        {this.props.overlayRef &&
-          ReactDOM.createPortal(<ConfirmDeleteCrossing />, this.props.overlayRef)}
+        <Modal
+          title="Delete Crossing"
+          isOpen={this.state.isModalOpen}
+          onClose={this.closeDeleteModal}
+          footer={
+            <div>
+              <ButtonPrimary
+                className="ConfirmDeleteCrossingModal__delete-button"
+                onClick={this.deleteCrossing}
+              >
+                Delete
+              </ButtonPrimary>
+              <ButtonSecondary onClick={this.closeDeleteModal}>
+                Cancel
+              </ButtonSecondary>
+            </div>
+          }
+        >
+          <div className="">
+            <p>
+              The historical data for this crossing will be saved, but you will
+              no longer be able to view or change the change this crossing’s
+              status.
+            </p>
+            <ModalErrorMessage>{this.state.errorMessage}</ModalErrorMessage>
+          </div>
+        </Modal>
       </div>
     );
   }
@@ -103,6 +107,6 @@ const deleteCrossingMutation = gql`
   }
 `;
 
-graphql(deleteCrossingMutation, {
+export default graphql(deleteCrossingMutation, {
   name: 'deleteCrossingMutation',
 })(DeleteCrossingButton);
