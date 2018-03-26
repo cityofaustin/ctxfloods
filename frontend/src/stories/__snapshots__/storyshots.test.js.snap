@@ -65,7 +65,7 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
           <span
             className="light gray--25 mlv1--r"
           >
-            Name your crossings by intersections (ie, Onion Creek Blvd. & 5th Ave) or waypoints (5th Ave. Denny's)
+            Name your crossings by intersections (ie, Onion Creek Blvd. & 5th Ave) or waypoints (5th Ave. Denny’s)
           </span>
         </div>
         <input
@@ -114,12 +114,14 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
     <div
       className="CrossingDetails__buttons flexcontainer"
     >
-      <button
-        className="button button--plaintext color-highlight"
-        onClick={[Function]}
-      >
-        Delete Crossing
-      </button>
+      <div>
+        <button
+          className="button button--plaintext color-highlight"
+          onClick={[Function]}
+        >
+          Delete Crossing
+        </button>
+      </div>
     </div>
   </div>
 </div>

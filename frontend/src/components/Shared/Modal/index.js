@@ -5,7 +5,11 @@ import FontAwesome from 'react-fontawesome';
 
 import './Modal.css';
 
-ReactModal.setAppElement('#root');
+try {
+  ReactModal.setAppElement('#root');
+} catch (err) {
+  // Ignore error from #root not existing when running tests
+}
 
 export default function Modal({ title, children, footer, onClose, ...props }) {
   return (
