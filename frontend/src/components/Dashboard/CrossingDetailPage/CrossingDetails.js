@@ -263,7 +263,7 @@ class CrossingDetails extends Component {
               </div>
               <span className="light gray--25 mlv1--r">
                 Name your crossings by intersections (ie, Onion Creek Blvd. &
-                5th Ave) or waypoints (5th Ave. Denny's)
+                5th Ave) or waypoints (5th Ave. Denny’s)
               </span>
             </div>
             <input

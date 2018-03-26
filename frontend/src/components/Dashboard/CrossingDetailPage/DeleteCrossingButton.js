@@ -11,7 +11,7 @@ function ConfirmDeleteCrossing({ onCancel, deleteCrossing }) {
       <div className="plv2">
         <p>
           The historical data for this crossing will be saved, but you will no
-          longer be able to view or change the change this crossing's status
+          longer be able to view or change the change this crossing’s status
         </p>
         <p>Do you want to continue?</p>
         <div className="flexcontainer">
