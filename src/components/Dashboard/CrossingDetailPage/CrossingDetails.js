@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
-import updateCrossingFragment from 'components/Dashboard/CrossingListPage/queries/updateCrossingFragment';
-import deleteCrossingFragment from 'components/Dashboard/CrossingListPage/queries/deleteCrossingFragment';
-import addCrossingToCommunityFragment from 'components/Dashboard/CrossingListPage/queries/addCrossingToCommunityFragment';
-import classnames from 'classnames';
-import 'components/Dashboard/CrossingDetailPage/CrossingDetails.css';
 import { Redirect } from 'react-router';
-import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
 import _ from 'lodash';
+import classnames from 'classnames';
+
+import updateCrossingFragment from 'components/Dashboard/CrossingListPage/queries/updateCrossingFragment';
+import addCrossingToCommunityFragment from 'components/Dashboard/CrossingListPage/queries/addCrossingToCommunityFragment';
+import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
+
+import DeleteCrossingButton from './DeleteCrossingButton';
+
+import 'components/Dashboard/CrossingDetailPage/CrossingDetails.css';
 
 class CrossingDetails extends Component {
   constructor(props) {
@@ -21,7 +24,6 @@ class CrossingDetails extends Component {
     this.state = {
       name: crossing.name,
       description: crossing.description,
-      delete: false,
       addCommunity: false,
       selectedCommunityId:
         dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
@@ -52,6 +54,7 @@ class CrossingDetails extends Component {
         console.log('success', data);
       })
       .catch(error => {
+        // FIXME: Show error
         console.log('there was an error sending the query', error);
       });
   };
@@ -74,30 +77,7 @@ class CrossingDetails extends Component {
         this.setState({ redirectToNewCrossingId: id });
       })
       .catch(error => {
-        console.log('there was an error sending the query', error);
-      });
-  };
-
-  deleteCrossing = e => {
-    this.props
-      .deleteCrossingMutation({
-        variables: {
-          crossingId: this.props.crossing.id,
-        },
-        update: (store, { data: { removeCrossing } }) => {
-          const deletedCrossing = removeCrossing.crossing;
-          store.writeFragment({
-            id: 'Crossing:' + deletedCrossing.id,
-            fragment: deleteCrossingFragment,
-            data: deletedCrossing,
-          });
-        },
-      })
-      .then(({ data }) => {
-        console.log('success', data);
-        this.setState({ delete: false });
-      })
-      .catch(error => {
+        // FIXME: Show error
         console.log('there was an error sending the query', error);
       });
   };
@@ -133,6 +113,7 @@ class CrossingDetails extends Component {
         });
       })
       .catch(error => {
+        // FIXME: Show error
         console.log('there was an error sending the query', error);
       });
   };
@@ -168,6 +149,7 @@ class CrossingDetails extends Component {
         });
       })
       .catch(error => {
+        // FIXME: Show error
         console.log('there was an error sending the query', error);
       });
   };
@@ -177,11 +159,13 @@ class CrossingDetails extends Component {
       name: e.target.value,
     });
   };
+
   descriptionChanged = e => {
     this.setState({
       description: e.target.value,
     });
   };
+
   humanAddressChanged = e => {
     this.setState({
       humanAddress: e.target.value,
@@ -194,16 +178,11 @@ class CrossingDetails extends Component {
       description: this.props.crossing.description,
     });
   };
-  deleteClicked = () => {
-    this.setState({ delete: true });
-  };
-  deleteCancelClicked = () => {
-    this.setState({ delete: false });
-  };
 
   addCommunityClicked = () => {
     this.setState({ addCommunity: true });
   };
+
   addCommunityCancelClicked = () => {
     this.setState({ addCommunity: false });
   };
@@ -211,6 +190,7 @@ class CrossingDetails extends Component {
   removeCommunityClicked = community => {
     this.setState({ removeCommunity: true, communityToRemove: community });
   };
+
   removeCommunityCancelClicked = () => {
     this.setState({ removeCommunity: false, communityToRemoveId: null });
   };
@@ -283,7 +263,7 @@ class CrossingDetails extends Component {
               </div>
               <span className="light gray--25 mlv1--r">
                 Name your crossings by intersections (ie, Onion Creek Blvd. &
-                5th Ave) or waypoints (5th Ave. Denny's)
+                5th Ave) or waypoints (5th Ave. Denny’s)
               </span>
             </div>
             <input
@@ -415,12 +395,7 @@ class CrossingDetails extends Component {
             currentUser.role !== 'floods_community_editor' &&
             crossingCommunities.length === 1 && (
               <div className="CrossingDetails__buttons flexcontainer">
-                <button
-                  className="button button--plaintext color-highlight"
-                  onClick={this.deleteClicked}
-                >
-                  Delete Crossing
-                </button>
+                <DeleteCrossingButton crossingId={crossing.id} />
               </div>
             )
           )
@@ -432,33 +407,6 @@ class CrossingDetails extends Component {
             >
               Add Crossing
             </button>
-          </div>
-        )}
-
-        {this.state.delete && (
-          <div className="CrossingDetails__delete overlay-container flexcontainer--center">
-            <div className="plv2">
-              <p>
-                The historical data for this crossing will be saved, but you
-                will no longer be able to view or change the change this
-                crossing's status
-              </p>
-              <p>Do you want to continue?</p>
-              <div className="flexcontainer">
-                <button
-                  className="flexitem button button--cancel mlv2--r"
-                  onClick={this.deleteCancelClicked}
-                >
-                  No, Go Back
-                </button>
-                <button
-                  className="flexitem button button--confirm mlv2--l"
-                  onClick={this.deleteCrossing}
-                >
-                  Yes, Delete
-                </button>
-              </div>
-            </div>
           </div>
         )}
 
@@ -491,8 +439,6 @@ class CrossingDetails extends Component {
     );
   }
 }
-
-/**/
 
 const updateCrossingMutation = gql`
   mutation editCrossing(
@@ -533,17 +479,6 @@ const addCrossingMutation = gql`
     ) {
       crossing {
         id
-      }
-    }
-  }
-`;
-
-const deleteCrossingMutation = gql`
-  mutation deleteCrossingMutation($crossingId: Int!) {
-    removeCrossing(input: { crossingId: $crossingId }) {
-      crossing {
-        id
-        active
       }
     }
   }
@@ -599,9 +534,6 @@ export default compose(
   }),
   graphql(addCrossingMutation, {
     name: 'addCrossingMutation',
-  }),
-  graphql(deleteCrossingMutation, {
-    name: 'deleteCrossingMutation',
   }),
   graphql(addCrossingToCommunityMutation, {
     name: 'addCrossingToCommunityMutation',

@@ -1,0 +1,62 @@
+.FloodsModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.FloodsModalDialog {
+  max-width: 500px;
+  margin: 1.75rem auto;
+}
+.FloodsModalDialog:focus {
+  outline: none;
+}
+
+.FloodsModal {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  outline: 0;
+  background: #fff;
+  border-radius: 5px;
+  background-clip: padding-box;
+}
+.FloodsModalHeader {
+  font-size: 1.8rem;
+  padding: 1rem 1.5rem;
+  color: #000;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.FloodsModalHeader__title {
+  flex: 1;
+}
+.FloodsModalHeader__close {
+  align-self: flex-end;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #547281;
+}
+
+.FloodsModalContent {
+  padding: 1.5rem;
+  padding-top: 0;
+}
+
+.FloodsModalFooter {
+  border-top: 1px solid #e9ecef;
+  padding: 1rem 1.5rem;
+}
