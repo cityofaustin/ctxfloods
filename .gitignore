@@ -1,13 +1,6 @@
 node_modules
-backend/node_modules
-backend/pgCatalog/pgCatalog.json
-!/populateDB/*
-backend/.serverless
-frontend/.DS_Store
-frontend/src/.DS_Store
-frontend/**/*.css
-frontend/src/components/Shared/Map/mapboxstyle-undecorated.json
-frontend/src/components/Shared/Map/mapboxstyle.json
-frontend/src/stories/schema/schema.graphql
-frontend/src/stories/schema/schema.js
+src/.DS_Store
+**/*.css
 .DS_Store
+**/*.orig
+yarn-error.log
