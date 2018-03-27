@@ -1,13 +1,6 @@
 language: node_js
 node_js:
 - 8
-addons:
-  postgresql: 9.5
-  apt:
-    packages:
-    - postgresql-9.5-postgis-2.3
-services:
-- postgresql
 before_script: yarn;
 script: yarn test && yarn build;
 deploy:
