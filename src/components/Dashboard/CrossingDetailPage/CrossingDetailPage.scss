@@ -12,7 +12,8 @@
 
     .CrossingDetails {
       order: 2;
-      @include flexcontainer--column;
+      display: flex;
+      flex-direction: column;
       justify-content: space-between;
       min-height: 350px;
     }
