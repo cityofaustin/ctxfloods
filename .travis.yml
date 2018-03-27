@@ -3,6 +3,7 @@ node_js:
 - 8
 before_script: yarn;
 script: yarn test;
+before_deploy: yarn build;
 deploy:
   provider: s3
   access_key_id: "$AWS_ACCESS_KEY_ID"
@@ -11,7 +12,6 @@ deploy:
   skip_cleanup: true
   local_dir: build
   acl: public_read
-  script: yarn build;
   on:
     all_branches: true
     condition: "$AWS_ACCESS_KEY_ID"
