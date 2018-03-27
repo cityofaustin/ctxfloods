@@ -1,8 +1,6 @@
-@import 'css/mixins/flexbox';
-
 .TopBar {
-  @include flexcontainer;
-  @include flexitem;
+  display: flex;
+  flex: 1;
   align-items: center;
   background: #000000;
   color: #969696;

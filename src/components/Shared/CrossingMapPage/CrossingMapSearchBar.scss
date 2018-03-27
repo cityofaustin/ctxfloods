@@ -1,5 +1,3 @@
-@import 'css/mixins/flexbox';
-
 @mixin placeholder {
   &::-webkit-input-placeholder {
     @content;
@@ -30,7 +28,7 @@
   background: #3b77bd;
   color: #8bbadb;
   min-height: 50px;
-  @include flexcontainer;
+  display: flex;
 }
 
 .CrossingMapSearchBar__location-icon {
@@ -93,7 +91,7 @@
 }
 
 .CrossingMapSearchBar__suggestion-container {
-  @include flexcontainer;
+  display: flex;
   background: white;
   margin-top: 1px;
   margin-bottom: 1px;

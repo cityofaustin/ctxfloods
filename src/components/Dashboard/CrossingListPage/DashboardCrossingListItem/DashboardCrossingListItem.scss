@@ -8,8 +8,9 @@
   padding: 2rem;
 }
 
-.DashboardCrossingListItem--layout-list, .DashboardCrossingListItem--layout-list .DashboardCrossingListItem__overview {
-    background: #fff;
+.DashboardCrossingListItem--layout-list,
+.DashboardCrossingListItem--layout-list .DashboardCrossingListItem__overview {
+  background: #fff;
 }
 
 .DashboardCrossingListItem__controls {
@@ -54,7 +55,8 @@
   text-align: right;
 }
 
-.DashboardCrossingListItem__community-list, .DashboardCrossingListItem__user {
+.DashboardCrossingListItem__community-list,
+.DashboardCrossingListItem__user {
   margin-top: 0.5rem;
 }
 
@@ -81,8 +83,4 @@
 
 .DashboardCrossingListItem__cancel-button {
   margin-right: 1.5rem;
-}
-
-.DashboardCrossingListItem__save-button {
-
 }
