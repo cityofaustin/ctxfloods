@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@storybook/addon-storyshots": "3.3.14",
-    "@storybook/cli": "3.3.14",
-    "@storybook/react": "3.3.14",
+    "@storybook/addon-storyshots": "3.3.15",
+    "@storybook/cli": "3.3.15",
+    "@storybook/react": "3.3.15",
     "apollo-cache-inmemory": "1.1.9",
     "apollo-client": "2.2.5",
     "apollo-link-http": "1.5.2",
