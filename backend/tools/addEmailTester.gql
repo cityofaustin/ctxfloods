@@ -1,8 +1,0 @@
-mutation {
-  registerUser(input: {firstName: "test", lastName: "test", jobTitle: "test", communityId: 9009, phoneNumber: "5", email: "ctxfloodstestmailer@gmail.com", password: "texasfloods", role: "floods_community_admin"}) {
-    user {
-      id
-      emailAddress
-    }
-  }
-}

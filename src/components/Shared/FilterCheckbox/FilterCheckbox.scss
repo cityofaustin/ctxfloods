@@ -1,0 +1,19 @@
+.FilterCheckbox {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.FilterCheckbox__button {
+  padding: 0 0.5rem;
+  &:focus {
+    outline: 0;
+  }
+}
+.FilterCheckbox__children {
+  font-size: 1.3rem;
+  line-height: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+}

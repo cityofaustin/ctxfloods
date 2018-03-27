@@ -1,0 +1,2975 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Crossing Details Small Width 1`] = `
+<div
+  className="storybook--sm"
+>
+  <div
+    className="CrossingDetails dirty-container mlv2 plv2"
+  >
+    <div
+      className="CrossingDetails__details"
+    >
+      <div>
+        <div>
+          <span
+            className="strong gray--75 mlv1--r"
+          >
+            ID#
+          </span>
+           
+          <span
+            className="italic light gray--50"
+          >
+            1
+          </span>
+        </div>
+        <div>
+          <span
+            className="strong gray--75 mlv1--r"
+          >
+            Address
+          </span>
+           
+          <span
+            className="italic light gray--50"
+          >
+            at city hall
+          </span>
+        </div>
+      </div>
+      <div>
+        <span
+          className="strong gray--75 mlv1--r"
+        >
+          GPS
+        </span>
+         
+        <span
+          className="italic light gray--50"
+        >
+          30°16'1.200"N 97°46'4.800"W
+        </span>
+      </div>
+      <div
+        className="mlv2--t"
+      >
+        <div>
+          <div>
+            <span
+              className="gray--75 mlv1--r"
+            >
+              Display Name*
+            </span>
+          </div>
+          <span
+            className="light gray--25 mlv1--r"
+          >
+            Name your crossings by intersections (ie, Onion Creek Blvd. & 5th Ave) or waypoints (5th Ave. Denny's)
+          </span>
+        </div>
+        <input
+          className="input input--lg"
+          id="crossingName"
+          onChange={[Function]}
+          type="text"
+          value="Spurlock Valley"
+        />
+      </div>
+      <div
+        className="mlv2--t"
+      >
+        <div>
+          <div>
+            <span
+              className="gray--75 mlv1--r"
+            >
+              Additional Description (optional)
+            </span>
+          </div>
+          <span
+            className="light gray--25 mlv1--r"
+          >
+            Does the location need additional clarification? ie, "Southbound lane only"
+          </span>
+        </div>
+        <input
+          className="input"
+          id="crossingDescription"
+          onChange={[Function]}
+          type="text"
+          value="E of Intersection w/ Clifford"
+        />
+      </div>
+      <div
+        className="CrossingDetails__communities mlv2--t"
+      >
+        <button
+          className="button button--secondary mlv2--r mlv2--b"
+        >
+          All of Texas.
+        </button>
+      </div>
+    </div>
+    <div
+      className="CrossingDetails__buttons flexcontainer"
+    >
+      <button
+        className="button button--plaintext color-highlight"
+        onClick={[Function]}
+      >
+        Delete Crossing
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Header Large Width 1`] = `
+<div
+  className="storybook--lg"
+>
+  <div
+    className="CrossingListHeaderContainer"
+  >
+    <div
+      className="CrossingListHeader"
+    >
+      <div
+        className="CrossingListSearch"
+      >
+        <input
+          className="CrossingListSearchInput"
+          onChange={undefined}
+          placeholder="Search your crossings"
+          type="text"
+          value={undefined}
+        />
+        <div
+          className="CrossingListSearchButton"
+        >
+          <span
+            aria-hidden={true}
+            className="fa fa-search"
+          >
+            <span
+              style={
+                Object {
+                  "border": "0px",
+                  "clip": "rect(0px, 0px, 0px, 0px)",
+                  "height": "1px",
+                  "margin": "-1px",
+                  "overflow": "hidden",
+                  "padding": "0px",
+                  "position": "absolute",
+                  "width": "1px",
+                }
+              }
+            >
+              Search
+            </span>
+          </span>
+        </div>
+      </div>
+      <div
+        className="CrossingListFilterContainer CrossingListFilterContainer--disabled"
+      >
+        <div
+          className="CrossingListFilter"
+        >
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Open 
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Caution
+               
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Closed
+               
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Long-Term Closure
+               
+            </div>
+          </label>
+        </div>
+      </div>
+      <div
+        className="CrossingListSpacer"
+      />
+      <div
+        className="CrossingListToggleMenu"
+      >
+        <div
+          className="CrossingListSortToggle"
+          onClick={undefined}
+        >
+          Last Updated
+          <div
+            className="CrossingListToggle__icon"
+          >
+            <span
+              aria-hidden={true}
+              className="fa fa-caret-down"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Descending
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          className="CrossingListFilterToggle"
+          onClick={[Function]}
+        >
+          Filter
+          <div
+            className="CrossingListToggle__icon"
+          >
+            <span
+              aria-hidden={true}
+              className="fa fa-plus"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Show
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Header Small Width 1`] = `
+<div
+  className="storybook--sm"
+>
+  <div
+    className="CrossingListHeaderContainer"
+  >
+    <div
+      className="CrossingListHeader"
+    >
+      <div
+        className="CrossingListSearch"
+      >
+        <input
+          className="CrossingListSearchInput"
+          onChange={undefined}
+          placeholder="Search your crossings"
+          type="text"
+          value={undefined}
+        />
+        <div
+          className="CrossingListSearchButton"
+        >
+          <span
+            aria-hidden={true}
+            className="fa fa-search"
+          >
+            <span
+              style={
+                Object {
+                  "border": "0px",
+                  "clip": "rect(0px, 0px, 0px, 0px)",
+                  "height": "1px",
+                  "margin": "-1px",
+                  "overflow": "hidden",
+                  "padding": "0px",
+                  "position": "absolute",
+                  "width": "1px",
+                }
+              }
+            >
+              Search
+            </span>
+          </span>
+        </div>
+      </div>
+      <div
+        className="CrossingListFilterContainer CrossingListFilterContainer--disabled"
+      >
+        <div
+          className="CrossingListFilter"
+        >
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Open 
+              (6)
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Caution
+               
+              (6)
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Closed
+               
+              (6)
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Long-Term Closure
+               
+              (6)
+            </div>
+          </label>
+        </div>
+      </div>
+      <div
+        className="CrossingListSpacer"
+      />
+      <div
+        className="CrossingListToggleMenu"
+      >
+        <div
+          className="CrossingListSortToggle"
+          onClick={undefined}
+        >
+          Last Updated
+          <div
+            className="CrossingListToggle__icon"
+          >
+            <span
+              aria-hidden={true}
+              className="fa fa-caret-down"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Descending
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          className="CrossingListFilterToggle"
+          onClick={[Function]}
+        >
+          Filter
+          <div
+            className="CrossingListToggle__icon"
+          >
+            <span
+              aria-hidden={true}
+              className="fa fa-plus"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Show
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Caution 1`] = `
+<div
+  className=""
+>
+  <div
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
+  >
+    <div
+      className="DashboardCrossingListItem__overview"
+    >
+      <div
+        className="DashboardCrossingListItem__crossing-name"
+      >
+        <a
+          href="/dashboard/crossing/1"
+        >
+          Spurlock Valley
+        </a>
+      </div>
+      <div
+        className="DashboardCrossingListItem__overview-details"
+      >
+        <div
+          className="DashboardCrossingListItem__overview-location"
+        >
+          <div
+            className="CrossingListItemLocationContainer"
+          >
+            <div>
+              605 Spurlock Valley · West Lake Hills, TX 78746
+            </div>
+            <div
+              className="CrossingListItemLocationContainer__description"
+            >
+              E of Intersection w/ Clifford
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__community-list"
+          >
+            <div
+              className="CrossingCommunityList"
+            >
+              <a
+                href="/"
+              >
+                All of Texas.
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__overview-meta"
+        >
+          <div>
+            10/10/2017
+          </div>
+          <div>
+            4:35 AM
+          </div>
+          <div
+            className="DashboardCrossingListItem__user"
+          >
+            S. Admin
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__controls"
+    >
+      <div
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            <div>
+              Status: 
+              Caution
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="StatusToggleContainer"
+          >
+            <div
+              className="StatusToggleItem StatusToggleItem__open"
+              onClick={[Function]}
+            >
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__caution active"
+              onClick={[Function]}
+            >
+              <img
+                alt="Caution"
+                src="status-caution.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__closed"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__longterm"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Reason
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="Dropdown"
+          >
+            <select
+              className="Dropdown__select"
+              defaultValue={1}
+              id=""
+              name=""
+              onChange={[Function]}
+            >
+              <option
+                value={1}
+              >
+                Flooded
+              </option>
+              <option
+                value={2}
+              >
+                Bridge Broken
+              </option>
+            </select>
+            <div
+              className="Chevron"
+            >
+              <span
+                aria-hidden={true}
+                className="fa fa-chevron-down"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Notes to the public
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <input
+            className="DashboardCrossingListItem__notes-text-box"
+            onChange={[Function]}
+            type="text"
+            value="Watch Out"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
+<div
+  className="DashboardCrossingListItem--dirty"
+>
+  <div
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
+  >
+    <div
+      className="DashboardCrossingListItem__overview"
+    >
+      <div
+        className="DashboardCrossingListItem__crossing-name"
+      >
+        <a
+          href="/dashboard/crossing/1"
+        >
+          Spurlock Valley
+        </a>
+      </div>
+      <div
+        className="DashboardCrossingListItem__overview-details"
+      >
+        <div
+          className="DashboardCrossingListItem__overview-location"
+        >
+          <div
+            className="CrossingListItemLocationContainer"
+          >
+            <div>
+              605 Spurlock Valley · West Lake Hills, TX 78746
+            </div>
+            <div
+              className="CrossingListItemLocationContainer__description"
+            >
+              E of Intersection w/ Clifford
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__community-list"
+          >
+            <div
+              className="CrossingCommunityList"
+            >
+              <a
+                href="/"
+              >
+                All of Texas.
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__overview-meta"
+        >
+          <div>
+            10/10/2017
+          </div>
+          <div>
+            4:35 AM
+          </div>
+          <div
+            className="DashboardCrossingListItem__user"
+          >
+            S. Admin
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__controls"
+    >
+      <div
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            <div>
+              Status: 
+              Caution
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="StatusToggleContainer"
+          >
+            <div
+              className="StatusToggleItem StatusToggleItem__open"
+              onClick={[Function]}
+            >
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__caution active"
+              onClick={[Function]}
+            >
+              <img
+                alt="Caution"
+                src="status-caution.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__closed"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__longterm"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Reason
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-required"
+          >
+            Required
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="Dropdown"
+          >
+            <select
+              className="Dropdown__select"
+              defaultValue={1}
+              id=""
+              name=""
+              onChange={[Function]}
+            >
+              <option
+                value={1}
+              >
+                Flooded
+              </option>
+              <option
+                value={2}
+              >
+                Bridge Broken
+              </option>
+            </select>
+            <div
+              className="Chevron"
+            >
+              <span
+                aria-hidden={true}
+                className="fa fa-chevron-down"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Notes to the public
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <input
+            className="DashboardCrossingListItem__notes-text-box"
+            onChange={[Function]}
+            type="text"
+            value="Watch Out"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__button-container"
+    >
+      <button
+        className="Shared__button DashboardCrossingListItem__cancel-button Shared__button--secondary"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="Shared__button DashboardCrossingListItem__save-button Shared__button--primary"
+        onClick={[Function]}
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Closed 1`] = `
+<div
+  className=""
+>
+  <div
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
+  >
+    <div
+      className="DashboardCrossingListItem__overview"
+    >
+      <div
+        className="DashboardCrossingListItem__crossing-name"
+      >
+        <a
+          href="/dashboard/crossing/1"
+        >
+          Spurlock Valley
+        </a>
+      </div>
+      <div
+        className="DashboardCrossingListItem__overview-details"
+      >
+        <div
+          className="DashboardCrossingListItem__overview-location"
+        >
+          <div
+            className="CrossingListItemLocationContainer"
+          >
+            <div>
+              605 Spurlock Valley · West Lake Hills, TX 78746
+            </div>
+            <div
+              className="CrossingListItemLocationContainer__description"
+            >
+              E of Intersection w/ Clifford
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__community-list"
+          >
+            <div
+              className="CrossingCommunityList"
+            >
+              <a
+                href="/"
+              >
+                All of Texas.
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__overview-meta"
+        >
+          <div>
+            10/10/2017
+          </div>
+          <div>
+            4:35 AM
+          </div>
+          <div
+            className="DashboardCrossingListItem__user"
+          >
+            S. Admin
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__controls"
+    >
+      <div
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            <div>
+              Status: 
+              Closed
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="StatusToggleContainer"
+          >
+            <div
+              className="StatusToggleItem StatusToggleItem__open"
+              onClick={[Function]}
+            >
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__caution"
+              onClick={[Function]}
+            >
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__closed active"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed"
+                src="status-closed.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__longterm"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Reason
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="Dropdown"
+          >
+            <select
+              className="Dropdown__select"
+              defaultValue={1}
+              id=""
+              name=""
+              onChange={[Function]}
+            >
+              <option
+                value={1}
+              >
+                Flooded
+              </option>
+              <option
+                value={2}
+              >
+                Bridge Broken
+              </option>
+            </select>
+            <div
+              className="Chevron"
+            >
+              <span
+                aria-hidden={true}
+                className="fa fa-chevron-down"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Notes to the public
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <input
+            className="DashboardCrossingListItem__notes-text-box"
+            onChange={[Function]}
+            type="text"
+            value="No Go"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
+<div
+  className="DashboardCrossingListItem--dirty"
+>
+  <div
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
+  >
+    <div
+      className="DashboardCrossingListItem__overview"
+    >
+      <div
+        className="DashboardCrossingListItem__crossing-name"
+      >
+        <a
+          href="/dashboard/crossing/1"
+        >
+          Spurlock Valley
+        </a>
+      </div>
+      <div
+        className="DashboardCrossingListItem__overview-details"
+      >
+        <div
+          className="DashboardCrossingListItem__overview-location"
+        >
+          <div
+            className="CrossingListItemLocationContainer"
+          >
+            <div>
+              605 Spurlock Valley · West Lake Hills, TX 78746
+            </div>
+            <div
+              className="CrossingListItemLocationContainer__description"
+            >
+              E of Intersection w/ Clifford
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__community-list"
+          >
+            <div
+              className="CrossingCommunityList"
+            >
+              <a
+                href="/"
+              >
+                All of Texas.
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__overview-meta"
+        >
+          <div>
+            10/10/2017
+          </div>
+          <div>
+            4:35 AM
+          </div>
+          <div
+            className="DashboardCrossingListItem__user"
+          >
+            S. Admin
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__controls"
+    >
+      <div
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            <div>
+              Status: 
+              Closed
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="StatusToggleContainer"
+          >
+            <div
+              className="StatusToggleItem StatusToggleItem__open"
+              onClick={[Function]}
+            >
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__caution"
+              onClick={[Function]}
+            >
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__closed active"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed"
+                src="status-closed.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__longterm"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Reason
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-required"
+          >
+            Required
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="Dropdown"
+          >
+            <select
+              className="Dropdown__select"
+              defaultValue={1}
+              id=""
+              name=""
+              onChange={[Function]}
+            >
+              <option
+                value={1}
+              >
+                Flooded
+              </option>
+              <option
+                value={2}
+              >
+                Bridge Broken
+              </option>
+            </select>
+            <div
+              className="Chevron"
+            >
+              <span
+                aria-hidden={true}
+                className="fa fa-chevron-down"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Notes to the public
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <input
+            className="DashboardCrossingListItem__notes-text-box"
+            onChange={[Function]}
+            type="text"
+            value="No Go"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__button-container"
+    >
+      <button
+        className="Shared__button DashboardCrossingListItem__cancel-button Shared__button--secondary"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="Shared__button DashboardCrossingListItem__save-button Shared__button--primary"
+        onClick={[Function]}
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Large Width 1`] = `
+<div
+  className="storybook--lg"
+>
+  <div
+    className=""
+  >
+    <div
+      className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
+    >
+      <div
+        className="DashboardCrossingListItem__overview"
+      >
+        <div
+          className="DashboardCrossingListItem__crossing-name"
+        >
+          <a
+            href="/dashboard/crossing/1"
+          >
+            Spurlock Valley
+          </a>
+        </div>
+        <div
+          className="DashboardCrossingListItem__overview-details"
+        >
+          <div
+            className="DashboardCrossingListItem__overview-location"
+          >
+            <div
+              className="CrossingListItemLocationContainer"
+            >
+              <div>
+                605 Spurlock Valley · West Lake Hills, TX 78746
+              </div>
+              <div
+                className="CrossingListItemLocationContainer__description"
+              >
+                E of Intersection w/ Clifford
+              </div>
+            </div>
+            <div
+              className="DashboardCrossingListItem__community-list"
+            >
+              <div
+                className="CrossingCommunityList"
+              >
+                <a
+                  href="/"
+                >
+                  All of Texas.
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__overview-meta"
+          >
+            <div>
+              10/10/2017
+            </div>
+            <div>
+              4:35 AM
+            </div>
+            <div
+              className="DashboardCrossingListItem__user"
+            >
+              S. Admin
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__controls"
+      >
+        <div
+          className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
+        >
+          <div
+            className="DashboardCrossingListItem__control-meta"
+          >
+            <div
+              className="DashboardCrossingListItem__control-label"
+            >
+              <div>
+                Status: 
+                Closed Longterm
+              </div>
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-children"
+          >
+            <div
+              className="StatusToggleContainer"
+            >
+              <div
+                className="StatusToggleItem StatusToggleItem__open"
+                onClick={[Function]}
+              >
+                <img
+                  alt="Open"
+                  src="status-open-inactive.svg"
+                />
+              </div>
+              <div
+                className="StatusToggleItem StatusToggleItem__caution"
+                onClick={[Function]}
+              >
+                <img
+                  alt="Caution"
+                  src="status-caution-inactive.svg"
+                />
+              </div>
+              <div
+                className="StatusToggleItem StatusToggleItem__closed"
+                onClick={[Function]}
+              >
+                <img
+                  alt="Closed"
+                  src="status-closed-inactive.svg"
+                />
+              </div>
+              <div
+                className="StatusToggleItem StatusToggleItem__longterm active"
+                onClick={[Function]}
+              >
+                <img
+                  alt="Closed Long-Term"
+                  src="status-long-term.svg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control"
+        >
+          <div
+            className="DashboardCrossingListItem__control-meta"
+          >
+            <div
+              className="DashboardCrossingListItem__control-label"
+            >
+              Reason
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-children"
+          >
+            <div
+              className="Dropdown"
+            >
+              <select
+                className="Dropdown__select"
+                defaultValue={2}
+                id=""
+                name=""
+                onChange={[Function]}
+              >
+                <option
+                  value={1}
+                >
+                  Flooded
+                </option>
+                <option
+                  value={2}
+                >
+                  Bridge Broken
+                </option>
+              </select>
+              <div
+                className="Chevron"
+              >
+                <span
+                  aria-hidden={true}
+                  className="fa fa-chevron-down"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control"
+        >
+          <div
+            className="DashboardCrossingListItem__control-meta"
+          >
+            <div
+              className="DashboardCrossingListItem__control-label"
+            >
+              Notes to the public
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-children"
+          >
+            <input
+              className="DashboardCrossingListItem__notes-text-box"
+              onChange={[Function]}
+              type="text"
+              value="Gonna be a while"
+            />
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control"
+        >
+          <div
+            className="DashboardCrossingListItem__control-meta"
+          >
+            <div
+              className="DashboardCrossingListItem__control-label"
+            >
+              Duration
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-children"
+          >
+            <div
+              className="Dropdown"
+            >
+              <select
+                className="Dropdown__select"
+                defaultValue={2}
+                id=""
+                name=""
+                onChange={[Function]}
+              >
+                <option
+                  value={1}
+                >
+                  A Minute
+                </option>
+                <option
+                  value={2}
+                >
+                  A Week
+                </option>
+              </select>
+              <div
+                className="Chevron"
+              >
+                <span
+                  aria-hidden={true}
+                  className="fa fa-chevron-down"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Location Location 1`] = `
+<div
+  className="CrossingListItemLocationContainer"
+>
+  <div>
+    605 Spurlock Valley · West Lake Hills, TX 78746
+  </div>
+  <div
+    className="CrossingListItemLocationContainer__description"
+  >
+    E of Intersection w/ Clifford
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Long-Term Closure 1`] = `
+<div
+  className=""
+>
+  <div
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
+  >
+    <div
+      className="DashboardCrossingListItem__overview"
+    >
+      <div
+        className="DashboardCrossingListItem__crossing-name"
+      >
+        <a
+          href="/dashboard/crossing/1"
+        >
+          Spurlock Valley
+        </a>
+      </div>
+      <div
+        className="DashboardCrossingListItem__overview-details"
+      >
+        <div
+          className="DashboardCrossingListItem__overview-location"
+        >
+          <div
+            className="CrossingListItemLocationContainer"
+          >
+            <div>
+              605 Spurlock Valley · West Lake Hills, TX 78746
+            </div>
+            <div
+              className="CrossingListItemLocationContainer__description"
+            >
+              E of Intersection w/ Clifford
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__community-list"
+          >
+            <div
+              className="CrossingCommunityList"
+            >
+              <a
+                href="/"
+              >
+                All of Texas.
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__overview-meta"
+        >
+          <div>
+            10/10/2017
+          </div>
+          <div>
+            4:35 AM
+          </div>
+          <div
+            className="DashboardCrossingListItem__user"
+          >
+            S. Admin
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__controls"
+    >
+      <div
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            <div>
+              Status: 
+              Closed Longterm
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="StatusToggleContainer"
+          >
+            <div
+              className="StatusToggleItem StatusToggleItem__open"
+              onClick={[Function]}
+            >
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__caution"
+              onClick={[Function]}
+            >
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__closed"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__longterm active"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term.svg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Reason
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="Dropdown"
+          >
+            <select
+              className="Dropdown__select"
+              defaultValue={2}
+              id=""
+              name=""
+              onChange={[Function]}
+            >
+              <option
+                value={1}
+              >
+                Flooded
+              </option>
+              <option
+                value={2}
+              >
+                Bridge Broken
+              </option>
+            </select>
+            <div
+              className="Chevron"
+            >
+              <span
+                aria-hidden={true}
+                className="fa fa-chevron-down"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Notes to the public
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <input
+            className="DashboardCrossingListItem__notes-text-box"
+            onChange={[Function]}
+            type="text"
+            value="Gonna be a while"
+          />
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Duration
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="Dropdown"
+          >
+            <select
+              className="Dropdown__select"
+              defaultValue={2}
+              id=""
+              name=""
+              onChange={[Function]}
+            >
+              <option
+                value={1}
+              >
+                A Minute
+              </option>
+              <option
+                value={2}
+              >
+                A Week
+              </option>
+            </select>
+            <div
+              className="Chevron"
+            >
+              <span
+                aria-hidden={true}
+                className="fa fa-chevron-down"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Long-Term Closure Dirty 1`] = `
+<div
+  className="DashboardCrossingListItem--dirty"
+>
+  <div
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
+  >
+    <div
+      className="DashboardCrossingListItem__overview"
+    >
+      <div
+        className="DashboardCrossingListItem__crossing-name"
+      >
+        <a
+          href="/dashboard/crossing/1"
+        >
+          Spurlock Valley
+        </a>
+      </div>
+      <div
+        className="DashboardCrossingListItem__overview-details"
+      >
+        <div
+          className="DashboardCrossingListItem__overview-location"
+        >
+          <div
+            className="CrossingListItemLocationContainer"
+          >
+            <div>
+              605 Spurlock Valley · West Lake Hills, TX 78746
+            </div>
+            <div
+              className="CrossingListItemLocationContainer__description"
+            >
+              E of Intersection w/ Clifford
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__community-list"
+          >
+            <div
+              className="CrossingCommunityList"
+            >
+              <a
+                href="/"
+              >
+                All of Texas.
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__overview-meta"
+        >
+          <div>
+            10/10/2017
+          </div>
+          <div>
+            4:35 AM
+          </div>
+          <div
+            className="DashboardCrossingListItem__user"
+          >
+            S. Admin
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__controls"
+    >
+      <div
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            <div>
+              Status: 
+              Closed Longterm
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="StatusToggleContainer"
+          >
+            <div
+              className="StatusToggleItem StatusToggleItem__open"
+              onClick={[Function]}
+            >
+              <img
+                alt="Open"
+                src="status-open-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__caution"
+              onClick={[Function]}
+            >
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__closed"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__longterm active"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term.svg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Reason
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-required"
+          >
+            Required
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="Dropdown"
+          >
+            <select
+              className="Dropdown__select"
+              defaultValue={2}
+              id=""
+              name=""
+              onChange={[Function]}
+            >
+              <option
+                value={1}
+              >
+                Flooded
+              </option>
+              <option
+                value={2}
+              >
+                Bridge Broken
+              </option>
+            </select>
+            <div
+              className="Chevron"
+            >
+              <span
+                aria-hidden={true}
+                className="fa fa-chevron-down"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Notes to the public
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <input
+            className="DashboardCrossingListItem__notes-text-box"
+            onChange={[Function]}
+            type="text"
+            value="Gonna be a while"
+          />
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Duration
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-required"
+          >
+            Required
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="Dropdown"
+          >
+            <select
+              className="Dropdown__select"
+              defaultValue={2}
+              id=""
+              name=""
+              onChange={[Function]}
+            >
+              <option
+                value={1}
+              >
+                A Minute
+              </option>
+              <option
+                value={2}
+              >
+                A Week
+              </option>
+            </select>
+            <div
+              className="Chevron"
+            >
+              <span
+                aria-hidden={true}
+                className="fa fa-chevron-down"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__button-container"
+    >
+      <button
+        className="Shared__button DashboardCrossingListItem__cancel-button Shared__button--secondary"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="Shared__button DashboardCrossingListItem__save-button Shared__button--primary"
+        onClick={[Function]}
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Open 1`] = `
+<div
+  className=""
+>
+  <div
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
+  >
+    <div
+      className="DashboardCrossingListItem__overview"
+    >
+      <div
+        className="DashboardCrossingListItem__crossing-name"
+      >
+        <a
+          href="/dashboard/crossing/1"
+        >
+          Spurlock Valley
+        </a>
+      </div>
+      <div
+        className="DashboardCrossingListItem__overview-details"
+      >
+        <div
+          className="DashboardCrossingListItem__overview-location"
+        >
+          <div
+            className="CrossingListItemLocationContainer"
+          >
+            <div>
+              605 Spurlock Valley · West Lake Hills, TX 78746
+            </div>
+            <div
+              className="CrossingListItemLocationContainer__description"
+            >
+              E of Intersection w/ Clifford
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__community-list"
+          >
+            <div
+              className="CrossingCommunityList"
+            >
+              <a
+                href="/"
+              >
+                All of Texas.
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__overview-meta"
+        >
+          <div>
+            10/10/2017
+          </div>
+          <div>
+            4:35 AM
+          </div>
+          <div
+            className="DashboardCrossingListItem__user"
+          >
+            S. Admin
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__controls"
+    >
+      <div
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            <div>
+              Status: 
+              Open
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="StatusToggleContainer"
+          >
+            <div
+              className="StatusToggleItem StatusToggleItem__open active"
+              onClick={[Function]}
+            >
+              <img
+                alt="Open"
+                src="status-open.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__caution"
+              onClick={[Function]}
+            >
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__closed"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__longterm"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Notes to the public
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <input
+            className="DashboardCrossingListItem__notes-text-box"
+            onChange={[Function]}
+            type="text"
+            value="All Clear"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Open Dirty 1`] = `
+<div
+  className="DashboardCrossingListItem--dirty"
+>
+  <div
+    className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
+  >
+    <div
+      className="DashboardCrossingListItem__overview"
+    >
+      <div
+        className="DashboardCrossingListItem__crossing-name"
+      >
+        <a
+          href="/dashboard/crossing/1"
+        >
+          Spurlock Valley
+        </a>
+      </div>
+      <div
+        className="DashboardCrossingListItem__overview-details"
+      >
+        <div
+          className="DashboardCrossingListItem__overview-location"
+        >
+          <div
+            className="CrossingListItemLocationContainer"
+          >
+            <div>
+              605 Spurlock Valley · West Lake Hills, TX 78746
+            </div>
+            <div
+              className="CrossingListItemLocationContainer__description"
+            >
+              E of Intersection w/ Clifford
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__community-list"
+          >
+            <div
+              className="CrossingCommunityList"
+            >
+              <a
+                href="/"
+              >
+                All of Texas.
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__overview-meta"
+        >
+          <div>
+            10/10/2017
+          </div>
+          <div>
+            4:35 AM
+          </div>
+          <div
+            className="DashboardCrossingListItem__user"
+          >
+            S. Admin
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__controls"
+    >
+      <div
+        className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            <div>
+              Status: 
+              Open
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <div
+            className="StatusToggleContainer"
+          >
+            <div
+              className="StatusToggleItem StatusToggleItem__open active"
+              onClick={[Function]}
+            >
+              <img
+                alt="Open"
+                src="status-open.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__caution"
+              onClick={[Function]}
+            >
+              <img
+                alt="Caution"
+                src="status-caution-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__closed"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed"
+                src="status-closed-inactive.svg"
+              />
+            </div>
+            <div
+              className="StatusToggleItem StatusToggleItem__longterm"
+              onClick={[Function]}
+            >
+              <img
+                alt="Closed Long-Term"
+                src="status-long-term-inactive.svg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__control"
+      >
+        <div
+          className="DashboardCrossingListItem__control-meta"
+        >
+          <div
+            className="DashboardCrossingListItem__control-label"
+          >
+            Notes to the public
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control-children"
+        >
+          <input
+            className="DashboardCrossingListItem__notes-text-box"
+            onChange={[Function]}
+            type="text"
+            value="All Clear"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="DashboardCrossingListItem__button-container"
+    >
+      <button
+        className="Shared__button DashboardCrossingListItem__cancel-button Shared__button--secondary"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <button
+        className="Shared__button DashboardCrossingListItem__save-button Shared__button--primary"
+        onClick={[Function]}
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Small Width 1`] = `
+<div
+  className="storybook--sm"
+>
+  <div
+    className=""
+  >
+    <div
+      className="DashboardCrossingListItem DashboardCrossingListItem--layout-undefined"
+    >
+      <div
+        className="DashboardCrossingListItem__overview"
+      >
+        <div
+          className="DashboardCrossingListItem__crossing-name"
+        >
+          <a
+            href="/dashboard/crossing/1"
+          >
+            Spurlock Valley
+          </a>
+        </div>
+        <div
+          className="DashboardCrossingListItem__overview-details"
+        >
+          <div
+            className="DashboardCrossingListItem__overview-location"
+          >
+            <div
+              className="CrossingListItemLocationContainer"
+            >
+              <div>
+                605 Spurlock Valley · West Lake Hills, TX 78746
+              </div>
+              <div
+                className="CrossingListItemLocationContainer__description"
+              >
+                E of Intersection w/ Clifford
+              </div>
+            </div>
+            <div
+              className="DashboardCrossingListItem__community-list"
+            >
+              <div
+                className="CrossingCommunityList"
+              >
+                <a
+                  href="/"
+                >
+                  All of Texas.
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__overview-meta"
+          >
+            <div>
+              10/10/2017
+            </div>
+            <div>
+              4:35 AM
+            </div>
+            <div
+              className="DashboardCrossingListItem__user"
+            >
+              S. Admin
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="DashboardCrossingListItem__controls"
+      >
+        <div
+          className="DashboardCrossingListItem__control DashboardCrossingListItem__control--status"
+        >
+          <div
+            className="DashboardCrossingListItem__control-meta"
+          >
+            <div
+              className="DashboardCrossingListItem__control-label"
+            >
+              <div>
+                Status: 
+                Closed Longterm
+              </div>
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-children"
+          >
+            <div
+              className="StatusToggleContainer"
+            >
+              <div
+                className="StatusToggleItem StatusToggleItem__open"
+                onClick={[Function]}
+              >
+                <img
+                  alt="Open"
+                  src="status-open-inactive.svg"
+                />
+              </div>
+              <div
+                className="StatusToggleItem StatusToggleItem__caution"
+                onClick={[Function]}
+              >
+                <img
+                  alt="Caution"
+                  src="status-caution-inactive.svg"
+                />
+              </div>
+              <div
+                className="StatusToggleItem StatusToggleItem__closed"
+                onClick={[Function]}
+              >
+                <img
+                  alt="Closed"
+                  src="status-closed-inactive.svg"
+                />
+              </div>
+              <div
+                className="StatusToggleItem StatusToggleItem__longterm active"
+                onClick={[Function]}
+              >
+                <img
+                  alt="Closed Long-Term"
+                  src="status-long-term.svg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control"
+        >
+          <div
+            className="DashboardCrossingListItem__control-meta"
+          >
+            <div
+              className="DashboardCrossingListItem__control-label"
+            >
+              Reason
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-children"
+          >
+            <div
+              className="Dropdown"
+            >
+              <select
+                className="Dropdown__select"
+                defaultValue={2}
+                id=""
+                name=""
+                onChange={[Function]}
+              >
+                <option
+                  value={1}
+                >
+                  Flooded
+                </option>
+                <option
+                  value={2}
+                >
+                  Bridge Broken
+                </option>
+              </select>
+              <div
+                className="Chevron"
+              >
+                <span
+                  aria-hidden={true}
+                  className="fa fa-chevron-down"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control"
+        >
+          <div
+            className="DashboardCrossingListItem__control-meta"
+          >
+            <div
+              className="DashboardCrossingListItem__control-label"
+            >
+              Notes to the public
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-children"
+          >
+            <input
+              className="DashboardCrossingListItem__notes-text-box"
+              onChange={[Function]}
+              type="text"
+              value="Gonna be a while"
+            />
+          </div>
+        </div>
+        <div
+          className="DashboardCrossingListItem__control"
+        >
+          <div
+            className="DashboardCrossingListItem__control-meta"
+          >
+            <div
+              className="DashboardCrossingListItem__control-label"
+            >
+              Duration
+            </div>
+          </div>
+          <div
+            className="DashboardCrossingListItem__control-children"
+          >
+            <div
+              className="Dropdown"
+            >
+              <select
+                className="Dropdown__select"
+                defaultValue={2}
+                id=""
+                name=""
+                onChange={[Function]}
+              >
+                <option
+                  value={1}
+                >
+                  A Minute
+                </option>
+                <option
+                  value={2}
+                >
+                  A Week
+                </option>
+              </select>
+              <div
+                className="Chevron"
+              >
+                <span
+                  aria-hidden={true}
+                  className="fa fa-chevron-down"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Status Toggle Caution 1`] = `
+<div
+  className="StatusToggleContainer"
+>
+  <div
+    className="StatusToggleItem StatusToggleItem__open"
+    onClick={[Function]}
+  >
+    <img
+      alt="Open"
+      src="status-open-inactive.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__caution active"
+    onClick={[Function]}
+  >
+    <img
+      alt="Caution"
+      src="status-caution.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__closed"
+    onClick={[Function]}
+  >
+    <img
+      alt="Closed"
+      src="status-closed-inactive.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__longterm"
+    onClick={[Function]}
+  >
+    <img
+      alt="Closed Long-Term"
+      src="status-long-term-inactive.svg"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Status Toggle Closed 1`] = `
+<div
+  className="StatusToggleContainer"
+>
+  <div
+    className="StatusToggleItem StatusToggleItem__open"
+    onClick={[Function]}
+  >
+    <img
+      alt="Open"
+      src="status-open-inactive.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__caution"
+    onClick={[Function]}
+  >
+    <img
+      alt="Caution"
+      src="status-caution-inactive.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__closed active"
+    onClick={[Function]}
+  >
+    <img
+      alt="Closed"
+      src="status-closed.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__longterm"
+    onClick={[Function]}
+  >
+    <img
+      alt="Closed Long-Term"
+      src="status-long-term-inactive.svg"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Status Toggle Long-Term Closure 1`] = `
+<div
+  className="StatusToggleContainer"
+>
+  <div
+    className="StatusToggleItem StatusToggleItem__open"
+    onClick={[Function]}
+  >
+    <img
+      alt="Open"
+      src="status-open-inactive.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__caution"
+    onClick={[Function]}
+  >
+    <img
+      alt="Caution"
+      src="status-caution-inactive.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__closed"
+    onClick={[Function]}
+  >
+    <img
+      alt="Closed"
+      src="status-closed-inactive.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__longterm active"
+    onClick={[Function]}
+  >
+    <img
+      alt="Closed Long-Term"
+      src="status-long-term.svg"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Crossing List Item Status Toggle Open 1`] = `
+<div
+  className="StatusToggleContainer"
+>
+  <div
+    className="StatusToggleItem StatusToggleItem__open active"
+    onClick={[Function]}
+  >
+    <img
+      alt="Open"
+      src="status-open.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__caution"
+    onClick={[Function]}
+  >
+    <img
+      alt="Caution"
+      src="status-caution-inactive.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__closed"
+    onClick={[Function]}
+  >
+    <img
+      alt="Closed"
+      src="status-closed-inactive.svg"
+    />
+  </div>
+  <div
+    className="StatusToggleItem StatusToggleItem__longterm"
+    onClick={[Function]}
+  >
+    <img
+      alt="Closed Long-Term"
+      src="status-long-term-inactive.svg"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots List Users List Users 1`] = `
+<div>
+  Loading
+</div>
+`;
