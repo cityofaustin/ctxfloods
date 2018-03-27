@@ -1,7 +1,5 @@
-@import 'css/mixins/flexbox';
-
 .CrossingMapSidebar__overlay-container {
-  @include flexcontainer;
+  display: flex;
   position: absolute;
   z-index: 1;
   height: 100%;
@@ -10,7 +8,7 @@
 .CrossingMapSidebar__content {
   background: #f8f8f9;
   width: 430px;
-  @include flexcontainer;
+  display: flex;
   flex-direction: column;
   overflow: scroll;
 

@@ -1,17 +1,18 @@
-@import 'css/mixins/flexbox';
-
 .flexcontainer {
-  @include flexcontainer;
+  display: flex;
 }
 
 .flexcontainer--center {
-  @include flexcontainer--center;
+  display: flex;
+  align-items: center;
 }
 
 .flexitem {
-  @include flexitem;
+  flex: 1;
 }
 
 .flexitem--pushed-right {
-  @include flexitem--pushed-right;
+  flex: 1;
+  align-self: center;
+  margin-left: auto;
 }

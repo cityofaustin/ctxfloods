@@ -1,7 +1,5 @@
-@import 'css/mixins/flexbox';
-
 .CrossingMapPage_sidebar-nearby-crossing-container {
-  @include flexcontainer;
+  display: flex;
   background: white;
   padding: 15px;
   border-bottom: 1px solid #cfd8dc;
@@ -29,7 +27,8 @@
   color: #5f7d8c;
 }
 
-.CrossingMapPage_sidebar-nearby-crossing-details-status, .CrossingMapPage_sidebar-nearby-crossing-update-datetime-date {
+.CrossingMapPage_sidebar-nearby-crossing-details-status,
+.CrossingMapPage_sidebar-nearby-crossing-update-datetime-date {
   padding-bottom: 0.5rem;
 }
 
