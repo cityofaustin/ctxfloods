@@ -61,5 +61,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "moduleRoots": ["src"]
 }
