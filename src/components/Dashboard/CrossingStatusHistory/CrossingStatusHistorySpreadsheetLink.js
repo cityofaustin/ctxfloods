@@ -1,33 +1,47 @@
-import CrossingStatusHistorySpreadsheet from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistorySpreadsheet';
-import FontAwesome from 'react-fontawesome';
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 
-class CrossingStatusHistorySpreadsheetLink extends Component {
-  state = {
-    loadSpreadsheet: false,
-  };
+import CrossingStatusHistorySpreadsheetModal from './CrossingStatusHistorySpreadsheetModal';
 
-  generateSpreadsheet = () => {
-    this.setState({ loadSpreadsheet: true });
-  };
+export default class CrossingStatusHistorySpreadsheetLink extends Component {
+  constructor(...args) {
+    super(...args);
+
+    this.state = {
+      isModalOpen: false,
+    };
+  }
 
   render() {
-    const { loadSpreadsheet } = this.state;
-    const { crossingId } = this.props;
-
-    const variables = crossingId ? { crossingId: crossingId } : {};
-
-    return loadSpreadsheet ? (
-      <CrossingStatusHistorySpreadsheet variables={variables} />
-    ) : (
-      <a
-        className="CrossingStatusHistory__spreadsheet-link"
-        onClick={this.generateSpreadsheet}
+    return (
+      <div
+        className="CrossingStatusHistory__download-link"
+        onClick={() =>
+          this.setState({
+            isModalOpen: true,
+          })
+        }
+        role="button"
       >
-        <FontAwesome size="lg" name="file-excel-o" />
-      </a>
+        History
+        <div className="CrossingStatusHistory__download-icon">
+          <FontAwesome
+            size="lg"
+            name="download"
+            ariaLabel="Download crossing history"
+          />
+        </div>
+        {this.state.isModalOpen && (
+          <CrossingStatusHistorySpreadsheetModal
+            onClose={() => {
+              console.log('close');
+              this.setState({
+                isModalOpen: false,
+              });
+            }}
+          />
+        )}
+      </div>
     );
   }
 }
-
-export default CrossingStatusHistorySpreadsheetLink;

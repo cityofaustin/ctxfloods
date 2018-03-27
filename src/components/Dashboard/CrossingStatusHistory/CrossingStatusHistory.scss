@@ -24,6 +24,9 @@
   display: flex;
   max-width: 1100px;
   margin: auto;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .CrossingStatusHistoryItem {
@@ -106,18 +109,31 @@
   font-size: 1.5rem;
 }
 
+.CrossingStatusHistory__section-header {
+
+}
+
 .CrossingStatusHistory__section-header--title {
   flex: 1;
+  display: flex;
+  align-items: center;
 }
 
-.CrossingStatusHistory__spreadsheet-link {
+.CrossingStatusHistory__section-header--history-icon {
+  margin: 0 1rem;
+}
+
+.CrossingStatusHistory__download-link {
+  display: flex;
   flex: 1;
-  text-align: right;
-  color: white;
-  text-decoration: none;
-  letter-spacing: 0.6em;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-.CrossingStatusHistory__spreadsheet-download-link {
+.CrossingStatusHistory__download-icon {
+  margin: 0 1rem;
+}
+
+.CrossingStatusHistory__download-download-link {
   color: #7affaf;
 }
