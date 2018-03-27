@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@storybook/addon-storyshots": "3.3.15",
-    "@storybook/cli": "3.3.15",
-    "@storybook/react": "3.3.15",
     "apollo-cache-inmemory": "1.1.9",
     "apollo-client": "2.2.5",
     "apollo-link-http": "1.5.2",
@@ -22,7 +19,6 @@
     "mobile-detect": "^1.4.1",
     "moment": "2.20.1",
     "node-sass-chokidar": "^0.0.3",
-    "npm-run-all": "4.1.2",
     "prettier": "1.11.1",
     "prop-types": "15.6.1",
     "react": "16.2.0",
@@ -36,12 +32,16 @@
     "react-mapbox-gl": "3.8.0",
     "react-router-dom": "^4.1.1",
     "react-test-renderer": "16.2.0",
-    "react-virtualized": "9.18.5",
-    "storybook-addon-apollo-graphql": "^0.1.2"
+    "react-virtualized": "9.18.5"
   },
   "devDependencies": {
+    "@storybook/addon-storyshots": "3.3.15",
+    "@storybook/cli": "3.3.15",
+    "@storybook/react": "3.3.15",
     "ctxfloods-backend": "https://github.com/cityofaustin/ctxfloods-backend.git#dev",
-    "react-scripts": "1.1.1"
+    "npm-run-all": "4.1.2",
+    "react-scripts": "1.1.1",
+    "storybook-addon-apollo-graphql": "^0.1.2"
   },
   "scripts": {
     "start-js": "NODE_PATH=src react-scripts start",
