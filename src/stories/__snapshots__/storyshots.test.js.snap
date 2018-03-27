@@ -130,7 +130,7 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
   className="storybook--lg"
 >
   <div
-    className="CrossingListHeader-background"
+    className="CrossingListHeaderContainer"
   >
     <div
       className="CrossingListHeader"
@@ -172,120 +172,156 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
         </div>
       </div>
       <div
-        className="CrossingListSortToggle"
-        onClick={undefined}
+        className="CrossingListFilterContainer CrossingListFilterContainer--disabled"
       >
         <div
-          className="CrossingListSortToggleText"
+          className="CrossingListFilter"
         >
-          LAST UPDATED
-           
-          <span
-            aria-hidden={true}
-            className="fa fa-caret-down"
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
           >
-            <span
-              style={
-                Object {
-                  "border": "0px",
-                  "clip": "rect(0px, 0px, 0px, 0px)",
-                  "height": "1px",
-                  "margin": "-1px",
-                  "overflow": "hidden",
-                  "padding": "0px",
-                  "position": "absolute",
-                  "width": "1px",
-                }
-              }
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
             >
-              Descending
-            </span>
-          </span>
+              Open 
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Caution
+               
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Closed
+               
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Long-Term Closure
+               
+            </div>
+          </label>
         </div>
       </div>
       <div
-        className="CrossingListFilter"
+        className="CrossingListSpacer"
+      />
+      <div
+        className="CrossingListToggleMenu"
       >
-        <label
-          className="FilterCheckbox"
+        <div
+          className="CrossingListSortToggle"
+          onClick={undefined}
         >
-          <input
-            alt="Disabled"
-            aria-checked={undefined}
-            className="FilterCheckbox__button"
-            onClick={undefined}
-            role="checkbox"
-            src="checkbox-disabled.svg"
-            type="image"
-          />
+          Last Updated
           <div
-            className="FilterCheckbox__children"
+            className="CrossingListToggle__icon"
           >
-            Open (
-             ... 
-            )
+            <span
+              aria-hidden={true}
+              className="fa fa-caret-down"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Descending
+              </span>
+            </span>
           </div>
-        </label>
-        <label
-          className="FilterCheckbox"
+        </div>
+        <div
+          className="CrossingListFilterToggle"
+          onClick={[Function]}
         >
-          <input
-            alt="Disabled"
-            aria-checked={undefined}
-            className="FilterCheckbox__button"
-            onClick={undefined}
-            role="checkbox"
-            src="checkbox-disabled.svg"
-            type="image"
-          />
+          Filter
           <div
-            className="FilterCheckbox__children"
+            className="CrossingListToggle__icon"
           >
-            Caution (
-             ... 
-            )
+            <span
+              aria-hidden={true}
+              className="fa fa-plus"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Show
+              </span>
+            </span>
           </div>
-        </label>
-        <label
-          className="FilterCheckbox"
-        >
-          <input
-            alt="Disabled"
-            aria-checked={undefined}
-            className="FilterCheckbox__button"
-            onClick={undefined}
-            role="checkbox"
-            src="checkbox-disabled.svg"
-            type="image"
-          />
-          <div
-            className="FilterCheckbox__children"
-          >
-            Closed (
-             ... 
-            )
-          </div>
-        </label>
-        <label
-          className="FilterCheckbox"
-        >
-          <input
-            alt="Disabled"
-            aria-checked={undefined}
-            className="FilterCheckbox__button"
-            onClick={undefined}
-            role="checkbox"
-            src="checkbox-disabled.svg"
-            type="image"
-          />
-          <div
-            className="FilterCheckbox__children"
-          >
-            Long-Term Closure (
-             ... 
-            )
-          </div>
-        </label>
+        </div>
       </div>
     </div>
   </div>
@@ -297,7 +333,7 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
   className="storybook--sm"
 >
   <div
-    className="CrossingListHeader-background"
+    className="CrossingListHeaderContainer"
   >
     <div
       className="CrossingListHeader"
@@ -339,120 +375,160 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
         </div>
       </div>
       <div
-        className="CrossingListSortToggle"
-        onClick={undefined}
+        className="CrossingListFilterContainer CrossingListFilterContainer--disabled"
       >
         <div
-          className="CrossingListSortToggleText"
+          className="CrossingListFilter"
         >
-          LAST UPDATED
-           
-          <span
-            aria-hidden={true}
-            className="fa fa-caret-down"
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
           >
-            <span
-              style={
-                Object {
-                  "border": "0px",
-                  "clip": "rect(0px, 0px, 0px, 0px)",
-                  "height": "1px",
-                  "margin": "-1px",
-                  "overflow": "hidden",
-                  "padding": "0px",
-                  "position": "absolute",
-                  "width": "1px",
-                }
-              }
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
             >
-              Descending
-            </span>
-          </span>
+              Open 
+              (6)
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Caution
+               
+              (6)
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Closed
+               
+              (6)
+            </div>
+          </label>
+          <label
+            className="FilterCheckbox CrossingListFilterCheckbox"
+          >
+            <input
+              alt="Disabled"
+              aria-checked={undefined}
+              className="FilterCheckbox__button"
+              onClick={undefined}
+              role="checkbox"
+              src="checkbox-disabled.svg"
+              type="image"
+            />
+            <div
+              className="FilterCheckbox__children"
+            >
+              Long-Term Closure
+               
+              (6)
+            </div>
+          </label>
         </div>
       </div>
       <div
-        className="CrossingListFilter"
+        className="CrossingListSpacer"
+      />
+      <div
+        className="CrossingListToggleMenu"
       >
-        <label
-          className="FilterCheckbox"
+        <div
+          className="CrossingListSortToggle"
+          onClick={undefined}
         >
-          <input
-            alt="Disabled"
-            aria-checked={undefined}
-            className="FilterCheckbox__button"
-            onClick={undefined}
-            role="checkbox"
-            src="checkbox-disabled.svg"
-            type="image"
-          />
+          Last Updated
           <div
-            className="FilterCheckbox__children"
+            className="CrossingListToggle__icon"
           >
-            Open (
-            6
-            )
+            <span
+              aria-hidden={true}
+              className="fa fa-caret-down"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Descending
+              </span>
+            </span>
           </div>
-        </label>
-        <label
-          className="FilterCheckbox"
+        </div>
+        <div
+          className="CrossingListFilterToggle"
+          onClick={[Function]}
         >
-          <input
-            alt="Disabled"
-            aria-checked={undefined}
-            className="FilterCheckbox__button"
-            onClick={undefined}
-            role="checkbox"
-            src="checkbox-disabled.svg"
-            type="image"
-          />
+          Filter
           <div
-            className="FilterCheckbox__children"
+            className="CrossingListToggle__icon"
           >
-            Caution (
-            6
-            )
+            <span
+              aria-hidden={true}
+              className="fa fa-plus"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Show
+              </span>
+            </span>
           </div>
-        </label>
-        <label
-          className="FilterCheckbox"
-        >
-          <input
-            alt="Disabled"
-            aria-checked={undefined}
-            className="FilterCheckbox__button"
-            onClick={undefined}
-            role="checkbox"
-            src="checkbox-disabled.svg"
-            type="image"
-          />
-          <div
-            className="FilterCheckbox__children"
-          >
-            Closed (
-            6
-            )
-          </div>
-        </label>
-        <label
-          className="FilterCheckbox"
-        >
-          <input
-            alt="Disabled"
-            aria-checked={undefined}
-            className="FilterCheckbox__button"
-            onClick={undefined}
-            role="checkbox"
-            src="checkbox-disabled.svg"
-            type="image"
-          />
-          <div
-            className="FilterCheckbox__children"
-          >
-            Long-Term Closure (
-            6
-            )
-          </div>
-        </label>
+        </div>
       </div>
     </div>
   </div>
