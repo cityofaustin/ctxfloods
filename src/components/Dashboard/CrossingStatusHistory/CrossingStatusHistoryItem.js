@@ -67,8 +67,6 @@ const ReasonDurationNotes = ({
 class CrossingStatusHistoryItem extends Component {
   render() {
     const { update, showNames, measure, cqParams } = this.props;
-    console.log(cqParams);
-
     const user = get(update, 'userByCreatorId', {});
     const statusId = get(update, 'statusByStatusId.id', '--');
     const status = get(update, 'statusByStatusId.name', '--');
