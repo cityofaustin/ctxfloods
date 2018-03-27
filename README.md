@@ -2,9 +2,6 @@
 Central Texas Floods Frontend
 
 ## Set up your development environment
-💾 Install [Postgres](https://www.postgresql.org/) 🐘
-  *  If you're using macOS I strongly recommend using [Postgres.app](http://postgresapp.com/)
-
 💾 [Install yarn](https://yarnpkg.com/en/docs/install)
 
 👯 Clone the repo
