@@ -1,5 +1,5 @@
 # ctxfloods
-Central Texas Floods
+Central Texas Floods Frontend
 
 ## Set up your development environment
 💾 Install [Postgres](https://www.postgresql.org/) 🐘
@@ -12,47 +12,12 @@ Central Texas Floods
 git clone https://github.com/cityofaustin/ctxfloods
 cd ctxfloods
 ```
-### Get the Backend Running
-💾 Install the backend
-```
-cd backend
-yarn install
-```
-🐘  Make sure postgres is running
-* Make sure [psql](https://postgresapp.com/documentation/cli-tools.html) works in your terminal
 
-⌨️ Initialize the database
-```
-yarn init-local-db
-```
-⌨️ Run the local server
-```
-yarn local-server
-```
-<img src="/README/localserverrunning.png" align="middle" height="142" >
-
-✅ Run the tests
-```
-yarn test
-```
-
-_It might be necessary to install Watchman if you see errors running the `yarn test` command. See this Github Issue for more details: https://github.com/facebookincubator/create-react-app/issues/871_
-
-
-<img src="/README/backendtestspassed.png" align="middle" height="93" >
-
-🍻 Cheers! The backend should now be up and running!
 ### Get the frontend running against the local backend
 💾 Install the frontend
 ```
-cd frontend
 yarn install
 ```
-🖋 Build the map style
-```
-yarn build-map-style
-```
-
 ⌨️ Run the frontend against the local backend
 ```
 yarn start-local
@@ -73,13 +38,12 @@ yarn start-local
  🗝 By default all passwords are set to "texasfloods"
 
 ### Get Storybook running
-⌨️ Generate the schema file
+⌨️ If you have made changes to the backend, regenerate the schema file
 ```
-cd frontend
 yarn get-schema
 ```
 
-⌨️ Run storybook from the frontend
+⌨️ Run storybook
 ```
 yarn storybook
 ```
@@ -95,21 +59,16 @@ yarn storybook
 
 ❌ Delete any entries in the env section of [.travis.yml](.travis.yml)
 
-💾 Install [serverless](https://serverless.com/)
-```
-yarn global add serverless
-```
-
 ⌨️  Run the set up deploy script
 ```
+cd deployment
 ./setUpAWSDeploy.sh
 ```
-Upon completion of the script, a new AWS CloudFormation should have been initialized for your branch. .travis.yml will also be updated to include branch specific environment variables.
+Upon completion of the script, a new S3 Bucket should have been initialized for your branch. .travis.yml will also be updated to include branch specific environment variables.
 
 🏗 Your build should appear on [Travis](https://travis-ci.org/)
 
 ### Test the deployed frontend
-//TODO Automate this
 * Go to [S3](https://console.aws.amazon.com/s3/) and find your bucket (it should be ctxfloods-frontend-***your branch name***)
 * Go to Properties -> Static Website Hosting
   * Select **Use this bucket to host a website**
