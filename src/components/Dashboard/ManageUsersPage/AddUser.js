@@ -1,5 +1,20 @@
 import React, { Component } from 'react';
 import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
+import 'components/Dashboard/ManageUsersPage/AddUser.css';
+import EditUserControl from 'components/Dashboard/ManageUsersPage/EditUserControl';
+
+/*
+
+          <label for="email">Email*</label>
+          <input
+            id="email"
+            type="text"
+            value={email}
+            onChange={this.emailChanged}
+          />
+
+*/
+
 
 class AddUser extends Component {
   state = {
@@ -8,6 +23,10 @@ class AddUser extends Component {
     jobTitle: '',
     phoneNumber: '',
     email: '',
+  }
+
+  emailChanged = e => {
+    this.setState({ email: e.target.value });
   }
 
   render() {
@@ -20,19 +39,34 @@ class AddUser extends Component {
 
     return (
       <div className="AddUser">
-        <h1>Add User</h1>
-          <input
-            id="firstName"
-            type="text"
-            value={firstName}
-            onChange={this.firstNameChanged}
-          />
-          <input
-            id="lastName"
-            type="text"
-            value={lastName}
-            onChange={this.lastNameChanged}
-          />
+        <h1>Add New User</h1>
+
+          <EditUserControl label="Email" isRequired>
+            <input
+              className="EditUser__control-text-box"
+              type="text"
+              value={email}
+              onChange={this.emailChanged}
+            />
+          </EditUserControl>
+
+          <div>
+            <label for="firstName">First Name</label>
+            <input
+              id="firstName"
+              type="text"
+              value={firstName}
+              onChange={this.firstNameChanged}
+            />
+            <label for="lastName">Last Name</label>
+            <input
+              id="lastName"
+              type="text"
+              value={lastName}
+              onChange={this.lastNameChanged}
+            />
+          </div>
+          <label for="jobTitle">Job Title</label>
           <input
             id="jobTitle"
             type="text"
@@ -49,12 +83,6 @@ class AddUser extends Component {
             type="text"
             value={phoneNumber}
             onChange={this.phoneNumberChanged}
-          />
-          <input
-            id="email"
-            type="text"
-            value={email}
-            onChange={this.emailChanged}
           />
           <Dropdown
             options={roles}
