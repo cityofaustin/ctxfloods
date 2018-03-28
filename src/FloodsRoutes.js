@@ -4,7 +4,7 @@ import PrivateRoute from 'PrivateRoute';
 import Header from 'components/Dashboard/Header/Header';
 import ManageUsers from 'components/Dashboard/ManageUsersPage/ManageUsers';
 import LoginPage from 'components/Dashboard/LoginPage/LoginPage';
-
+import AddUser from 'components/Dashboard/ManageUsersPage/AddUser';
 import CrossingMapPage from 'components/Shared/CrossingMapPage/CrossingMapPage';
 import CrossingListPage from 'components/Dashboard/CrossingListPage/CrossingListPage';
 import CrossingDetailPage from 'components/Dashboard/CrossingDetailPage/CrossingDetailPage';
@@ -64,6 +64,16 @@ class FloodsRoutes extends Component {
         <PrivateRoute
           path="/dashboard/users"
           component={ManageUsers}
+          authenticated={auth.isAuthenticated()}
+          authorized={auth.roleAuthorized([
+            'floods_community_admin',
+            'floods_super_admin',
+          ])}
+          currentUser={currentUser}
+        />
+        <PrivateRoute
+          path="/dashboard/user/add"
+          component={AddUser}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized([
             'floods_community_admin',
