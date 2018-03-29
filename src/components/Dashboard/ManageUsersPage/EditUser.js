@@ -2,19 +2,8 @@ import React, { Component } from 'react';
 import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
 import 'components/Dashboard/ManageUsersPage/EditUser.css';
 import EditUserControl from 'components/Dashboard/ManageUsersPage/EditUserControl';
-
-/*
-
-          <label for="email">Email*</label>
-          <input
-            id="email"
-            type="text"
-            value={email}
-            onChange={this.emailChanged}
-          />
-
-*/
-
+import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
+import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 
 class EditUser extends Component {
   state = {
@@ -23,6 +12,7 @@ class EditUser extends Component {
     jobTitle: '',
     phoneNumber: '',
     email: '',
+    readyToSubmit: false,
   }
 
   emailChanged = e => {
@@ -39,7 +29,7 @@ class EditUser extends Component {
     const communities = [1, 2];
     const roles = [1, 2];
 
-    const {firstName, lastName, jobTitle, communityId, phoneNumber, email, role} = this.state;
+    const {firstName, lastName, jobTitle, communityId, phoneNumber, email, role, readyToSubmit} = this.state;
 
     return (
         <div className="EditUser">
@@ -120,6 +110,21 @@ class EditUser extends Component {
               onChange={this.phoneNumberChanged}
             />
           </EditUserControl>
+          <div className="EditUser__buttons">
+            <ButtonSecondary
+              className="EditUser__cancel-button"
+              onClick={this.cancelClicked}
+            >
+              Cancel
+            </ButtonSecondary>
+            <ButtonPrimary
+              className="EditUser__next-button"
+              onClick={this.newStatusUpdate}
+              disabled={!readyToSubmit}
+            >
+              Next
+            </ButtonPrimary>
+          </div>
       </div>
     );
   }
