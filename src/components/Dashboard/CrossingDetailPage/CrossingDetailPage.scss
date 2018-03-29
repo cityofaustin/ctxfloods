@@ -1,3 +1,13 @@
+
+.AddCrossingPage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.AddCrossingPage, .CrossingDetailPage {
+  background: #fff;
+}
+
 .CrossingDetails__container {
   display: flex;
   flex-direction: column;
@@ -5,6 +15,7 @@
   &.CrossingDetails__container--lg {
     display: flex;
     flex-direction: row;
+    flex: 1;
 
     .CrossingStaticMap {
       order: 1;
@@ -14,15 +25,12 @@
       order: 2;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      min-height: 350px;
     }
   }
 
   .CrossingStaticMap {
     flex: 1;
     order: 2;
-    min-height: 350px;
   }
 
   .CrossingDetails {
