@@ -24,7 +24,7 @@ export default class CrossingStatusHistorySpreadsheetLink extends Component {
           }
           role="button"
         >
-          History
+          Download
           <div className="CrossingStatusHistory__download-icon">
             <FontAwesome
               size="lg"
