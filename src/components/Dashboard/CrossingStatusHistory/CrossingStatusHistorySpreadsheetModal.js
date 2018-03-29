@@ -1,6 +1,6 @@
 import { graphql } from 'react-apollo';
 import React, { Component } from 'react';
-import { get } from 'lodash';
+import { get, size } from 'lodash';
 import { CSVLink } from 'react-csv';
 import FontAwesome from 'react-fontawesome';
 
@@ -18,6 +18,11 @@ class CrossingStatusHistorySpreadsheetLink extends Component {
     this.state = {
       errorMessage: null,
     };
+  }
+
+  componentDidCatch(err) {
+    console.error(err);
+    this.setState({ errorMessage: err.message });
   }
 
   generateCsv() {
@@ -85,6 +90,8 @@ class CrossingStatusHistorySpreadsheetLink extends Component {
   render() {
     const { loading } = !this.props.data || this.props.data.loading;
 
+    const rowCount = size(get(this, 'props.data.allStatusUpdates.edges', []));
+
     return (
       <Modal
         title="Crossing History CSV"
@@ -116,6 +123,9 @@ class CrossingStatusHistorySpreadsheetLink extends Component {
             </div>
           </div>
         )}
+        {!loading &&
+          !this.state.errorMessage &&
+          rowCount && <p>Generated CSV file with {rowCount} rows.</p>}
         {this.state.errorMessage && (
           <ModalErrorMessage>{this.state.errorMessage}</ModalErrorMessage>
         )}
