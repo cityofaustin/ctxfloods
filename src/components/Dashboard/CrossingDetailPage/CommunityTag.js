@@ -12,7 +12,6 @@ export default function CommunityTag({
 }) {
   return (
     <button
-      key={community.id}
       className="CrossingDetails__community-tag"
       onClick={() => removeCommunity(community)}
       disabled={!isRemovable}

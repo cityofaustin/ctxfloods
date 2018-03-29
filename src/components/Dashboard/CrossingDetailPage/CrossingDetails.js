@@ -11,6 +11,7 @@ import addCrossingToCommunityFragment from 'components/Dashboard/CrossingListPag
 import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
 
 import CommunityTag from './CommunityTag';
+import CommunityTagAddButton from './CommunityTagAddButton';
 import DeleteCrossingButton from './DeleteCrossingButton';
 
 import 'components/Dashboard/CrossingDetailPage/CrossingDetails.css';
@@ -306,6 +307,7 @@ class CrossingDetails extends Component {
             {crossingCommunities.map(community => {
               return (
                 <CommunityTag
+                  key={community.id}
                   community={community}
                   isRemovable={
                     currentUser.role === 'floods_super_admin' &&
@@ -318,12 +320,9 @@ class CrossingDetails extends Component {
             {!this.state.addCommunity &&
               dropdownCommunities.length > 0 &&
               currentUser.role !== 'floods_community_editor' && (
-                <button
-                  className="button button--secondary"
+                <CommunityTagAddButton
                   onClick={this.addCommunityClicked}
-                >
-                  Add Community +
-                </button>
+                />
               )}
           </div>
         </div>

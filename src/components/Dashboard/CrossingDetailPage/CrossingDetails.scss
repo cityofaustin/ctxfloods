@@ -4,10 +4,10 @@
   padding: 2rem 4rem;
 }
 
-.CrossingDetails__communities button {
-  &:last-of-type {
-    margin-right: 0;
-  }
+.CrossingDetails__communities {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1rem 0;
 }
 
 .CrossingDetails__addCommunityButtons {
