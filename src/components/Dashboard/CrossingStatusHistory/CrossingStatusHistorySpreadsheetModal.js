@@ -1,5 +1,4 @@
 import { graphql } from 'react-apollo';
-import statusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
 import React, { Component } from 'react';
 import { get } from 'lodash';
 import { CSVLink } from 'react-csv';
@@ -8,6 +7,7 @@ import FontAwesome from 'react-fontawesome';
 import Modal from 'components/Shared/Modal';
 import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
+import statusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
 
 import './CrossingStatusHistorySpreadsheetLink.css';
 
@@ -88,7 +88,7 @@ class CrossingStatusHistorySpreadsheetLink extends Component {
     return (
       <Modal
         title="Crossing History CSV"
-        isOpen
+        isOpen={this.props.isOpen}
         onClose={this.props.onClose}
         footer={
           <div>

@@ -8,40 +8,40 @@ export default class CrossingStatusHistorySpreadsheetLink extends Component {
     super(...args);
 
     this.state = {
-      isModalOpen: false,
+      isOpen: false,
     };
   }
 
   render() {
     return (
-      <div
-        className="CrossingStatusHistory__download-link"
-        onClick={() =>
-          this.setState({
-            isModalOpen: true,
-          })
-        }
-        role="button"
-      >
-        History
-        <div className="CrossingStatusHistory__download-icon">
-          <FontAwesome
-            size="lg"
-            name="download"
-            ariaLabel="Download crossing history"
-          />
+      <React.Fragment>
+        <div
+          className="CrossingStatusHistory__download-link"
+          onClick={() =>
+            this.setState({
+              isOpen: true,
+            })
+          }
+          role="button"
+        >
+          History
+          <div className="CrossingStatusHistory__download-icon">
+            <FontAwesome
+              size="lg"
+              name="download"
+              ariaLabel="Download crossing history"
+            />
+          </div>
         </div>
-        {this.state.isModalOpen && (
-          <CrossingStatusHistorySpreadsheetModal
-            onClose={() => {
-              console.log('close');
-              this.setState({
-                isModalOpen: false,
-              });
-            }}
-          />
-        )}
-      </div>
+        <CrossingStatusHistorySpreadsheetModal
+          isOpen={this.state.isOpen}
+          onClose={() =>
+            this.setState({
+              isOpen: false,
+            })
+          }
+        />
+      </React.Fragment>
     );
   }
 }
