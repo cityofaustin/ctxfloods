@@ -12,6 +12,8 @@ import statusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/st
 import './CrossingStatusHistorySpreadsheetLink.css';
 
 class CrossingStatusHistorySpreadsheetLink extends Component {
+  // FIXME: Add proptypes
+
   constructor(...args) {
     super(...args);
 

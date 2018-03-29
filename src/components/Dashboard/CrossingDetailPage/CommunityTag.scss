@@ -1,6 +1,7 @@
 @import 'css/mixins/typography';
 
-.CrossingDetails__community-tag, .CrossingDetails__community-tag--add {
+.CrossingDetails__community-tag,
+.CrossingDetails__community-tag--add {
   font-family: $font-sans;
   font-weight: 400;
   border: 1px solid #b0bec5;
@@ -20,8 +21,10 @@
   &:disabled {
     cursor: default;
   }
+  &:hover {
+    border-color: #3b76bd;
+  }
 }
-
 
 .CrossingDetails__community-tag {
   background: #f9f9fa;
@@ -31,8 +34,11 @@
   background: #cfd8dc;
 }
 
+.CrossingDetails__community-tag-icon {
+  margin-left: 1rem;
+  height: 1.1rem;
+}
 
-  .CrossingDetails__community-tag-icon {
-    margin-left: 1rem;
-    height: 1.1rem;
-  }
+.CommunityRemoveModal__primary-button {
+  margin-right: 1rem;
+}

@@ -30,7 +30,6 @@ class CrossingDetails extends Component {
       addCommunity: false,
       selectedCommunityId:
         dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
-      communityToRemove: null,
       redirectToNewCrossingId: null,
       dropdownCommunities: dropdownCommunities,
     };
@@ -121,41 +120,17 @@ class CrossingDetails extends Component {
       });
   };
 
-  removeCommunity = e => {
-    this.props
-      .removeCrossingFromCommunityMutation({
-        variables: {
-          crossingId: this.props.crossing.id,
-          communityId: this.state.communityToRemove.id,
-        },
-        update: (store, { data: { removeCrossingFromCommunity } }) => {
-          const updatedCrossing = removeCrossingFromCommunity.crossing;
-          store.writeFragment({
-            id: 'Crossing:' + updatedCrossing.id,
-            fragment: addCrossingToCommunityFragment,
-            data: updatedCrossing,
-          });
-        },
-      })
-      .then(({ data }) => {
-        console.log('success', data);
+  onCommunityRemoved = () => {
+    const { allCommunities, crossingCommunities } = this.props;
+    var dropdownCommunities = allCommunities.slice();
+    _.pullAllBy(dropdownCommunities, crossingCommunities, 'id');
 
-        const { allCommunities, crossingCommunities } = this.props;
-        var dropdownCommunities = allCommunities.slice();
-        _.pullAllBy(dropdownCommunities, crossingCommunities, 'id');
-
-        this.setState({
-          removeCommunity: false,
-          dropdownCommunities: dropdownCommunities,
-          selectedCommunityId:
-            dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
-        });
-      })
-      .catch(error => {
-        // FIXME: Show error
-        console.log('there was an error sending the query', error);
-      });
-  };
+    this.setState({
+      dropdownCommunities: dropdownCommunities,
+      selectedCommunityId:
+        dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
+    });
+  }
 
   nameChanged = e => {
     this.setState({
@@ -188,14 +163,6 @@ class CrossingDetails extends Component {
 
   addCommunityCancelClicked = () => {
     this.setState({ addCommunity: false });
-  };
-
-  removeCommunityClicked = community => {
-    this.setState({ removeCommunity: true, communityToRemove: community });
-  };
-
-  removeCommunityCancelClicked = () => {
-    this.setState({ removeCommunity: false, communityToRemoveId: null });
   };
 
   selectedCommunityChanged = e => {
@@ -309,11 +276,12 @@ class CrossingDetails extends Component {
                 <CommunityTag
                   key={community.id}
                   community={community}
+                  crossing={crossing}
                   isRemovable={
                     currentUser.role === 'floods_super_admin' &&
                     crossingCommunities.length > 1
                   }
-                  removeCommunity={this.removeCommunityClicked}
+                  onCommunityRemoved={this.onCommunityRemoved}
                 />
               );
             })}
@@ -378,32 +346,6 @@ class CrossingDetails extends Component {
               <DeleteCrossingButton crossingId={crossing.id} />
             </div>
           )}
-
-        {this.state.removeCommunity && (
-          <div className="CrossingDetails__delete overlay-container">
-            <div>
-              <p>
-                This will remove the crossing from{' '}
-                {this.state.communityToRemove.name}
-              </p>
-              <p>Do you want to continue?</p>
-              <div>
-                <button
-                  className="button button--cancel"
-                  onClick={this.removeCommunityCancelClicked}
-                >
-                  No, Go Back
-                </button>
-                <button
-                  className="button button--confirm"
-                  onClick={this.removeCommunity}
-                >
-                  Yes, Remove
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     );
   }
@@ -475,28 +417,6 @@ const addCrossingToCommunityMutation = gql`
   }
 `;
 
-const removeCrossingFromCommunityMutation = gql`
-  mutation removeCrossingFromCommunityMutation(
-    $crossingId: Int!
-    $communityId: Int!
-  ) {
-    removeCrossingFromCommunity(
-      input: { crossingId: $crossingId, communityId: $communityId }
-    ) {
-      crossing {
-        id
-        communityIds
-        communities {
-          nodes {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-`;
-
 export default compose(
   graphql(updateCrossingMutation, {
     name: 'updateCrossingMutation',
@@ -506,8 +426,5 @@ export default compose(
   }),
   graphql(addCrossingToCommunityMutation, {
     name: 'addCrossingToCommunityMutation',
-  }),
-  graphql(removeCrossingFromCommunityMutation, {
-    name: 'removeCrossingFromCommunityMutation',
   }),
 )(CrossingDetails);

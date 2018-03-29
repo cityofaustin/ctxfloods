@@ -5,10 +5,7 @@ import AddLightSvg from 'images/add-light.svg';
 
 import './CommunityTag.css';
 
-export default function CommunityTag({
-  community,
-  onClick,
-}) {
+export default function CommunityTagAddButton({ community, onClick }) {
   return (
     <button
       className="CrossingDetails__community-tag--add"
@@ -24,7 +21,6 @@ export default function CommunityTag({
   );
 }
 
-CommunityTag.propTypes = {
-  community: PropTypes.object.isRequired,
+CommunityTagAddButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
