@@ -7,29 +7,53 @@ import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 
 class EditUser extends Component {
   state = {
+    email: '',
     firstName: '',
     lastName: '',
+    role: 'floods_community_editor',
+    communityId: null,
     jobTitle: '',
     phoneNumber: '',
-    email: '',
-    readyToSubmit: false,
   }
 
   emailChanged = e => {
     this.setState({ email: e.target.value });
   }
 
+  firstNameChanged = e => {
+    this.setState({ firstName: e.target.value });
+  }
+
+  lastNameChanged = e => {
+    this.setState({ lastName: e.target.value });
+  }
+
   roleChanged = e => {
     this.setState({ role: e.target.value });
   }
 
-  render() {
-    // const {communities, roles} = this.props;
+  submitUser = () => {
+    const { onSubmit } = this.props;
+    const { email, firstName, lastName, role, communityId, jobTitle, phoneNumber } = this.state;
 
+    const user = {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      role: role,
+
+    }
+
+    onSubmit(user);
+  }
+
+  render() {
     const communities = [1, 2];
     const roles = [1, 2];
 
-    const {firstName, lastName, jobTitle, communityId, phoneNumber, email, role, readyToSubmit} = this.state;
+    const { onCancel } = this.props;
+    const { email, firstName, lastName, role, communityId, jobTitle, phoneNumber } = this.state;
+    const readyToSubmit = firstName && lastName && email;
 
     return (
         <div className="EditUser">
@@ -113,13 +137,13 @@ class EditUser extends Component {
           <div className="EditUser__buttons">
             <ButtonSecondary
               className="EditUser__cancel-button"
-              onClick={this.cancelClicked}
+              onClick={onCancel}
             >
               Cancel
             </ButtonSecondary>
             <ButtonPrimary
               className="EditUser__next-button"
-              onClick={this.newStatusUpdate}
+              onClick={this.submitUser}
               disabled={!readyToSubmit}
             >
               Next
