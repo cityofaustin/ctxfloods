@@ -33,14 +33,16 @@ export default class CrossingStatusHistorySpreadsheetLink extends Component {
             />
           </div>
         </div>
-        <CrossingStatusHistorySpreadsheetModal
-          isOpen={this.state.isOpen}
-          onClose={() =>
-            this.setState({
-              isOpen: false,
-            })
-          }
-        />
+        {this.state.isOpen && (
+          <CrossingStatusHistorySpreadsheetModal
+            isOpen={this.state.isOpen}
+            onClose={() =>
+              this.setState({
+                isOpen: false,
+              })
+            }
+          />
+        )}
       </React.Fragment>
     );
   }
