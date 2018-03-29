@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { ContainerQuery } from 'react-container-query';
-import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
-import 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistory.css';
-import InfiniteCrossingStatusHistoryPaginationContainer from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryPaginationContainer';
+import FontAwesome from 'react-fontawesome';
 
+import InfiniteCrossingStatusHistoryPaginationContainer from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryPaginationContainer';
 import CrossingStatusHistorySpreadsheetLink from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistorySpreadsheetLink';
+import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
+
+import 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistory.css';
 
 const containerQuery = {
   'CrossingStatusHistory--lg': {
@@ -22,12 +24,15 @@ class CrossingStatusHistory extends Component {
         {params => (
           <div className={classnames(params, 'CrossingStatusHistory')}>
             <div className="CrossingStatusHistory_header-background">
-              <h2 className="CrossingStatusHistory__section-header">
+              <div className="CrossingStatusHistory__section-header">
                 <div className="CrossingStatusHistory__section-header--title">
-                  Crossing Status History
+                  <div className="CrossingStatusHistory__section-header--history-icon">
+                    <FontAwesome size="lg" name="history" ariaLabel="Crossing History" />
+                  </div>
+                  Crossing History
                 </div>
                 <CrossingStatusHistorySpreadsheetLink crossingId={crossingId} />
-              </h2>
+              </div>
             </div>
             <div className="CrossingStatusHistory__list-wrapper">
               <InfiniteCrossingStatusHistoryPaginationContainer
