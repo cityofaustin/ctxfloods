@@ -13,6 +13,9 @@
 .CrossingDetails__addCommunityButtons {
   margin-top: 10px;
 }
+.CrossingDetails__addCommunityButtons .Shared__button--primary {
+  margin-right: 1rem;
+}
 
 .CrossingDetails__buttons {
   margin: 2rem 0;
@@ -26,10 +29,10 @@
   display: flex;
 }
 .CrossingDetails__details {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: auto;
-    margin-right: 2rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  margin-right: 2rem;
 }
 .CrossingDetails__aside {
   margin-left: 2rem;
@@ -43,7 +46,6 @@
   display: flex;
   flex-direction: column;
 }
-
 
 .CrossingDetails__details .Shared__text-input {
   flex: 1;
