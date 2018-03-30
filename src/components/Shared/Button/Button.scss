@@ -1,19 +1,21 @@
+@import 'css/mixins/typography';
+
 .Shared__button {
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
-  padding: 1rem;
-  border: 2px solid #3b77bd;
+  padding: 1rem 2rem;
+  border: 2px solid #0277bd;
   border-radius: 5px;
   cursor: pointer;
+  font-family: $font-sans;
 }
 
 .Shared__button--primary {
   color: white;
-  background-color: #3b77bd;
+  background-color: #0277bd;
 }
 
 .Shared__button--secondary {
-  color: #3b77bd;
-  background-color: #f9f9fa;
+  color: #0277bd;
 }
