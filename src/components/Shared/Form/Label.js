@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Label({ children }) {
-  return <div className="Shared__label">
+export default function Label({ children, ...props }) {
+  return <label className="Shared__label" {...props}>
     {children}
-  </div>
+  </label>
 }
 
 Label.propTypes = {

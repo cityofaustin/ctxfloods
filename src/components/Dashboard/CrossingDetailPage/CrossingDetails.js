@@ -206,7 +206,6 @@ class CrossingDetails extends Component {
         <div className="CrossingDetails__details-container">
           <div className="CrossingDetails__details">
             <div className="CrossingDetails__field-group">
-              {/* FIXME: Get htmlFor to work */}
               <Label htmlFor="crossingName">Display Name*</Label>
               <TextInput
                 id="crossingName"
@@ -219,8 +218,9 @@ class CrossingDetails extends Component {
               </InputDescription>
             </div>
             <div className="CrossingDetails__field-group">
-              <Label>Street Address*</Label>
+              <Label htmlFor="streetAddress">Street Address*</Label>
               <TextInput
+                id="streetAddress"
                 value={humanAddress ? humanAddress : ''}
                 onChange={this.humanAddressChanged}
               />
@@ -229,7 +229,9 @@ class CrossingDetails extends Component {
               </InputDescription>
             </div>
             <div className="CrossingDetails__field-group">
-              <Label>Additional Description (Optional)</Label>
+              <Label htmlFor="crossingDescription">
+                Additional Description (Optional)
+              </Label>
               <TextInput
                 id="crossingDescription"
                 value={description ? description : ''}
