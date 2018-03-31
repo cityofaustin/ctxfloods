@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import { Redirect } from 'react-router';
 import _ from 'lodash';
+import FontAwesome from 'react-fontawesome';
 
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
@@ -196,11 +197,10 @@ class CrossingDetails extends Component {
 
     return (
       <div className="CrossingDetails">
-        {/* FIXME: Add dirty state */}
-        {!crossing.active && (
-          <div>
-            {/* FIXME: Style inactive  */}
-            INACTIVE
+        {!crossing.active && !addMode && (
+          <div className="CrossingDetails__archived">
+            <FontAwesome name="exclamation-triangle" className="CrossingDetails__archived-icon" size="lg" />
+            Crossing has been archived.
           </div>
         )}
         <div className="CrossingDetails__details-container">

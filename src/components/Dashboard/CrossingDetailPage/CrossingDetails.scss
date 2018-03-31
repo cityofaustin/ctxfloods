@@ -50,3 +50,16 @@
 .CrossingDetails__details .Shared__text-input {
   flex: 1;
 }
+
+.CrossingDetails__archived {
+  margin: 1rem 0;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: #fffaae;
+  border: 1px solid #ffbe06;
+  border-radius: 5px;
+}
+.CrossingDetails__archived-icon {
+  margin-right: 1rem;
+}
