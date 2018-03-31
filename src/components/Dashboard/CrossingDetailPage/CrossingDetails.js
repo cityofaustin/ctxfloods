@@ -238,8 +238,8 @@ class CrossingDetails extends Component {
                 onChange={this.descriptionChanged}
               />
               <InputDescription>
-                Does the location need additional clarification? ie, "Southbound
-                lane only"
+                Does the location need additional clarification? ie, “Southbound
+                lane only”
               </InputDescription>
             </div>
 
