@@ -61,7 +61,7 @@ class AddUserPage extends Component {
 }
 
 const addUserMutation = gql`
-  mutation ($firstName: String!, $lastName: String!, $jobTitle: String, $communityId: Int!, $phoneNumber: String, $email: String!, $password: String!, $role: String!) {
+  mutation ($firstName: String!, $lastName: String!, $jobTitle: String!, $communityId: Int!, $phoneNumber: String!, $email: String!, $password: String!, $role: String!) {
     registerUser(input: {firstName: $firstName, lastName: $lastName, jobTitle: $jobTitle, communityId: $communityId, phoneNumber: $phoneNumber, email: $email, password: $password, role: $role}) {
       user {
         id

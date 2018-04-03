@@ -4,6 +4,8 @@ import 'components/Dashboard/ManageUsersPage/EditUser.css';
 import EditUserControl from 'components/Dashboard/ManageUsersPage/EditUserControl';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class EditUser extends Component {
   state = {
@@ -11,7 +13,7 @@ class EditUser extends Component {
     firstName: '',
     lastName: '',
     role: 'floods_community_editor',
-    communityId: null,
+    communityId: 9009,
     jobTitle: '',
     phoneNumber: '',
   }
@@ -32,6 +34,18 @@ class EditUser extends Component {
     this.setState({ role: e.target.value });
   }
 
+  communityChanged = e => {
+    this.setState({ communityId: e.target.value });
+  }
+
+  jobTitleChanged = e => {
+    this.setState({ jobTitle: e.target.value });
+  }
+
+  phoneNumberChanged = e => {
+    this.setState({ phoneNumber: e.target.value });
+  }
+
   submitUser = () => {
     const { onSubmit } = this.props;
     const { email, firstName, lastName, role, communityId, jobTitle, phoneNumber } = this.state;
@@ -41,15 +55,22 @@ class EditUser extends Component {
       firstName: firstName,
       lastName: lastName,
       role: role,
-
+      communityId: communityId,
+      jobTitle: jobTitle,
+      phoneNumber: phoneNumber,
     }
 
     onSubmit(user);
   }
 
   render() {
-    const communities = [1, 2];
-    const roles = [1, 2];
+    const isLoading = !this.props.data || this.props.data.loading;
+    if (isLoading) {
+      return 'Loading';
+    }
+
+
+    const communities = this.props.data.allCommunities.nodes;
 
     const { onCancel } = this.props;
     const { email, firstName, lastName, role, communityId, jobTitle, phoneNumber } = this.state;
@@ -154,4 +175,15 @@ class EditUser extends Component {
   }
 }
 
-export default EditUser;
+const allCommunities = gql`
+  query {
+    allCommunities {
+      nodes {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export default graphql(allCommunities)(EditUser);
