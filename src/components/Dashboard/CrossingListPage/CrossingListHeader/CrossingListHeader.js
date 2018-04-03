@@ -81,8 +81,8 @@ export default class CrossingListHeader extends Component {
             className={classNames('CrossingListFilterContainer', {
               'CrossingListFilterContainer--enabled': this.state
                 .showCrossingListFilter,
-                'CrossingListFilterContainer--disabled': !this.state
-                  .showCrossingListFilter,
+              'CrossingListFilterContainer--disabled': !this.state
+                .showCrossingListFilter,
             })}
           >
             <CrossingListFilter

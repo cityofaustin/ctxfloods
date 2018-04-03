@@ -38,18 +38,34 @@ class CrossingListFilter extends Component {
 
     return (
       <div className="CrossingListFilter">
-        <FilterCheckbox isChecked={showOpen} onClick={toggleShowOpen} className="CrossingListFilterCheckbox">
+        <FilterCheckbox
+          isChecked={showOpen}
+          onClick={toggleShowOpen}
+          className="CrossingListFilterCheckbox"
+        >
           Open {openCrossingCount !== undefined && `(${openCrossingCount})`}
         </FilterCheckbox>
-        <FilterCheckbox isChecked={showCaution} onClick={toggleShowCaution} className="CrossingListFilterCheckbox">
+        <FilterCheckbox
+          isChecked={showCaution}
+          onClick={toggleShowCaution}
+          className="CrossingListFilterCheckbox"
+        >
           Caution{' '}
           {cautionCrossingCount !== undefined && `(${cautionCrossingCount})`}
         </FilterCheckbox>
-        <FilterCheckbox isChecked={showClosed} onClick={toggleShowClosed} className="CrossingListFilterCheckbox">
+        <FilterCheckbox
+          isChecked={showClosed}
+          onClick={toggleShowClosed}
+          className="CrossingListFilterCheckbox"
+        >
           Closed{' '}
           {closedCrossingCount !== undefined && `(${closedCrossingCount})`}
         </FilterCheckbox>
-        <FilterCheckbox isChecked={showLongterm} onClick={toggleShowLongterm} className="CrossingListFilterCheckbox">
+        <FilterCheckbox
+          isChecked={showLongterm}
+          onClick={toggleShowLongterm}
+          className="CrossingListFilterCheckbox"
+        >
           Long-Term Closure{' '}
           {longtermCrossingCount !== undefined && `(${longtermCrossingCount})`}
         </FilterCheckbox>

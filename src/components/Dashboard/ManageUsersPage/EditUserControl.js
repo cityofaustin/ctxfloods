@@ -11,15 +11,13 @@ export default function EditUserControl({
   className,
 }) {
   return (
-    <div
-      className={classNames('EditUser__control', className)}
-    >
+    <div className={classNames('EditUser__control', className)}>
       <div className="EditUser__control-meta">
-        <div className="EditUser__control-label">{`${label}${isRequired ? '*' : ''}`}</div>
+        <div className="EditUser__control-label">{`${label}${
+          isRequired ? '*' : ''
+        }`}</div>
       </div>
-      <div className="EditUser__control-children">
-        {children}
-      </div>
+      <div className="EditUser__control-children">{children}</div>
     </div>
   );
 }

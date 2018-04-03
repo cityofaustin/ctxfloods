@@ -83,9 +83,10 @@ class Header extends React.Component {
                         : 'Header__tab'
                     }
                   >
-                    {(role === 'floods_community_admin' || role === 'floods_super_admin') &&
+                    {(role === 'floods_community_admin' ||
+                      role === 'floods_super_admin') && (
                       <Link to="/dashboard/users">Manage Users</Link>
-                    }
+                    )}
                   </li>
                 </ul>
               </div>

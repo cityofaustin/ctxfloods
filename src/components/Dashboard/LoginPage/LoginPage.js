@@ -17,15 +17,15 @@ class LoginPage extends Component {
     password: '',
   };
 
-  handleEmailChange = (e) => {
+  handleEmailChange = e => {
     this.setState({ email: e.target.value });
-  }
+  };
 
-  handlePasswordChange = (e) => {
+  handlePasswordChange = e => {
     this.setState({ password: e.target.value });
-  }
+  };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     var email = this.state.email.trim().toLowerCase();
     var password = this.state.password.trim();
@@ -41,16 +41,14 @@ class LoginPage extends Component {
       .catch(error => {
         console.log('there was an error sending the query', error);
       });
-  }
+  };
 
   render() {
     return (
       <div className="LoginPage">
         <div className="LoginPage__form-controls">
           <h1> Log in to the CTXFloods Dashboard </h1>
-          <form
-            onSubmit={this.handleSubmit}
-          >
+          <form onSubmit={this.handleSubmit}>
             <input
               type="text"
               value={this.state.email}
