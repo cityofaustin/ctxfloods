@@ -4,7 +4,7 @@
   padding: 2rem 4rem;
 }
 
-.CrossingDetails__communities {
+.CrossingDetails__communities-list {
   display: flex;
   flex-wrap: wrap;
   margin: 1rem 0;
@@ -13,11 +13,53 @@
 .CrossingDetails__addCommunityButtons {
   margin-top: 10px;
 }
+.CrossingDetails__addCommunityButtons .Shared__button--primary {
+  margin-right: 1rem;
+}
 
 .CrossingDetails__buttons {
-  margin: 4rem 0;
+  margin: 2rem 0;
 }
 
 .CrossingDetails__buttons .Shared__button--primary {
   margin-right: 2rem;
+}
+
+.CrossingDetails__details-container {
+  display: flex;
+}
+.CrossingDetails__details {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  margin-right: 2rem;
+}
+.CrossingDetails__aside {
+  margin-left: 2rem;
+  flex-basis: 200px;
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+
+.CrossingDetails__field-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.CrossingDetails__details .Shared__text-input {
+  flex: 1;
+}
+
+.CrossingDetails__archived {
+  margin: 1rem 0;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: #fffaae;
+  border: 1px solid #ffbe06;
+  border-radius: 5px;
+}
+.CrossingDetails__archived-icon {
+  margin-right: 1rem;
 }
