@@ -5,20 +5,25 @@ import { Redirect } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import generator from 'generate-password';
-import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
+import AddUserModal from 'components/Dashboard/ManageUsersPage/AddUserModal';
 
 class AddUserPage extends Component {
   state = {
     redirect: false,
+    showModal: false,
+    userAdded: false,
+    emailSent: false,
     errorMessage: null,
   }
 
-  redirectToUsers = () => {
-    this.setState({redirect: true});
+  componentDidCatch(err) {
+    console.error(err);
+    this.setState({ errorMessage: err.message });
   }
 
   addUser = user => {
     debugger;
+    this.setState({showModal: true, errorMessage: null});
     const password = generator.generate({length: 30, numbers: true, symbols: true, strict:true});
     this.props
       .addUserMutation({
@@ -35,31 +40,27 @@ class AddUserPage extends Component {
       })
       .then(({ data }) => {
         console.log('success', data);
-        const { id } = data.registerUser.user;
-        // this.setState({ redirectToNewCrossingId: id });
+        this.setState({userAdded: true});
       })
       .catch(error => {
         // FIXME: Show error
         console.log('there was an error sending the query', error);
         this.setState({ errorMessage: error.message });
       });
-
-
   }
 
   render() {
-    const { redirect, errorMessage } = this.state;
+    const { redirect, showModal, userAdded, emailSent, errorMessage } = this.state;
 
-    if (redirect) {
+    if (redirect && !showModal) {
       return <Redirect to='/dashboard/users' push />
-    }
-
-    if (errorMessage) {
-      return <ModalErrorMessage>{errorMessage}</ModalErrorMessage>
     }
 
     return (
       <div className="AddUser">
+        {showModal && 
+          <AddUserModal onClose={() => this.setState({showModal: false})} userAdded={userAdded} emailSent={true} errorMessage={errorMessage}/>
+        }
         <h1>Add New User</h1>
         <EditUser onCancel={this.redirectToUsers} onSubmit={this.addUser}/>
       </div>
