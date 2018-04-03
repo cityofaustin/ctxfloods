@@ -76,6 +76,7 @@ class AddUserPage extends Component {
   }
 
   render() {
+    const { currentUser } = this.props;
     const { showModal, userAdded, emailSent, errorMessage } = this.state;
 
     if (userAdded && emailSent && !showModal) {
@@ -88,7 +89,7 @@ class AddUserPage extends Component {
           <AddUserModal onClose={() => this.setState({showModal: false})} userAdded={userAdded} emailSent={emailSent} errorMessage={errorMessage}/>
         }
         <h1>Add New User</h1>
-        <EditUser onCancel={this.redirectToUsers} onSubmit={this.addUser}/>
+        <EditUser onCancel={this.redirectToUsers} onSubmit={this.addUser} currentUser={currentUser}/>
       </div>
     );
   }

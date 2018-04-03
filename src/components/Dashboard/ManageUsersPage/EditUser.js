@@ -9,14 +9,17 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class EditUser extends Component {
-  state = {
-    email: '',
-    firstName: '',
-    lastName: '',
-    role: 'floods_community_editor',
-    communityId: 9009,
-    jobTitle: '',
-    phoneNumber: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      firstName: '',
+      lastName: '',
+      role: 'floods_community_editor',
+      communityId: props.currentUser.communityId,
+      jobTitle: '',
+      phoneNumber: '',
+    };
   }
 
   emailChanged = e => {
@@ -50,7 +53,7 @@ class EditUser extends Component {
   submitUser = () => {
     const { onSubmit } = this.props;
     const { email, firstName, lastName, role, communityId, jobTitle, phoneNumber } = this.state;
-
+    
     const user = {
       email: email,
       firstName: firstName,
@@ -105,41 +108,45 @@ class EditUser extends Component {
               />
             </EditUserControl>
           </div>
-          <EditUserControl label="Select a role" isRequired>
-            <form>
-              <div className="EditUser__control-radio-button">
-                <label>
-                  <input type="radio" value="floods_community_editor" 
-                                checked={role === 'floods_community_editor'} 
-                                onChange={this.roleChanged} />
-                  Contributor | Update, edit, and add crossings in their communities
-                </label>
-              </div>
-              <div className="EditUser__control-radio-button">
-                <label>
-                  <input type="radio" value="floods_community_admin" 
-                                checked={role === 'floods_community_admin'} 
-                                onChange={this.roleChanged} />
-                  Admin | Update, edit, and add crossings in their communities, and add and delete users in their communities
-                </label>
-              </div>
-              <div className="EditUser__control-radio-button">
-                <label>
-                  <input type="radio" value="floods_super_admin" 
-                                checked={role === 'floods_super_admin'} 
-                                onChange={this.roleChanged} />
-                  Owner | Take all actions in all communities
-                </label>
-              </div>
-            </form>
-          </EditUserControl>
-          <EditUserControl label="Community" isRequired>
-            <Dropdown
-              options={communities}
-              selected={communityId}
-              onChange={this.communityChanged}
-            />
-          </EditUserControl>
+          { this.props.currentUser.role === 'floods_super_admin' &&
+            <EditUserControl label="Select a role" isRequired>
+              <form>
+                <div className="EditUser__control-radio-button">
+                  <label>
+                    <input type="radio" value="floods_community_editor" 
+                                  checked={role === 'floods_community_editor'} 
+                                  onChange={this.roleChanged} />
+                    Contributor | Update, edit, and add crossings in their communities
+                  </label>
+                </div>
+                <div className="EditUser__control-radio-button">
+                  <label>
+                    <input type="radio" value="floods_community_admin" 
+                                  checked={role === 'floods_community_admin'} 
+                                  onChange={this.roleChanged} />
+                    Admin | Update, edit, and add crossings in their communities, and add and delete users in their communities
+                  </label>
+                </div>
+                <div className="EditUser__control-radio-button">
+                  <label>
+                    <input type="radio" value="floods_super_admin" 
+                                  checked={role === 'floods_super_admin'} 
+                                  onChange={this.roleChanged} />
+                    Owner | Take all actions in all communities
+                  </label>
+                </div>
+              </form>
+            </EditUserControl>
+          }
+          { this.props.currentUser.role === 'floods_super_admin' &&
+            <EditUserControl label="Community" isRequired>
+              <Dropdown
+                options={communities}
+                selected={communityId}
+                onChange={this.communityChanged}
+              />
+            </EditUserControl>
+          }
           <EditUserControl label="Job Title">
             <input
               className="EditUser__control-text-box"
