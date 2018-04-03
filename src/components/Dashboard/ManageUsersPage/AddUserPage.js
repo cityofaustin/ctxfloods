@@ -22,7 +22,6 @@ class AddUserPage extends Component {
   }
 
   addUser = user => {
-    debugger;
     this.setState({showModal: true, errorMessage: null});
     const password = generator.generate({length: 30, numbers: true, symbols: true, strict:true});
     this.props
@@ -41,25 +40,52 @@ class AddUserPage extends Component {
       .then(({ data }) => {
         console.log('success', data);
         this.setState({userAdded: true});
+        this.sendEmail(user);
       })
       .catch(error => {
-        // FIXME: Show error
         console.log('there was an error sending the query', error);
         this.setState({ errorMessage: error.message });
       });
   }
 
-  render() {
-    const { redirect, showModal, userAdded, emailSent, errorMessage } = this.state;
+  sendEmail = user => {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/email/reset`, {
+      method: 'POST',
+      body: JSON.stringify({email: user.email}),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(res => {
+      if (res.status === 204) {
+        this.setState({
+          emailSent: true,
+        });
+      } else if (res.status === 400) {
+        this.setState({
+          emailSent: false,
+          errorMessage: 'Email failed to send',
+        });
+      };
+    }).catch(error => {
+      console.error(error);
+      this.setState({
+        emailSent: false,
+        errorMessage: error.message,
+      });
+    });
+  }
 
-    if (redirect && !showModal) {
+  render() {
+    const { showModal, userAdded, emailSent, errorMessage } = this.state;
+
+    if (userAdded && emailSent && !showModal) {
       return <Redirect to='/dashboard/users' push />
     }
 
     return (
       <div className="AddUser">
         {showModal && 
-          <AddUserModal onClose={() => this.setState({showModal: false})} userAdded={userAdded} emailSent={true} errorMessage={errorMessage}/>
+          <AddUserModal onClose={() => this.setState({showModal: false})} userAdded={userAdded} emailSent={emailSent} errorMessage={errorMessage}/>
         }
         <h1>Add New User</h1>
         <EditUser onCancel={this.redirectToUsers} onSubmit={this.addUser}/>

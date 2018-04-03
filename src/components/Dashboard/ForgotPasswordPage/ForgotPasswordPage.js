@@ -71,7 +71,7 @@ class ForgotPasswordPage extends Component {
         </div>
         }
         { waiting &&
-          <FontAwesome name="spinner" size="4x" className="ForgotPasswordPage__waiting" />
+          <FontAwesome name="spinner" size="4x" className="ForgotPasswordPage__waiting fa-spin" />
         }
         {
           emailSentSuccessfully && <h1> Email Sent! </h1>
