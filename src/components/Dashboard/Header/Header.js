@@ -21,6 +21,8 @@ class Header extends React.Component {
 
   render() {
     const { pathname } = this.props.location;
+    const { role } = this.props.currentUser;
+
     return (
       <ContainerQuery query={containerQuery}>
         {params => (
@@ -81,7 +83,9 @@ class Header extends React.Component {
                         : 'Header__tab'
                     }
                   >
-                    <Link to="/dashboard/users">Manage Users</Link>
+                    {(role === 'floods_community_admin' || role === 'floods_super_admin') &&
+                      <Link to="/dashboard/users">Manage Users</Link>
+                    }
                   </li>
                 </ul>
               </div>
