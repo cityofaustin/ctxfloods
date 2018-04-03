@@ -5,10 +5,12 @@ import { Redirect } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import generator from 'generate-password';
+import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
 
 class AddUserPage extends Component {
   state = {
-    redirect: false
+    redirect: false,
+    errorMessage: null,
   }
 
   redirectToUsers = () => {
@@ -39,16 +41,21 @@ class AddUserPage extends Component {
       .catch(error => {
         // FIXME: Show error
         console.log('there was an error sending the query', error);
+        this.setState({ errorMessage: error.message });
       });
 
 
   }
 
   render() {
-    const { redirect } = this.state;
+    const { redirect, errorMessage } = this.state;
 
     if (redirect) {
       return <Redirect to='/dashboard/users' push />
+    }
+
+    if (errorMessage) {
+      return <ModalErrorMessage>{errorMessage}</ModalErrorMessage>
     }
 
     return (

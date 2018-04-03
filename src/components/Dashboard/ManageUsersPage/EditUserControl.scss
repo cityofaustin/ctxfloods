@@ -40,3 +40,8 @@
     margin-right: .8rem;
   }
 }
+
+input:invalid {
+  background-color: pink;
+  border-color: pink;
+}

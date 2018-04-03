@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
 import 'components/Dashboard/ManageUsersPage/EditUser.css';
 import EditUserControl from 'components/Dashboard/ManageUsersPage/EditUserControl';
+
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 import { graphql } from 'react-apollo';
@@ -81,7 +82,7 @@ class EditUser extends Component {
           <EditUserControl label="Email" isRequired>
             <input
               className="EditUser__control-text-box"
-              type="text"
+              type="email"
               value={email}
               onChange={this.emailChanged}
             />
