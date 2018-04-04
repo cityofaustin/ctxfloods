@@ -61,7 +61,7 @@ class AddCrossingPage extends Component {
             <div
               className={classnames(
                 params,
-                'CrossingDetails__container mlv2--b',
+                'CrossingDetails__container',
               )}
             >
               <AddCrossingMap

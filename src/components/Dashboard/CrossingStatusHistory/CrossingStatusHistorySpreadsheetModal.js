@@ -1,5 +1,6 @@
 import { graphql } from 'react-apollo';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { get, size } from 'lodash';
 import { CSVLink } from 'react-csv';
 import FontAwesome from 'react-fontawesome';
@@ -11,7 +12,13 @@ import statusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/st
 
 import './CrossingStatusHistorySpreadsheetLink.css';
 
-class CrossingStatusHistorySpreadsheetLink extends Component {
+class CrossingStatusHistorySpreadsheetModal extends Component {
+  static propTypes = {
+    data: PropTypes.object,
+    onClose: PropTypes.func.isRequired,
+    crossingId: PropTypes.number.isRequired,
+  };
+
   constructor(...args) {
     super(...args);
 
@@ -95,7 +102,7 @@ class CrossingStatusHistorySpreadsheetLink extends Component {
     return (
       <Modal
         title="Crossing History CSV"
-        isOpen={this.props.isOpen}
+        isOpen
         onClose={this.props.onClose}
         footer={
           <div>
@@ -138,4 +145,4 @@ export default graphql(statusHistoryQuery, {
   options: ownProps => ({
     variables: ownProps.crossingId ? { crossingId: ownProps.crossingId } : {},
   }),
-})(CrossingStatusHistorySpreadsheetLink);
+})(CrossingStatusHistorySpreadsheetModal);

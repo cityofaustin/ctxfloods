@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { ContainerQuery } from 'react-container-query';
 import FontAwesome from 'react-fontawesome';
@@ -16,6 +17,11 @@ const containerQuery = {
 };
 
 class CrossingStatusHistory extends Component {
+  static propTypes = {
+    showNames: PropTypes.bool.isRequired,
+    crossingId: PropTypes.number.isRequired,
+  }
+
   render() {
     const { showNames, crossingId } = this.props;
 

@@ -5,66 +5,48 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
   className="storybook--sm"
 >
   <div
-    className="CrossingDetails dirty-container mlv2 plv2"
+    className="CrossingDetails"
   >
     <div
       className="CrossingDetails__details"
     >
       <div>
         <div>
-          <span
-            className="strong gray--75 mlv1--r"
-          >
+          <span>
             ID#
           </span>
            
-          <span
-            className="italic light gray--50"
-          >
+          <span>
             1
           </span>
         </div>
         <div>
-          <span
-            className="strong gray--75 mlv1--r"
-          >
+          <span>
             Address
           </span>
            
-          <span
-            className="italic light gray--50"
-          >
+          <span>
             605 Spurlock Valley · West Lake Hills, TX 78746
           </span>
         </div>
       </div>
       <div>
-        <span
-          className="strong gray--75 mlv1--r"
-        >
+        <span>
           GPS
         </span>
          
-        <span
-          className="italic light gray--50"
-        >
+        <span>
           30°16'1.200"N 97°46'4.800"W
         </span>
       </div>
-      <div
-        className="mlv2--t"
-      >
+      <div>
         <div>
           <div>
-            <span
-              className="gray--75 mlv1--r"
-            >
+            <span>
               Display Name*
             </span>
           </div>
-          <span
-            className="light gray--25 mlv1--r"
-          >
+          <span>
             Name your crossings by intersections (ie, Onion Creek Blvd. & 5th Ave) or waypoints (5th Ave. Denny’s)
           </span>
         </div>
@@ -76,20 +58,14 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
           value="Spurlock Valley"
         />
       </div>
-      <div
-        className="mlv2--t"
-      >
+      <div>
         <div>
           <div>
-            <span
-              className="gray--75 mlv1--r"
-            >
+            <span>
               Additional Description (optional)
             </span>
           </div>
-          <span
-            className="light gray--25 mlv1--r"
-          >
+          <span>
             Does the location need additional clarification? ie, "Southbound lane only"
           </span>
         </div>
@@ -102,17 +78,35 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
         />
       </div>
       <div
-        className="CrossingDetails__communities mlv2--t"
+        className="CrossingDetails__communities "
       >
         <button
-          className="button button--secondary mlv2--r mlv2--b"
+          className="CrossingDetails__community-tag"
+          disabled={true}
+          onClick={[Function]}
         >
           All of Texas.
         </button>
       </div>
     </div>
     <div
-      className="CrossingDetails__buttons flexcontainer"
+      className="CrossingDetails__buttons"
+    >
+      <button
+        className="Shared__button Shared__button--primary"
+        onClick={[Function]}
+      >
+        Update
+      </button>
+      <button
+        className="Shared__button Shared__button--secondary"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+    </div>
+    <div
+      className="CrossingDetails__buttons"
     >
       <div>
         <button

@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import CrossingStatusHistorySpreadsheetModal from './CrossingStatusHistorySpreadsheetModal';
 
 export default class CrossingStatusHistorySpreadsheetLink extends Component {
+  static propTypes = {
+    crossingId: PropTypes.number.isRequired,
+  };
+
   constructor(...args) {
     super(...args);
 
@@ -35,7 +40,7 @@ export default class CrossingStatusHistorySpreadsheetLink extends Component {
         </div>
         {this.state.isOpen && (
           <CrossingStatusHistorySpreadsheetModal
-            isOpen={this.state.isOpen}
+            crossingId={this.props.crossingId}
             onClose={() =>
               this.setState({
                 isOpen: false,

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import InfiniteCrossingStatusHistoryList from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryList';
+import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import 'react-virtualized/styles.css';
-import statusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
 import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
 
+import statusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
+import InfiniteCrossingStatusHistoryList from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryList';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
+
+import 'react-virtualized/styles.css';
 
 // The linter can't figure out how we're using this ref so I'm just gonna...
 // eslint-disable-next-line
@@ -66,6 +68,11 @@ const configObject = {
 };
 
 export class InfiniteCrossingStatusHistoryPaginationContainer extends Component {
+  static propTypes = {
+    showNames: PropTypes.bool.isRequired,
+    crossingId: PropTypes.number.isRequired,
+  };
+
   render() {
     const { loading, allStatusUpdates, loadMoreRows, showNames } = this.props;
 
