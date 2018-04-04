@@ -17,15 +17,7 @@
   @include overlay-container;
 }
 
-.dirty-container {
-  outline: 4px solid $color-white;
-
-  &.dirty-container--dirty {
-    outline-color: $color-highlight;
-  }
-}
-
-$sizes: (lv1, 5),  (lv2, 10);
+$sizes: (lv1, 5), (lv2, 10);
 
 @each $name, $size in $sizes {
   .m#{$name} {

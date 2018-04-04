@@ -1,10 +1,10 @@
-@import 'css/mixins/flexbox';
 @import 'css/mixins/layout';
 @import 'css/mixins/colors';
 
 .CrossingStatusHistory--lg {
   .CrossingStatusHistory__item-details-flexcontainer {
-    @include flexcontainer--row;
+    display: flex;
+    flex-direction: row;
   }
   background: #efefef;
 }
@@ -21,9 +21,12 @@
 
 .CrossingStatusHistory__section-header {
   @include section-header;
-  @include flexcontainer;
+  display: flex;
   max-width: 1100px;
   margin: auto;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .CrossingStatusHistoryItem {
@@ -106,18 +109,32 @@
   font-size: 1.5rem;
 }
 
+.CrossingStatusHistory__section-header {
+
+}
+
 .CrossingStatusHistory__section-header--title {
-  @include flexitem;
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
-.CrossingStatusHistory__spreadsheet-link {
-  @include flexitem;
-  text-align: right;
-  color: white;
-  text-decoration: none;
-  letter-spacing: 0.6em;
+.CrossingStatusHistory__section-header--history-icon {
+  margin: 0 1rem;
 }
 
-.CrossingStatusHistory__spreadsheet-download-link {
+.CrossingStatusHistory__download-link {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+}
+
+.CrossingStatusHistory__download-icon {
+  margin: 0 1rem;
+}
+
+.CrossingStatusHistory__download-download-link {
   color: #7affaf;
 }

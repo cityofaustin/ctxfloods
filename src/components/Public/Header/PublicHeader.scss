@@ -1,4 +1,3 @@
-@import 'css/mixins/flexbox';
 @import 'css/mixins/colors';
 
 .Header {
@@ -8,14 +7,14 @@
 }
 
 .Header__small-text {
-  @include flexcontainer;
+  display: flex;
   font-size: 1rem;
   color: $color-gray-75;
   align-items: center;
 }
 
 .Header__main {
-  @include flexcontainer;
+  display: flex;
   align-items: center;
   margin: 0;
   border: none;
@@ -31,8 +30,10 @@
 }
 
 .Header__tabs {
-  @include flexcontainer;
-  @include flexitem--pushed-right;
+  display: flex;
+  flex: 1;
+  align-self: center;
+  margin-left: auto;
   justify-content: flex-end;
   align-self: flex-end;
   list-style: none;
@@ -42,6 +43,7 @@
 @mixin Header__tab {
   font-size: 1.5rem;
   padding: 0.5rem 1rem;
+  border-bottom: 7px solid #111d23;
   a {
     text-decoration: none;
   }
@@ -52,7 +54,7 @@
 
 .Header__tab--active {
   @include Header__tab;
-  border-bottom: 7px solid #03a9f4;
+  border-color: #03a9f4;
 }
 
 .Header .Header__tab--active a {

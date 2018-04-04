@@ -1,0 +1,33 @@
+.Shared__text-input {
+  border: 1px solid #b0bec5;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+  &:focus {
+    outline: 0;
+    border-color: #04a9f4;
+    box-shadow: 0 0 0 1px #04a9f4;
+  }
+}
+
+.Shared__text-input--disabled {
+  border-color: #eceff1;
+}
+
+.Shared__label {
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000;
+  margin-top: 0.5rem;
+}
+
+
+.Shared__input-description {
+  color: #5f7d8c;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import 'components/Shared/CrossingMapPage/CrossingMapSearchBar.css';
 import FontAwesome from 'react-fontawesome';
 import Autosuggest from 'react-autosuggest';
 import MapboxClient from 'mapbox';
 
 import CrossingMapSearchCrossingSuggestions from 'components/Shared/CrossingMapPage/CrossingMapSearchCrossingSuggestions';
 import { MapboxAccessToken } from 'constants/MapboxConstants';
+import 'components/Shared/CrossingMapPage/CrossingMapSearchBar.css';
+
+import CloseLightSvg from 'images/close-light.svg';
 
 const mapboxClient = new MapboxClient(MapboxAccessToken);
 
@@ -253,7 +255,7 @@ class CrossingMapSearchBar extends Component {
             className="CrossingMapSearchBar__cancel-icon"
             onClick={this.clearSearch}
           >
-            <FontAwesome name="times" size="2x" />
+            <img src={CloseLightSvg} alt="Clear" />
           </div>
         </div>
       </div>
