@@ -8,113 +8,170 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
     className="CrossingDetails"
   >
     <div
-      className="CrossingDetails__details"
+      className="CrossingDetails__details-container"
     >
-      <div>
-        <div>
-          <span>
-            ID#
-          </span>
-           
-          <span>
-            1
-          </span>
-        </div>
-        <div>
-          <span>
-            Address
-          </span>
-           
-          <span>
-            605 Spurlock Valley · West Lake Hills, TX 78746
-          </span>
-        </div>
-      </div>
-      <div>
-        <span>
-          GPS
-        </span>
-         
-        <span>
-          30°16'1.200"N 97°46'4.800"W
-        </span>
-      </div>
-      <div>
-        <div>
-          <div>
-            <span>
-              Display Name*
-            </span>
-          </div>
-          <span>
+      <div
+        className="CrossingDetails__details"
+      >
+        <div
+          className="CrossingDetails__field-group"
+        >
+          <label
+            className="Shared__label"
+            htmlFor="crossingName"
+          >
+            Display Name*
+          </label>
+          <input
+            className="Shared__text-input"
+            disabled={false}
+            id="crossingName"
+            isOptional={false}
+            onChange={[Function]}
+            type="text"
+            value="Spurlock Valley"
+          />
+          <div
+            className="Shared__input-description"
+          >
             Name your crossings by intersections (ie, Onion Creek Blvd. & 5th Ave) or waypoints (5th Ave. Denny’s)
-          </span>
-        </div>
-        <input
-          className="input input--lg"
-          id="crossingName"
-          onChange={[Function]}
-          type="text"
-          value="Spurlock Valley"
-        />
-      </div>
-      <div>
-        <div>
-          <div>
-            <span>
-              Additional Description (optional)
-            </span>
           </div>
-          <span>
-            Does the location need additional clarification? ie, "Southbound lane only"
-          </span>
         </div>
-        <input
-          className="input"
-          id="crossingDescription"
-          onChange={[Function]}
-          type="text"
-          value="E of Intersection w/ Clifford"
-        />
+        <div
+          className="CrossingDetails__field-group"
+        >
+          <label
+            className="Shared__label"
+            htmlFor="streetAddress"
+          >
+            Street Address*
+          </label>
+          <input
+            className="Shared__text-input"
+            disabled={false}
+            id="streetAddress"
+            isOptional={false}
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <div
+            className="Shared__input-description"
+          >
+            The human readable address for the crossing
+          </div>
+        </div>
+        <div
+          className="CrossingDetails__field-group"
+        >
+          <label
+            className="Shared__label"
+            htmlFor="crossingDescription"
+          >
+            Additional Description (Optional)
+          </label>
+          <input
+            className="Shared__text-input"
+            disabled={false}
+            id="crossingDescription"
+            isOptional={false}
+            onChange={[Function]}
+            type="text"
+            value="E of Intersection w/ Clifford"
+          />
+          <div
+            className="Shared__input-description"
+          >
+            Does the location need additional clarification? ie, “Southbound lane only”
+          </div>
+        </div>
+        <div
+          className="CrossingDetails__buttons"
+        >
+          <button
+            className="Shared__button Shared__button--primary"
+            onClick={[Function]}
+          >
+            Update Crossing
+          </button>
+          <button
+            className="Shared__button Shared__button--secondary"
+            onClick={[Function]}
+          >
+            Cancel
+          </button>
+        </div>
+        <div
+          className="CrossingDetails__buttons"
+        >
+          <div>
+            <button
+              className="button button--plaintext color-highlight"
+              onClick={[Function]}
+            >
+              Delete Crossing
+            </button>
+          </div>
+        </div>
       </div>
       <div
-        className="CrossingDetails__communities "
+        className="CrossingDetails__aside"
       >
-        <button
-          className="CrossingDetails__community-tag"
-          disabled={true}
-          onClick={[Function]}
+        <div
+          className="CrossingDetails__field-group"
         >
-          All of Texas.
-        </button>
-      </div>
-    </div>
-    <div
-      className="CrossingDetails__buttons"
-    >
-      <button
-        className="Shared__button Shared__button--primary"
-        onClick={[Function]}
-      >
-        Update
-      </button>
-      <button
-        className="Shared__button Shared__button--secondary"
-        onClick={[Function]}
-      >
-        Cancel
-      </button>
-    </div>
-    <div
-      className="CrossingDetails__buttons"
-    >
-      <div>
-        <button
-          className="button button--plaintext color-highlight"
-          onClick={[Function]}
+          <label
+            className="Shared__label"
+          >
+            GPS
+          </label>
+          <input
+            className="Shared__text-input Shared__text-input--disabled"
+            disabled={true}
+            isOptional={false}
+            onChange={undefined}
+            type="text"
+            value="30°16'1.200\\"N 97°46'4.800\\"W"
+          />
+        </div>
+        <div
+          className="CrossingDetails__field-group"
         >
-          Delete Crossing
-        </button>
+          <label
+            className="Shared__label"
+          >
+            ID#
+          </label>
+           
+          <input
+            className="Shared__text-input Shared__text-input--disabled"
+            disabled={true}
+            isOptional={false}
+            onChange={undefined}
+            type="text"
+            value={1}
+          />
+        </div>
+        <div
+          className="CrossingDetails__communities"
+        >
+          <label
+            className="Shared__label"
+          >
+            Communities
+          </label>
+          <div
+            className="CrossingDetails__communities-list"
+          >
+            <button
+              className="CrossingDetails__community-tag"
+              disabled={true}
+              onClick={[Function]}
+            >
+              All of Texas.
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
