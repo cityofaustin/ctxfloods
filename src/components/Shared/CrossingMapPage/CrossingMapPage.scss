@@ -36,28 +36,6 @@
   margin: 7px;
 }
 
-html {
-  height: 100%;
-}
-
-body {
-  height: 100%;
-}
-
-.RootContainer {
-  height: 100%;
-}
-
-.PageLayout {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.Header {
-  flex: none;
-}
-
 .CrossingMapPage__page-container {
   flex: auto;
   display: flex;
