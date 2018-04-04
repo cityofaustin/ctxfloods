@@ -3,8 +3,13 @@ import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import { Redirect } from 'react-router';
 import _ from 'lodash';
+import FontAwesome from 'react-fontawesome';
+
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
+import TextInput from 'components/Shared/Form/TextInput';
+import InputDescription from 'components/Shared/Form/InputDescription';
+import Label from 'components/Shared/Form/Label';
 
 import updateCrossingFragment from 'components/Dashboard/CrossingListPage/queries/updateCrossingFragment';
 import addCrossingToCommunityFragment from 'components/Dashboard/CrossingListPage/queries/addCrossingToCommunityFragment';
@@ -130,7 +135,7 @@ class CrossingDetails extends Component {
       selectedCommunityId:
         dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
     });
-  }
+  };
 
   nameChanged = e => {
     this.setState({
@@ -192,160 +197,135 @@ class CrossingDetails extends Component {
 
     return (
       <div className="CrossingDetails">
-        {/* FIXME: Add dirty state */}
-        <div className="CrossingDetails__details">
-          {!addMode && (
-            <div>
-              {!crossing.active ? (
-                <div>
-                  <span>INACTIVE</span>
-                </div>
-              ) : null}
-              <div>
-                <span>ID#</span> <span>{crossing.id}</span>
-              </div>
-              <div>
-                <span>Address</span> <span>{crossing.humanAddress}</span>
-              </div>
-            </div>
-          )}
-
-          <div>
-            <span>GPS</span> <span>{crossing.humanCoordinates}</span>
+        {!crossing.active && !addMode && (
+          <div className="CrossingDetails__archived">
+            <FontAwesome name="exclamation-triangle" className="CrossingDetails__archived-icon" size="lg" />
+            Crossing has been archived.
           </div>
-
-          <div>
-            <div>
-              <div>
-                <span>Display Name*</span>
-              </div>
-              <span>
+        )}
+        <div className="CrossingDetails__details-container">
+          <div className="CrossingDetails__details">
+            <div className="CrossingDetails__field-group">
+              <Label htmlFor="crossingName">Display Name*</Label>
+              <TextInput
+                id="crossingName"
+                value={name ? name : ''}
+                onChange={this.nameChanged}
+              />
+              <InputDescription>
                 Name your crossings by intersections (ie, Onion Creek Blvd. &
                 5th Ave) or waypoints (5th Ave. Denny’s)
-              </span>
+              </InputDescription>
             </div>
-            <input
-              id="crossingName"
-              className="input input--lg"
-              type="text"
-              value={name ? name : ''}
-              onChange={this.nameChanged}
-            />
-          </div>
-
-          {addMode && (
-            <div>
-              <div>
-                <div>
-                  <span>Street Address*</span>
-                </div>
-                <span>The human readable address for the crossing</span>
-              </div>
-
-              <input
-                className="input"
-                type="text"
+            <div className="CrossingDetails__field-group">
+              <Label htmlFor="streetAddress">Street Address*</Label>
+              <TextInput
+                id="streetAddress"
                 value={humanAddress ? humanAddress : ''}
                 onChange={this.humanAddressChanged}
               />
+              <InputDescription>
+                The human readable address for the crossing
+              </InputDescription>
             </div>
-          )}
+            <div className="CrossingDetails__field-group">
+              <Label htmlFor="crossingDescription">
+                Additional Description (Optional)
+              </Label>
+              <TextInput
+                id="crossingDescription"
+                value={description ? description : ''}
+                onChange={this.descriptionChanged}
+              />
+              <InputDescription>
+                Does the location need additional clarification? ie, “Southbound
+                lane only”
+              </InputDescription>
+            </div>
 
-          <div>
-            <div>
-              <div>
-                <span>Additional Description (optional)</span>
+            {!addMode && (
+              <div className="CrossingDetails__buttons">
+                <ButtonPrimary onClick={this.updateCrossing}>
+                  Update Crossing
+                </ButtonPrimary>
+                <ButtonSecondary onClick={this.cancelClicked}>
+                  Cancel
+                </ButtonSecondary>
               </div>
-              <span>
-                Does the location need additional clarification? ie, "Southbound
-                lane only"
-              </span>
-            </div>
-            <input
-              id="crossingDescription"
-              className="input"
-              type="text"
-              value={description ? description : ''}
-              onChange={this.descriptionChanged}
-            />
-          </div>
+            )}
+            {addMode && (
+              <div className="CrossingDetails__buttons">
+                <ButtonPrimary onClick={this.addCrossing}>
+                  Add Crossing
+                </ButtonPrimary>
+              </div>
+            )}
 
-          <div className="CrossingDetails__communities ">
-            {crossingCommunities.map(community => {
-              return (
-                <CommunityTag
-                  key={community.id}
-                  community={community}
-                  crossing={crossing}
-                  isRemovable={
-                    currentUser.role === 'floods_super_admin' &&
-                    crossingCommunities.length > 1
-                  }
-                  onCommunityRemoved={this.onCommunityRemoved}
-                />
-              );
-            })}
-            {!this.state.addCommunity &&
-              dropdownCommunities.length > 0 &&
-              currentUser.role !== 'floods_community_editor' && (
-                <CommunityTagAddButton
-                  onClick={this.addCommunityClicked}
-                />
+            {crossing.active &&
+              currentUser.role !== 'floods_community_editor' &&
+              crossingCommunities.length === 1 && (
+                <div className="CrossingDetails__buttons">
+                  <DeleteCrossingButton crossingId={crossing.id} />
+                </div>
               )}
           </div>
+          <div className="CrossingDetails__aside">
+            {!addMode && (
+              <div className="CrossingDetails__field-group">
+                <Label>GPS</Label>
+                <TextInput isDisabled value={crossing.humanCoordinates} />
+              </div>
+            )}
+            {!addMode && (
+              <div className="CrossingDetails__field-group">
+                <Label>ID#</Label> <TextInput isDisabled value={crossing.id} />
+              </div>
+            )}
+            <div className="CrossingDetails__communities">
+              <Label>Communities</Label>
+              <div className="CrossingDetails__communities-list">
+                {crossingCommunities.map(community => {
+                  return (
+                    <CommunityTag
+                      key={community.id}
+                      community={community}
+                      crossing={crossing}
+                      isRemovable={
+                        currentUser.role === 'floods_super_admin' &&
+                        crossingCommunities.length > 1
+                      }
+                      onCommunityRemoved={this.onCommunityRemoved}
+                    />
+                  );
+                })}
+                {!this.state.addCommunity &&
+                  dropdownCommunities.length > 0 &&
+                  currentUser.role !== 'floods_community_editor' && (
+                    <CommunityTagAddButton onClick={this.addCommunityClicked} />
+                  )}
+              </div>
+
+              {this.state.addCommunity && (
+                <div>
+                  <Dropdown
+                    options={dropdownCommunities}
+                    selected={this.state.selectedCommunityId}
+                    onChange={this.selectedCommunityChanged}
+                  />
+
+                  <div className="CrossingDetails__addCommunityButtons">
+                    <ButtonPrimary onClick={this.addCommunity}>
+                      Save
+                    </ButtonPrimary>
+                    <ButtonSecondary onClick={this.addCommunityCancelClicked}>
+                      Cancel
+                    </ButtonSecondary>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-
-        {this.state.addCommunity && (
-          <div>
-            <Dropdown
-              options={dropdownCommunities}
-              selected={this.state.selectedCommunityId}
-              onChange={this.selectedCommunityChanged}
-            />
-
-            <div className="CrossingDetails__addCommunityButtons">
-              <button
-                className="button button--cancel"
-                onClick={this.addCommunityCancelClicked}
-              >
-                Cancel
-              </button>
-              <button
-                className="button button--confirm"
-                onClick={this.addCommunity}
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        )}
-        {addMode && (
-          <div className="CrossingDetails__buttons">
-            <button
-              className="button button--confirm"
-              onClick={this.addCrossing}
-            >
-              Add Crossing
-            </button>
-          </div>
-        )}
-
-        {!addMode && (
-          <div className="CrossingDetails__buttons">
-            <ButtonPrimary onClick={this.updateCrossing}>Update</ButtonPrimary>
-            <ButtonSecondary onClick={this.cancelClicked}>
-              Cancel
-            </ButtonSecondary>
-          </div>
-        )}
-
-        {crossing.active &&
-          currentUser.role !== 'floods_community_editor' &&
-          crossingCommunities.length === 1 && (
-            <div className="CrossingDetails__buttons">
-              <DeleteCrossingButton crossingId={crossing.id} />
-            </div>
-          )}
       </div>
     );
   }

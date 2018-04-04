@@ -43,6 +43,7 @@
 @mixin Header__tab {
   font-size: 1.5rem;
   padding: 0.5rem 1rem;
+  border-bottom: 7px solid #111d23;
   a {
     text-decoration: none;
   }
@@ -53,7 +54,7 @@
 
 .Header__tab--active {
   @include Header__tab;
-  border-bottom: 7px solid #03a9f4;
+  border-color: #03a9f4;
 }
 
 .Header .Header__tab--active a {
