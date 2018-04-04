@@ -1,6 +1,6 @@
 import React from 'react';
 import * as MapboxGl from 'mapbox-gl';
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
 
 import { MapboxAccessToken } from 'constants/MapboxConstants';
 
@@ -471,6 +471,18 @@ class CrossingMap extends React.Component {
             />
           ) : null}
         </Layer>
+        {this.state.selectedCrossing && (
+          <Popup
+            coordinates={
+              JSON.parse(this.state.selectedCrossing.geojson).coordinates
+            }
+          >
+            <div className="CrossingMap__popup"
+            >
+              {this.state.selectedCrossing.crossingName}
+            </div>
+          </Popup>
+        )}
       </Map>
     );
   }
