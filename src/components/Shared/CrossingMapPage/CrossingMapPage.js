@@ -81,7 +81,7 @@ class CrossingMapPage extends Component {
     });
   };
 
-  toggleFull = () => {
+  toggleFullscreen = () => {
     this.setState({ fullscreen: !this.state.fullscreen });
   };
 
@@ -216,7 +216,7 @@ class CrossingMapPage extends Component {
                       <FontAwesome
                         name="arrows-alt"
                         size="2x"
-                        onClick={this.toggleFull}
+                        onClick={this.toggleFullscreen}
                         className="CrossingMapPage__fullscreen-toggle"
                       />
                     </div>

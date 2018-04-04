@@ -1,5 +1,5 @@
 .CrossingMapPage__map-container {
-  flex: auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -51,8 +51,14 @@
 .CrossingMapPage {
   flex: auto;
   display: flex;
-  flex-direction: column;
   position: relative;
+  flex-direction: row;
+}
+
+@media (max-width: 600px) {
+  .CrossingMapPage {
+    flex-direction: column;
+  }
 }
 
 .mapboxgl-map {

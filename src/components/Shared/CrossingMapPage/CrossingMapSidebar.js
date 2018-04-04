@@ -9,6 +9,8 @@ import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapS
 import CrossingSidebarNearbyCrossingItem from 'components/Shared/CrossingMapPage/CrossingSidebarNearbyCrossingItem';
 import FilterCheckbox from 'components/Shared/FilterCheckbox';
 import InfiniteCrossingStatusHistoryPaginationContainer from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryPaginationContainer';
+import ChevronRightDarkSvg from 'images/chevron-right-dark.svg';
+import ChevronLeftDarkSvg from 'images/chevron-left-dark.svg';
 
 import 'components/Shared/CrossingMapPage/CrossingMapSidebar.css';
 
@@ -286,22 +288,16 @@ class CrossingMapSidebar extends Component {
           </div>
         )}
         <div
-          className="CrossingMapPage_sidebar-toggle"
+          className="CrossingMapPage_sidebar-toggle-container"
           onClick={this.toggleSidebar}
         >
-          {visible ? (
-            <FontAwesome
-              name="angle-left"
-              size="2x"
+          <div className="CrossingMapPage_sidebar-toggle" role="button">
+            <img
+              alt={visible ? 'Collapse Sidebar' : 'Expand Sidebar'}
+              src={visible ? ChevronLeftDarkSvg : ChevronRightDarkSvg}
               onClick={this.toggleSidebar}
             />
-          ) : (
-            <FontAwesome
-              name="angle-right"
-              size="2x"
-              onClick={this.toggleSidebar}
-            />
-          )}
+          </div>
         </div>
       </div>
     );
