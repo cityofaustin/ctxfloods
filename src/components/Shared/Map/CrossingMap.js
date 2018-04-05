@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as MapboxGl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
 
@@ -17,13 +18,23 @@ const STATUS_CAUTION = 3;
 const STATUS_LONGTERM = 4;
 
 class CrossingMap extends React.Component {
-  state = {
-    selectedCrossingId: -1, // Mapbox filters don't support null values
-    selectedCrossing: null,
-    selectedCrossingCoordinates: null,
-    selectedLocationCoordinates: null,
-    firstLoadComplete: false,
-  };
+  static propTypes = {
+    registerMapResizeCallback: PropTypes.func.isRequired,
+  }
+
+  constructor(props, ...args) {
+    super(props, ...args);
+
+    this.state = {
+      selectedCrossingId: -1, // Mapbox filters don't support null values
+      selectedCrossing: null,
+      selectedCrossingCoordinates: null,
+      selectedLocationCoordinates: null,
+      firstLoadComplete: false,
+    };
+
+    props.registerMapResizeCallback(this.resizeMap);
+  }
 
   componentWillReceiveProps(nextProps) {
     // If we've selected a crossing
@@ -218,6 +229,12 @@ class CrossingMap extends React.Component {
     const iconSize = map.getZoom() < 11 ? 'mini' : 'small';
     if (iconSize !== this.state.iconSize) {
       this.setState({ iconSize });
+    }
+  };
+
+  resizeMap = () => {
+    if (this.state.map) {
+      this.state.map.resize();
     }
   };
 
@@ -477,8 +494,7 @@ class CrossingMap extends React.Component {
               JSON.parse(this.state.selectedCrossing.geojson).coordinates
             }
           >
-            <div className="CrossingMap__popup"
-            >
+            <div className="CrossingMap__popup">
               {this.state.selectedCrossing.crossingName}
             </div>
           </Popup>

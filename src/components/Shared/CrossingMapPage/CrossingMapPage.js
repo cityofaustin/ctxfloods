@@ -48,6 +48,16 @@ class CrossingMapPage extends Component {
     };
   }
 
+  registerMapResizeCallback = cb => {
+    this.mapResizeCallback = cb;
+  };
+
+  triggerMapResize = () => {
+    if (this.mapResizeCallback) {
+      this.mapResizeCallback();
+    }
+  };
+
   getViewportAndCenter = viewportgeojson => {
     const envelope = JSON.parse(viewportgeojson);
 
@@ -245,6 +255,7 @@ class CrossingMapPage extends Component {
                         this.setSelectedLocationCoordinates
                       }
                       setSelectedCommunity={this.setSelectedCommunity}
+                      triggerMapResize={this.triggerMapResize}
                     />
                   </React.Fragment>
                 )}
@@ -276,6 +287,7 @@ class CrossingMapPage extends Component {
                     selectedCommunityId={
                       selectedCommunity && selectedCommunity.id
                     }
+                    registerMapResizeCallback={this.registerMapResizeCallback}
                   />
                 </div>
               </div>

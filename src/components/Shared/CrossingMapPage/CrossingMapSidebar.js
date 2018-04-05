@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
 import geolib from 'geolib';
@@ -15,6 +16,10 @@ import ChevronLeftDarkSvg from 'images/chevron-left-dark.svg';
 import 'components/Shared/CrossingMapPage/CrossingMapSidebar.css';
 
 class CrossingMapSidebar extends Component {
+  static propTypes = {
+    triggerMapResize: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -65,7 +70,9 @@ class CrossingMapSidebar extends Component {
   }
 
   toggleSidebar = () => {
-    this.setState({ visible: !this.state.visible });
+    this.setState({ visible: !this.state.visible }, () => {
+      this.props.triggerMapResize();
+    });
   };
 
   toggleFilters = () => {
