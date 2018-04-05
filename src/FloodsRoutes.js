@@ -73,6 +73,7 @@ class FloodsRoutes extends Component {
 
         <PrivateRoute
           path="/dashboard/users"
+          exact
           component={ManageUsers}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized([
@@ -82,7 +83,7 @@ class FloodsRoutes extends Component {
           currentUser={currentUser}
         />
         <PrivateRoute
-          path="/dashboard/user/add"
+          path="/dashboard/users/add"
           component={AddUserPage}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized([

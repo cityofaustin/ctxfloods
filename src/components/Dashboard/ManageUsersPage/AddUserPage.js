@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import generator from 'generate-password';
-import AddUserModal from 'components/Dashboard/ManageUsersPage/AddUserModal';
+import ActivateUserModal from 'components/Dashboard/ManageUsersPage/ActivateUserModal';
 
 class AddUserPage extends Component {
   state = {
@@ -86,15 +86,18 @@ class AddUserPage extends Component {
     const { currentUser } = this.props;
     const { showModal, userAdded, emailSent, errorMessage } = this.state;
 
-    if (userAdded && emailSent && !showModal) {
+    const redirect = this.state.redirect || (userAdded && emailSent && !showModal);
+
+    if (redirect) {
       return <Redirect to="/dashboard/users" push />;
     }
 
     return (
       <div className="AddUser">
         {showModal && (
-          <AddUserModal
+          <ActivateUserModal
             onClose={() => this.setState({ showModal: false })}
+            userIsNew
             userAdded={userAdded}
             emailSent={emailSent}
             errorMessage={errorMessage}
@@ -102,7 +105,7 @@ class AddUserPage extends Component {
         )}
         <h1>Add New User</h1>
         <EditUser
-          onCancel={this.redirectToUsers}
+          onCancel={() => this.setState({ redirect: true })}
           onSubmit={this.addUser}
           currentUser={currentUser}
         />
