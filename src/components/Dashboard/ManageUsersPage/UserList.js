@@ -60,7 +60,7 @@ class UserList extends React.Component {
       return [
         {
           isLinked: true,
-          link: `/user/${user.id}`,
+          link: `/dashboard/user/${user.id}`,
           content: `${user.firstName} ${user.lastName}`,
         },
         this.parseRole(user.role),
@@ -83,6 +83,7 @@ const searchUsers = gql`
   query searchUsers($searchString: String, $community: Int) {
     searchUsers(search: $searchString, community: $community) {
       nodes {
+        id
         firstName
         lastName
         role
