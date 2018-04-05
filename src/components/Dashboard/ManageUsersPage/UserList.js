@@ -9,24 +9,16 @@ const manageUsersHeaders = [
     type: 'checkbox_select',
   },
   {
-    title: 'Name',
-    isFilterale: true,
-    isSortable: true,
+    title: 'Name'
   },
   {
-    title: 'Role',
-    isFilterale: true,
-    isSortable: true,
+    title: 'Role'
   },
   {
-    title: 'Community',
-    isFilterale: true,
-    isSortable: true,
+    title: 'Community'
   },
   {
-    title: 'Last active',
-    isFilterale: true,
-    isSortable: true,
+    title: 'Active'
   },
 ];
 
@@ -40,6 +32,10 @@ class UserList extends React.Component {
         return word.charAt(0).toUpperCase() + word.substr(1);
       })
       .join(' ');
+  }
+
+  toggleUserActiveStatus = userId => {
+    debugger;
   }
 
   render() {
@@ -65,7 +61,7 @@ class UserList extends React.Component {
         },
         this.parseRole(user.role),
         user.communityByCommunityId.name,
-        '',
+        <input type="checkbox" checked={user.active} onClick={() => this.toggleUserActiveStatus(user.id)}/>,
       ];
     });
 
@@ -84,6 +80,7 @@ const searchUsers = gql`
     searchUsers(search: $searchString, community: $community) {
       nodes {
         id
+        active
         firstName
         lastName
         role

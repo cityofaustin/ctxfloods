@@ -34,10 +34,7 @@ class ManageUsers extends Component {
           </div>
         </div>
         <div className="flexcontainer">
-          <BulkActionsDropdown />
-          <div className="ManageUsers__right-aligned-element">
-            <TableSearch handleSubmit={this.handleSubmit} />
-          </div>
+          <TableSearch handleSubmit={this.handleSubmit} />
         </div>
         <UserList {...this.props} searchParam={this.state.searchParam} />
       </div>
