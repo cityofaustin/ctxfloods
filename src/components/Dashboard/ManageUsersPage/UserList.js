@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import Table from 'components/Dashboard/Table/Table';
 
@@ -93,14 +93,29 @@ const searchUsers = gql`
   }
 `;
 
-export default graphql(searchUsers, {
-  options: ownProps => ({
-    variables: {
-      searchString: ownProps.searchParam === '' ? null : ownProps.searchParam,
-      community:
-        ownProps.currentUser.role === 'floods_super_admin'
-          ? null
-          : ownProps.currentUser.communityId,
-    },
+const deactivateUserMutation = gql`
+  mutation($userId:Int!) {
+    deactivateUser(input: {userId: $userId}) {
+      user {
+        id
+      }
+    }
+  }
+`;
+
+export default compose(
+  graphql(searchUsers, {
+    options: ownProps => ({
+      variables: {
+        searchString: ownProps.searchParam === '' ? null : ownProps.searchParam,
+        community:
+          ownProps.currentUser.role === 'floods_super_admin'
+            ? null
+            : ownProps.currentUser.communityId,
+      },
+    }),
   }),
-})(UserList);
+  graphql(deactivateUserMutation, {
+    name: 'deactivateUserMutation',
+  }),
+)(UserList);
