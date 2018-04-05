@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+
 import Table from 'components/Dashboard/Table/Table';
+import ArchiveUserModal from 'components/Dashboard/ManageUsersPage/ArchiveUserModal';
+import userActiveFragment from 'components/Dashboard/ManageUsersPage/queries/userActiveFragment';
 
 const manageUsersHeaders = [
   {
@@ -22,7 +25,11 @@ const manageUsersHeaders = [
   },
 ];
 
-class UserList extends React.Component {
+class UserList extends Component {
+  state = {
+    archiveModalOpen: null,
+  }
+
   parseRole(role) {
     const roleArray = role.split('_');
     roleArray.splice(0, 1);
@@ -32,10 +39,6 @@ class UserList extends React.Component {
         return word.charAt(0).toUpperCase() + word.substr(1);
       })
       .join(' ');
-  }
-
-  toggleUserActiveStatus = userId => {
-    debugger;
   }
 
   render() {
@@ -61,7 +64,19 @@ class UserList extends React.Component {
         },
         this.parseRole(user.role),
         user.communityByCommunityId.name,
-        <input type="checkbox" checked={user.active} onClick={() => this.toggleUserActiveStatus(user.id)}/>,
+        <div>
+          <input type="checkbox" checked={user.active} onChange={() => this.setState({archiveModalOpen: user.id})}/>
+          {this.state.archiveModalOpen === user.id && (
+            <ArchiveUserModal
+              user={user}
+              onClose={() => {
+                this.setState({
+                  archiveModalOpen: null,
+                });
+              }}
+            />
+          )}
+        </div>,
       ];
     });
 
@@ -80,7 +95,7 @@ const searchUsers = gql`
     searchUsers(search: $searchString, community: $community) {
       nodes {
         id
-        active
+        ...userActive
         firstName
         lastName
         role
@@ -91,16 +106,7 @@ const searchUsers = gql`
       }
     }
   }
-`;
-
-const deactivateUserMutation = gql`
-  mutation($userId:Int!) {
-    deactivateUser(input: {userId: $userId}) {
-      user {
-        id
-      }
-    }
-  }
+  ${userActiveFragment}
 `;
 
 export default compose(
@@ -114,8 +120,5 @@ export default compose(
             : ownProps.currentUser.communityId,
       },
     }),
-  }),
-  graphql(deactivateUserMutation, {
-    name: 'deactivateUserMutation',
   }),
 )(UserList);

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import MobileDetect from 'mobile-detect';
+
 import LinkButton from 'components/LinkButton';
-import BulkActionsDropdown from 'components/Dashboard/Table/BulkActionsDropdown';
 import TableSearch from 'components/Dashboard/Table/TableSearch';
 import UserList from 'components/Dashboard/ManageUsersPage/UserList';
 import 'components/Dashboard/ManageUsersPage/ManageUsers.css';
-import MobileDetect from 'mobile-detect';
 
 const md = new MobileDetect(window.navigator.userAgent);
 
