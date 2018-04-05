@@ -29,17 +29,18 @@
   height: 1rem;
 }
 
-.Header__h1 {
-  font-size: 3rem;
-  margin: 0 0 0.5rem;
+.Header__logo {
+  img {
+    height: 50px;
+  }
 }
 
-.Header__h1.smallsize {
+.Header__logo.smallsize {
   font-size: 2.5rem;
   margin: 0 0 0.5rem;
 }
 
-.Header__h1-container.smallsize {
+.Header__logo-container.smallsize {
   width: 100%;
   text-align: center;
   display: flex;

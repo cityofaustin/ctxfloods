@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import TopBar from 'components/Shared/TopBar';
 
+import CtxFloodsLogoDarkBg from 'images/ctx-floods-log-dark-bg.svg';
 import 'components/Public/Header/PublicHeader.css';
 
 class PublicHeader extends React.Component {
@@ -22,7 +23,9 @@ class PublicHeader extends React.Component {
         </TopBar>
         <div className="Header">
           <div className="Header__main">
-            <h1 className="Header__h1">{'CTXfloods'}</h1>
+            <h1 className="Header__logo">
+              <img src={CtxFloodsLogoDarkBg} alt="CTXfloods | Central Texas Floods" />
+            </h1>
             <ul className="Header__tabs">
               <li
                 className={
