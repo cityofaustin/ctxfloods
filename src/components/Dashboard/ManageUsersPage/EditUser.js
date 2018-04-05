@@ -11,15 +11,30 @@ import gql from 'graphql-tag';
 class EditUser extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-      firstName: '',
-      lastName: '',
-      role: 'floods_community_editor',
-      communityId: props.currentUser.communityId,
-      jobTitle: '',
-      phoneNumber: '',
-    };
+
+    const { userToEdit } = props;
+
+    if (userToEdit) {
+      this.state = {
+        newUser: false,
+        email: userToEdit.emailAddress,
+        firstName: userToEdit.firstName,
+        lastName: userToEdit.lastName,
+        jobTitle: userToEdit.jobTitle,
+        phoneNumber: userToEdit.phoneNumber,
+      }
+    } else {
+      this.state = {
+        newUser: true,
+        email: '',
+        firstName: '',
+        lastName: '',
+        role: 'floods_community_editor',
+        communityId: props.currentUser.communityId,
+        jobTitle: '',
+        phoneNumber: '',
+      };
+    }
   }
 
   emailChanged = e => {
@@ -85,6 +100,7 @@ class EditUser extends Component {
 
     const { onCancel } = this.props;
     const {
+      newUser,
       email,
       firstName,
       lastName,
@@ -123,7 +139,7 @@ class EditUser extends Component {
             />
           </EditUserControl>
         </div>
-        {this.props.currentUser.role === 'floods_super_admin' && (
+        {this.props.currentUser.role === 'floods_super_admin' && newUser && (
           <EditUserControl label="Select a role" isRequired>
             <form>
               <div className="EditUser__control-radio-button">

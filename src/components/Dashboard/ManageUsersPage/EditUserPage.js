@@ -36,6 +36,7 @@ class EditUserPage extends Component {
           onCancel={this.redirectToUsers}
           onSubmit={this.addUser}
           currentUser={currentUser}
+          userToEdit={user}
         />
       </div>
     );
@@ -46,8 +47,11 @@ const UserByIdQuery = gql`
   query userById($userId:Int!) {
     userById(id:$userId) {
       id
+      emailAddress
       firstName
       lastName
+      jobTitle
+      phoneNumber
     }
   }
 `;
