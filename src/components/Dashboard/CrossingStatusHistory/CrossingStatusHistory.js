@@ -18,8 +18,11 @@ const containerQuery = {
 
 class CrossingStatusHistory extends Component {
   static propTypes = {
-    showNames: PropTypes.bool.isRequired,
-    crossingId: PropTypes.number.isRequired,
+    showNames: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    showNames: false,
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import CrossingStatusHistoryItem from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistoryItem';
+import PropTypes from 'prop-types';
 import {
   InfiniteLoader,
   AutoSizer,
@@ -8,6 +8,8 @@ import {
   CellMeasurer,
   CellMeasurerCache,
 } from 'react-virtualized';
+
+import CrossingStatusHistoryItem from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistoryItem';
 import 'components/Dashboard/CrossingListPage/CrossingListPage.css';
 
 let virtualizingList = [];
@@ -19,6 +21,14 @@ const cache = new CellMeasurerCache({
 });
 
 export default class InfiniteCrossingStatusHistoryList extends React.Component {
+  static propTypes = {
+    showNames: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    showNames: false,
+  };
+
   constructor(props) {
     super(props);
 

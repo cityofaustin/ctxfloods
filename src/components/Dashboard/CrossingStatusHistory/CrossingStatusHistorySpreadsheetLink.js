@@ -6,7 +6,7 @@ import CrossingStatusHistorySpreadsheetModal from './CrossingStatusHistorySpread
 
 export default class CrossingStatusHistorySpreadsheetLink extends Component {
   static propTypes = {
-    crossingId: PropTypes.number.isRequired,
+    crossingId: PropTypes.number,
   };
 
   constructor(...args) {

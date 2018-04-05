@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import classnames from 'classnames';
+
 import { displayedInputs } from 'constants/StatusConstants';
 import StatusIcon from 'components/Shared/StatusIcon';
 import 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistory.css';
-import classnames from 'classnames';
 import Date from 'components/Shared/DateTime/Date';
 import Hour from 'components/Shared/DateTime/Hour';
 
@@ -65,6 +67,14 @@ const ReasonDurationNotes = ({
 );
 
 class CrossingStatusHistoryItem extends Component {
+  static propTypes = {
+    showNames: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    showNames: false,
+  }
+
   render() {
     const { update, showNames, measure, cqParams } = this.props;
     const user = get(update, 'userByCreatorId', {});
