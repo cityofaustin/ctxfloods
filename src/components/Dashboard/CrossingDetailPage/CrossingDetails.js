@@ -32,6 +32,7 @@ class CrossingDetails extends Component {
     this.state = {
       name: crossing.name,
       description: crossing.description,
+      humanAddress: crossing.humanAddress,
       addCommunity: false,
       selectedCommunityId:
         dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
@@ -221,7 +222,7 @@ class CrossingDetails extends Component {
               <Label htmlFor="streetAddress">Street Address*</Label>
               <TextInput
                 id="streetAddress"
-                value={humanAddress ? humanAddress : ''}
+                value={this.state.humanAddress}
                 onChange={this.humanAddressChanged}
               />
               <InputDescription>
