@@ -98,7 +98,7 @@ class AddUserPage extends Component {
           <ActivateUserModal
             onClose={() => this.setState({ showModal: false })}
             userIsNew
-            userAdded={userAdded}
+            userActivated={userAdded}
             emailSent={emailSent}
             errorMessage={errorMessage}
           />
