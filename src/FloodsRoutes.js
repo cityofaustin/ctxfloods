@@ -34,7 +34,7 @@ class FloodsRoutes extends Component {
     }
 
     return (
-      <div className="PageLayout">
+      <div className="FloodsApp">
         <Route path="/" exact render={() => <Redirect to="/map" />} />
         <Route
           path="/dashboard"

@@ -1,3 +1,23 @@
+@import 'css/mixins/typography';
+
 .mapboxgl-ctrl-compass {
   display: none !important;
+}
+
+.CrossingMapPage__map-container .mapboxgl-popup-content {
+  // Needs to be even width or popup will be blurry on non-retina monitors
+  // https://github.com/mapbox/mapbox-gl-js/issues/3249
+  width: 250px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+  color: #000;
+  font-size: 1.7rem;
+  font-weight: 700;
+  font-family: $font-sans;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

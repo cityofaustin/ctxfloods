@@ -1,6 +1,8 @@
 @import 'css/mixins/colors';
 
 .Header {
+  padding: 0 5%;
+  flex: none;
   background: #111d23;
   color: $color-white;
   a {
