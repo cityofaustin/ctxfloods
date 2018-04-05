@@ -2355,4 +2355,5 @@ enum UsersOrderBy {
   ACTIVE_DESC
 }
 
-`; export default schema;
+`;
+export default schema;

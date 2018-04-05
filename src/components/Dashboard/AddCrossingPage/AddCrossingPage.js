@@ -58,12 +58,7 @@ class AddCrossingPage extends Component {
       <ContainerQuery query={containerQuery}>
         {params => (
           <div className="AddCrossingPage">
-            <div
-              className={classnames(
-                params,
-                'CrossingDetails__container',
-              )}
-            >
+            <div className={classnames(params, 'CrossingDetails__container')}>
               <AddCrossingMap
                 crossingCoordinates={this.state.crossingCoordinates}
                 crossingMoved={this.crossingMoved}

@@ -4,7 +4,7 @@ import PrivateRoute from 'PrivateRoute';
 import Header from 'components/Dashboard/Header/Header';
 import ManageUsers from 'components/Dashboard/ManageUsersPage/ManageUsers';
 import LoginPage from 'components/Dashboard/LoginPage/LoginPage';
-
+import AddUserPage from 'components/Dashboard/ManageUsersPage/AddUserPage';
 import CrossingMapPage from 'components/Shared/CrossingMapPage/CrossingMapPage';
 import CrossingListPage from 'components/Dashboard/CrossingListPage/CrossingListPage';
 import CrossingDetailPage from 'components/Dashboard/CrossingDetailPage/CrossingDetailPage';
@@ -43,8 +43,17 @@ class FloodsRoutes extends Component {
         />
 
         <Switch>
-          <Route exact path="/dashboard/forgot_password" component={ForgotPasswordPage} />
-          <Route path="/dashboard/reset_password/:resetterJwt" render={props => <ResetPasswordPage onLogin={this.onLogin} {...props}/>} />
+          <Route
+            exact
+            path="/dashboard/forgot_password"
+            component={ForgotPasswordPage}
+          />
+          <Route
+            path="/dashboard/reset_password/:resetterJwt"
+            render={props => (
+              <ResetPasswordPage onLogin={this.onLogin} {...props} />
+            )}
+          />
           <Route
             path="/dashboard"
             render={props =>
@@ -64,6 +73,16 @@ class FloodsRoutes extends Component {
         <PrivateRoute
           path="/dashboard/users"
           component={ManageUsers}
+          authenticated={auth.isAuthenticated()}
+          authorized={auth.roleAuthorized([
+            'floods_community_admin',
+            'floods_super_admin',
+          ])}
+          currentUser={currentUser}
+        />
+        <PrivateRoute
+          path="/dashboard/user/add"
+          component={AddUserPage}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized([
             'floods_community_admin',

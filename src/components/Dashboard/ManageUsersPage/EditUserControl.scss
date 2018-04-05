@@ -1,0 +1,47 @@
+.EditUser__control {
+  flex-basis: auto;
+  min-width: 200px;
+  max-width: 800px;
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin: 1rem 1rem;
+}
+
+.EditUser__control-meta {
+  display: flex;
+  padding-bottom: 0.5rem;
+}
+
+.EditUser__control-label {
+  font-size: 1.5rem;
+}
+
+.EditUser__control-required {
+  flex: 1;
+  text-align: right;
+  font-weight: 400;
+  font-style: italic;
+  align-self: center;
+  text-transform: uppercase;
+}
+
+.EditUser__control-text-box {
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 1rem;
+  max-width: 600px;
+}
+
+.EditUser__control-radio-button {
+  width: 100%;
+  font-size: 1.4rem;
+  padding: .2rem;
+  input {
+    margin-right: .8rem;
+  }
+}
+
+input:invalid {
+  background-color: pink;
+  border-color: pink;
+}

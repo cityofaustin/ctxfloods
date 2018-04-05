@@ -64,7 +64,12 @@ class CommunityRemoveModal extends Component {
         onClose={this.props.onClose}
         footer={
           <div>
-            <ButtonPrimary className="CommunityRemoveModal__primary-button" onClick={this.removeCommunity}>Remove</ButtonPrimary>
+            <ButtonPrimary
+              className="CommunityRemoveModal__primary-button"
+              onClick={this.removeCommunity}
+            >
+              Remove
+            </ButtonPrimary>
             <ButtonSecondary onClick={this.props.onClose}>
               Cancel
             </ButtonSecondary>

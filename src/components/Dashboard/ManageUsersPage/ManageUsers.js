@@ -30,7 +30,7 @@ class ManageUsers extends Component {
         <div className="flexcontainer">
           <h1 className="ManageUsers__h1">Manage Users</h1>
           <div className="ManageUsers__right-aligned-element">
-            <LinkButton url="/createuser" text="Add New" />
+            <LinkButton url="/dashboard/user/add" text="Add New" />
           </div>
         </div>
         <div className="flexcontainer">
