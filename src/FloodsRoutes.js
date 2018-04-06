@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import PrivateRoute from 'PrivateRoute';
-import Header from 'components/Dashboard/Header/Header';
+import Header from 'components/Dashboard/DashboardHeader';
 import ManageUsers from 'components/Dashboard/ManageUsersPage/ManageUsers';
 import LoginPage from 'components/Dashboard/LoginPage/LoginPage';
 
@@ -11,7 +11,7 @@ import CrossingDetailPage from 'components/Dashboard/CrossingDetailPage/Crossing
 import AddCrossingPage from 'components/Dashboard/AddCrossingPage/AddCrossingPage';
 import CrossingStatusHistoryPage from 'components/Dashboard/CrossingStatusHistoryPage/CrossingStatusHistoryPage';
 import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
-import PublicHeader from 'components/Public/Header/PublicHeader';
+import PublicHeader from 'components/Public/PublicHeader';
 import ForgotPasswordPage from 'components/Dashboard/ForgotPasswordPage/ForgotPasswordPage';
 import ResetPasswordPage from 'components/Dashboard/ResetPasswordPage/ResetPasswordPage';
 

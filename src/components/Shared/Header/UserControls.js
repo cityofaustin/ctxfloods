@@ -1,7 +1,7 @@
 import React from 'react';
 import auth from 'services/gqlAuth';
 
-import 'components/Dashboard/Header/UserControls.css';
+import './UserControls.css';
 
 export default class UserControls extends React.Component {
   render() {

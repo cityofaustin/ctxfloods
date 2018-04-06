@@ -19,8 +19,6 @@
 
 .Header__main {
   display: flex;
-  border-bottom: 2px solid $border-color-light;
-  margin: 1.5rem 0;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -67,17 +65,16 @@
   justify-content: center;
 }
 
-@mixin Header__tab {
+.Header__tab, .Header__tab--active {
+  text-decoration: none;
   font-size: 1.5rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
+  a {
+    text-decoration: none;
+  }
 }
-.Header__tab {
-  @include Header__tab;
-}
-
 .Header__tab--active {
-  @include Header__tab;
   border-bottom: 7px solid #03a9f4;
 }
 
