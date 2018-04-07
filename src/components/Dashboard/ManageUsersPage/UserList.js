@@ -99,6 +99,7 @@ const searchUsers = gql`
         firstName
         lastName
         role
+        emailAddress
         communityByCommunityId {
           id
           name

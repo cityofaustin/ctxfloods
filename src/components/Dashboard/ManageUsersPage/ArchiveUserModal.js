@@ -22,6 +22,8 @@ class ArchiveUserModal extends Component {
     this.state = {
       errorMessage: null,
       reactivating: false,
+      userReactivated: false,
+      reactivateEmailSent: false,
     };
   }
 
@@ -31,41 +33,37 @@ class ArchiveUserModal extends Component {
   }
 
   reactivateUser = () => {
-    this.setState({ reactivating: true, errorMessage: null });
-    // const password = generator.generate({
-    //   length: 30,
-    //   numbers: true,
-    //   symbols: true,
-    //   strict: true,
-    // });
-    // this.props
-    //   .addUserMutation({
-    //     variables: {
-    //       email: user.email,
-    //       firstName: user.firstName,
-    //       lastName: user.lastName,
-    //       role: user.role,
-    //       communityId: user.communityId,
-    //       jobTitle: user.jobTitle,
-    //       phoneNumber: user.phoneNumber,
-    //       password: password,
-    //     },
-    //   })
-    //   .then(({ data }) => {
-    //     console.log('success', data);
-    //     this.setState({ userAdded: true });
-    //     this.sendEmail(user);
-    //   })
-    //   .catch(error => {
-    //     console.log('there was an error sending the query', error);
-    //     this.setState({ errorMessage: error.message });
-    //   });
+    this.setState({ reactivating: true, userReactivated: false, reactivateEmailSent: false, errorMessage: null });
+
+    this.props
+      .reactivateUserMutation({
+        variables: {
+          userId: this.props.user.id,
+        },
+        update: (store, { data: { reactivateUser } }) => {
+          const reactivatedUser = reactivateUser.user;
+          store.writeFragment({
+            id: 'User:' + reactivatedUser.id,
+            fragment: userActiveFragment,
+            data: reactivatedUser,
+          });
+        },
+      })
+      .then(({ data }) => {
+        this.setState({ userReactivated: true });
+        this.sendEmail(this.props.user);
+      })
+      .catch(err => {
+        console.error(err);
+        this.setState({ errorMessage: err.message });
+      });
   };
 
   sendEmail = user => {
+    debugger;
     fetch(`${process.env.REACT_APP_BACKEND_URL}/email/reset`, {
       method: 'POST',
-      body: JSON.stringify({ email: user.email }),
+      body: JSON.stringify({ email: user.emailAddress }),
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
@@ -73,11 +71,11 @@ class ArchiveUserModal extends Component {
       .then(res => {
         if (res.status === 204) {
           this.setState({
-            emailSent: true,
+            reactivateEmailSent: true,
           });
         } else if (res.status === 400) {
           this.setState({
-            emailSent: false,
+            reactivateEmailSent: false,
             errorMessage: 'Email failed to send',
           });
         }
@@ -85,7 +83,7 @@ class ArchiveUserModal extends Component {
       .catch(error => {
         console.error(error);
         this.setState({
-          emailSent: false,
+          reactivateEmailSent: false,
           errorMessage: error.message,
         });
       });
@@ -123,8 +121,8 @@ class ArchiveUserModal extends Component {
       return (
         <ActivateUserModal
           onClose={this.props.onClose}
-          userActivated={false}
-          emailSent={false}
+          userActivated={this.state.userReactivated}
+          emailSent={this.state.reactivateEmailSent}
           errorMessage={this.state.errorMessage}
         />
       )
@@ -172,7 +170,7 @@ const deactivateUserMutation = gql`
 
 const reactivateUserMutation = gql`
   mutation($userId:Int!) {
-    deactivateUser(input: {userId: $userId}) {
+    reactivateUser(input: {userId: $userId}) {
       user {
         ...userActive
       }
