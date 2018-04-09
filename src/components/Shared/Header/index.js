@@ -20,10 +20,9 @@ export default class Header extends Component {
               src={CtxFloodsLogoDarkSvg}
               alt="CTXfloods | Central Texas Floods"
             />
+            <div className="Header__title">{this.props.title}</div>
           </h1>
-          <div className="Header__main">
-            <ul className="Header__tabs">{this.props.children}</ul>
-          </div>
+          <ul className="Header__tabs">{this.props.children}</ul>
         </div>
       </div>
     );

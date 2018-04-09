@@ -11,7 +11,7 @@ export default function DashboardHeader({ location, ...props }) {
       <TopBar>
         <UserControls {...props} />
       </TopBar>
-      <Header location={location}>
+      <Header title="Dashboard" location={location}>
         <li
           className={
             location.pathname.endsWith('crossings/list')
