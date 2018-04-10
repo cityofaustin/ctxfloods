@@ -14,6 +14,29 @@ class EditUserPage extends Component {
     this.setState({ errorMessage: err.message });
   }
 
+  editUser = user => {
+    this.setState({ showModal: true, errorMessage: null });
+    this.props
+      .editUserMutation({
+        variables: {
+          userId: this.props.match.params.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          jobTitle: user.jobTitle,
+          phoneNumber: user.phoneNumber,
+        },
+      })
+      .then(({ data }) => {
+        console.log('success', data);
+        this.setState({ userAdded: true });
+        this.sendEmail(user);
+      })
+      .catch(error => {
+        console.log('there was an error sending the query', error);
+        this.setState({ errorMessage: error.message });
+      });
+  };
+
   render() {
     const { currentUser } = this.props;
 
@@ -32,7 +55,7 @@ class EditUserPage extends Component {
         <h1>Edit User - {user.firstName} {user.lastName}</h1>
         <EditUser
           onCancel={this.redirectToUsers}
-          onSubmit={this.addUser}
+          onSubmit={this.editUser}
           currentUser={currentUser}
           userToEdit={user}
         />
@@ -55,28 +78,18 @@ const UserByIdQuery = gql`
 `;
 
 const editUserMutation = gql`
-  mutation(
-    $firstName: String!
-    $lastName: String!
-    $jobTitle: String!
-    $communityId: Int!
-    $phoneNumber: String!
-    $email: String!
-    $password: String!
-    $role: String!
-  ) {
-    registerUser(
-      input: {
-        firstName: $firstName
-        lastName: $lastName
-        jobTitle: $jobTitle
-        communityId: $communityId
-        phoneNumber: $phoneNumber
-        email: $email
-        password: $password
-        role: $role
-      }
-    ) {
+  mutation($userId:Int!,
+           $lastName:String!,
+           $firstName:String!,
+           $jobTitle:String!,
+           $phoneNumber:String!) 
+  {
+    editUser(input: { userId: $userId,
+                      lastName: $lastName,
+                      firstName: $firstName,
+                      jobTitle: $jobTitle,
+                      phoneNumber: $phoneNumber })
+    {
       user {
         id
       }

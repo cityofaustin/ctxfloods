@@ -129,7 +129,6 @@ class EditUser extends Component {
               type="text"
               value={firstName}
               onChange={this.firstNameChanged}
-              disabled={!newUser}
             />
           </EditUserControl>
           <EditUserControl label="Last name" isRequired={newUser}>
@@ -138,7 +137,6 @@ class EditUser extends Component {
               type="text"
               value={lastName}
               onChange={this.lastNameChanged}
-              disabled={!newUser}
             />
           </EditUserControl>
         </div>
@@ -199,7 +197,6 @@ class EditUser extends Component {
             type="text"
             value={jobTitle}
             onChange={this.jobTitleChanged}
-            disabled={!newUser}
           />
         </EditUserControl>
         <EditUserControl label="Phone (visible to other Dashboard users)">
@@ -208,7 +205,6 @@ class EditUser extends Component {
             type="text"
             value={phoneNumber}
             onChange={this.phoneNumberChanged}
-            disabled={!newUser}
           />
         </EditUserControl>
         <div className="EditUser__buttons">
