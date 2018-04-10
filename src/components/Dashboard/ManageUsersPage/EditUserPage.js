@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
-import generator from 'generate-password';
 
 import EditUser from 'components/Dashboard/ManageUsersPage/EditUser';
 
