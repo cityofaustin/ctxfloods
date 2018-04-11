@@ -44,7 +44,6 @@ class CrossingMapPage extends Component {
       selectedCommunity: null,
       viewport: viewportAndCenter.viewport,
       center: viewportAndCenter.center,
-      mapCenter: viewportAndCenter.center,
     };
   }
 
@@ -108,8 +107,8 @@ class CrossingMapPage extends Component {
     this.setState({ showLongterm: !this.state.showLongterm });
   };
 
-  getMapCenter = center => {
-    this.setState({ mapCenter: center });
+  setCenter = center => {
+    this.setState({ center: center });
   };
 
   setSelectedLocationCoordinates = coordinates => {
@@ -125,7 +124,6 @@ class CrossingMapPage extends Component {
       this.setState({
         viewport: viewportAndCenter.viewport,
         center: viewportAndCenter.center,
-        mapCenter: viewportAndCenter.mapCenter,
       });
     }
   };
@@ -133,7 +131,7 @@ class CrossingMapPage extends Component {
   render() {
     const {
       viewport,
-      mapCenter,
+      center,
       selectedCrossingId,
       selectedCrossingStatus,
       searchQuery,
@@ -203,7 +201,7 @@ class CrossingMapPage extends Component {
                       setSelectedCommunity={this.setSelectedCommunity}
                       toggleSearchFocus={() => null}
                       communities={allCommunities}
-                      center={mapCenter}
+                      center={center}
                       setSelectedLocationCoordinates={
                         this.setSelectedLocationCoordinates
                       }
@@ -250,7 +248,7 @@ class CrossingMapPage extends Component {
                       closedCrossings={closedCrossings}
                       longtermCrossings={longtermCrossings}
                       cautionCrossings={cautionCrossings}
-                      center={mapCenter}
+                      center={center}
                       setSelectedLocationCoordinates={
                         this.setSelectedLocationCoordinates
                       }
@@ -269,7 +267,7 @@ class CrossingMapPage extends Component {
                     mapHeight="100%"
                     mapWidth="100%"
                     viewport={viewport}
-                    getMapCenter={this.getMapCenter}
+                    setCenter={this.setCenter}
                     selectedLocationCoordinates={selectedLocationCoordinates}
                     selectedCrossingId={selectedCrossingId}
                     selectedCrossingStatus={selectedCrossingStatus}

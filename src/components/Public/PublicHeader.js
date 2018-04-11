@@ -25,6 +25,15 @@ export default function PublicHeader({ location }) {
           </li>
           <li
             className={
+              location.pathname.endsWith('communities')
+                ? 'Header__tab--active'
+                : 'Header__tab'
+            }
+          >
+            <Link to="/data">Communities</Link>
+          </li>
+          <li
+            className={
               location.pathname.endsWith('safety')
                 ? 'Header__tab--active'
                 : 'Header__tab'

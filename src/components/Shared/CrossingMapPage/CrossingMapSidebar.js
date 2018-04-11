@@ -120,9 +120,13 @@ class CrossingMapSidebar extends Component {
       nearbyCrossings.push(...longtermCrossings);
 
     return nearbyCrossings.length
-      ? _.sortBy(nearbyCrossings, c =>
-          geolib.getDistance(center, JSON.parse(c.geojson).coordinates),
-        ).slice(0, 20)
+      ? _.sortBy(nearbyCrossings, c => {
+          const x = geolib.getDistance(
+            center,
+            JSON.parse(c.geojson).coordinates,
+          );
+          return x;
+        }).slice(0, 20)
       : [];
   };
 
