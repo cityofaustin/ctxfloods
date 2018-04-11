@@ -1,0 +1,19 @@
+.EditUser__name {
+  display: flex;
+  min-width: 200px;
+  max-width: 620px;
+  flex-wrap: wrap;
+}
+
+.EditUser__buttons {
+  padding: 1rem;
+}
+
+.EditUser__cancel-button {
+  margin-right: 1.8rem;
+  width: 100px;
+}
+
+.EditUser__next-button {
+  width: 100px;
+}

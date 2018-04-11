@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import Button, { ButtonPropTypes } from './Button';
 
-export default function ButtonPrimary({ className, ...props }) {
+export default function ButtonSecondary({ className, ...props }) {
   return (
     <Button
       className={classnames(className, 'Shared__button--secondary')}
@@ -12,4 +12,4 @@ export default function ButtonPrimary({ className, ...props }) {
   );
 }
 
-ButtonPrimary.propTypes = ButtonPropTypes;
+ButtonSecondary.propTypes = ButtonPropTypes;

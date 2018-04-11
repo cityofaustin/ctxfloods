@@ -6,9 +6,14 @@ import CheckboxDisabledSvg from 'images/checkbox-disabled.svg';
 
 import './FilterCheckbox.css';
 
-export default function FilterCheckbox({ isChecked, onClick, children, className }) {
+export default function FilterCheckbox({
+  isChecked,
+  onClick,
+  children,
+  className,
+}) {
   return (
-    <label className={classNames("FilterCheckbox", className)}>
+    <label className={classNames('FilterCheckbox', className)}>
       <input
         type="image"
         src={isChecked ? CheckboxEnabledSvg : CheckboxDisabledSvg}

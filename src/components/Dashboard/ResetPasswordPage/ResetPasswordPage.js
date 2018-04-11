@@ -24,19 +24,19 @@ class ResetPasswordPage extends Component {
     const { resetterJwt } = props.match.params;
 
     if (resetterJwt) {
-      localStorage.setItem('jwt_user_token', resetterJwt)
+      localStorage.setItem('jwt_user_token', resetterJwt);
     }
   }
 
-  handlePasswordChange = (e) => {
+  handlePasswordChange = e => {
     this.setState({ password: e.target.value });
-  }
+  };
 
-  handleConfirmPasswordChange = (e) => {
+  handleConfirmPasswordChange = e => {
     this.setState({ confirmPassword: e.target.value });
-  }
+  };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const password = this.state.password.trim();
 
@@ -59,39 +59,49 @@ class ResetPasswordPage extends Component {
           errorHappened: true,
         });
       });
-  }
+  };
 
   render() {
-    const { passwordResetSuccessfully, password, confirmPassword, errorHappened } = this.state;
+    const {
+      passwordResetSuccessfully,
+      password,
+      confirmPassword,
+      errorHappened,
+    } = this.state;
 
     return (
       <div className="ResetPasswordPage">
-        { !passwordResetSuccessfully &&
-        <div className="ResetPasswordPage__form-controls">
-          <h1> Reset your password </h1>
-          {errorHappened && <div className="ResetPasswordPage__error-text"> Failed to reset password </div>}
-          <form
-            onSubmit={this.handleSubmit}
-          >
-            <input
-              type="password"
-              value={password}
-              placeholder="Password"
-              onChange={this.handlePasswordChange}
-            />
-            <input
-              type="password"
-              value={confirmPassword}
-              placeholder="Confirm"
-              onChange={this.handleConfirmPasswordChange}
-            />
-            <input type="submit" className="ResetPasswordPage__submit" value="Reset Password" />
-          </form>
-        </div>
-        }
-        {
-          passwordResetSuccessfully && <Redirect to="/dashboard" />
-        }
+        {!passwordResetSuccessfully && (
+          <div className="ResetPasswordPage__form-controls">
+            <h1> Reset your password </h1>
+            {errorHappened && (
+              <div className="ResetPasswordPage__error-text">
+                {' '}
+                Failed to reset password{' '}
+              </div>
+            )}
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="password"
+                value={password}
+                placeholder="Password"
+                onChange={this.handlePasswordChange}
+              />
+              <input
+                type="password"
+                value={confirmPassword}
+                placeholder="Confirm"
+                onChange={this.handleConfirmPasswordChange}
+              />
+              <input
+                type="submit"
+                className="ResetPasswordPage__submit"
+                value="Reset Password"
+              />
+            </form>
+          </div>
+        )}
+        {passwordResetSuccessfully && <Redirect to="/dashboard" />}
       </div>
     );
   }
@@ -99,7 +109,7 @@ class ResetPasswordPage extends Component {
 
 const resetPassword = gql`
   mutation($newPassword: String!) {
-    resetPassword(input:{newPassword:$newPassword}) {
+    resetPassword(input: { newPassword: $newPassword }) {
       jwtToken
     }
   }
