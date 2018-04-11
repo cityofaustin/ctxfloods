@@ -3,18 +3,10 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import AddCrossingMap from 'components/Shared/Map/AddCrossingMap';
 import CrossingDetails from 'components/Dashboard/CrossingDetailPage/CrossingDetails';
-import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
-import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetailPage.css';
 import formatcoords from 'formatcoords';
 import MobileDetect from 'mobile-detect';
-
-const containerQuery = {
-  'CrossingDetails__container--lg': {
-    minWidth: LARGE_ITEM_MIN_WIDTH,
-  },
-};
 
 const md = new MobileDetect(window.navigator.userAgent);
 
@@ -55,30 +47,21 @@ class AddCrossingPage extends Component {
     const communities = [this.props.currentUser.communityByCommunityId];
 
     return (
-      <ContainerQuery query={containerQuery}>
-        {params => (
-          <div className="AddCrossingPage">
-            <div
-              className={classnames(
-                params,
-                'CrossingDetails__container',
-              )}
-            >
-              <AddCrossingMap
-                crossingCoordinates={this.state.crossingCoordinates}
-                crossingMoved={this.crossingMoved}
-              />
-              <CrossingDetails
-                crossing={crossing}
-                allCommunities={allCommunities}
-                crossingCommunities={communities}
-                addMode={true}
-                currentUser={this.props.currentUser}
-              />
-            </div>
-          </div>
-        )}
-      </ContainerQuery>
+      <div className="AddCrossingPage">
+        <div className="CrossingDetails__container">
+          <AddCrossingMap
+            crossingCoordinates={this.state.crossingCoordinates}
+            crossingMoved={this.crossingMoved}
+          />
+          <CrossingDetails
+            crossing={crossing}
+            allCommunities={allCommunities}
+            crossingCommunities={communities}
+            addMode={true}
+            currentUser={this.props.currentUser}
+          />
+        </div>
+      </div>
     );
   }
 }

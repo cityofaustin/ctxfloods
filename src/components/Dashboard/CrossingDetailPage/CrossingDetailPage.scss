@@ -1,40 +1,35 @@
-
-.AddCrossingPage {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.AddCrossingPage, .CrossingDetailPage {
+.AddCrossingPage,
+.CrossingDetailPage {
   background: #fff;
 }
 
-.CrossingDetails__container {
-  display: flex;
-  flex-direction: column;
-
-  &.CrossingDetails__container--lg {
+@media (min-width: 700px) {
+  .AddCrossingPage {
+    display: flex;
+    flex: 1;
+  }
+  .CrossingDetails__container {
     display: flex;
     flex-direction: row;
     flex: 1;
-
-    .CrossingStaticMap {
-      order: 1;
-    }
-
-    .CrossingDetails {
-      order: 2;
-      display: flex;
-      flex-direction: column;
-    }
   }
-
   .CrossingStaticMap {
     flex: 1;
-    order: 2;
   }
-
   .CrossingDetails {
+    display: flex;
+    flex-direction: column;
     flex: 1;
-    order: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .CrossingDetails__container {
+  }
+  .CrossingDetails {
+  }
+  .CrossingStaticMap {
+    height: 400px;
+    max-height: 60vh;
   }
 }

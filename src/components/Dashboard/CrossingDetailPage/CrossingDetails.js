@@ -242,32 +242,6 @@ class CrossingDetails extends Component {
                 lane only”
               </InputDescription>
             </div>
-
-            {!addMode && (
-              <div className="CrossingDetails__buttons">
-                <ButtonPrimary onClick={this.updateCrossing}>
-                  Update Crossing
-                </ButtonPrimary>
-                <ButtonSecondary onClick={this.cancelClicked}>
-                  Cancel
-                </ButtonSecondary>
-              </div>
-            )}
-            {addMode && (
-              <div className="CrossingDetails__buttons">
-                <ButtonPrimary onClick={this.addCrossing}>
-                  Add Crossing
-                </ButtonPrimary>
-              </div>
-            )}
-
-            {crossing.active &&
-              currentUser.role !== 'floods_community_editor' &&
-              crossingCommunities.length === 1 && (
-                <div className="CrossingDetails__buttons">
-                  <DeleteCrossingButton crossingId={crossing.id} />
-                </div>
-              )}
           </div>
           <div className="CrossingDetails__aside">
             {!addMode && (
@@ -326,6 +300,30 @@ class CrossingDetails extends Component {
             </div>
           </div>
         </div>
+        {!addMode && (
+          <div className="CrossingDetails__buttons">
+            <ButtonPrimary onClick={this.updateCrossing}>
+              Update Crossing
+            </ButtonPrimary>
+            <ButtonSecondary onClick={this.cancelClicked}>
+              Cancel
+            </ButtonSecondary>
+            {crossing.active &&
+              currentUser.role !== 'floods_community_editor' &&
+              crossingCommunities.length === 1 && (
+                <div className="CrossingDetails__buttons">
+                  <DeleteCrossingButton crossingId={crossing.id} />
+                </div>
+              )}
+          </div>
+        )}
+        {addMode && (
+          <div className="CrossingDetails__buttons">
+            <ButtonPrimary onClick={this.addCrossing}>
+              Add Crossing
+            </ButtonPrimary>
+          </div>
+        )}
       </div>
     );
   }
