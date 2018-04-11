@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 
 import EditUser from 'components/Dashboard/ManageUsersPage/EditUser';
 
 class EditUserPage extends Component {
   state = {
-    errorMessage: null,
-  };
+    redirect: false,
+  }
 
   componentDidCatch(err) {
     console.error(err);
@@ -15,7 +16,6 @@ class EditUserPage extends Component {
   }
 
   editUser = user => {
-    this.setState({ showModal: true, errorMessage: null });
     this.props
       .editUserMutation({
         variables: {
@@ -28,16 +28,18 @@ class EditUserPage extends Component {
       })
       .then(({ data }) => {
         console.log('success', data);
-        this.setState({ userAdded: true });
-        this.sendEmail(user);
+        this.setState({ redirect: true });
       })
       .catch(error => {
         console.log('there was an error sending the query', error);
-        this.setState({ errorMessage: error.message });
       });
   };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/dashboard/users" push />;
+    }
+
     const { currentUser } = this.props;
 
     const isLoading =
@@ -54,7 +56,7 @@ class EditUserPage extends Component {
       <div className="EditUserPage">
         <h1>Edit User - {user.firstName} {user.lastName}</h1>
         <EditUser
-          onCancel={this.redirectToUsers}
+          onCancel={() => this.setState({redirect: true})}
           onSubmit={this.editUser}
           currentUser={currentUser}
           userToEdit={user}
