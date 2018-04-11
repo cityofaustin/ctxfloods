@@ -3,7 +3,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import AddCrossingMap from 'components/Shared/Map/AddCrossingMap';
 import CrossingDetails from 'components/Dashboard/CrossingDetailPage/CrossingDetails';
-import classnames from 'classnames';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetailPage.css';
 import formatcoords from 'formatcoords';
 import MobileDetect from 'mobile-detect';
