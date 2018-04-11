@@ -7,10 +7,9 @@ const auth = {
       var token = localStorage.getItem('jwt_user_token');
       if (token === null || token === 'null') return false;
       return !isTokenExpired(token);
-    } catch(e) {
+    } catch (e) {
       return false;
     }
-
   },
 
   getRole() {
@@ -18,7 +17,7 @@ const auth = {
       var token = localStorage.getItem('jwt_user_token');
       if (token === null || token === 'null') return null;
       return isTokenExpired(token) ? false : decode(token).role;
-    } catch(e) {
+    } catch (e) {
       return null;
     }
   },

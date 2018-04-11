@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import TopBar from 'components/Shared/TopBar';
@@ -53,3 +54,8 @@ export default function PublicHeader({ location }) {
     </div>
   );
 }
+
+PublicHeader.propTypes = {
+  location: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired,
+};

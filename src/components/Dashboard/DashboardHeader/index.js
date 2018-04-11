@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Header from 'components/Shared/Header';
 import TopBar from 'components/Shared/TopBar';
 import UserControls from 'components/Shared/Header/UserControls';
 
-export default function DashboardHeader({ location, ...props }) {
+export default function DashboardHeader({ location, currentUser, ...props }) {
   return (
     <div>
       <TopBar>
@@ -48,16 +49,24 @@ export default function DashboardHeader({ location, ...props }) {
         >
           <Link to="/dashboard/crossings/history">History</Link>
         </li>
-        <li
-          className={
-            location.pathname.endsWith('users')
-              ? 'Header__tab--active'
-              : 'Header__tab'
-          }
-        >
-          <Link to="/dashboard/users">Manage Users</Link>
-        </li>
+        {(currentUser.role === 'floods_community_admin' ||
+          currentUser.role === 'floods_super_admin') && (
+          <li
+            className={
+              location.pathname.endsWith('users')
+                ? 'Header__tab--active'
+                : 'Header__tab'
+            }
+          >
+            <Link to="/dashboard/users">Manage Users</Link>
+          </li>
+        )}
       </Header>
     </div>
   );
 }
+
+DashboardHeader.propTypes = {
+  location: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired,
+};

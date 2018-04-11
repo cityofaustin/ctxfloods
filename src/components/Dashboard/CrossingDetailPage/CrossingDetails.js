@@ -197,12 +197,17 @@ class CrossingDetails extends Component {
 
     return (
       <div className="CrossingDetails">
-        {!crossing.active && !addMode && (
-          <div className="CrossingDetails__archived">
-            <FontAwesome name="exclamation-triangle" className="CrossingDetails__archived-icon" size="lg" />
-            Crossing has been archived.
-          </div>
-        )}
+        {!crossing.active &&
+          !addMode && (
+            <div className="CrossingDetails__archived">
+              <FontAwesome
+                name="exclamation-triangle"
+                className="CrossingDetails__archived-icon"
+                size="lg"
+              />
+              Crossing has been archived.
+            </div>
+          )}
         <div className="CrossingDetails__details-container">
           <div className="CrossingDetails__details">
             <div className="CrossingDetails__field-group">

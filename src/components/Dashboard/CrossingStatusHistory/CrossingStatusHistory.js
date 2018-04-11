@@ -19,11 +19,12 @@ const containerQuery = {
 class CrossingStatusHistory extends Component {
   static propTypes = {
     showNames: PropTypes.bool,
-  }
+    crossingId: PropTypes.number.isRequired,
+  };
 
   static defaultProps = {
     showNames: false,
-  }
+  };
 
   render() {
     const { showNames, crossingId } = this.props;
@@ -36,7 +37,11 @@ class CrossingStatusHistory extends Component {
               <div className="CrossingStatusHistory__section-header">
                 <div className="CrossingStatusHistory__section-header--title">
                   <div className="CrossingStatusHistory__section-header--history-icon">
-                    <FontAwesome size="lg" name="history" ariaLabel="Crossing History" />
+                    <FontAwesome
+                      size="lg"
+                      name="history"
+                      ariaLabel="Crossing History"
+                    />
                   </div>
                   Crossing History
                 </div>
