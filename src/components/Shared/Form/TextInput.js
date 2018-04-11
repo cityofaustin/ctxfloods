@@ -28,11 +28,9 @@ export default function TextInput({
 TextInput.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
-  isOptional: PropTypes.bool,
   isDisabled: PropTypes.bool,
 };
 
 TextInput.defaultProps = {
-  isOptional: false,
   isDisabled: false,
 };

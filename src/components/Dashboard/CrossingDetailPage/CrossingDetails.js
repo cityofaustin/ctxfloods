@@ -30,8 +30,9 @@ class CrossingDetails extends Component {
     _.pullAllBy(dropdownCommunities, crossingCommunities, 'id');
 
     this.state = {
-      name: crossing.name,
-      description: crossing.description,
+      name: crossing.name || '',
+      description: crossing.description || '',
+      humanAddress: crossing.humanAddress || '',
       addCommunity: false,
       selectedCommunityId:
         dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
@@ -193,7 +194,6 @@ class CrossingDetails extends Component {
     }
 
     const { crossing, crossingCommunities, addMode, currentUser } = this.props;
-    const { dropdownCommunities, name, humanAddress, description } = this.state;
 
     return (
       <div className="CrossingDetails">
@@ -214,7 +214,7 @@ class CrossingDetails extends Component {
               <Label htmlFor="crossingName">Display Name*</Label>
               <TextInput
                 id="crossingName"
-                value={name ? name : ''}
+                value={this.state.name}
                 onChange={this.nameChanged}
               />
               <InputDescription>
@@ -226,7 +226,7 @@ class CrossingDetails extends Component {
               <Label htmlFor="streetAddress">Street Address*</Label>
               <TextInput
                 id="streetAddress"
-                value={humanAddress ? humanAddress : ''}
+                value={this.state.humanAddress}
                 onChange={this.humanAddressChanged}
               />
               <InputDescription>
@@ -239,7 +239,7 @@ class CrossingDetails extends Component {
               </Label>
               <TextInput
                 id="crossingDescription"
-                value={description ? description : ''}
+                value={this.state.description}
                 onChange={this.descriptionChanged}
               />
               <InputDescription>
@@ -247,32 +247,6 @@ class CrossingDetails extends Component {
                 lane only”
               </InputDescription>
             </div>
-
-            {!addMode && (
-              <div className="CrossingDetails__buttons">
-                <ButtonPrimary onClick={this.updateCrossing}>
-                  Update Crossing
-                </ButtonPrimary>
-                <ButtonSecondary onClick={this.cancelClicked}>
-                  Cancel
-                </ButtonSecondary>
-              </div>
-            )}
-            {addMode && (
-              <div className="CrossingDetails__buttons">
-                <ButtonPrimary onClick={this.addCrossing}>
-                  Add Crossing
-                </ButtonPrimary>
-              </div>
-            )}
-
-            {crossing.active &&
-              currentUser.role !== 'floods_community_editor' &&
-              crossingCommunities.length === 1 && (
-                <div className="CrossingDetails__buttons">
-                  <DeleteCrossingButton crossingId={crossing.id} />
-                </div>
-              )}
           </div>
           <div className="CrossingDetails__aside">
             {!addMode && (
@@ -304,7 +278,7 @@ class CrossingDetails extends Component {
                   );
                 })}
                 {!this.state.addCommunity &&
-                  dropdownCommunities.length > 0 &&
+                  this.state.dropdownCommunities.length > 0 &&
                   currentUser.role !== 'floods_community_editor' && (
                     <CommunityTagAddButton onClick={this.addCommunityClicked} />
                   )}
@@ -313,7 +287,7 @@ class CrossingDetails extends Component {
               {this.state.addCommunity && (
                 <div>
                   <Dropdown
-                    options={dropdownCommunities}
+                    options={this.state.dropdownCommunities}
                     selected={this.state.selectedCommunityId}
                     onChange={this.selectedCommunityChanged}
                   />
@@ -331,6 +305,30 @@ class CrossingDetails extends Component {
             </div>
           </div>
         </div>
+        {!addMode && (
+          <div className="CrossingDetails__buttons">
+            <ButtonPrimary onClick={this.updateCrossing}>
+              Update Crossing
+            </ButtonPrimary>
+            <ButtonSecondary onClick={this.cancelClicked}>
+              Cancel
+            </ButtonSecondary>
+            {crossing.active &&
+              currentUser.role !== 'floods_community_editor' &&
+              crossingCommunities.length === 1 && (
+                <div className="CrossingDetails__buttons">
+                  <DeleteCrossingButton crossingId={crossing.id} />
+                </div>
+              )}
+          </div>
+        )}
+        {addMode && (
+          <div className="CrossingDetails__buttons">
+            <ButtonPrimary onClick={this.addCrossing}>
+              Add Crossing
+            </ButtonPrimary>
+          </div>
+        )}
       </div>
     );
   }

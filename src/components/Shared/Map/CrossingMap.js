@@ -494,7 +494,7 @@ class CrossingMap extends React.Component {
               JSON.parse(this.state.selectedCrossing.geojson).coordinates
             }
           >
-            <div className="CrossingMap__popup">
+            <div>
               {this.state.selectedCrossing.crossingName}
             </div>
           </Popup>
