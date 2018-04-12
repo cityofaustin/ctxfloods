@@ -166,7 +166,6 @@ class CrossingMapSidebar extends Component {
               toggleSearchFocus={this.toggleSearchFocus}
               communities={allCommunities}
               communityId={currentUser && currentUser.communityId}
-              setSelectedCommunity={setSelectedCommunity}
             />
 
             {!searchFocused && (

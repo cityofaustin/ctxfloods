@@ -224,7 +224,6 @@ class CrossingMapPage extends Component {
                       searchQuery={searchQuery}
                       searchQueryUpdated={this.searchQueryUpdated}
                       selectedCrossingName={selectedCrossingName}
-                      setSelectedCommunity={this.setSelectedCommunity}
                       toggleSearchFocus={() => null}
                       communities={allCommunities}
                       center={center}
@@ -278,7 +277,6 @@ class CrossingMapPage extends Component {
                       setSelectedLocationCoordinates={
                         this.setSelectedLocationCoordinates
                       }
-                      setSelectedCommunity={this.setSelectedCommunity}
                       triggerMapResize={this.triggerMapResize}
                     />
                   </React.Fragment>
