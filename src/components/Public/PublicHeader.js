@@ -16,7 +16,7 @@ export default function PublicHeader({ location }) {
       <Header>
           <li
             className={
-              location.pathname.endsWith('map')
+              location.pathname.includes('/map')
                 ? 'Header__tab--active'
                 : 'Header__tab'
             }

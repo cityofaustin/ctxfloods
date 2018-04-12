@@ -66,10 +66,7 @@ class CrossingMapPage extends Component {
     const didLoad = !getIsLoading(this.props) && getIsLoading(prevProps);
     const didSelectedCommunityChange =
       this.props.match.params.selectedCommunityId !==
-        prevProps.match.params.selectedCommunityId &&
-      (this.state.selectedCommunity &&
-        this.props.match.params.selectedCommunityId !==
-          this.state.selectedCommunity.id);
+      prevProps.match.params.selectedCommunityId;
 
     if (didLoad || didSelectedCommunityChange) {
       this.selectCrossingFromRoute();
