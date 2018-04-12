@@ -146,7 +146,6 @@ class CrossingMapSidebar extends Component {
       selectedCrossingName,
       center,
       setSelectedLocationCoordinates,
-      setSelectedCommunity,
     } = this.props;
 
     const { nearbyCrossings } = this.state;

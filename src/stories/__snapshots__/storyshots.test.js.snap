@@ -625,9 +625,11 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -831,9 +833,11 @@ exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -1058,9 +1062,11 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -1264,9 +1270,11 @@ exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -1494,9 +1502,11 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
             >
               <div
                 className="CrossingCommunityList"
+                onClick={[Function]}
               >
                 <a
-                  href="/"
+                  href="/map/community/1234"
+                  onClick={[Function]}
                 >
                   All of Texas.
                 </a>
@@ -1763,9 +1773,11 @@ exports[`Storyshots Crossing List Item Long-Term Closure 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -2016,9 +2028,11 @@ exports[`Storyshots Crossing List Item Long-Term Closure Dirty 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -2295,9 +2309,11 @@ exports[`Storyshots Crossing List Item Open 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -2454,9 +2470,11 @@ exports[`Storyshots Crossing List Item Open Dirty 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -2632,9 +2650,11 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
             >
               <div
                 className="CrossingCommunityList"
+                onClick={[Function]}
               >
                 <a
-                  href="/"
+                  href="/map/community/1234"
+                  onClick={[Function]}
                 >
                   All of Texas.
                 </a>
