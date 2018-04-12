@@ -19,6 +19,21 @@ const containerQuery = {
   },
 };
 
+const getIsLoading = props => {
+  return (
+    !props.openCrossings ||
+    props.openCrossings.loading ||
+    !props.closedCrossings ||
+    props.closedCrossings.loading ||
+    !props.cautionCrossings ||
+    props.cautionCrossings.loading ||
+    !props.longtermCrossings ||
+    props.longtermCrossings.loading ||
+    !props.allCommunities ||
+    props.allCommunities.loading
+  );
+};
+
 class CrossingMapPage extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +61,30 @@ class CrossingMapPage extends Component {
       center: viewportAndCenter.center,
     };
   }
+
+  componentDidUpdate(prevProps) {
+    const didLoad = !getIsLoading(this.props) && getIsLoading(prevProps);
+    const didSelectedCommunityChange =
+      this.props.match.params.selectedCommunityId !==
+        prevProps.match.params.selectedCommunityId &&
+      (this.state.selectedCommunity &&
+        this.props.match.params.selectedCommunityId !==
+          this.state.selectedCommunity.id);
+
+    if (didLoad || didSelectedCommunityChange) {
+      this.selectCrossingFromRoute();
+    }
+  }
+
+  selectCrossingFromRoute = () => {
+    const selectedCommunityId = this.props.match.params.selectedCommunityId;
+    if (selectedCommunityId) {
+      const selectedCommunity = this.props.allCommunities.allCommunities.nodes.find(
+        community => community.id === Number(selectedCommunityId),
+      );
+      this.setSelectedCommunity(selectedCommunity);
+    }
+  };
 
   registerMapResizeCallback = cb => {
     this.mapResizeCallback = cb;
@@ -142,17 +181,7 @@ class CrossingMapPage extends Component {
     } = this.state;
     const { currentUser } = this.props;
 
-    const isLoading =
-      !this.props.openCrossings ||
-      this.props.openCrossings.loading ||
-      !this.props.closedCrossings ||
-      this.props.closedCrossings.loading ||
-      !this.props.cautionCrossings ||
-      this.props.cautionCrossings.loading ||
-      !this.props.longtermCrossings ||
-      this.props.longtermCrossings.loading ||
-      !this.props.allCommunities ||
-      this.props.allCommunities.loading;
+    const isLoading = getIsLoading(this.props);
 
     if (
       !isLoading &&

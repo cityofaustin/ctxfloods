@@ -213,7 +213,7 @@ class CrossingMapSearchBar extends Component {
           updateSuggestions={this.updateCrossingSuggestions}
         />
         <div className="CrossingMapSearchBar__header">
-          SEARCH FOR A PLACE, COMMUNITY, OR CROSSING
+          Search for a place, community, or crossing
         </div>
         <div className="CrossingMapSearchBar__container">
           <div className="CrossingMapSearchBar__location-icon">
