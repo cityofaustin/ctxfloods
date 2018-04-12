@@ -56,7 +56,7 @@ class PublicCrossingListItem extends React.Component {
             </a>
             <div>
               <Location crossing={crossing} />
-              <CrossingCommunityList crossing={crossing} />
+              <CrossingCommunityList crossingId={crossing.id} />
             </div>
           </div>
           <div className="PublicCrossingListItem__datetime">

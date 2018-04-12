@@ -273,6 +273,7 @@ class CrossingMapSidebar extends Component {
                         key={c.id}
                         latestStatus={c.latestStatusCreatedAt}
                         statusId={c.latestStatusId}
+                        crossing={c}
                         crossingId={c.id}
                         crossingName={c.name}
                         communityIds={c.communityIds}

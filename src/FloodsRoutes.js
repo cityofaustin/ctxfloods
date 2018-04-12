@@ -67,7 +67,8 @@ class FloodsRoutes extends Component {
           <Route component={PublicHeader} />
         </Switch>
 
-        <Route path="/map" component={CrossingMapPage} />
+        <Route exact path="/map" component={CrossingMapPage} />
+        <Route exact path="/map/community/:id" component={CrossingMapPage} />
         <Route exact path="/data" component={OpenDataPage} />
 
         <PrivateRoute

@@ -3,6 +3,7 @@ import React from 'react';
 import { statusNames, statusIcons } from 'constants/StatusConstants';
 import Date from 'components/Shared/DateTime/Date';
 import Hour from 'components/Shared/DateTime/Hour';
+import CrossingCommunityList from 'components/Shared/CrossingListItem/CrossingCommunityList';
 
 import 'components/Shared/CrossingMapPage/CrossingSidebarNearbyCrossingItem.css';
 
@@ -13,8 +14,6 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
       statusId,
       crossingId,
       crossingName,
-      communityIds,
-      allCommunities,
       selectCrossing,
     } = this.props;
 
@@ -42,12 +41,7 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
             Then we can get rid of the allCommunities prop and doing a find in the render
           */}
           <div className="CrossingMapPage_sidebar-nearby-crossing-details-communities">
-            <a href="/">
-              {allCommunities &&
-                communityIds
-                  .map(id => allCommunities.find(c => c.id === id).name)
-                  .join(', ')}
-            </a>
+            <CrossingCommunityList crossingId={crossingId} />
           </div>
         </div>
         <div className="CrossingMapPage_sidebar-nearby-crossing-update-datetime">
