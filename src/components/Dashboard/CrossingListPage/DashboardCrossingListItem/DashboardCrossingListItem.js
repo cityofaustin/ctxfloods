@@ -523,7 +523,7 @@ class DashboardCrossingListItem extends React.Component {
             <div className="DashboardCrossingListItem__overview-location">
               <Location crossing={crossing} />
               <div className="DashboardCrossingListItem__community-list">
-                <CrossingCommunityList crossingId={crossing.id} />
+                <CrossingCommunityList crossing={crossing} />
               </div>
             </div>
             <div className="DashboardCrossingListItem__overview-meta">

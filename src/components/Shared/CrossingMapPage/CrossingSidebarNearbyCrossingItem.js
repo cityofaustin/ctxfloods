@@ -13,6 +13,7 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
       latestStatus,
       statusId,
       crossingId,
+      crossing,
       crossingName,
       selectCrossing,
     } = this.props;
@@ -41,7 +42,7 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
             Then we can get rid of the allCommunities prop and doing a find in the render
           */}
           <div className="CrossingMapPage_sidebar-nearby-crossing-details-communities">
-            <CrossingCommunityList crossingId={crossingId} />
+            <CrossingCommunityList crossing={crossing} />
           </div>
         </div>
         <div className="CrossingMapPage_sidebar-nearby-crossing-update-datetime">

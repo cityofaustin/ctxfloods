@@ -1,17 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
 
 import './CrossingCommunityList.css';
 
-function CrossingCommunityList({ crossingId, loading, error, data }) {
-  if (loading || !data.crossingById) return null;
-  if (error) {
-    console.error(error);
-    return null;
-  }
-
+export default function CrossingCommunityList({ crossing }) {
   return (
     <div
       className="CrossingCommunityList"
@@ -20,7 +12,7 @@ function CrossingCommunityList({ crossingId, loading, error, data }) {
         e.stopPropagation();
       }}
     >
-      {data.crossingById.communities.nodes.map(community => (
+      {crossing.communities.nodes.map(community => (
         <Link to={`/map/community/${community.id}`} key={community.id}>
           {community.name}
         </Link>
@@ -28,16 +20,3 @@ function CrossingCommunityList({ crossingId, loading, error, data }) {
     </div>
   );
 }
-
-export default graphql(gql`
-  query crossingCommunitiesQuery($crossingId: Int!) {
-    crossingById(id: $crossingId) {
-      communities {
-        nodes {
-          id
-          name
-        }
-      }
-    }
-  }
-`)(CrossingCommunityList);
