@@ -107,7 +107,7 @@ class CrossingMap extends React.Component {
     this.addCrossingClickHandlers(map);
 
     // update the map page center on map move
-    map.on('moveend', this.getMapCenter);
+    map.on('moveend', this.setCenter);
 
     // disable map rotation using right click + drag
     map.dragRotate.disable();
@@ -140,11 +140,11 @@ class CrossingMap extends React.Component {
     map.on('click', this.onMapClick);
   }
 
-  getMapCenter = () => {
+  setCenter = () => {
     const { map } = this.state;
     const center = map.getCenter();
 
-    this.props.getMapCenter(center);
+    this.props.setCenter(center);
   };
 
   flyTo = point => {

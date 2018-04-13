@@ -24,7 +24,7 @@ export default function DashboardHeader({ location, currentUser, ...props }) {
         </li>
         <li
           className={
-            location.pathname.endsWith('crossings/map')
+            location.pathname.includes('/crossings/map')
               ? 'Header__tab--active'
               : 'Header__tab'
           }

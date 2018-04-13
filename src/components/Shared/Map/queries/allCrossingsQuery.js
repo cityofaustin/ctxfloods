@@ -24,6 +24,12 @@ const allCrossings = gql`
         latestStatusId
         latestStatusCreatedAt
         communityIds
+        communities {
+          nodes {
+            id
+            name
+          }
+        }
       }
     }
   }
