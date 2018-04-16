@@ -153,8 +153,8 @@ class CrossingMapSearchBar extends Component {
 
   clearSearch = () => {
     this.props.selectCrossing(null, null);
-    this.props.setSelectedCommunity(null);
     this.setState({ typedValue: '', selectedValue: null });
+    this.props.history.push('/map');
   };
 
   updateCrossingSuggestions = suggestions => {
