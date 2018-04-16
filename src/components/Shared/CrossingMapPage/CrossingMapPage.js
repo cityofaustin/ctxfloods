@@ -69,17 +69,27 @@ class CrossingMapPage extends Component {
       prevProps.match.params.selectedCommunityId;
 
     if (didLoad || didSelectedCommunityChange) {
-      this.selectCrossingFromRoute();
+      this.setSelectedCommunity();
     }
   }
 
-  selectCrossingFromRoute = () => {
+  setSelectedCommunity = () => {
     const selectedCommunityId = this.props.match.params.selectedCommunityId;
     if (selectedCommunityId) {
       const selectedCommunity = this.props.allCommunities.allCommunities.nodes.find(
         community => community.id === Number(selectedCommunityId),
       );
-      this.setSelectedCommunity(selectedCommunity);
+
+      this.setState({ selectedCommunity });
+      if (selectedCommunity && selectedCommunity.viewportgeojson) {
+        const viewportAndCenter = this.getViewportAndCenter(
+          selectedCommunity.viewportgeojson,
+        );
+        this.setState({
+          viewport: viewportAndCenter.viewport,
+          center: viewportAndCenter.center,
+        });
+      }
     }
   };
 
@@ -149,19 +159,6 @@ class CrossingMapPage extends Component {
 
   setSelectedLocationCoordinates = coordinates => {
     this.setState({ selectedLocationCoordinates: coordinates });
-  };
-
-  setSelectedCommunity = community => {
-    this.setState({ selectedCommunity: community });
-    if (community && community.viewportgeojson) {
-      const viewportAndCenter = this.getViewportAndCenter(
-        community.viewportgeojson,
-      );
-      this.setState({
-        viewport: viewportAndCenter.viewport,
-        center: viewportAndCenter.center,
-      });
-    }
   };
 
   render() {

@@ -14,7 +14,7 @@ export default function PublicHeader({ location }) {
           <a href="/">Translate</a>
         </div>
       </TopBar>
-      <Header>
+      <Header location={location}>
         <li
           className={
             location.pathname.includes('/map')
@@ -32,7 +32,7 @@ export default function PublicHeader({ location }) {
               : 'Header__tab'
           }
         >
-          <Link to="/safety">Flood Safety</Link>
+          <Link to="/flood-safety">Flood Safety</Link>
         </li>
         <li
           className={
@@ -59,5 +59,4 @@ export default function PublicHeader({ location }) {
 
 PublicHeader.propTypes = {
   location: PropTypes.object.isRequired,
-  currentUser: PropTypes.object.isRequired,
 };
