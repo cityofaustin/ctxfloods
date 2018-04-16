@@ -5,14 +5,6 @@ import { graphql, compose } from 'react-apollo';
 import EditUser from 'components/Dashboard/ManageUsersPage/EditUser';
 
 class EditUserPage extends Component {
-  state = {
-    errorMessage: null,
-  };
-
-  componentDidCatch(err) {
-    console.error(err);
-    this.setState({ errorMessage: err.message });
-  }
 
   render() {
     const { currentUser } = this.props;
