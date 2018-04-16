@@ -737,6 +737,7 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
             <select
               className="Dropdown__select"
               defaultValue={1}
+              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
@@ -950,6 +951,7 @@ exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
             <select
               className="Dropdown__select"
               defaultValue={1}
+              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
@@ -1174,6 +1176,7 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
             <select
               className="Dropdown__select"
               defaultValue={1}
+              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
@@ -1387,6 +1390,7 @@ exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
             <select
               className="Dropdown__select"
               defaultValue={1}
+              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
@@ -1614,6 +1618,7 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
               <select
                 className="Dropdown__select"
                 defaultValue={2}
+                disabled={undefined}
                 id=""
                 name=""
                 onChange={[Function]}
@@ -1684,6 +1689,7 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
               <select
                 className="Dropdown__select"
                 defaultValue={2}
+                disabled={undefined}
                 id=""
                 name=""
                 onChange={[Function]}
@@ -1885,6 +1891,7 @@ exports[`Storyshots Crossing List Item Long-Term Closure 1`] = `
             <select
               className="Dropdown__select"
               defaultValue={2}
+              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
@@ -1955,6 +1962,7 @@ exports[`Storyshots Crossing List Item Long-Term Closure 1`] = `
             <select
               className="Dropdown__select"
               defaultValue={2}
+              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
@@ -2145,6 +2153,7 @@ exports[`Storyshots Crossing List Item Long-Term Closure Dirty 1`] = `
             <select
               className="Dropdown__select"
               defaultValue={2}
+              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
@@ -2220,6 +2229,7 @@ exports[`Storyshots Crossing List Item Long-Term Closure Dirty 1`] = `
             <select
               className="Dropdown__select"
               defaultValue={2}
+              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
@@ -2762,6 +2772,7 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
               <select
                 className="Dropdown__select"
                 defaultValue={2}
+                disabled={undefined}
                 id=""
                 name=""
                 onChange={[Function]}
@@ -2832,6 +2843,7 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
               <select
                 className="Dropdown__select"
                 defaultValue={2}
+                disabled={undefined}
                 id=""
                 name=""
                 onChange={[Function]}

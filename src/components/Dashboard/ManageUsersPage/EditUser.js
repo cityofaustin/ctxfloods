@@ -11,15 +11,30 @@ import gql from 'graphql-tag';
 class EditUser extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-      firstName: '',
-      lastName: '',
-      role: 'floods_community_editor',
-      communityId: props.currentUser.communityId,
-      jobTitle: '',
-      phoneNumber: '',
-    };
+
+    const { userToEdit } = props;
+
+    if (userToEdit) {
+      this.state = {
+        newUser: false,
+        email: userToEdit.emailAddress,
+        firstName: userToEdit.firstName,
+        lastName: userToEdit.lastName,
+        jobTitle: userToEdit.jobTitle,
+        phoneNumber: userToEdit.phoneNumber,
+      }
+    } else {
+      this.state = {
+        newUser: true,
+        email: '',
+        firstName: '',
+        lastName: '',
+        role: 'floods_community_editor',
+        communityId: props.currentUser.communityId,
+        jobTitle: '',
+        phoneNumber: '',
+      };
+    }
   }
 
   emailChanged = e => {
@@ -85,6 +100,7 @@ class EditUser extends Component {
 
     const { onCancel } = this.props;
     const {
+      newUser,
       email,
       firstName,
       lastName,
@@ -97,33 +113,36 @@ class EditUser extends Component {
 
     return (
       <div className="EditUser">
-        <EditUserControl label="Email" isRequired>
+        <EditUserControl label="Email" isRequired={newUser}>
           <input
             className="EditUser__control-text-box"
             type="email"
             value={email}
             onChange={this.emailChanged}
+            disabled={!newUser}
           />
         </EditUserControl>
         <div className="EditUser__name">
-          <EditUserControl label="First name" isRequired>
+          <EditUserControl label="First name" isRequired={newUser}>
             <input
               className="EditUser__control-text-box"
               type="text"
               value={firstName}
               onChange={this.firstNameChanged}
+              disabled={!newUser}
             />
           </EditUserControl>
-          <EditUserControl label="Last name" isRequired>
+          <EditUserControl label="Last name" isRequired={newUser}>
             <input
               className="EditUser__control-text-box"
               type="text"
               value={lastName}
               onChange={this.lastNameChanged}
+              disabled={!newUser}
             />
           </EditUserControl>
         </div>
-        {this.props.currentUser.role === 'floods_super_admin' && (
+        {this.props.currentUser.role === 'floods_super_admin' && newUser && (
           <EditUserControl label="Select a role" isRequired>
             <form>
               <div className="EditUser__control-radio-button">
@@ -165,11 +184,12 @@ class EditUser extends Component {
           </EditUserControl>
         )}
         {this.props.currentUser.role === 'floods_super_admin' && (
-          <EditUserControl label="Community" isRequired>
+          <EditUserControl label="Community" isRequired={newUser}>
             <Dropdown
               options={communities}
               selected={communityId}
               onChange={this.communityChanged}
+              disabled={!newUser}
             />
           </EditUserControl>
         )}
@@ -179,6 +199,7 @@ class EditUser extends Component {
             type="text"
             value={jobTitle}
             onChange={this.jobTitleChanged}
+            disabled={!newUser}
           />
         </EditUserControl>
         <EditUserControl label="Phone (visible to other Dashboard users)">
@@ -187,6 +208,7 @@ class EditUser extends Component {
             type="text"
             value={phoneNumber}
             onChange={this.phoneNumberChanged}
+            disabled={!newUser}
           />
         </EditUserControl>
         <div className="EditUser__buttons">

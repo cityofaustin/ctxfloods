@@ -5,7 +5,7 @@ import FontAwesome from 'react-fontawesome';
 
 class Dropdown extends Component {
   render() {
-    const { selected, options } = this.props;
+    const { selected, options, disabled } = this.props;
 
     return (
       <div className="Dropdown">
@@ -15,6 +15,7 @@ class Dropdown extends Component {
           id=""
           onChange={this.props.onChange}
           defaultValue={selected}
+          disabled={disabled}
         >
           {options.map(opt => (
             <option value={opt.id} key={opt.id}>
