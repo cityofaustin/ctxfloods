@@ -1,14 +1,38 @@
 @import 'css/mixins/colors';
 
-.CrossingDetails {
-  padding: 2rem 4rem;
+
+@media (min-width: 800px) {
+  .CrossingDetails {
+    padding: 2rem 4rem;
+  }
+  .CrossingDetails__communities-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+  }
+  .CrossingDetails__details-container {
+    display: flex;
+  }
+  .CrossingDetails__details {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    margin-right: 2rem;
+  }
+  .CrossingDetails__aside {
+    margin-left: 2rem;
+    flex-basis: 200px;
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
 }
 
-.CrossingDetails__communities-list {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 1rem 0;
+@media (max-width: 800px) {
+  .CrossingDetails {
+    padding: 2rem;
+  }
 }
+
 
 .CrossingDetails__addCommunityButtons {
   margin-top: 10px;
@@ -25,21 +49,6 @@
   margin-right: 2rem;
 }
 
-.CrossingDetails__details-container {
-  display: flex;
-}
-.CrossingDetails__details {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: auto;
-  margin-right: 2rem;
-}
-.CrossingDetails__aside {
-  margin-left: 2rem;
-  flex-basis: 200px;
-  flex-shrink: 0;
-  flex-grow: 1;
-}
 
 .CrossingDetails__field-group {
   margin-bottom: 1.5rem;

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import Autosuggest from 'react-autosuggest';
 import MapboxClient from 'mapbox';
+import { withRouter } from 'react-router'
 
 import CrossingMapSearchCrossingSuggestions from 'components/Shared/CrossingMapPage/CrossingMapSearchCrossingSuggestions';
 import { MapboxAccessToken } from 'constants/MapboxConstants';
@@ -51,6 +53,10 @@ const formatSearchQuery = query => {
 };
 
 class CrossingMapSearchBar extends Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+  }
+
   state = {
     typedValue: '',
     selectedValue: '',
@@ -95,9 +101,8 @@ class CrossingMapSearchBar extends Component {
       this.props.setSelectedLocationCoordinates(suggestion.center);
     }
 
-    // If we've selected a commuity, set the map bounds and filter
     if (suggestion.__typename === 'Community') {
-      this.props.setSelectedCommunity(suggestion);
+      this.props.history.push(`/map/community/${suggestion.id}`);
     }
 
     // Unfocus the search bar
@@ -213,7 +218,7 @@ class CrossingMapSearchBar extends Component {
           updateSuggestions={this.updateCrossingSuggestions}
         />
         <div className="CrossingMapSearchBar__header">
-          SEARCH FOR A PLACE, COMMUNITY, OR CROSSING
+          Search for a place, community, or crossing
         </div>
         <div className="CrossingMapSearchBar__container">
           <div className="CrossingMapSearchBar__location-icon">
@@ -263,4 +268,4 @@ class CrossingMapSearchBar extends Component {
   }
 }
 
-export default CrossingMapSearchBar;
+export default withRouter(CrossingMapSearchBar);

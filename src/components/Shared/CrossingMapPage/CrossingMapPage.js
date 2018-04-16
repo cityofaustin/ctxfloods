@@ -19,6 +19,21 @@ const containerQuery = {
   },
 };
 
+const getIsLoading = props => {
+  return (
+    !props.openCrossings ||
+    props.openCrossings.loading ||
+    !props.closedCrossings ||
+    props.closedCrossings.loading ||
+    !props.cautionCrossings ||
+    props.cautionCrossings.loading ||
+    !props.longtermCrossings ||
+    props.longtermCrossings.loading ||
+    !props.allCommunities ||
+    props.allCommunities.loading
+  );
+};
+
 class CrossingMapPage extends Component {
   constructor(props) {
     super(props);
@@ -44,9 +59,39 @@ class CrossingMapPage extends Component {
       selectedCommunity: null,
       viewport: viewportAndCenter.viewport,
       center: viewportAndCenter.center,
-      mapCenter: viewportAndCenter.center,
     };
   }
+
+  componentDidUpdate(prevProps) {
+    const didLoad = !getIsLoading(this.props) && getIsLoading(prevProps);
+    const didSelectedCommunityChange =
+      this.props.match.params.selectedCommunityId !==
+      prevProps.match.params.selectedCommunityId;
+
+    if (didLoad || didSelectedCommunityChange) {
+      this.selectCrossingFromRoute();
+    }
+  }
+
+  selectCrossingFromRoute = () => {
+    const selectedCommunityId = this.props.match.params.selectedCommunityId;
+    if (selectedCommunityId) {
+      const selectedCommunity = this.props.allCommunities.allCommunities.nodes.find(
+        community => community.id === Number(selectedCommunityId),
+      );
+      this.setSelectedCommunity(selectedCommunity);
+    }
+  };
+
+  registerMapResizeCallback = cb => {
+    this.mapResizeCallback = cb;
+  };
+
+  triggerMapResize = () => {
+    if (this.mapResizeCallback) {
+      this.mapResizeCallback();
+    }
+  };
 
   getViewportAndCenter = viewportgeojson => {
     const envelope = JSON.parse(viewportgeojson);
@@ -81,7 +126,7 @@ class CrossingMapPage extends Component {
     });
   };
 
-  toggleFull = () => {
+  toggleFullscreen = () => {
     this.setState({ fullscreen: !this.state.fullscreen });
   };
 
@@ -98,8 +143,8 @@ class CrossingMapPage extends Component {
     this.setState({ showLongterm: !this.state.showLongterm });
   };
 
-  getMapCenter = center => {
-    this.setState({ mapCenter: center });
+  setCenter = center => {
+    this.setState({ center: center });
   };
 
   setSelectedLocationCoordinates = coordinates => {
@@ -115,7 +160,6 @@ class CrossingMapPage extends Component {
       this.setState({
         viewport: viewportAndCenter.viewport,
         center: viewportAndCenter.center,
-        mapCenter: viewportAndCenter.mapCenter,
       });
     }
   };
@@ -123,7 +167,7 @@ class CrossingMapPage extends Component {
   render() {
     const {
       viewport,
-      mapCenter,
+      center,
       selectedCrossingId,
       selectedCrossingStatus,
       searchQuery,
@@ -134,17 +178,7 @@ class CrossingMapPage extends Component {
     } = this.state;
     const { currentUser } = this.props;
 
-    const isLoading =
-      !this.props.openCrossings ||
-      this.props.openCrossings.loading ||
-      !this.props.closedCrossings ||
-      this.props.closedCrossings.loading ||
-      !this.props.cautionCrossings ||
-      this.props.cautionCrossings.loading ||
-      !this.props.longtermCrossings ||
-      this.props.longtermCrossings.loading ||
-      !this.props.allCommunities ||
-      this.props.allCommunities.loading;
+    const isLoading = getIsLoading(this.props);
 
     if (
       !isLoading &&
@@ -183,58 +217,69 @@ class CrossingMapPage extends Component {
             >
               <div className="CrossingMapPage">
                 {!params.fullsize && (
-                  <CrossingMapSearchBar
-                    selectedCrossingId={selectedCrossingId}
-                    selectCrossing={this.selectCrossing}
-                    searchQuery={searchQuery}
-                    searchQueryUpdated={this.searchQueryUpdated}
-                    selectedCrossingName={selectedCrossingName}
-                    setSelectedCommunity={this.setSelectedCommunity}
-                    toggleSearchFocus={() => null}
-                    communities={allCommunities}
-                    center={mapCenter}
-                    setSelectedLocationCoordinates={
-                      this.setSelectedLocationCoordinates
-                    }
-                  />
-                )}
-                {params.fullsize && (
-                  <div className="CrossingMapPage__fullscreen-toggle-container">
-                    <FontAwesome
-                      name="arrows-alt"
-                      size="2x"
-                      onClick={this.toggleFull}
-                      className="CrossingMapPage__fullscreen-toggle"
+                  <React.Fragment>
+                    <CrossingMapSearchBar
+                      selectedCrossingId={selectedCrossingId}
+                      selectCrossing={this.selectCrossing}
+                      searchQuery={searchQuery}
+                      searchQueryUpdated={this.searchQueryUpdated}
+                      selectedCrossingName={selectedCrossingName}
+                      toggleSearchFocus={() => null}
+                      communities={allCommunities}
+                      center={center}
+                      setSelectedLocationCoordinates={
+                        this.setSelectedLocationCoordinates
+                      }
                     />
-                  </div>
+                    {!params.fullsize &&
+                      selectedCrossingId && (
+                        <div className="CrossingMapPage__mobile-overlay">
+                          <SelectedCrossingContainer
+                            crossingId={selectedCrossingId}
+                            currentUser={currentUser}
+                            selectCrossing={this.selectCrossing}
+                          />
+                        </div>
+                      )}
+                  </React.Fragment>
                 )}
                 {params.fullsize && (
-                  <CrossingMapSidebar
-                    selectedCrossingId={selectedCrossingId}
-                    selectedCrossingName={selectedCrossingName}
-                    currentUser={currentUser}
-                    selectCrossing={this.selectCrossing}
-                    searchQuery={searchQuery}
-                    searchQueryUpdated={this.searchQueryUpdated}
-                    showOpen={this.state.showOpen}
-                    toggleShowOpen={this.toggleShowOpen}
-                    showClosed={this.state.showClosed}
-                    toggleShowClosed={this.toggleShowClosed}
-                    showCaution={this.state.showCaution}
-                    toggleShowCaution={this.toggleShowCaution}
-                    showLongterm={this.state.showLongterm}
-                    toggleShowLongterm={this.toggleShowLongterm}
-                    allCommunities={allCommunities}
-                    openCrossings={openCrossings}
-                    closedCrossings={closedCrossings}
-                    longtermCrossings={longtermCrossings}
-                    cautionCrossings={cautionCrossings}
-                    center={mapCenter}
-                    setSelectedLocationCoordinates={
-                      this.setSelectedLocationCoordinates
-                    }
-                    setSelectedCommunity={this.setSelectedCommunity}
-                  />
+                  <React.Fragment>
+                    <div className="CrossingMapPage__fullscreen-toggle-container">
+                      <FontAwesome
+                        name="arrows-alt"
+                        size="2x"
+                        onClick={this.toggleFullscreen}
+                        className="CrossingMapPage__fullscreen-toggle"
+                      />
+                    </div>
+                    <CrossingMapSidebar
+                      selectedCrossingId={selectedCrossingId}
+                      selectedCrossingName={selectedCrossingName}
+                      currentUser={currentUser}
+                      selectCrossing={this.selectCrossing}
+                      searchQuery={searchQuery}
+                      searchQueryUpdated={this.searchQueryUpdated}
+                      showOpen={this.state.showOpen}
+                      toggleShowOpen={this.toggleShowOpen}
+                      showClosed={this.state.showClosed}
+                      toggleShowClosed={this.toggleShowClosed}
+                      showCaution={this.state.showCaution}
+                      toggleShowCaution={this.toggleShowCaution}
+                      showLongterm={this.state.showLongterm}
+                      toggleShowLongterm={this.toggleShowLongterm}
+                      allCommunities={allCommunities}
+                      openCrossings={openCrossings}
+                      closedCrossings={closedCrossings}
+                      longtermCrossings={longtermCrossings}
+                      cautionCrossings={cautionCrossings}
+                      center={center}
+                      setSelectedLocationCoordinates={
+                        this.setSelectedLocationCoordinates
+                      }
+                      triggerMapResize={this.triggerMapResize}
+                    />
+                  </React.Fragment>
                 )}
                 <div
                   className={classnames('CrossingMapPage__map-container', {
@@ -246,7 +291,7 @@ class CrossingMapPage extends Component {
                     mapHeight="100%"
                     mapWidth="100%"
                     viewport={viewport}
-                    getMapCenter={this.getMapCenter}
+                    setCenter={this.setCenter}
                     selectedLocationCoordinates={selectedLocationCoordinates}
                     selectedCrossingId={selectedCrossingId}
                     selectedCrossingStatus={selectedCrossingStatus}
@@ -264,18 +309,9 @@ class CrossingMapPage extends Component {
                     selectedCommunityId={
                       selectedCommunity && selectedCommunity.id
                     }
+                    registerMapResizeCallback={this.registerMapResizeCallback}
                   />
                 </div>
-                {!params.fullsize &&
-                  selectedCrossingId && (
-                    <div className="CrossingMapPage__mobile-overlay">
-                      <SelectedCrossingContainer
-                        crossingId={selectedCrossingId}
-                        currentUser={currentUser}
-                        selectCrossing={this.selectCrossing}
-                      />
-                    </div>
-                  )}
               </div>
             </Fullscreen>
           </div>

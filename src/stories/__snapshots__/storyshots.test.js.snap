@@ -26,7 +26,6 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
             className="Shared__text-input"
             disabled={false}
             id="crossingName"
-            isOptional={false}
             onChange={[Function]}
             type="text"
             value="Spurlock Valley"
@@ -50,10 +49,9 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
             className="Shared__text-input"
             disabled={false}
             id="streetAddress"
-            isOptional={false}
             onChange={[Function]}
             type="text"
-            value=""
+            value="605 Spurlock Valley · West Lake Hills, TX 78746"
           />
           <div
             className="Shared__input-description"
@@ -74,7 +72,6 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
             className="Shared__text-input"
             disabled={false}
             id="crossingDescription"
-            isOptional={false}
             onChange={[Function]}
             type="text"
             value="E of Intersection w/ Clifford"
@@ -83,34 +80,6 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
             className="Shared__input-description"
           >
             Does the location need additional clarification? ie, “Southbound lane only”
-          </div>
-        </div>
-        <div
-          className="CrossingDetails__buttons"
-        >
-          <button
-            className="Shared__button Shared__button--primary"
-            onClick={[Function]}
-          >
-            Update Crossing
-          </button>
-          <button
-            className="Shared__button Shared__button--secondary"
-            onClick={[Function]}
-          >
-            Cancel
-          </button>
-        </div>
-        <div
-          className="CrossingDetails__buttons"
-        >
-          <div>
-            <button
-              className="button button--plaintext color-highlight"
-              onClick={[Function]}
-            >
-              Delete Crossing
-            </button>
           </div>
         </div>
       </div>
@@ -128,7 +97,6 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
           <input
             className="Shared__text-input Shared__text-input--disabled"
             disabled={true}
-            isOptional={false}
             onChange={undefined}
             type="text"
             value="30°16'1.200\\"N 97°46'4.800\\"W"
@@ -146,7 +114,6 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
           <input
             className="Shared__text-input Shared__text-input--disabled"
             disabled={true}
-            isOptional={false}
             onChange={undefined}
             type="text"
             value={1}
@@ -171,6 +138,34 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
               All of Texas.
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="CrossingDetails__buttons"
+    >
+      <button
+        className="Shared__button Shared__button--primary"
+        onClick={[Function]}
+      >
+        Update Crossing
+      </button>
+      <button
+        className="Shared__button Shared__button--secondary"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+      <div
+        className="CrossingDetails__buttons"
+      >
+        <div>
+          <button
+            className="button button--plaintext color-highlight"
+            onClick={[Function]}
+          >
+            Delete Crossing
+          </button>
         </div>
       </div>
     </div>
@@ -630,9 +625,11 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -837,9 +834,11 @@ exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -1065,9 +1064,11 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -1272,9 +1273,11 @@ exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -1503,9 +1506,11 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
             >
               <div
                 className="CrossingCommunityList"
+                onClick={[Function]}
               >
                 <a
-                  href="/"
+                  href="/map/community/1234"
+                  onClick={[Function]}
                 >
                   All of Texas.
                 </a>
@@ -1774,9 +1779,11 @@ exports[`Storyshots Crossing List Item Long-Term Closure 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -2029,9 +2036,11 @@ exports[`Storyshots Crossing List Item Long-Term Closure Dirty 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -2310,9 +2319,11 @@ exports[`Storyshots Crossing List Item Open 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -2469,9 +2480,11 @@ exports[`Storyshots Crossing List Item Open Dirty 1`] = `
           >
             <div
               className="CrossingCommunityList"
+              onClick={[Function]}
             >
               <a
-                href="/"
+                href="/map/community/1234"
+                onClick={[Function]}
               >
                 All of Texas.
               </a>
@@ -2647,9 +2660,11 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
             >
               <div
                 className="CrossingCommunityList"
+                onClick={[Function]}
               >
                 <a
-                  href="/"
+                  href="/map/community/1234"
+                  onClick={[Function]}
                 >
                   All of Texas.
                 </a>

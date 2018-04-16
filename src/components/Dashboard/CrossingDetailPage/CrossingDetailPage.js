@@ -5,17 +5,8 @@ import CrossingStaticMap from 'components/Shared/Map/CrossingStaticMap';
 import CrossingDetails from 'components/Dashboard/CrossingDetailPage/CrossingDetails';
 import CrossingStatusHistory from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistory';
 import statusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
-import { ContainerQuery } from 'react-container-query';
-import classnames from 'classnames';
-import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetailPage.css';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
-
-const containerQuery = {
-  'CrossingDetails__container--lg': {
-    minWidth: LARGE_ITEM_MIN_WIDTH,
-  },
-};
 
 class CrossingDetailPage extends Component {
   render() {
@@ -36,23 +27,19 @@ class CrossingDetailPage extends Component {
     const { currentUser } = this.props;
 
     return (
-      <ContainerQuery query={containerQuery}>
-        {params => (
-          <div className="CrossingDetailPage">
-            <div className={classnames(params, 'CrossingDetails__container')}>
-              <CrossingStaticMap crossing={crossing} />
-              <CrossingDetails
-                crossing={crossing}
-                crossingCommunities={crossingCommunities}
-                allCommunities={allCommunities}
-                currentUser={currentUser}
-                addMode={false}
-              />
-            </div>
-            <CrossingStatusHistory crossingId={crossing.id} history={history} />
-          </div>
-        )}
-      </ContainerQuery>
+      <div className="CrossingDetailPage">
+        <div className="CrossingDetails__container">
+          <CrossingStaticMap crossing={crossing} />
+          <CrossingDetails
+            crossing={crossing}
+            crossingCommunities={crossingCommunities}
+            allCommunities={allCommunities}
+            currentUser={currentUser}
+            addMode={false}
+          />
+        </div>
+        <CrossingStatusHistory crossingId={crossing.id} history={history} />
+      </div>
     );
   }
 }

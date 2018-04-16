@@ -1,11 +1,31 @@
 @import 'css/mixins/colors';
 
 .Header {
+  padding: 0 2rem;
+  flex: none;
   background: #111d23;
   color: $color-white;
   a {
     color: $color-white;
   }
+}
+
+.Header__logo {
+  padding: 0;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: 50px;
+  }
+}
+
+.Header__title {
+  padding: 0 2rem;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
 }
 
 .Header__small-text {
@@ -17,8 +37,6 @@
 
 .Header__main {
   display: flex;
-  border-bottom: 2px solid $border-color-light;
-  margin: 1.5rem 0;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -27,23 +45,18 @@
   height: 1rem;
 }
 
-.Header__h1 {
-  font-size: 3rem;
-  margin: 0 0 0.5rem;
-}
-
-.Header__h1.smallsize {
+.Header__logo.smallsize {
   font-size: 2.5rem;
   margin: 0 0 0.5rem;
 }
 
-.Header__h1-container.smallsize {
+.Header__logo-container.smallsize {
   width: 100%;
   text-align: center;
   display: flex;
 }
 
-@mixin Header__tabs {
+.Header__tabs {
   display: flex;
   flex: 1;
   align-self: center;
@@ -52,29 +65,23 @@
   align-self: flex-end;
   list-style: none;
   margin: 0;
+  padding: 0;
 }
 
-.Header__tabs {
-  @include Header__tabs;
-}
-
-.Header__tabs.smallsize {
-  @include Header__tabs;
-  padding-left: 0;
-  justify-content: center;
-}
-
-@mixin Header__tab {
+.Header__tab,
+.Header__tab--active {
+  text-decoration: none;
   font-size: 1.5rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
+  a {
+    text-decoration: none;
+  }
+  &:first-child {
+    padding-left: 0;
+  }
 }
-.Header__tab {
-  @include Header__tab;
-}
-
 .Header__tab--active {
-  @include Header__tab;
   border-bottom: 7px solid #03a9f4;
 }
 

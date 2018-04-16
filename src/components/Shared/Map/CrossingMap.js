@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as MapboxGl from 'mapbox-gl';
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
 
 import { MapboxAccessToken } from 'constants/MapboxConstants';
 
@@ -17,13 +18,23 @@ const STATUS_CAUTION = 3;
 const STATUS_LONGTERM = 4;
 
 class CrossingMap extends React.Component {
-  state = {
-    selectedCrossingId: -1, // Mapbox filters don't support null values
-    selectedCrossing: null,
-    selectedCrossingCoordinates: null,
-    selectedLocationCoordinates: null,
-    firstLoadComplete: false,
-  };
+  static propTypes = {
+    registerMapResizeCallback: PropTypes.func.isRequired,
+  }
+
+  constructor(props, ...args) {
+    super(props, ...args);
+
+    this.state = {
+      selectedCrossingId: -1, // Mapbox filters don't support null values
+      selectedCrossing: null,
+      selectedCrossingCoordinates: null,
+      selectedLocationCoordinates: null,
+      firstLoadComplete: false,
+    };
+
+    props.registerMapResizeCallback(this.resizeMap);
+  }
 
   componentWillReceiveProps(nextProps) {
     // If we've selected a crossing
@@ -96,7 +107,7 @@ class CrossingMap extends React.Component {
     this.addCrossingClickHandlers(map);
 
     // update the map page center on map move
-    map.on('moveend', this.getMapCenter);
+    map.on('moveend', this.setCenter);
 
     // disable map rotation using right click + drag
     map.dragRotate.disable();
@@ -129,11 +140,11 @@ class CrossingMap extends React.Component {
     map.on('click', this.onMapClick);
   }
 
-  getMapCenter = () => {
+  setCenter = () => {
     const { map } = this.state;
     const center = map.getCenter();
 
-    this.props.getMapCenter(center);
+    this.props.setCenter(center);
   };
 
   flyTo = point => {
@@ -141,7 +152,7 @@ class CrossingMap extends React.Component {
     if (map) {
       map.flyTo({
         center: point,
-        zoom: 13,
+        zoom: 15,
       });
     }
   };
@@ -218,6 +229,12 @@ class CrossingMap extends React.Component {
     const iconSize = map.getZoom() < 11 ? 'mini' : 'small';
     if (iconSize !== this.state.iconSize) {
       this.setState({ iconSize });
+    }
+  };
+
+  resizeMap = () => {
+    if (this.state.map) {
+      this.state.map.resize();
     }
   };
 
@@ -471,6 +488,17 @@ class CrossingMap extends React.Component {
             />
           ) : null}
         </Layer>
+        {this.state.selectedCrossing && (
+          <Popup
+            coordinates={
+              JSON.parse(this.state.selectedCrossing.geojson).coordinates
+            }
+          >
+            <div>
+              {this.state.selectedCrossing.crossingName}
+            </div>
+          </Popup>
+        )}
       </Map>
     );
   }
