@@ -32,7 +32,7 @@ export default function PublicHeader({ location }) {
               : 'Header__tab'
           }
         >
-          <Link to="/safety">Flood Safety</Link>
+          <Link to="/flood-safety">Flood Safety</Link>
         </li>
         <li
           className={
