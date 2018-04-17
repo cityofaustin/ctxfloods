@@ -9,6 +9,7 @@ import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import TextInput from 'components/Shared/Form/TextInput';
 import Label from 'components/Shared/Form/Label';
+import CameraViewer from 'components/Shared/Camera/CameraViewer';
 
 import crossingCameraFragment from 'components/Dashboard/CrossingListPage/queries/crossingCameraFragment';
 
@@ -92,18 +93,23 @@ class CameraEditModal extends Component {
           </div>
         }
       >
-        <Label>Camera Type</Label>
-        <TextInput
-          id="cameraType"
-          value={this.state.cameraType}
-          onChange={this.cameraTypeChanged}
-        />
-        <Label>Camera ID</Label>
-        <TextInput
-          id="cameraId"
-          value={this.state.cameraId}
-          onChange={this.cameraIdChanged}
-        />
+        <div>
+          <Label>Camera Type</Label>
+          <TextInput
+            id="cameraType"
+            value={this.state.cameraType}
+            onChange={this.cameraTypeChanged}
+          />
+        </div>
+        <div>
+          <Label>Camera ID</Label>
+          <TextInput
+            id="cameraId"
+            value={this.state.cameraId}
+            onChange={this.cameraIdChanged}
+          />
+        </div>
+        <CameraViewer cameraId={this.state.cameraId} cameraType={this.state.cameraType} />
         {this.state.errorMessage && (
           <ModalErrorMessage>{this.state.errorMessage}</ModalErrorMessage>
         )}
