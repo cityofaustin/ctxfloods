@@ -35,7 +35,7 @@ export default class CameraEditButton extends Component {
         />
         </button>
         {this.state.isOpen && (
-          <CameraEditModal crossingId={crossingId} cameraType={"cameraType"} cameraId={cameraId} onClose={() => this.setState({isOpen: false})}/>
+          <CameraEditModal crossingId={crossingId} cameraType={cameraType} cameraId={cameraId} onClose={() => this.setState({isOpen: false})}/>
         )}
       </Fragment>
     );

@@ -7,6 +7,8 @@ import Modal from 'components/Shared/Modal';
 import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
+import TextInput from 'components/Shared/Form/TextInput';
+import Label from 'components/Shared/Form/Label';
 
 import crossingCameraFragment from 'components/Dashboard/CrossingListPage/queries/crossingCameraFragment';
 
@@ -32,6 +34,18 @@ class CameraEditModal extends Component {
     console.error(err);
     this.setState({ errorMessage: err.message });
   }
+
+  cameraTypeChanged = e => {
+    this.setState({
+      cameraType: e.target.value,
+    });
+  };
+
+  cameraIdChanged = e => {
+    this.setState({
+      cameraId: e.target.value,
+    });
+  };
 
   updateCamera = e => {
     this.props
@@ -78,7 +92,18 @@ class CameraEditModal extends Component {
           </div>
         }
       >
-      ADD A CAMERA
+        <Label>Camera Type</Label>
+        <TextInput
+          id="cameraType"
+          value={this.state.cameraType}
+          onChange={this.cameraTypeChanged}
+        />
+        <Label>Camera ID</Label>
+        <TextInput
+          id="cameraId"
+          value={this.state.cameraId}
+          onChange={this.cameraIdChanged}
+        />
         {this.state.errorMessage && (
           <ModalErrorMessage>{this.state.errorMessage}</ModalErrorMessage>
         )}
