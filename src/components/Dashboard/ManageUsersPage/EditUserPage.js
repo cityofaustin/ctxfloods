@@ -4,10 +4,14 @@ import { graphql, compose } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
 import EditUser from 'components/Dashboard/ManageUsersPage/EditUser';
+import Modal from 'components/Shared/Modal';
+import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
+import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 
 class EditUserPage extends Component {
   state = {
     redirect: false,
+    errorMessage: null,
   }
 
   componentDidCatch(err) {
@@ -32,7 +36,12 @@ class EditUserPage extends Component {
       })
       .catch(error => {
         console.log('there was an error sending the query', error);
+        this.setState({ errorMessage: error.message });
       });
+  };
+
+  closeErrorModal = () => {
+    this.setState({errorMessage: null});
   };
 
   render() {
@@ -54,6 +63,22 @@ class EditUserPage extends Component {
 
     return (
       <div className="EditUserPage">
+        <Modal
+          title="Edit User"
+          isOpen={this.state.errorMessage !== null}
+          onClose={this.closeErrorModal}
+          footer={
+            <div>
+              <ButtonPrimary onClick={this.closeErrorModal}>
+                OK
+              </ButtonPrimary>
+            </div>
+          }
+        >
+          <div className="">
+            <ModalErrorMessage>{this.state.errorMessage}</ModalErrorMessage>
+          </div>
+        </Modal>
         <h1>Edit User - {user.firstName} {user.lastName}</h1>
         <EditUser
           onCancel={() => this.setState({redirect: true})}
