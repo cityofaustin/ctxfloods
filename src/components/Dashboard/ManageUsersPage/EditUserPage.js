@@ -1,12 +1,54 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 
 import EditUser from 'components/Dashboard/ManageUsersPage/EditUser';
+import Modal from 'components/Shared/Modal';
+import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
+import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 
 class EditUserPage extends Component {
+  state = {
+    redirect: false,
+    errorMessage: null,
+  }
+
+  componentDidCatch(err) {
+    console.error(err);
+    this.setState({ errorMessage: err.message });
+  }
+
+  editUser = user => {
+    this.props
+      .editUserMutation({
+        variables: {
+          userId: this.props.match.params.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          jobTitle: user.jobTitle,
+          phoneNumber: user.phoneNumber,
+        },
+      })
+      .then(({ data }) => {
+        console.log('success', data);
+        this.setState({ redirect: true });
+      })
+      .catch(error => {
+        console.log('there was an error sending the query', error);
+        this.setState({ errorMessage: error.message });
+      });
+  };
+
+  closeErrorModal = () => {
+    this.setState({errorMessage: null});
+  };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/dashboard/users" push />;
+    }
+
     const { currentUser } = this.props;
 
     const isLoading =
@@ -21,10 +63,26 @@ class EditUserPage extends Component {
 
     return (
       <div className="EditUserPage">
+        <Modal
+          title="Edit User"
+          isOpen={this.state.errorMessage !== null}
+          onClose={this.closeErrorModal}
+          footer={
+            <div>
+              <ButtonPrimary onClick={this.closeErrorModal}>
+                OK
+              </ButtonPrimary>
+            </div>
+          }
+        >
+          <div className="">
+            <ModalErrorMessage>{this.state.errorMessage}</ModalErrorMessage>
+          </div>
+        </Modal>
         <h1>Edit User - {user.firstName} {user.lastName}</h1>
         <EditUser
-          onCancel={this.redirectToUsers}
-          onSubmit={this.addUser}
+          onCancel={() => this.setState({redirect: true})}
+          onSubmit={this.editUser}
           currentUser={currentUser}
           userToEdit={user}
         />
@@ -47,28 +105,18 @@ const UserByIdQuery = gql`
 `;
 
 const editUserMutation = gql`
-  mutation(
-    $firstName: String!
-    $lastName: String!
-    $jobTitle: String!
-    $communityId: Int!
-    $phoneNumber: String!
-    $email: String!
-    $password: String!
-    $role: String!
-  ) {
-    registerUser(
-      input: {
-        firstName: $firstName
-        lastName: $lastName
-        jobTitle: $jobTitle
-        communityId: $communityId
-        phoneNumber: $phoneNumber
-        email: $email
-        password: $password
-        role: $role
-      }
-    ) {
+  mutation($userId:Int!,
+           $lastName:String!,
+           $firstName:String!,
+           $jobTitle:String!,
+           $phoneNumber:String!) 
+  {
+    editUser(input: { userId: $userId,
+                      lastName: $lastName,
+                      firstName: $firstName,
+                      jobTitle: $jobTitle,
+                      phoneNumber: $phoneNumber })
+    {
       user {
         id
       }
