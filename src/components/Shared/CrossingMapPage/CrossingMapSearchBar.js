@@ -127,8 +127,12 @@ class CrossingMapSearchBar extends Component {
         location: {lat: center.lat, lng: center.lng},
         rankBy: google.maps.places.RankBy.DISTANCE,
       }, (results, status) => {
-          console.log(results);
+        console.log(status);
+        if (status === 'OK') {
           this.setState({ geocodeSuggestions: results });
+        } else {
+          this.setState({ geocodeSuggestions: [] });
+        } 
       });
 
       // If we aren't filtering by community, get the communities
