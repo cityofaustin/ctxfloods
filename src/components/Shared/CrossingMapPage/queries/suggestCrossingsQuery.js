@@ -15,6 +15,8 @@ const suggestCrossings = gql`
         id
         name
         geojson
+        latestStatusId
+        humanAddress
       }
     }
   }
