@@ -51,7 +51,7 @@ class LoginPage extends Component {
           <h1> Log in to the CTXFloods Dashboard </h1>
           <form onSubmit={this.handleSubmit}>
             <input
-              type="text"
+              type="email"
               value={this.state.email}
               placeholder="Email"
               onChange={this.handleEmailChange}
