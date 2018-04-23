@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { logError } from 'services/logger';
 import 'components/Dashboard/ResetPasswordPage/ResetPasswordPage.css';
 
 class ResetPasswordPage extends Component {
@@ -53,7 +54,7 @@ class ResetPasswordPage extends Component {
         this.props.onLogin();
       })
       .catch(error => {
-        console.log('there was an error sending the query', error);
+        logError('there was an error sending the query', error);
         this.setState({
           passwordResetSuccessfully: false,
           errorHappened: true,

@@ -5,6 +5,7 @@ import { get, size } from 'lodash';
 import { CSVLink } from 'react-csv';
 import FontAwesome from 'react-fontawesome';
 
+import { logError } from 'services/logger';
 import Modal from 'components/Shared/Modal';
 import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
@@ -28,7 +29,7 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
   }
 
   componentDidCatch(err) {
-    console.error(err);
+    logError(err);
     this.setState({ errorMessage: err.message });
   }
 
@@ -89,7 +90,7 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
         }),
       );
     } catch (err) {
-      console.error(err);
+      logError(err);
       this.setState({ errorMessage: err.message });
     }
   }

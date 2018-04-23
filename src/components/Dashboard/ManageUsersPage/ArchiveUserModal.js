@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { logError } from 'services/logger';
 import Modal from 'components/Shared/Modal';
 import ActivateUserModal from 'components/Dashboard/ManageUsersPage/ActivateUserModal';
 import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
@@ -28,7 +29,7 @@ class ArchiveUserModal extends Component {
   }
 
   componentDidCatch(err) {
-    console.error(err);
+    logError(err);
     this.setState({ errorMessage: err.message });
   }
 
@@ -54,7 +55,7 @@ class ArchiveUserModal extends Component {
         this.sendEmail(this.props.user);
       })
       .catch(err => {
-        console.error(err);
+        logError(err);
         this.setState({ errorMessage: err.message });
       });
   };
@@ -79,11 +80,11 @@ class ArchiveUserModal extends Component {
           });
         }
       })
-      .catch(error => {
-        console.error(error);
+      .catch(err => {
+        logError(err);
         this.setState({
           reactivateEmailSent: false,
-          errorMessage: error.message,
+          errorMessage: err.message,
         });
       });
   };
@@ -108,7 +109,7 @@ class ArchiveUserModal extends Component {
         this.props.onClose();
       })
       .catch(err => {
-        console.error(err);
+        logError(err);
         this.setState({ errorMessage: err.message });
       });
   };

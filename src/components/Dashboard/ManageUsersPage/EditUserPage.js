@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 
+import { logError } from 'services/logger';
 import EditUser from 'components/Dashboard/ManageUsersPage/EditUser';
 import Modal from 'components/Shared/Modal';
 import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
@@ -15,7 +16,7 @@ class EditUserPage extends Component {
   }
 
   componentDidCatch(err) {
-    console.error(err);
+    logError(err);
     this.setState({ errorMessage: err.message });
   }
 
@@ -31,11 +32,10 @@ class EditUserPage extends Component {
         },
       })
       .then(({ data }) => {
-        console.log('success', data);
         this.setState({ redirect: true });
       })
       .catch(error => {
-        console.log('there was an error sending the query', error);
+        logError('there was an error sending the query', error);
         this.setState({ errorMessage: error.message });
       });
   };
@@ -109,7 +109,7 @@ const editUserMutation = gql`
            $lastName:String!,
            $firstName:String!,
            $jobTitle:String!,
-           $phoneNumber:String!) 
+           $phoneNumber:String!)
   {
     editUser(input: { userId: $userId,
                       lastName: $lastName,

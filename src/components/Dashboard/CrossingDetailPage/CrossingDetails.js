@@ -4,6 +4,7 @@ import { graphql, compose } from 'react-apollo';
 import { Redirect } from 'react-router';
 import _ from 'lodash';
 import FontAwesome from 'react-fontawesome';
+import { logError } from 'services/logger';
 
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
@@ -58,12 +59,9 @@ class CrossingDetails extends Component {
           });
         },
       })
-      .then(({ data }) => {
-        console.log('success', data);
-      })
-      .catch(error => {
+      .catch(err => {
         // FIXME: Show error
-        console.log('there was an error sending the query', error);
+        logError(err);
       });
   };
 
@@ -80,13 +78,12 @@ class CrossingDetails extends Component {
         },
       })
       .then(({ data }) => {
-        console.log('success', data);
         const { id } = data.newCrossing.crossing;
         this.setState({ redirectToNewCrossingId: id });
       })
-      .catch(error => {
+      .catch(err => {
         // FIXME: Show error
-        console.log('there was an error sending the query', error);
+        logError(err);
       });
   };
 
@@ -107,8 +104,6 @@ class CrossingDetails extends Component {
         },
       })
       .then(({ data }) => {
-        console.log('success', data);
-
         const { allCommunities, crossingCommunities } = this.props;
         var dropdownCommunities = allCommunities.slice();
         _.pullAllBy(dropdownCommunities, crossingCommunities, 'id');
@@ -120,9 +115,9 @@ class CrossingDetails extends Component {
             dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
         });
       })
-      .catch(error => {
+      .catch(err => {
         // FIXME: Show error
-        console.log('there was an error sending the query', error);
+        logError(err);
       });
   };
 
