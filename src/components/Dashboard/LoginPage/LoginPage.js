@@ -48,7 +48,7 @@ class LoginPage extends Component {
     return (
       <div className="LoginPage">
         <div className="LoginPage__form-controls">
-          <h1> Log in to the CTXFloods Dashboard </h1>
+          <h1> Log in to the CTXfloods Dashboard </h1>
           <form onSubmit={this.handleSubmit}>
             <input
               type="email"
