@@ -504,6 +504,14 @@ class CrossingMap extends React.Component {
             <div>{this.state.selectedCrossing.crossingName}</div>
           </Popup>
         )}
+        {this.state.selectedLocationCoordinates && (
+          <Layer
+            type="symbol"
+            id="marker"
+            layout={{ "icon-image": "marker-15" }}>
+            <Feature coordinates={this.state.selectedLocationCoordinates}/>
+          </Layer>        
+        )}
       </Map>
     );
   }

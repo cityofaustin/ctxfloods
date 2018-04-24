@@ -116,10 +116,15 @@
   padding-top: 15px;
 }
 
-.CrossingMapSearchBar__suggestion-text {
+.CrossingMapSearchBar__suggestion-text--primary {
   padding-left: 10px;
-  padding-top: 13px;
+  padding-top: 6px;
   font-size: 1.5rem;
+}
+
+.CrossingMapSearchBar__suggestion-text--secondary {
+  padding-left: 10px;
+  font-size: 1.2rem;
 }
 
 .react-autosuggest__suggestion--highlighted {
