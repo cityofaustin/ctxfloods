@@ -174,6 +174,7 @@ class CrossingMapSidebar extends Component {
                     crossingId={selectedCrossingId}
                     currentUser={currentUser}
                     selectCrossing={selectCrossing}
+                    allCommunities={allCommunities}
                   />
                 )}
                 {!selectedCrossingId && (

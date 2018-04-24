@@ -7,6 +7,8 @@ import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/st
 import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
+import gql from 'graphql-tag';
+import communityFragment from 'components/Shared/Map/queries/communityFragment';
 
 // The linter can't figure out how we're using this ref so I'm just gonna...
 // eslint-disable-next-line
@@ -83,6 +85,8 @@ export class InfiniteCrossingPaginationContainer extends Component {
       this.props.statusReasonsQuery.loading ||
       !this.props.statusDurationsQuery ||
       this.props.statusDurationsQuery.loading ||
+      !this.props.communitiesQuery ||
+      this.props.communitiesQuery.loading ||
       this.props.loading;
 
     const {
@@ -99,6 +103,7 @@ export class InfiniteCrossingPaginationContainer extends Component {
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
     const statusDurations = this.props.statusDurationsQuery.allStatusDurations
       .nodes;
+    const communities = this.props.communitiesQuery.allCommunities.nodes;
 
     return (
       <ContainerQuery query={containerQuery}>
@@ -113,6 +118,7 @@ export class InfiniteCrossingPaginationContainer extends Component {
                 crossingsQuery={searchCrossings}
                 statusReasons={statusReasons}
                 statusDurations={statusDurations}
+                allCommunities={communities}
                 currentUser={currentUser}
                 sortByUpdatedAsc={sortByUpdatedAsc}
                 crossingQueryVariables={crossingQueryVariables}
@@ -126,8 +132,20 @@ export class InfiniteCrossingPaginationContainer extends Component {
   }
 }
 
+const communitiesQuery = gql`
+  {
+    allCommunities {
+      nodes {
+        ...communityInfo
+      }
+    }
+  }
+  ${communityFragment}
+`;
+
 export default compose(
   graphql(crossingsQuery, configObject),
   graphql(statusReasonsQuery, { name: 'statusReasonsQuery' }),
   graphql(statusDurationsQuery, { name: 'statusDurationsQuery' }),
+  graphql(communitiesQuery, { name: 'communitiesQuery' }),
 )(InfiniteCrossingPaginationContainer);

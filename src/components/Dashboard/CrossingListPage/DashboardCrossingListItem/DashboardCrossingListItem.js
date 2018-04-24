@@ -487,7 +487,7 @@ class DashboardCrossingListItem extends React.Component {
   }
 
   render() {
-    const { crossing, reasons, durations } = this.props;
+    const { crossing, reasons, durations, allCommunities } = this.props;
     const {
       createdAt,
       userByCreatorId,
@@ -525,7 +525,7 @@ class DashboardCrossingListItem extends React.Component {
             <div className="DashboardCrossingListItem__overview-location">
               <Location crossing={crossing} />
               <div className="DashboardCrossingListItem__community-list">
-                <CrossingCommunityList crossing={crossing} />
+                <CrossingCommunityList crossing={crossing} allCommunities={allCommunities} />
               </div>
             </div>
             <div className="DashboardCrossingListItem__overview-meta">
