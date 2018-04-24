@@ -102,18 +102,18 @@ export default class CrossingListHeader extends Component {
           <div className="CrossingListSpacer" />
           <div className="CrossingListToggleMenu">
             <div
-              className="CrossingListSortToggle"
-              onClick={toggleSortByUpdated}
-            >
-              Last Updated
-              <CaretIcon isEnabled={sortByUpdatedAsc} />
-            </div>
-            <div
               className="CrossingListFilterToggle"
               onClick={this.toggleFilterDropdown}
             >
               Filter
               <PlusMinusIcon isEnabled={this.state.showCrossingListFilter} />
+            </div>
+            <div
+              className="CrossingListSortToggle"
+              onClick={toggleSortByUpdated}
+            >
+              Last Updated
+              <CaretIcon isEnabled={sortByUpdatedAsc} />
             </div>
           </div>
         </div>
