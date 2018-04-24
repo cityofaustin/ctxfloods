@@ -69,7 +69,7 @@ class ForgotPasswordPage extends Component {
               )}
               <form onSubmit={this.handleSubmit}>
                 <input
-                  type="text"
+                  type="email"
                   value={this.state.email}
                   placeholder="Email"
                   onChange={this.handleEmailChange}

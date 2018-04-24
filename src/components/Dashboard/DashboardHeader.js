@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Header from 'components/Shared/Header';
 import TopBar from 'components/Shared/TopBar';
+import CommunityListDropdownButton from 'components/Shared/CommunityListDropdown/CommunityListDropdownButton';
 import UserControls from 'components/Shared/Header/UserControls';
 
 export default function DashboardHeader({ location, currentUser, ...props }) {
@@ -31,6 +32,7 @@ export default function DashboardHeader({ location, currentUser, ...props }) {
         >
           <Link to="/dashboard/crossings/map">Crossings Map</Link>
         </li>
+        <CommunityListDropdownButton />
         <li
           className={
             location.pathname.endsWith('crossings/add')

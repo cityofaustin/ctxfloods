@@ -6,6 +6,7 @@
   bottom: 0;
   overflow-x: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   z-index: 1000;
   background: rgba(0, 0, 0, 0.8);
   display: flex;
@@ -14,26 +15,51 @@
 }
 
 .FloodsModalDialog {
-  max-width: 500px;
-  margin: 1.75rem auto;
-}
-.FloodsModalDialog:focus {
-  outline: none;
 }
 
 .FloodsModal {
-  position: relative;
-  width: 100%;
   display: flex;
   flex-direction: column;
   outline: 0;
   background: #fff;
   border-radius: 5px;
   background-clip: padding-box;
+  max-height: 100%;
 }
+
+body.ReactModal__Body--open,
+.ReactModal__Body--open .FloodsApp {
+  overflow: hidden;
+}
+
+@media (min-width: 600px) {
+  .FloodsModalDialog {
+    max-width: 500px;
+    margin: 1.75rem auto;
+  }
+  .FloodsModal {
+    max-height: 75vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .FloodsModal {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.FloodsModalDialog:focus {
+  outline: none;
+}
+
 .FloodsModalHeader {
   font-size: 1.8rem;
-  padding: 1rem 1.5rem;
+  padding: 1.5rem 1.5rem;
+  font-weight: 600;
   color: #547281;
   border-bottom: 1px solid #e9ecef;
   display: flex;
@@ -44,11 +70,17 @@
 .FloodsModalHeader__title {
   flex: 1;
 }
+
 .FloodsModalHeader__close {
-  align-self: flex-end;
   font-size: 2rem;
   cursor: pointer;
   color: #547281;
+}
+
+.FloodsModalContent {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .FloodsModalContent {
