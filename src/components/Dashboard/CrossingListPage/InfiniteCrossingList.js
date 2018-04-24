@@ -115,7 +115,6 @@ export default class InfiniteCrossingList extends React.Component {
               allCommunities={allCommunities}
               currentUser={currentUser}
               cqClassName={cqClassName}
-              all
               clearMeasurerCache={all =>
                 this.clearMeasurerCache(all ? null : index)
               }
