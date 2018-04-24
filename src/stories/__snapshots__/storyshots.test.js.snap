@@ -317,37 +317,6 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
         className="CrossingListToggleMenu"
       >
         <div
-          className="CrossingListSortToggle"
-          onClick={undefined}
-        >
-          Last Updated
-          <div
-            className="CrossingListToggle__icon"
-          >
-            <span
-              aria-hidden={true}
-              className="fa fa-caret-down"
-            >
-              <span
-                style={
-                  Object {
-                    "border": "0px",
-                    "clip": "rect(0px, 0px, 0px, 0px)",
-                    "height": "1px",
-                    "margin": "-1px",
-                    "overflow": "hidden",
-                    "padding": "0px",
-                    "position": "absolute",
-                    "width": "1px",
-                  }
-                }
-              >
-                Descending
-              </span>
-            </span>
-          </div>
-        </div>
-        <div
           className="CrossingListFilterToggle"
           onClick={[Function]}
         >
@@ -374,6 +343,37 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
                 }
               >
                 Show
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          className="CrossingListSortToggle"
+          onClick={undefined}
+        >
+          Last Updated
+          <div
+            className="CrossingListToggle__icon"
+          >
+            <span
+              aria-hidden={true}
+              className="fa fa-caret-down"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Descending
               </span>
             </span>
           </div>
@@ -524,37 +524,6 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
         className="CrossingListToggleMenu"
       >
         <div
-          className="CrossingListSortToggle"
-          onClick={undefined}
-        >
-          Last Updated
-          <div
-            className="CrossingListToggle__icon"
-          >
-            <span
-              aria-hidden={true}
-              className="fa fa-caret-down"
-            >
-              <span
-                style={
-                  Object {
-                    "border": "0px",
-                    "clip": "rect(0px, 0px, 0px, 0px)",
-                    "height": "1px",
-                    "margin": "-1px",
-                    "overflow": "hidden",
-                    "padding": "0px",
-                    "position": "absolute",
-                    "width": "1px",
-                  }
-                }
-              >
-                Descending
-              </span>
-            </span>
-          </div>
-        </div>
-        <div
           className="CrossingListFilterToggle"
           onClick={[Function]}
         >
@@ -581,6 +550,37 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
                 }
               >
                 Show
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          className="CrossingListSortToggle"
+          onClick={undefined}
+        >
+          Last Updated
+          <div
+            className="CrossingListToggle__icon"
+          >
+            <span
+              aria-hidden={true}
+              className="fa fa-caret-down"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Descending
               </span>
             </span>
           </div>
