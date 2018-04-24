@@ -5,7 +5,6 @@ import Autosuggest from 'react-autosuggest';
 import { withRouter } from 'react-router'
 
 import CrossingMapSearchCrossingSuggestions from 'components/Shared/CrossingMapPage/CrossingMapSearchCrossingSuggestions';
-import { MapboxAccessToken } from 'constants/MapboxConstants';
 import 'components/Shared/CrossingMapPage/CrossingMapSearchBar.css';
 import { statusNames, statusIcons } from 'constants/StatusConstants';
 
