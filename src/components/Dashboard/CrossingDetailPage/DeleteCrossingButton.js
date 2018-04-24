@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
+import { logError } from 'services/logger';
 import Modal from 'components/Shared/Modal';
 import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
@@ -49,9 +50,9 @@ class DeleteCrossingButton extends Component {
         // FIXME: <DeleteCrossingButton> is unmounted before this is run
         this.setState({ isModalOpen: false });
       })
-      .catch(error => {
-        this.setState({ errorMessage: error.message });
-        console.log('There was an error sending the query', error);
+      .catch(err => {
+        logError(err);
+        this.setState({ errorMessage: err.message });
       });
   };
 
