@@ -25,11 +25,23 @@
   text-transform: uppercase;
 }
 
+@media (max-width: 600px) {
+  .CrossingMapSearchBar__header {
+    font-size: 1rem;
+  }
+}
+
 .CrossingMapSearchBar__container {
   background: #3b77bd;
   color: #8bbadb;
   min-height: 50px;
   display: flex;
+}
+
+@media (max-width: 600px) {
+  .CrossingMapSearchBar__container {
+    min-height: auto;
+  }
 }
 
 .CrossingMapSearchBar__location-icon {

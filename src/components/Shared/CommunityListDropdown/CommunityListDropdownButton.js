@@ -9,18 +9,19 @@ export default class CommunityListDropdownButton extends Component {
   render() {
     return (
       <li className="Header__tab">
+        {this.state.isOpen && (
+          <CommunityListDropdown
+            closeDropdown={() => this.setState({ isOpen: false })}
+          />
+        )}
         <div
+          className="CommunityListDropdownButton"
           onClick={() => {
             this.setState({ isOpen: !this.state.isOpen });
           }}
         >
           Communities
         </div>
-        {this.state.isOpen && (
-          <CommunityListDropdown
-            closeDropdown={() => this.setState({ isOpen: false })}
-          />
-        )}
       </li>
     );
   }
