@@ -119,6 +119,14 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
             value={1}
           />
         </div>
+        <button
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden={true}
+            className="fa fa-camera fa-lg"
+          />
+        </button>
         <div
           className="CrossingDetails__communities"
         >
