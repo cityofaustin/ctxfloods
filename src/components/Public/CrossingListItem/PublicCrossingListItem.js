@@ -22,7 +22,7 @@ const containerQuery = {
 
 class PublicCrossingListItem extends React.Component {
   render() {
-    const { crossing } = this.props;
+    const { crossing, allCommunities } = this.props;
     const { createdAt } = crossing.statusUpdateByLatestStatusUpdateId;
 
     var show = [];
@@ -56,7 +56,7 @@ class PublicCrossingListItem extends React.Component {
             </a>
             <div>
               <Location crossing={crossing} />
-              <CrossingCommunityList crossing={crossing} />
+              <CrossingCommunityList crossing={crossing} allCommunities={allCommunities}/>
             </div>
           </div>
           <div className="PublicCrossingListItem__datetime">
