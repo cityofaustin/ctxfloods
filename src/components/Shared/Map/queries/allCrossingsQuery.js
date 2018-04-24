@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-import communityFragment from 'components/Shared/Map/queries/communityFragment';
 
 const allCrossings = gql`
   query allCrossings(
@@ -25,15 +24,9 @@ const allCrossings = gql`
         latestStatusId
         latestStatusCreatedAt
         communityIds
-        communities {
-          nodes {
-            ...communityInfo
-          }
-        }
       }
     }
   }
-  ${communityFragment}
 `;
 
 export default allCrossings;
