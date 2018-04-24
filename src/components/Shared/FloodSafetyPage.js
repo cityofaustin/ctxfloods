@@ -12,7 +12,7 @@ export default function FloodSafetyPage() {
         road.
       </p>
 
-      <h2>Save Yourself!</h2>
+      <h2>Save yourself!</h2>
 
       <p>
         Rushing water has tremendous power. Taking the following steps during a
@@ -27,7 +27,7 @@ export default function FloodSafetyPage() {
         <li>Avoid driving.</li>
 
         <li>
-          Stay away from creeks, trails, culverts, ponds and other drainage
+          Stay away from creeks, trails, culverts, ponds, and other drainage
           infrastructure.
         </li>
 
