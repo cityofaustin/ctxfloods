@@ -3,6 +3,7 @@ import React from 'react';
 import { statusNames, statusIcons } from 'constants/StatusConstants';
 import Date from 'components/Shared/DateTime/Date';
 import Hour from 'components/Shared/DateTime/Hour';
+import CrossingCommunityList from 'components/Shared/CrossingListItem/CrossingCommunityList';
 
 import 'components/Shared/CrossingMapPage/CrossingSidebarNearbyCrossingItem.css';
 
@@ -12,10 +13,10 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
       latestStatus,
       statusId,
       crossingId,
+      crossing,
       crossingName,
-      communityIds,
-      allCommunities,
       selectCrossing,
+      allCommunities
     } = this.props;
 
     return (
@@ -37,17 +38,8 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
           <div className="CrossingMapPage_sidebar-nearby-crossing-details-name">
             {crossingName}
           </div>
-          {/*
-            TODO: Replace with <CrossingCommunityList crossing={crossing} />
-            Then we can get rid of the allCommunities prop and doing a find in the render
-          */}
           <div className="CrossingMapPage_sidebar-nearby-crossing-details-communities">
-            <a href="/">
-              {allCommunities &&
-                communityIds
-                  .map(id => allCommunities.find(c => c.id === id).name)
-                  .join(', ')}
-            </a>
+            <CrossingCommunityList crossing={crossing} allCommunities={allCommunities}/>
           </div>
         </div>
         <div className="CrossingMapPage_sidebar-nearby-crossing-update-datetime">

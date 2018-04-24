@@ -86,6 +86,7 @@ export default class InfiniteCrossingList extends React.Component {
       currentUser,
       crossingQueryVariables,
       cqClassName,
+      allCommunities,
     } = this.props;
     let crossing;
 
@@ -111,6 +112,7 @@ export default class InfiniteCrossingList extends React.Component {
               crossing={crossing}
               reasons={statusReasons}
               durations={statusDurations}
+              allCommunities={allCommunities}
               currentUser={currentUser}
               cqClassName={cqClassName}
               clearMeasurerCache={all =>

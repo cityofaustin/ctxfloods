@@ -2,6 +2,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { logError } from 'services/logger';
 
 import Modal from 'components/Shared/Modal';
 import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
@@ -26,7 +27,7 @@ class CommunityRemoveModal extends Component {
   }
 
   componentDidCatch(err) {
-    console.error(err);
+    logError(err);
     this.setState({ errorMessage: err.message });
   }
 
@@ -51,7 +52,7 @@ class CommunityRemoveModal extends Component {
         this.props.onCommunityRemoved();
       })
       .catch(err => {
-        console.error(err);
+        logError(err);
         this.setState({ errorMessage: err.message });
       });
   };

@@ -146,7 +146,6 @@ class CrossingMapSidebar extends Component {
       selectedCrossingName,
       center,
       setSelectedLocationCoordinates,
-      setSelectedCommunity,
     } = this.props;
 
     const { nearbyCrossings } = this.state;
@@ -166,7 +165,6 @@ class CrossingMapSidebar extends Component {
               toggleSearchFocus={this.toggleSearchFocus}
               communities={allCommunities}
               communityId={currentUser && currentUser.communityId}
-              setSelectedCommunity={setSelectedCommunity}
             />
 
             {!searchFocused && (
@@ -176,6 +174,7 @@ class CrossingMapSidebar extends Component {
                     crossingId={selectedCrossingId}
                     currentUser={currentUser}
                     selectCrossing={selectCrossing}
+                    allCommunities={allCommunities}
                   />
                 )}
                 {!selectedCrossingId && (
@@ -273,6 +272,7 @@ class CrossingMapSidebar extends Component {
                         key={c.id}
                         latestStatus={c.latestStatusCreatedAt}
                         statusId={c.latestStatusId}
+                        crossing={c}
                         crossingId={c.id}
                         crossingName={c.name}
                         communityIds={c.communityIds}

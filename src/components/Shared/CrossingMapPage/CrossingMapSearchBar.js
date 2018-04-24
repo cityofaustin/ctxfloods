@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import Autosuggest from 'react-autosuggest';
-import MapboxClient from 'mapbox';
+import { withRouter } from 'react-router'
 
 import CrossingMapSearchCrossingSuggestions from 'components/Shared/CrossingMapPage/CrossingMapSearchCrossingSuggestions';
-import { MapboxAccessToken } from 'constants/MapboxConstants';
 import 'components/Shared/CrossingMapPage/CrossingMapSearchBar.css';
+import { statusNames, statusIcons } from 'constants/StatusConstants';
 
 import CloseLightSvg from 'images/close-light.svg';
-
-const mapboxClient = new MapboxClient(MapboxAccessToken);
 
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
@@ -22,18 +21,28 @@ const getSuggestionValue = suggestion => {
 const Suggestion = suggestion => (
   <div className="CrossingMapSearchBar__suggestion-container">
     <div className="CrossingMapSearchBar__suggestion-icon">
-      {suggestion.__typename === 'Crossing' && (
-        <FontAwesome name="map-pin" size="2x" />
-      )}
+      {suggestion.__typename === 'Crossing' && 
+        <img
+          src={statusIcons[suggestion.latestStatusId]}
+          alt={statusNames[suggestion.latestStatusId]}
+        />
+      }
       {suggestion.__typename === 'Community' && (
         <FontAwesome name="globe" size="2x" />
       )}
-      {suggestion.type === 'Feature' && (
+      {suggestion.__typename !== 'Crossing' && suggestion.__typename !== 'Community' && (
         <FontAwesome name="map-marker" size="2x" />
       )}
     </div>
-    <div className="CrossingMapSearchBar__suggestion-text">
-      {suggestion.place_name || suggestion.name}
+    <div>
+      <div className="CrossingMapSearchBar__suggestion-text--primary">
+        {suggestion.name}
+      </div>
+      <div className="CrossingMapSearchBar__suggestion-text--secondary">
+        {suggestion.formatted_address}
+        {suggestion.humanAddress}
+        {suggestion.__typename === 'Community' && 'Community'}
+      </div>
     </div>
   </div>
 );
@@ -51,10 +60,14 @@ const formatSearchQuery = query => {
 };
 
 class CrossingMapSearchBar extends Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+  }
+
   state = {
     typedValue: '',
     selectedValue: '',
-    mapboxSuggestions: [],
+    geocodeSuggestions: [],
     crossingSuggestions: [],
     communitySuggestions: [],
   };
@@ -85,19 +98,14 @@ class CrossingMapSearchBar extends Component {
     event,
     { suggestion, suggestionValue, suggestionIndex, sectionIndex, method },
   ) => {
-    // If we've selected a crossing, center in on it
     if (suggestion.__typename === 'Crossing') {
       this.props.selectCrossing(suggestion.id);
-    }
-
-    // If we've selected a mapbox location, center on it
-    if (suggestion.type === 'Feature') {
-      this.props.setSelectedLocationCoordinates(suggestion.center);
-    }
-
-    // If we've selected a commuity, set the map bounds and filter
-    if (suggestion.__typename === 'Community') {
-      this.props.setSelectedCommunity(suggestion);
+    } else if (suggestion.__typename === 'Community') {
+      this.props.history.push(`/map/community/${suggestion.id}`);
+    } else if (suggestion.geometry.location) {
+      const lng = suggestion.geometry.location.lng();
+      const lat = suggestion.geometry.location.lat();
+      this.props.setSelectedLocationCoordinates([lng, lat]);
     }
 
     // Unfocus the search bar
@@ -107,49 +115,50 @@ class CrossingMapSearchBar extends Component {
   // Autosuggest will call this function every time you need to update suggestions.
   onSuggestionsFetchRequested = ({ value }) => {
     const { center, communityId, communities } = this.props;
+    const inputLength = value.length;
 
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-
-    // Get the suggestions from the mapbox geocoder
     if (inputLength > 2) {
-      mapboxClient.geocodeForward(
-        inputValue,
-        {
-          proximity: { latitude: center.lat, longitude: center.lng },
-          // Hardcoding this for now to get better results
-          // TODO: Design a better solution for accurate geocode results
-          bbox: [-100, 27, -94, 34],
-        },
-        (err, res) => {
-          this.setState({ mapboxSuggestions: res.features });
-        },
-      );
-    } else {
-      this.setState({ mapboxSuggestions: [] });
-    }
+      const google = window.google;
+      const googlePlacesService = new google.maps.places.PlacesService(this.attributionsEl);
 
-    // If we aren't filtering by community, get the communities
-    if (!communityId) {
-      const communitySuggestions = communities
-        .filter(c => c.name.toLowerCase().includes(inputValue))
-        .slice(0, 4);
-      this.setState({ communitySuggestions: communitySuggestions });
+      googlePlacesService.textSearch({
+        query: value,
+        location: {lat: center.lat, lng: center.lng},
+        rankBy: google.maps.places.RankBy.DISTANCE,
+      }, (results, status) => {
+        console.log(status);
+        if (status === 'OK') {
+          this.setState({ geocodeSuggestions: results });
+        } else {
+          this.setState({ geocodeSuggestions: [] });
+        } 
+      });
+
+      // If we aren't filtering by community, get the communities
+      if (communities && !communityId) {
+        const inputValue = value.trim().toLowerCase();
+        const communitySuggestions = communities
+          .filter(c => c.name.toLowerCase().includes(inputValue))
+          .slice(0, 4);
+        this.setState({ communitySuggestions: communitySuggestions });
+      }
+    } else {
+      this.setState({ geocodeSuggestions: [], communitySuggestions: [] });
     }
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
   onSuggestionsClearRequested = () => {
     this.setState({
-      mapboxSuggestions: [],
+      geocodeSuggestions: [],
       communitySuggestions: [],
     });
   };
 
   clearSearch = () => {
     this.props.selectCrossing(null, null);
-    this.props.setSelectedCommunity(null);
     this.setState({ typedValue: '', selectedValue: null });
+    this.props.history.push('/map');
   };
 
   updateCrossingSuggestions = suggestions => {
@@ -172,7 +181,7 @@ class CrossingMapSearchBar extends Component {
     const {
       typedValue,
       selectedValue,
-      mapboxSuggestions,
+      geocodeSuggestions,
       crossingSuggestions,
       communitySuggestions,
     } = this.state;
@@ -188,7 +197,7 @@ class CrossingMapSearchBar extends Component {
       },
       {
         title: 'Locations',
-        suggestions: mapboxSuggestions,
+        suggestions: geocodeSuggestions,
       },
     ];
 
@@ -213,7 +222,7 @@ class CrossingMapSearchBar extends Component {
           updateSuggestions={this.updateCrossingSuggestions}
         />
         <div className="CrossingMapSearchBar__header">
-          SEARCH FOR A PLACE, COMMUNITY, OR CROSSING
+          Search for a place, community, or crossing
         </div>
         <div className="CrossingMapSearchBar__container">
           <div className="CrossingMapSearchBar__location-icon">
@@ -251,6 +260,7 @@ class CrossingMapSearchBar extends Component {
               />
             )}
           </div>
+          <div ref={(el) => this.attributionsEl = el}></div>
           <div
             className="CrossingMapSearchBar__cancel-icon"
             onClick={this.clearSearch}
@@ -263,4 +273,4 @@ class CrossingMapSearchBar extends Component {
   }
 }
 
-export default CrossingMapSearchBar;
+export default withRouter(CrossingMapSearchBar);

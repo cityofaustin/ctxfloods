@@ -21,18 +21,20 @@ export default function Modal({ title, children, footer, onClose, ...props }) {
       {...props}
     >
       <div className="FloodsModal">
-        <div className="FloodsModalHeader">
-          <div className="FloodsModalHeader__title">{title}</div>
-          <div
-            className="FloodsModalHeader__close"
-            role="button"
-            onClick={onClose}
-          >
-            <FontAwesome name="times-circle" ariaLabel="Close" />
+        {title && (
+          <div className="FloodsModalHeader">
+            <div className="FloodsModalHeader__title">{title}</div>
+            <div
+              className="FloodsModalHeader__close"
+              role="button"
+              onClick={onClose}
+            >
+              <FontAwesome name="times-circle" ariaLabel="Close" />
+            </div>
           </div>
-        </div>
+        )}
         <div className="FloodsModalContent">{children}</div>
-        <div className="FloodsModalFooter">{footer}</div>
+        {footer && <div className="FloodsModalFooter">{footer}</div>}
       </div>
     </ReactModal>
   );

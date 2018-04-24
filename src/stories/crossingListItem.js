@@ -1,5 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { MemoryRouter } from 'react-router';
+
 import CrossingListItem from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItem';
 
 const reasons = [
@@ -9,6 +11,13 @@ const reasons = [
   { id: 2, name: 'Bridge Broken', statusId: 3 },
   { id: 1, name: 'Flooded', statusId: 4 },
   { id: 2, name: 'Bridge Broken', statusId: 4 },
+];
+
+const communities = [
+  {
+    id: 1234,
+    name: 'All of Texas.',
+  },
 ];
 
 const durations = [{ id: 1, name: 'A Minute' }, { id: 2, name: 'A Week' }];
@@ -27,14 +36,7 @@ const openCrossing = {
       lastName: 'Admin',
     },
   },
-  communities: {
-    nodes: [
-      {
-        id: 1234,
-        name: 'All of Texas.',
-      },
-    ],
-  },
+  communityIds: [ 1234 ],
 };
 
 const closedCrossing = {
@@ -52,14 +54,7 @@ const closedCrossing = {
       lastName: 'Admin',
     },
   },
-  communities: {
-    nodes: [
-      {
-        id: 1234,
-        name: 'All of Texas.',
-      },
-    ],
-  },
+  communityIds: [ 1234 ],
 };
 
 const cautionCrossing = {
@@ -77,14 +72,7 @@ const cautionCrossing = {
       lastName: 'Admin',
     },
   },
-  communities: {
-    nodes: [
-      {
-        id: 1234,
-        name: 'All of Texas.',
-      },
-    ],
-  },
+  communityIds: [ 1234 ],
 };
 
 const longtermCrossing = {
@@ -103,112 +91,135 @@ const longtermCrossing = {
       lastName: 'Admin',
     },
   },
-  communities: {
-    nodes: [
-      {
-        id: 1234,
-        name: 'All of Texas.',
-      },
-    ],
-  },
+  communityIds: [ 1234 ],
 };
 
 storiesOf('Crossing List Item', module)
   .add('Open', () => (
-    <CrossingListItem
-      reasons={reasons}
-      durations={durations}
-      crossing={openCrossing}
-      restoreDirtyState={() => null}
-      saveDirtyState={() => null}
-    />
+    <MemoryRouter>
+      <CrossingListItem
+        reasons={reasons}
+        durations={durations}
+        crossing={openCrossing}
+        allCommunities={communities}
+        restoreDirtyState={() => null}
+        saveDirtyState={() => null}
+      />
+    </MemoryRouter>
   ))
   .add('Open Dirty', () => (
-    <CrossingListItem
-      reasons={reasons}
-      durations={durations}
-      crossing={openCrossing}
-      dirty="true"
-      restoreDirtyState={() => null}
-      saveDirtyState={() => null}
-    />
+    <MemoryRouter>
+      <CrossingListItem
+        reasons={reasons}
+        durations={durations}
+        crossing={openCrossing}
+        allCommunities={communities}
+        dirty="true"
+        restoreDirtyState={() => null}
+        saveDirtyState={() => null}
+      />
+    </MemoryRouter>
   ))
   .add('Caution', () => (
-    <CrossingListItem
-      reasons={reasons}
-      durations={durations}
-      crossing={cautionCrossing}
-      restoreDirtyState={() => null}
-      saveDirtyState={() => null}
-    />
+    <MemoryRouter>
+      <CrossingListItem
+        reasons={reasons}
+        durations={durations}
+        crossing={cautionCrossing}
+        allCommunities={communities}
+        restoreDirtyState={() => null}
+        saveDirtyState={() => null}
+      />
+    </MemoryRouter>
   ))
   .add('Caution Dirty', () => (
-    <CrossingListItem
-      reasons={reasons}
-      durations={durations}
-      crossing={cautionCrossing}
-      dirty="true"
-      restoreDirtyState={() => null}
-      saveDirtyState={() => null}
-    />
+    <MemoryRouter>
+      <CrossingListItem
+        reasons={reasons}
+        durations={durations}
+        crossing={cautionCrossing}
+        allCommunities={communities}
+        dirty="true"
+        restoreDirtyState={() => null}
+        saveDirtyState={() => null}
+      />
+    </MemoryRouter>
   ))
   .add('Closed', () => (
-    <CrossingListItem
-      reasons={reasons}
-      durations={durations}
-      crossing={closedCrossing}
-      restoreDirtyState={() => null}
-      saveDirtyState={() => null}
-    />
+    <MemoryRouter>
+      <CrossingListItem
+        reasons={reasons}
+        durations={durations}
+        crossing={closedCrossing}
+        allCommunities={communities}
+        restoreDirtyState={() => null}
+        saveDirtyState={() => null}
+      />
+    </MemoryRouter>
   ))
   .add('Closed Dirty', () => (
-    <CrossingListItem
-      reasons={reasons}
-      durations={durations}
-      crossing={closedCrossing}
-      dirty="true"
-      restoreDirtyState={() => null}
-      saveDirtyState={() => null}
-    />
+    <MemoryRouter>
+      <CrossingListItem
+        reasons={reasons}
+        durations={durations}
+        crossing={closedCrossing}
+        allCommunities={communities}
+        dirty="true"
+        restoreDirtyState={() => null}
+        saveDirtyState={() => null}
+      />
+    </MemoryRouter>
   ))
   .add('Long-Term Closure', () => (
-    <CrossingListItem
-      reasons={reasons}
-      durations={durations}
-      crossing={longtermCrossing}
-      restoreDirtyState={() => null}
-      saveDirtyState={() => null}
-    />
+    <MemoryRouter>
+      <CrossingListItem
+        reasons={reasons}
+        durations={durations}
+        crossing={longtermCrossing}
+        allCommunities={communities}
+        restoreDirtyState={() => null}
+        saveDirtyState={() => null}
+      />
+    </MemoryRouter>
   ))
   .add('Long-Term Closure Dirty', () => (
-    <CrossingListItem
-      reasons={reasons}
-      durations={durations}
-      crossing={longtermCrossing}
-      dirty="true"
-      restoreDirtyState={() => null}
-      saveDirtyState={() => null}
-    />
+    <MemoryRouter>
+      <CrossingListItem
+        reasons={reasons}
+        durations={durations}
+        crossing={longtermCrossing}
+        allCommunities={communities}
+        dirty="true"
+        restoreDirtyState={() => null}
+        saveDirtyState={() => null}
+      />
+    </MemoryRouter>
   ))
   .add('Large Width', () => (
-    <div className="storybook--lg">
-      <CrossingListItem
-        reasons={reasons}
-        durations={durations}
-        crossing={longtermCrossing}
-        restoreDirtyState={() => null}
-        saveDirtyState={() => null}
-      />
-    </div>
+    <MemoryRouter>
+      <div className="storybook--lg">
+        <CrossingListItem
+          reasons={reasons}
+          durations={durations}
+          crossing={longtermCrossing}
+          allCommunities={communities}
+          restoreDirtyState={() => null}
+          saveDirtyState={() => null}
+        />
+      </div>
+    </MemoryRouter>
   ))
   .add('Small Width', () => (
-    <div className="storybook--sm">
-      <CrossingListItem
-        reasons={reasons}
-        durations={durations}
-        crossing={longtermCrossing}
-        restoreDirtyState={() => null}
-        saveDirtyState={() => null}
-      />
-    </div>
+    <MemoryRouter>
+      <div className="storybook--sm">
+        <CrossingListItem
+          reasons={reasons}
+          durations={durations}
+          crossing={longtermCrossing}
+          allCommunities={communities}
+          restoreDirtyState={() => null}
+          saveDirtyState={() => null}
+        />
+      </div>
+    </MemoryRouter>
   ));

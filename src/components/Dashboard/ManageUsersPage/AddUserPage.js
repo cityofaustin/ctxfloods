@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import 'components/Dashboard/ManageUsersPage/AddUserPage.css';
-import EditUser from 'components/Dashboard/ManageUsersPage/EditUser';
 import { Redirect } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import generator from 'generate-password';
-import AddUserModal from 'components/Dashboard/ManageUsersPage/AddUserModal';
+
+import { logError } from 'services/logger';
+import EditUser from 'components/Dashboard/ManageUsersPage/EditUser';
+import ActivateUserModal from 'components/Dashboard/ManageUsersPage/ActivateUserModal';
+
+import 'components/Dashboard/ManageUsersPage/AddUserPage.css';
 
 class AddUserPage extends Component {
   state = {
@@ -17,7 +20,7 @@ class AddUserPage extends Component {
   };
 
   componentDidCatch(err) {
-    console.error(err);
+    logError(err);
     this.setState({ errorMessage: err.message });
   }
 
@@ -43,13 +46,12 @@ class AddUserPage extends Component {
         },
       })
       .then(({ data }) => {
-        console.log('success', data);
         this.setState({ userAdded: true });
         this.sendEmail(user);
       })
-      .catch(error => {
-        console.log('there was an error sending the query', error);
-        this.setState({ errorMessage: error.message });
+      .catch(err => {
+        logError(err);
+        this.setState({ errorMessage: err.message });
       });
   };
 
@@ -73,11 +75,11 @@ class AddUserPage extends Component {
           });
         }
       })
-      .catch(error => {
-        console.error(error);
+      .catch(err => {
+        logError(err);
         this.setState({
           emailSent: false,
-          errorMessage: error.message,
+          errorMessage: err.message,
         });
       });
   };
@@ -86,23 +88,26 @@ class AddUserPage extends Component {
     const { currentUser } = this.props;
     const { showModal, userAdded, emailSent, errorMessage } = this.state;
 
-    if (userAdded && emailSent && !showModal) {
+    const redirect = this.state.redirect || (userAdded && emailSent && !showModal);
+
+    if (redirect) {
       return <Redirect to="/dashboard/users" push />;
     }
 
     return (
       <div className="AddUser">
         {showModal && (
-          <AddUserModal
+          <ActivateUserModal
             onClose={() => this.setState({ showModal: false })}
-            userAdded={userAdded}
+            userIsNew
+            userActivated={userAdded}
             emailSent={emailSent}
             errorMessage={errorMessage}
           />
         )}
         <h1>Add New User</h1>
         <EditUser
-          onCancel={this.redirectToUsers}
+          onCancel={() => this.setState({ redirect: true })}
           onSubmit={this.addUser}
           currentUser={currentUser}
         />

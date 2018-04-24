@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import auth from 'services/gqlAuth';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
 import PrivateRoute from 'PrivateRoute';
 import DashboardHeader from 'components/Dashboard/DashboardHeader';
+import PublicHeader from 'components/Public/PublicHeader';
+
 import ManageUsers from 'components/Dashboard/ManageUsersPage/ManageUsers';
 import LoginPage from 'components/Dashboard/LoginPage/LoginPage';
 import AddUserPage from 'components/Dashboard/ManageUsersPage/AddUserPage';
+import EditUserPage from 'components/Dashboard/ManageUsersPage/EditUserPage';
 import CrossingMapPage from 'components/Shared/CrossingMapPage/CrossingMapPage';
 import CrossingListPage from 'components/Dashboard/CrossingListPage/CrossingListPage';
 import CrossingDetailPage from 'components/Dashboard/CrossingDetailPage/CrossingDetailPage';
 import AddCrossingPage from 'components/Dashboard/AddCrossingPage/AddCrossingPage';
 import CrossingStatusHistoryPage from 'components/Dashboard/CrossingStatusHistoryPage/CrossingStatusHistoryPage';
-import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
-import PublicHeader from 'components/Public/PublicHeader';
 import ForgotPasswordPage from 'components/Dashboard/ForgotPasswordPage/ForgotPasswordPage';
 import ResetPasswordPage from 'components/Dashboard/ResetPasswordPage/ResetPasswordPage';
-
-import auth from 'services/gqlAuth';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
+import AboutPage from 'components/Shared/AboutPage';
+import FloodSafetyPage from 'components/Shared/FloodSafetyPage';
 
 class FloodsRoutes extends Component {
   onLogin = () => {
@@ -67,11 +71,22 @@ class FloodsRoutes extends Component {
           <Route component={PublicHeader} />
         </Switch>
 
-        <Route path="/map" component={CrossingMapPage} />
+        <Switch>
+          <Route
+            exact
+            path="/map/community/:selectedCommunityId"
+            component={CrossingMapPage}
+          />
+          <Route path="/map" component={CrossingMapPage} />
+        </Switch>
+
         <Route exact path="/data" component={OpenDataPage} />
+        <Route exact path="/about" component={AboutPage} />
+        <Route exact path="/flood-safety" component={FloodSafetyPage} />
 
         <PrivateRoute
           path="/dashboard/users"
+          exact
           component={ManageUsers}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized([
@@ -81,8 +96,18 @@ class FloodsRoutes extends Component {
           currentUser={currentUser}
         />
         <PrivateRoute
-          path="/dashboard/user/add"
+          path="/dashboard/users/add"
           component={AddUserPage}
+          authenticated={auth.isAuthenticated()}
+          authorized={auth.roleAuthorized([
+            'floods_community_admin',
+            'floods_super_admin',
+          ])}
+          currentUser={currentUser}
+        />
+        <PrivateRoute
+          path="/dashboard/user/:id"
+          component={EditUserPage}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized([
             'floods_community_admin',

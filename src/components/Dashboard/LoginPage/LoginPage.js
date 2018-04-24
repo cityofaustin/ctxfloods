@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 
+import { logError } from 'services/logger';
 import 'components/Dashboard/LoginPage/LoginPage.css';
 
 class LoginPage extends Component {
@@ -39,7 +40,7 @@ class LoginPage extends Component {
         this.props.onLogin();
       })
       .catch(error => {
-        console.log('there was an error sending the query', error);
+        logError(error);
       });
   };
 
@@ -47,10 +48,10 @@ class LoginPage extends Component {
     return (
       <div className="LoginPage">
         <div className="LoginPage__form-controls">
-          <h1> Log in to the CTXFloods Dashboard </h1>
+          <h1> Log in to the CTXfloods Dashboard </h1>
           <form onSubmit={this.handleSubmit}>
             <input
-              type="text"
+              type="email"
               value={this.state.email}
               placeholder="Email"
               onChange={this.handleEmailChange}

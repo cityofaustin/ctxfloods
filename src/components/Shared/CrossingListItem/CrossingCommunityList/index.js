@@ -1,16 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './CrossingCommunityList.css';
 
-export default function CrossingCommunityList({ crossing }) {
+export default function CrossingCommunityList({ crossing, allCommunities }) {
   return (
-    <div className="CrossingCommunityList">
-      {crossing.communities.nodes.map(community => (
-        <a href="/" key={community.id}>
-          {/* TODO: Link to community */}
-          {community.name}
-        </a>
-      ))}
+    <div
+      className="CrossingCommunityList"
+      onClick={e => {
+        // Don't fire CrossingSidebarNearbyCrossingItem onClick
+        e.stopPropagation();
+      }}
+    >
+      {crossing.communityIds.map(communityId => {
+        const community = allCommunities.find(c => c.id === communityId);
+        return community && ( 
+          <Link to={`/map/community/${community.id}`} key={community.id}>
+            {community.name}
+          </Link>
+        )
+      })}
     </div>
   );
 }

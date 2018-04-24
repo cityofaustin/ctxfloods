@@ -1,7 +1,10 @@
-import React from 'react';
-import { graphql } from 'react-apollo';
+import React, { Component } from 'react';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+
 import Table from 'components/Dashboard/Table/Table';
+import ArchiveUserModal from 'components/Dashboard/ManageUsersPage/ArchiveUserModal';
+import userActiveFragment from 'components/Dashboard/ManageUsersPage/queries/userActiveFragment';
 
 const manageUsersHeaders = [
   {
@@ -9,28 +12,24 @@ const manageUsersHeaders = [
     type: 'checkbox_select',
   },
   {
-    title: 'Name',
-    isFilterale: true,
-    isSortable: true,
+    title: 'Name'
   },
   {
-    title: 'Role',
-    isFilterale: true,
-    isSortable: true,
+    title: 'Role'
   },
   {
-    title: 'Community',
-    isFilterale: true,
-    isSortable: true,
+    title: 'Community'
   },
   {
-    title: 'Last active',
-    isFilterale: true,
-    isSortable: true,
+    title: 'Active'
   },
 ];
 
-class UserList extends React.Component {
+class UserList extends Component {
+  state = {
+    archiveModalOpen: null,
+  }
+
   parseRole(role) {
     const roleArray = role.split('_');
     roleArray.splice(0, 1);
@@ -60,12 +59,24 @@ class UserList extends React.Component {
       return [
         {
           isLinked: true,
-          link: `/user/${user.id}`,
+          link: `/dashboard/user/${user.id}`,
           content: `${user.firstName} ${user.lastName}`,
         },
         this.parseRole(user.role),
         user.communityByCommunityId.name,
-        '',
+        <div>
+          <input type="checkbox" checked={user.active} onChange={() => this.setState({archiveModalOpen: user.id})}/>
+          {this.state.archiveModalOpen === user.id && (
+            <ArchiveUserModal
+              user={user}
+              onClose={() => {
+                this.setState({
+                  archiveModalOpen: null,
+                });
+              }}
+            />
+          )}
+        </div>,
       ];
     });
 
@@ -83,9 +94,12 @@ const searchUsers = gql`
   query searchUsers($searchString: String, $community: Int) {
     searchUsers(search: $searchString, community: $community) {
       nodes {
+        id
+        ...userActive
         firstName
         lastName
         role
+        emailAddress
         communityByCommunityId {
           id
           name
@@ -93,16 +107,19 @@ const searchUsers = gql`
       }
     }
   }
+  ${userActiveFragment}
 `;
 
-export default graphql(searchUsers, {
-  options: ownProps => ({
-    variables: {
-      searchString: ownProps.searchParam === '' ? null : ownProps.searchParam,
-      community:
-        ownProps.currentUser.role === 'floods_super_admin'
-          ? null
-          : ownProps.currentUser.communityId,
-    },
+export default compose(
+  graphql(searchUsers, {
+    options: ownProps => ({
+      variables: {
+        searchString: ownProps.searchParam === '' ? null : ownProps.searchParam,
+        community:
+          ownProps.currentUser.role === 'floods_super_admin'
+            ? null
+            : ownProps.currentUser.communityId,
+      },
+    }),
   }),
-})(UserList);
+)(UserList);

@@ -12,11 +12,27 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import classnames from 'classnames';
 import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
+import communityFragment from 'components/Shared/Map/queries/communityFragment';
 
 const containerQuery = {
   fullsize: {
     minWidth: LARGE_ITEM_MIN_WIDTH,
   },
+};
+
+const getIsLoading = props => {
+  return (
+    !props.openCrossings ||
+    props.openCrossings.loading ||
+    !props.closedCrossings ||
+    props.closedCrossings.loading ||
+    !props.cautionCrossings ||
+    props.cautionCrossings.loading ||
+    !props.longtermCrossings ||
+    props.longtermCrossings.loading ||
+    !props.allCommunities ||
+    props.allCommunities.loading
+  );
 };
 
 class CrossingMapPage extends Component {
@@ -44,9 +60,39 @@ class CrossingMapPage extends Component {
       selectedCommunity: null,
       viewport: viewportAndCenter.viewport,
       center: viewportAndCenter.center,
-      mapCenter: viewportAndCenter.center,
     };
   }
+
+  componentDidUpdate(prevProps) {
+    const didLoad = !getIsLoading(this.props) && getIsLoading(prevProps);
+    const didSelectedCommunityChange =
+      this.props.match.params.selectedCommunityId !==
+      prevProps.match.params.selectedCommunityId;
+
+    if (didLoad || didSelectedCommunityChange) {
+      this.setSelectedCommunity();
+    }
+  }
+
+  setSelectedCommunity = () => {
+    const selectedCommunityId = this.props.match.params.selectedCommunityId;
+    if (selectedCommunityId) {
+      const selectedCommunity = this.props.allCommunities.allCommunities.nodes.find(
+        community => community.id === Number(selectedCommunityId),
+      );
+
+      this.setState({ selectedCommunity });
+      if (selectedCommunity && selectedCommunity.viewportgeojson) {
+        const viewportAndCenter = this.getViewportAndCenter(
+          selectedCommunity.viewportgeojson,
+        );
+        this.setState({
+          viewport: viewportAndCenter.viewport,
+          center: viewportAndCenter.center,
+        });
+      }
+    }
+  };
 
   registerMapResizeCallback = cb => {
     this.mapResizeCallback = cb;
@@ -108,32 +154,18 @@ class CrossingMapPage extends Component {
     this.setState({ showLongterm: !this.state.showLongterm });
   };
 
-  getMapCenter = center => {
-    this.setState({ mapCenter: center });
+  setCenter = center => {
+    this.setState({ center: center });
   };
 
   setSelectedLocationCoordinates = coordinates => {
     this.setState({ selectedLocationCoordinates: coordinates });
   };
 
-  setSelectedCommunity = community => {
-    this.setState({ selectedCommunity: community });
-    if (community && community.viewportgeojson) {
-      const viewportAndCenter = this.getViewportAndCenter(
-        community.viewportgeojson,
-      );
-      this.setState({
-        viewport: viewportAndCenter.viewport,
-        center: viewportAndCenter.center,
-        mapCenter: viewportAndCenter.mapCenter,
-      });
-    }
-  };
-
   render() {
     const {
       viewport,
-      mapCenter,
+      center,
       selectedCrossingId,
       selectedCrossingStatus,
       searchQuery,
@@ -144,17 +176,7 @@ class CrossingMapPage extends Component {
     } = this.state;
     const { currentUser } = this.props;
 
-    const isLoading =
-      !this.props.openCrossings ||
-      this.props.openCrossings.loading ||
-      !this.props.closedCrossings ||
-      this.props.closedCrossings.loading ||
-      !this.props.cautionCrossings ||
-      this.props.cautionCrossings.loading ||
-      !this.props.longtermCrossings ||
-      this.props.longtermCrossings.loading ||
-      !this.props.allCommunities ||
-      this.props.allCommunities.loading;
+    const isLoading = getIsLoading(this.props);
 
     if (
       !isLoading &&
@@ -200,10 +222,9 @@ class CrossingMapPage extends Component {
                       searchQuery={searchQuery}
                       searchQueryUpdated={this.searchQueryUpdated}
                       selectedCrossingName={selectedCrossingName}
-                      setSelectedCommunity={this.setSelectedCommunity}
                       toggleSearchFocus={() => null}
                       communities={allCommunities}
-                      center={mapCenter}
+                      center={center}
                       setSelectedLocationCoordinates={
                         this.setSelectedLocationCoordinates
                       }
@@ -250,11 +271,10 @@ class CrossingMapPage extends Component {
                       closedCrossings={closedCrossings}
                       longtermCrossings={longtermCrossings}
                       cautionCrossings={cautionCrossings}
-                      center={mapCenter}
+                      center={center}
                       setSelectedLocationCoordinates={
                         this.setSelectedLocationCoordinates
                       }
-                      setSelectedCommunity={this.setSelectedCommunity}
                       triggerMapResize={this.triggerMapResize}
                     />
                   </React.Fragment>
@@ -269,7 +289,7 @@ class CrossingMapPage extends Component {
                     mapHeight="100%"
                     mapWidth="100%"
                     viewport={viewport}
-                    getMapCenter={this.getMapCenter}
+                    setCenter={this.setCenter}
                     selectedLocationCoordinates={selectedLocationCoordinates}
                     selectedCrossingId={selectedCrossingId}
                     selectedCrossingStatus={selectedCrossingStatus}
@@ -303,12 +323,11 @@ const allCommunities = gql`
   {
     allCommunities {
       nodes {
-        id
-        name
-        viewportgeojson
+        ...communityInfo
       }
     }
   }
+  ${communityFragment}
 `;
 
 export default compose(

@@ -15,7 +15,7 @@ export default class Header extends Component {
   componentDidMount() {
     const pathname = get(this, 'props.location.pathname');
     const suffix = pathname ? `- ${pathname}` : '';
-    document.title = `CTXFloods ${suffix}`;
+    document.title = `CTXfloods ${suffix}`;
   }
 
   render() {

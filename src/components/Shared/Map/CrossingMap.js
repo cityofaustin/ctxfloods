@@ -20,7 +20,7 @@ const STATUS_LONGTERM = 4;
 class CrossingMap extends React.Component {
   static propTypes = {
     registerMapResizeCallback: PropTypes.func.isRequired,
-  }
+  };
 
   constructor(props, ...args) {
     super(props, ...args);
@@ -107,7 +107,7 @@ class CrossingMap extends React.Component {
     this.addCrossingClickHandlers(map);
 
     // update the map page center on map move
-    map.on('moveend', this.getMapCenter);
+    map.on('moveend', this.setCenter);
 
     // disable map rotation using right click + drag
     map.dragRotate.disable();
@@ -122,13 +122,20 @@ class CrossingMap extends React.Component {
         enableHighAccuracy: true,
       },
       fitBoundsOptions: {
-        maxZoom: 15,
+        maxZoom: 10,
       },
-      watchPosition: true,
       showUserLocation: true,
     });
 
     map.addControl(geolocateControl, 'bottom-right');
+
+    // New versions of mapboxgl-js will have a trigger function instead
+    // https://github.com/mapbox/mapbox-gl-js/issues/5464
+    if (geolocateControl.trigger) {
+      geolocateControl.trigger();
+    } else {
+      setTimeout(() => geolocateControl._onClickGeolocate(), 5);
+    }
   }
 
   addZoomControl(map) {
@@ -140,11 +147,11 @@ class CrossingMap extends React.Component {
     map.on('click', this.onMapClick);
   }
 
-  getMapCenter = () => {
+  setCenter = () => {
     const { map } = this.state;
     const center = map.getCenter();
 
-    this.props.getMapCenter(center);
+    this.props.setCenter(center);
   };
 
   flyTo = point => {
@@ -494,10 +501,16 @@ class CrossingMap extends React.Component {
               JSON.parse(this.state.selectedCrossing.geojson).coordinates
             }
           >
-            <div>
-              {this.state.selectedCrossing.crossingName}
-            </div>
+            <div>{this.state.selectedCrossing.crossingName}</div>
           </Popup>
+        )}
+        {this.state.selectedLocationCoordinates && (
+          <Layer
+            type="symbol"
+            id="marker"
+            layout={{ "icon-image": "marker-15" }}>
+            <Feature coordinates={this.state.selectedLocationCoordinates}/>
+          </Layer>        
         )}
       </Map>
     );
