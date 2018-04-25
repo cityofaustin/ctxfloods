@@ -639,7 +639,11 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -848,7 +852,11 @@ exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -1078,7 +1086,11 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -1287,7 +1299,11 @@ exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -1520,7 +1536,11 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
                   href="/map/community/1234"
                   onClick={[Function]}
                 >
-                  All of Texas.
+                  <span
+                    className="CrossingCommunityList__item"
+                  >
+                    All of Texas.
+                  </span>
                 </a>
               </div>
             </div>
@@ -1793,7 +1813,11 @@ exports[`Storyshots Crossing List Item Long-Term Closure 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -2050,7 +2074,11 @@ exports[`Storyshots Crossing List Item Long-Term Closure Dirty 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -2333,7 +2361,11 @@ exports[`Storyshots Crossing List Item Open 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -2494,7 +2526,11 @@ exports[`Storyshots Crossing List Item Open Dirty 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -2674,7 +2710,11 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
                   href="/map/community/1234"
                   onClick={[Function]}
                 >
-                  All of Texas.
+                  <span
+                    className="CrossingCommunityList__item"
+                  >
+                    All of Texas.
+                  </span>
                 </a>
               </div>
             </div>

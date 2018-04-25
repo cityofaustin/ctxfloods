@@ -13,10 +13,13 @@ export default function CrossingCommunityList({ crossing, allCommunities }) {
       }}
     >
       {crossing.communityIds.map(communityId => {
+        if (!allCommunities) {
+          return null;
+        }
         const community = allCommunities.find(c => c.id === communityId);
-        return community && ( 
+        return community && (
           <Link to={`/map/community/${community.id}`} key={community.id}>
-            {community.name}
+            <span className="CrossingCommunityList__item">{community.name}</span>
           </Link>
         )
       })}
