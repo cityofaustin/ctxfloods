@@ -131,10 +131,10 @@ class CrossingMapSearchBar extends Component {
 
         response.json().then(data => {
           const filteredResults = data.results.filter(
-            result => result.position
+            result => result.position && result.vicinity
           );
           const suggestions = filteredResults.map(
-            result => ({name: result.title, location: result.position, humanAddress: result.vicinity.replace('<br/>', ', ')})
+            result => ({name: result.title, location: result.position, humanAddress: result.vicinity.replace(/<br\/>/g, ', ')})
           );
           this.setState({ geocodeSuggestions: suggestions });
         });
