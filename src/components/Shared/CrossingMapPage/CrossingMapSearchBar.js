@@ -10,6 +10,9 @@ import { statusNames, statusIcons } from 'constants/StatusConstants';
 
 import CloseLightSvg from 'images/close-light.svg';
 
+const HERE_APP_ID = `NwvYKNdIJp8nYo74bUTU`;
+const HERE_APP_CODE = `VHZxGy1nmghs2BCbo0cVCQ`;
+
 // When suggestion is clicked, Autosuggest needs to populate the input
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
@@ -118,21 +121,25 @@ class CrossingMapSearchBar extends Component {
     const inputLength = value.length;
 
     if (inputLength > 2) {
-      const google = window.google;
-      const googlePlacesService = new google.maps.places.PlacesService(this.attributionsEl);
+      fetch(`https://places.cit.api.here.com/places/v1/autosuggest?at=40.74917,-73.98529&q=chrysler&app_id=${HERE_APP_ID}&app_code=${HERE_APP_CODE}`).then(
+        response => {
+          response.json().then(data => {
+            debugger;
+          });
+        });
 
-      googlePlacesService.textSearch({
-        query: value,
-        location: {lat: center.lat, lng: center.lng},
-        rankBy: google.maps.places.RankBy.DISTANCE,
-      }, (results, status) => {
-        console.log(status);
-        if (status === 'OK') {
-          this.setState({ geocodeSuggestions: results });
-        } else {
-          this.setState({ geocodeSuggestions: [] });
-        } 
-      });
+      // googlePlacesService.textSearch({
+      //   query: value,
+      //   location: {lat: center.lat, lng: center.lng},
+      //   rankBy: google.maps.places.RankBy.DISTANCE,
+      // }, (results, status) => {
+      //   console.log(status);
+      //   if (status === 'OK') {
+      //     this.setState({ geocodeSuggestions: results });
+      //   } else {
+      //     this.setState({ geocodeSuggestions: [] });
+      //   } 
+      // });
 
       // If we aren't filtering by community, get the communities
       if (communities && !communityId) {
