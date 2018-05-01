@@ -106,8 +106,8 @@ class CrossingMapSearchBar extends Component {
     } else if (suggestion.__typename === 'Community') {
       this.props.history.push(`/map/community/${suggestion.id}`);
     } else if (suggestion.geometry.location) {
-      const lng = suggestion.geometry.location.lng();
-      const lat = suggestion.geometry.location.lat();
+      const lng = suggestion.location[1];
+      const lat = suggestion.location[0];
       this.props.setSelectedLocationCoordinates([lng, lat]);
     }
 
@@ -121,12 +121,29 @@ class CrossingMapSearchBar extends Component {
     const inputLength = value.length;
 
     if (inputLength > 2) {
-      fetch(`https://places.cit.api.here.com/places/v1/autosuggest?at=40.74917,-73.98529&q=chrysler&app_id=${HERE_APP_ID}&app_code=${HERE_APP_CODE}`).then(
-        response => {
-          response.json().then(data => {
-            debugger;
+      fetch(`https://places.api.here.com/places/v1/autosuggest?at=${center.lat},${center.lng}&q=${value}&app_id=${HERE_APP_ID}&app_code=${HERE_APP_CODE}`)
+      .then(response => {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' +
+            response.status);
+          this.setState({ geocodeSuggestions: [] });
+          return;
+        }
+
+        response.json().then(data => {
+          const suggestions = data.results.map(result => {
+            if(result.position) {
+              return {name: result.highlightedTitle, location: result.position};
+            };
           });
+          debugger;
+          this.setState({ geocodeSuggestions: suggestions });
         });
+      })
+      .catch(err => {
+        console.log('Fetch Error :-S', err);
+        this.setState({ geocodeSuggestions: [] });
+      });
 
       // googlePlacesService.textSearch({
       //   query: value,
