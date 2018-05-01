@@ -119,6 +119,14 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
             value={1}
           />
         </div>
+        <button
+          onClick={[Function]}
+        >
+          <span
+            aria-hidden={true}
+            className="fa fa-camera fa-lg"
+          />
+        </button>
         <div
           className="CrossingDetails__communities"
         >
@@ -309,37 +317,6 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
         className="CrossingListToggleMenu"
       >
         <div
-          className="CrossingListSortToggle"
-          onClick={undefined}
-        >
-          Last Updated
-          <div
-            className="CrossingListToggle__icon"
-          >
-            <span
-              aria-hidden={true}
-              className="fa fa-caret-down"
-            >
-              <span
-                style={
-                  Object {
-                    "border": "0px",
-                    "clip": "rect(0px, 0px, 0px, 0px)",
-                    "height": "1px",
-                    "margin": "-1px",
-                    "overflow": "hidden",
-                    "padding": "0px",
-                    "position": "absolute",
-                    "width": "1px",
-                  }
-                }
-              >
-                Descending
-              </span>
-            </span>
-          </div>
-        </div>
-        <div
           className="CrossingListFilterToggle"
           onClick={[Function]}
         >
@@ -366,6 +343,37 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
                 }
               >
                 Show
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          className="CrossingListSortToggle"
+          onClick={undefined}
+        >
+          Last Updated
+          <div
+            className="CrossingListToggle__icon"
+          >
+            <span
+              aria-hidden={true}
+              className="fa fa-caret-down"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Descending
               </span>
             </span>
           </div>
@@ -516,37 +524,6 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
         className="CrossingListToggleMenu"
       >
         <div
-          className="CrossingListSortToggle"
-          onClick={undefined}
-        >
-          Last Updated
-          <div
-            className="CrossingListToggle__icon"
-          >
-            <span
-              aria-hidden={true}
-              className="fa fa-caret-down"
-            >
-              <span
-                style={
-                  Object {
-                    "border": "0px",
-                    "clip": "rect(0px, 0px, 0px, 0px)",
-                    "height": "1px",
-                    "margin": "-1px",
-                    "overflow": "hidden",
-                    "padding": "0px",
-                    "position": "absolute",
-                    "width": "1px",
-                  }
-                }
-              >
-                Descending
-              </span>
-            </span>
-          </div>
-        </div>
-        <div
           className="CrossingListFilterToggle"
           onClick={[Function]}
         >
@@ -573,6 +550,37 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
                 }
               >
                 Show
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          className="CrossingListSortToggle"
+          onClick={undefined}
+        >
+          Last Updated
+          <div
+            className="CrossingListToggle__icon"
+          >
+            <span
+              aria-hidden={true}
+              className="fa fa-caret-down"
+            >
+              <span
+                style={
+                  Object {
+                    "border": "0px",
+                    "clip": "rect(0px, 0px, 0px, 0px)",
+                    "height": "1px",
+                    "margin": "-1px",
+                    "overflow": "hidden",
+                    "padding": "0px",
+                    "position": "absolute",
+                    "width": "1px",
+                  }
+                }
+              >
+                Descending
               </span>
             </span>
           </div>
@@ -631,7 +639,11 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -840,7 +852,11 @@ exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -1070,7 +1086,11 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -1279,7 +1299,11 @@ exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -1512,7 +1536,11 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
                   href="/map/community/1234"
                   onClick={[Function]}
                 >
-                  All of Texas.
+                  <span
+                    className="CrossingCommunityList__item"
+                  >
+                    All of Texas.
+                  </span>
                 </a>
               </div>
             </div>
@@ -1785,7 +1813,11 @@ exports[`Storyshots Crossing List Item Long-Term Closure 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -2042,7 +2074,11 @@ exports[`Storyshots Crossing List Item Long-Term Closure Dirty 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -2325,7 +2361,11 @@ exports[`Storyshots Crossing List Item Open 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -2486,7 +2526,11 @@ exports[`Storyshots Crossing List Item Open Dirty 1`] = `
                 href="/map/community/1234"
                 onClick={[Function]}
               >
-                All of Texas.
+                <span
+                  className="CrossingCommunityList__item"
+                >
+                  All of Texas.
+                </span>
               </a>
             </div>
           </div>
@@ -2666,7 +2710,11 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
                   href="/map/community/1234"
                   onClick={[Function]}
                 >
-                  All of Texas.
+                  <span
+                    className="CrossingCommunityList__item"
+                  >
+                    All of Texas.
+                  </span>
                 </a>
               </div>
             </div>

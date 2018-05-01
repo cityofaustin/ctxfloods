@@ -10,7 +10,7 @@ import crossingFragment from 'components/Dashboard/CrossingListPage/queries/cros
 
 class SelectedCrossingContainer extends Component {
   render() {
-    const { currentUser, selectCrossing } = this.props;
+    const { currentUser, selectCrossing, allCommunities } = this.props;
 
     const isLoading =
       !this.props.data ||
@@ -39,6 +39,7 @@ class SelectedCrossingContainer extends Component {
         currentUser={currentUser}
         listOrMap="map"
         selectCrossing={selectCrossing}
+        allCommunities={allCommunities}
       />
     ) : (
       <PublicCrossingListItem
@@ -46,6 +47,7 @@ class SelectedCrossingContainer extends Component {
         crossing={crossing}
         reasons={statusReasons}
         durations={statusDurations}
+        allCommunities={allCommunities}
       />
     );
   }

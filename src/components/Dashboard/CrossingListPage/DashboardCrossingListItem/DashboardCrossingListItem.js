@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
 import moment from 'moment';
+import { logError } from 'services/logger';
 
 import Date from 'components/Shared/DateTime/Date';
 import Hour from 'components/Shared/DateTime/Hour';
@@ -125,7 +126,7 @@ class DashboardCrossingListItem extends React.Component {
         edge => edge.node.id === updatedCrossing.id,
       );
     } catch (err) {
-      console.log(err);
+      logError(err);
       return;
     }
 
@@ -200,6 +201,7 @@ class DashboardCrossingListItem extends React.Component {
         node => node.id === updatedCrossing.id,
       );
     } catch (err) {
+      logError(err);
       return;
     }
 
@@ -362,7 +364,7 @@ class DashboardCrossingListItem extends React.Component {
         }
       })
       .catch(error => {
-        console.log('there was an error sending the query', error);
+        logError(error);
       });
   };
 
@@ -485,7 +487,7 @@ class DashboardCrossingListItem extends React.Component {
   }
 
   render() {
-    const { crossing, reasons, durations } = this.props;
+    const { crossing, reasons, durations, allCommunities } = this.props;
     const {
       createdAt,
       userByCreatorId,
@@ -523,7 +525,7 @@ class DashboardCrossingListItem extends React.Component {
             <div className="DashboardCrossingListItem__overview-location">
               <Location crossing={crossing} />
               <div className="DashboardCrossingListItem__community-list">
-                <CrossingCommunityList crossing={crossing} />
+                <CrossingCommunityList crossing={crossing} allCommunities={allCommunities} />
               </div>
             </div>
             <div className="DashboardCrossingListItem__overview-meta">

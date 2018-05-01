@@ -4,6 +4,7 @@ import { graphql, compose } from 'react-apollo';
 import { Redirect } from 'react-router';
 import _ from 'lodash';
 import FontAwesome from 'react-fontawesome';
+import { logError } from 'services/logger';
 
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
@@ -18,6 +19,8 @@ import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
 import CommunityTag from './CommunityTag';
 import CommunityTagAddButton from './CommunityTagAddButton';
 import DeleteCrossingButton from './DeleteCrossingButton';
+
+import CameraEditButton from './CameraEditButton';
 
 import 'components/Dashboard/CrossingDetailPage/CrossingDetails.css';
 
@@ -58,12 +61,9 @@ class CrossingDetails extends Component {
           });
         },
       })
-      .then(({ data }) => {
-        console.log('success', data);
-      })
-      .catch(error => {
+      .catch(err => {
         // FIXME: Show error
-        console.log('there was an error sending the query', error);
+        logError(err);
       });
   };
 
@@ -80,13 +80,12 @@ class CrossingDetails extends Component {
         },
       })
       .then(({ data }) => {
-        console.log('success', data);
         const { id } = data.newCrossing.crossing;
         this.setState({ redirectToNewCrossingId: id });
       })
-      .catch(error => {
+      .catch(err => {
         // FIXME: Show error
-        console.log('there was an error sending the query', error);
+        logError(err);
       });
   };
 
@@ -107,8 +106,6 @@ class CrossingDetails extends Component {
         },
       })
       .then(({ data }) => {
-        console.log('success', data);
-
         const { allCommunities, crossingCommunities } = this.props;
         var dropdownCommunities = allCommunities.slice();
         _.pullAllBy(dropdownCommunities, crossingCommunities, 'id');
@@ -120,9 +117,9 @@ class CrossingDetails extends Component {
             dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
         });
       })
-      .catch(error => {
+      .catch(err => {
         // FIXME: Show error
-        console.log('there was an error sending the query', error);
+        logError(err);
       });
   };
 
@@ -259,6 +256,9 @@ class CrossingDetails extends Component {
               <div className="CrossingDetails__field-group">
                 <Label>ID#</Label> <TextInput isDisabled value={crossing.id} />
               </div>
+            )}
+            {!addMode && (
+              <CameraEditButton crossingId={crossing.id} cameraType={crossing.cameraType} cameraId={crossing.cameraId} />
             )}
             <div className="CrossingDetails__communities">
               <Label>Communities</Label>

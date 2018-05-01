@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 
+import { logError } from 'services/logger';
+
 import 'components/Dashboard/ForgotPasswordPage/ForgotPasswordPage.css';
 
 class ForgotPasswordPage extends Component {
@@ -38,8 +40,8 @@ class ForgotPasswordPage extends Component {
           });
         }
       })
-      .catch(error => {
-        console.error(error);
+      .catch(err => {
+        logError(err);
         this.setState({
           emailSentSuccessfully: false,
           errorHappened: true,
@@ -67,7 +69,7 @@ class ForgotPasswordPage extends Component {
               )}
               <form onSubmit={this.handleSubmit}>
                 <input
-                  type="text"
+                  type="email"
                   value={this.state.email}
                   placeholder="Email"
                   onChange={this.handleEmailChange}

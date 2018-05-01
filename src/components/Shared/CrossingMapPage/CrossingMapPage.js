@@ -12,6 +12,7 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import classnames from 'classnames';
 import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
+import communityFragment from 'components/Shared/Map/queries/communityFragment';
 
 const containerQuery = {
   fullsize: {
@@ -322,12 +323,11 @@ const allCommunities = gql`
   {
     allCommunities {
       nodes {
-        id
-        name
-        viewportgeojson
+        ...communityInfo
       }
     }
   }
+  ${communityFragment}
 `;
 
 export default compose(

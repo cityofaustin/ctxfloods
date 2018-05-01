@@ -25,11 +25,23 @@
   text-transform: uppercase;
 }
 
+@media (max-width: 600px) {
+  .CrossingMapSearchBar__header {
+    font-size: 1rem;
+  }
+}
+
 .CrossingMapSearchBar__container {
   background: #3b77bd;
   color: #8bbadb;
   min-height: 50px;
   display: flex;
+}
+
+@media (max-width: 600px) {
+  .CrossingMapSearchBar__container {
+    min-height: auto;
+  }
 }
 
 .CrossingMapSearchBar__location-icon {
@@ -104,10 +116,15 @@
   padding-top: 15px;
 }
 
-.CrossingMapSearchBar__suggestion-text {
+.CrossingMapSearchBar__suggestion-text--primary {
   padding-left: 10px;
-  padding-top: 13px;
+  padding-top: 6px;
   font-size: 1.5rem;
+}
+
+.CrossingMapSearchBar__suggestion-text--secondary {
+  padding-left: 10px;
+  font-size: 1.2rem;
 }
 
 .react-autosuggest__suggestion--highlighted {

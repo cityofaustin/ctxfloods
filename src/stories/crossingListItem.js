@@ -13,6 +13,13 @@ const reasons = [
   { id: 2, name: 'Bridge Broken', statusId: 4 },
 ];
 
+const communities = [
+  {
+    id: 1234,
+    name: 'All of Texas.',
+  },
+];
+
 const durations = [{ id: 1, name: 'A Minute' }, { id: 2, name: 'A Week' }];
 
 const openCrossing = {
@@ -29,14 +36,7 @@ const openCrossing = {
       lastName: 'Admin',
     },
   },
-  communities: {
-    nodes: [
-      {
-        id: 1234,
-        name: 'All of Texas.',
-      },
-    ],
-  },
+  communityIds: [ 1234 ],
 };
 
 const closedCrossing = {
@@ -54,14 +54,7 @@ const closedCrossing = {
       lastName: 'Admin',
     },
   },
-  communities: {
-    nodes: [
-      {
-        id: 1234,
-        name: 'All of Texas.',
-      },
-    ],
-  },
+  communityIds: [ 1234 ],
 };
 
 const cautionCrossing = {
@@ -79,14 +72,7 @@ const cautionCrossing = {
       lastName: 'Admin',
     },
   },
-  communities: {
-    nodes: [
-      {
-        id: 1234,
-        name: 'All of Texas.',
-      },
-    ],
-  },
+  communityIds: [ 1234 ],
 };
 
 const longtermCrossing = {
@@ -105,14 +91,7 @@ const longtermCrossing = {
       lastName: 'Admin',
     },
   },
-  communities: {
-    nodes: [
-      {
-        id: 1234,
-        name: 'All of Texas.',
-      },
-    ],
-  },
+  communityIds: [ 1234 ],
 };
 
 storiesOf('Crossing List Item', module)
@@ -122,6 +101,7 @@ storiesOf('Crossing List Item', module)
         reasons={reasons}
         durations={durations}
         crossing={openCrossing}
+        allCommunities={communities}
         restoreDirtyState={() => null}
         saveDirtyState={() => null}
       />
@@ -133,6 +113,7 @@ storiesOf('Crossing List Item', module)
         reasons={reasons}
         durations={durations}
         crossing={openCrossing}
+        allCommunities={communities}
         dirty="true"
         restoreDirtyState={() => null}
         saveDirtyState={() => null}
@@ -145,6 +126,7 @@ storiesOf('Crossing List Item', module)
         reasons={reasons}
         durations={durations}
         crossing={cautionCrossing}
+        allCommunities={communities}
         restoreDirtyState={() => null}
         saveDirtyState={() => null}
       />
@@ -156,6 +138,7 @@ storiesOf('Crossing List Item', module)
         reasons={reasons}
         durations={durations}
         crossing={cautionCrossing}
+        allCommunities={communities}
         dirty="true"
         restoreDirtyState={() => null}
         saveDirtyState={() => null}
@@ -168,6 +151,7 @@ storiesOf('Crossing List Item', module)
         reasons={reasons}
         durations={durations}
         crossing={closedCrossing}
+        allCommunities={communities}
         restoreDirtyState={() => null}
         saveDirtyState={() => null}
       />
@@ -179,6 +163,7 @@ storiesOf('Crossing List Item', module)
         reasons={reasons}
         durations={durations}
         crossing={closedCrossing}
+        allCommunities={communities}
         dirty="true"
         restoreDirtyState={() => null}
         saveDirtyState={() => null}
@@ -191,6 +176,7 @@ storiesOf('Crossing List Item', module)
         reasons={reasons}
         durations={durations}
         crossing={longtermCrossing}
+        allCommunities={communities}
         restoreDirtyState={() => null}
         saveDirtyState={() => null}
       />
@@ -202,6 +188,7 @@ storiesOf('Crossing List Item', module)
         reasons={reasons}
         durations={durations}
         crossing={longtermCrossing}
+        allCommunities={communities}
         dirty="true"
         restoreDirtyState={() => null}
         saveDirtyState={() => null}
@@ -215,6 +202,7 @@ storiesOf('Crossing List Item', module)
           reasons={reasons}
           durations={durations}
           crossing={longtermCrossing}
+          allCommunities={communities}
           restoreDirtyState={() => null}
           saveDirtyState={() => null}
         />
@@ -228,6 +216,7 @@ storiesOf('Crossing List Item', module)
           reasons={reasons}
           durations={durations}
           crossing={longtermCrossing}
+          allCommunities={communities}
           restoreDirtyState={() => null}
           saveDirtyState={() => null}
         />
