@@ -42,7 +42,6 @@ const Suggestion = suggestion => (
         {suggestion.name}
       </div>
       <div className="CrossingMapSearchBar__suggestion-text--secondary">
-        {suggestion.formatted_address}
         {suggestion.humanAddress}
         {suggestion.__typename === 'Community' && 'Community'}
       </div>
@@ -105,7 +104,7 @@ class CrossingMapSearchBar extends Component {
       this.props.selectCrossing(suggestion.id);
     } else if (suggestion.__typename === 'Community') {
       this.props.history.push(`/map/community/${suggestion.id}`);
-    } else if (suggestion.geometry.location) {
+    } else if (suggestion.location) {
       const lng = suggestion.location[1];
       const lat = suggestion.location[0];
       this.props.setSelectedLocationCoordinates([lng, lat]);
@@ -131,12 +130,12 @@ class CrossingMapSearchBar extends Component {
         }
 
         response.json().then(data => {
-          const suggestions = data.results.map(result => {
-            if(result.position) {
-              return {name: result.highlightedTitle, location: result.position};
-            };
-          });
-          debugger;
+          const filteredResults = data.results.filter(
+            result => result.position
+          );
+          const suggestions = filteredResults.map(
+            result => ({name: result.title, location: result.position, humanAddress: result.vicinity.replace('<br/>', ', ')})
+          );
           this.setState({ geocodeSuggestions: suggestions });
         });
       })
@@ -144,19 +143,6 @@ class CrossingMapSearchBar extends Component {
         console.log('Fetch Error :-S', err);
         this.setState({ geocodeSuggestions: [] });
       });
-
-      // googlePlacesService.textSearch({
-      //   query: value,
-      //   location: {lat: center.lat, lng: center.lng},
-      //   rankBy: google.maps.places.RankBy.DISTANCE,
-      // }, (results, status) => {
-      //   console.log(status);
-      //   if (status === 'OK') {
-      //     this.setState({ geocodeSuggestions: results });
-      //   } else {
-      //     this.setState({ geocodeSuggestions: [] });
-      //   } 
-      // });
 
       // If we aren't filtering by community, get the communities
       if (communities && !communityId) {
