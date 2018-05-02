@@ -49,14 +49,6 @@ const Suggestion = suggestion => (
   </div>
 );
 
-const renderSectionTitle = section => {
-  return null;
-};
-
-const getSectionSuggestions = section => {
-  return section.suggestions;
-};
-
 const formatSearchQuery = query => {
   return `%${query.replace(/ /g, '%')}%`;
 };
@@ -155,6 +147,8 @@ class CrossingMapSearchBar extends Component {
     } else {
       this.setState({ geocodeSuggestions: [], communitySuggestions: [] });
     }
+
+ 
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
@@ -196,20 +190,7 @@ class CrossingMapSearchBar extends Component {
       communitySuggestions,
     } = this.state;
 
-    const suggestions = [
-      {
-        title: 'Communities',
-        suggestions: communitySuggestions,
-      },
-      {
-        title: 'Crossings',
-        suggestions: crossingSuggestions,
-      },
-      {
-        title: 'Locations',
-        suggestions: geocodeSuggestions,
-      },
-    ];
+    const suggestions = communitySuggestions.concat(crossingSuggestions).concat(geocodeSuggestions);
 
     const value = selectedValue ? selectedValue : typedValue;
 
@@ -255,9 +236,6 @@ class CrossingMapSearchBar extends Component {
                   }
                 }}
                 suggestions={suggestions}
-                multiSection={true}
-                getSectionSuggestions={getSectionSuggestions}
-                renderSectionTitle={renderSectionTitle}
                 onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                 onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                 onSuggestionSelected={this.onSuggestionSelected}
@@ -267,6 +245,7 @@ class CrossingMapSearchBar extends Component {
                 inputProps={inputProps}
                 shouldRenderSuggestions={() => true}
                 focusInputOnSuggestionClick={false}
+                highlightFirstSuggestion={true}
               />
             )}
           </div>
