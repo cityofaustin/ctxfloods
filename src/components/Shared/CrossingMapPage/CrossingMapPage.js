@@ -234,6 +234,8 @@ class CrossingMapPage extends Component {
                       setSelectedLocationCoordinates={
                         this.setSelectedLocationCoordinates
                       }
+                      mobile={true}
+                      showDetailsOnMobile={this.state.showDetailsOnMobile}
                     />
                     {!params.fullsize &&
                       selectedCrossingId && this.state.showDetailsOnMobile && (

@@ -33,8 +33,6 @@
 
 .CrossingMapSearchBar__container {
   background: #2c579b;
-  padding-top: 10px;
-  min-height: 50px;
 }
 
 @media (max-width: 600px) {
@@ -61,15 +59,15 @@
   width: 100%;
 }
 
-.CrossingMapSearchBar__selected-item {
-  width: 100%;
-  margin-top: 12px;
-  font-size: medium;
-  color: white;
-  text-align: center;
+.CrossingMapSearchBar__close-selection {
+  text-align: right;
+  background: white;
+  padding-right: 10px;
+  padding-top: 5px;
 }
 
 .react-autosuggest__input {
+  margin-top: 10px;
   font-size: 1.5rem;
   color: black;
   margin-left: 5%;

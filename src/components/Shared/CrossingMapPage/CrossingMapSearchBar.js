@@ -216,12 +216,12 @@ class CrossingMapSearchBar extends Component {
           updateSuggestions={this.updateCrossingSuggestions}
         />
         <div className="CrossingMapSearchBar__text-entry">
-          {selectedCrossingId && (
+          {selectedCrossingId && (!this.props.mobile || this.props.showDetailsOnMobile) && (
             <div
-              className="CrossingMapSearchBar__selected-item"
+              className="CrossingMapSearchBar__close-selection"
               onClick={this.clearSearch}
             >
-              Back to Search
+              <FontAwesome name="window-close" size="2x" />
             </div>
           )}
           {!selectedCrossingId && (
