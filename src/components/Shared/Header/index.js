@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { get } from 'lodash';
 import PropTypes from 'prop-types';
 
 import CtxFloodsLogoDarkSvg from 'images/ctx-floods-logo-dark.svg';
@@ -13,9 +12,7 @@ export default class Header extends Component {
   };
 
   componentDidMount() {
-    const pathname = get(this, 'props.location.pathname');
-    const suffix = pathname ? `- ${pathname}` : '';
-    document.title = `CTXfloods ${suffix}`;
+    document.title = `Central Texas Floods - Turn Around, Don't Drown`;
   }
 
   render() {
