@@ -60,6 +60,7 @@ class CrossingMapPage extends Component {
       selectedCommunity: null,
       viewport: viewportAndCenter.viewport,
       center: viewportAndCenter.center,
+      showDetailsOnMobile: false,
     };
   }
 
@@ -134,6 +135,7 @@ class CrossingMapPage extends Component {
       selectedCrossingId: crossingId,
       selectedCrossingStatus: crossingStatus,
       selectedCrossingName: crossingName,
+      showDetailsOnMobile: false,
     });
   };
 
@@ -161,6 +163,10 @@ class CrossingMapPage extends Component {
   setSelectedLocationCoordinates = coordinates => {
     this.setState({ selectedLocationCoordinates: coordinates });
   };
+
+  setShowDetailsOnMobile = showDetails => {
+    this.setState({ showDetailsOnMobile: showDetails });
+  }
 
   render() {
     const {
@@ -230,7 +236,7 @@ class CrossingMapPage extends Component {
                       }
                     />
                     {!params.fullsize &&
-                      selectedCrossingId && (
+                      selectedCrossingId && this.state.showDetailsOnMobile && (
                         <div className="CrossingMapPage__mobile-overlay">
                           <SelectedCrossingContainer
                             crossingId={selectedCrossingId}
@@ -282,7 +288,7 @@ class CrossingMapPage extends Component {
                 <div
                   className={classnames('CrossingMapPage__map-container', {
                     'CrossingMapPage__map-container--hidden':
-                      !params.fullsize && selectedCrossingId,
+                      !params.fullsize && selectedCrossingId && this.state.showDetailsOnMobile,
                   })}
                 >
                   <CrossingMap
@@ -308,6 +314,8 @@ class CrossingMapPage extends Component {
                       selectedCommunity && selectedCommunity.id
                     }
                     registerMapResizeCallback={this.registerMapResizeCallback}
+                    mobile={!params.fullsize}
+                    setShowDetailsOnMobile={this.setShowDetailsOnMobile}
                   />
                 </div>
               </div>

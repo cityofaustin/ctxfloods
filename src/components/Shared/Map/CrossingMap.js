@@ -501,7 +501,10 @@ class CrossingMap extends React.Component {
               JSON.parse(this.state.selectedCrossing.geojson).coordinates
             }
           >
-            <div>{this.state.selectedCrossing.crossingName}</div>
+            <div>
+              {this.state.selectedCrossing.crossingName}
+              {this.props.mobile && <button onClick={() => this.props.setShowDetailsOnMobile(true)}>Details</button>}
+            </div>
           </Popup>
         )}
         {this.state.selectedLocationCoordinates && (
