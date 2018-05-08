@@ -144,10 +144,9 @@ class CrossingMapPage extends Component {
       selectedCrossingId: crossingId,
       selectedCrossingStatus: crossingStatus,
       showDetailsOnMobile: false,
-    });
-    if(crossingId) {
+    }, () => {
       this.triggerMapResize();
-    }
+    });
   };
 
   toggleFullscreen = () => {
