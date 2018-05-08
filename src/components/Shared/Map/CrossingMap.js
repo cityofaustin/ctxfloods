@@ -185,26 +185,10 @@ class CrossingMap extends React.Component {
       selectedCrossing: mapCrossing,
     });
     this.flyTo(coordinates);
-    // this.props.selectCrossing(
-    //   crossing.id,
-    //   crossing.latestStatusId,
-    //   crossing.name,
-    // );
-    this.props.history.push(`/map/crossing/${crossing.id}`);
   };
 
   onCrossingClick = crossing => {
-    this.setState({ selectedCrossingId: crossing.properties.crossingId });
-    this.setState({ selectedCrossing: crossing.properties });
-    this.setState({
-      selectedCrossingCoordinates: crossing.geometry.coordinates,
-    });
-    this.flyTo(crossing.geometry.coordinates);
-    this.props.selectCrossing(
-      crossing.properties.crossingId,
-      crossing.properties.crossingStatus,
-      crossing.properties.crossingName,
-    );
+    this.props.history.push(`/map/crossing/${crossing.properties.crossingId}`);
   };
 
   onMapClick = e => {
@@ -227,15 +211,13 @@ class CrossingMap extends React.Component {
       { layers: layersToQuery },
     );
 
-    // const features = map.queryRenderedFeatures(e.point);
-
     if (features && features[0] && features[0].properties.crossingId) {
       this.onCrossingClick(features[0]);
     } else {
       this.setState({ selectedCrossingId: -1 });
       this.setState({ selectedCrossing: null });
       this.setState({ selectedCrossingCoordinates: null });
-      this.props.selectCrossing(null, null);
+      this.props.history.push(`/map/`);
     }
   };
 

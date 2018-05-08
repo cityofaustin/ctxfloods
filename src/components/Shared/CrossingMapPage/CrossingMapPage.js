@@ -76,7 +76,7 @@ class CrossingMapPage extends Component {
       prevProps.match.params.selectedCrossingId;
 
     if(didSelectedCrossingChange && this.state.mapLoaded) {
-      this.selectCrossing(Number(this.props.match.params.selectedCrossingId));
+      this.selectCrossing(this.props.match.params.selectedCrossingId && Number(this.props.match.params.selectedCrossingId));
     }
 
     if (didLoad || didSelectedCommunityChange) {
