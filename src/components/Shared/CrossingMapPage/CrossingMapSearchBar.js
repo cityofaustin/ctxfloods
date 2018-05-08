@@ -8,8 +8,6 @@ import CrossingMapSearchCrossingSuggestions from 'components/Shared/CrossingMapP
 import 'components/Shared/CrossingMapPage/CrossingMapSearchBar.css';
 import { statusNames, statusIcons } from 'constants/StatusConstants';
 
-import CloseDarkSvg from 'images/close-dark.svg';
-
 const HERE_APP_ID = `NwvYKNdIJp8nYo74bUTU`;
 const HERE_APP_CODE = `VHZxGy1nmghs2BCbo0cVCQ`;
 
