@@ -114,6 +114,8 @@ class CrossingMap extends React.Component {
 
     // disable map rotation using touch rotation gesture
     map.touchZoomRotate.disableRotation();
+
+    this.props.setMapLoaded();
   };
 
   addGeoLocateControl(map) {
@@ -131,10 +133,13 @@ class CrossingMap extends React.Component {
 
     // New versions of mapboxgl-js will have a trigger function instead
     // https://github.com/mapbox/mapbox-gl-js/issues/5464
-    if (geolocateControl.trigger) {
-      geolocateControl.trigger();
-    } else {
-      setTimeout(() => geolocateControl._onClickGeolocate(), 5);
+    if(this.props.autoGeoLocate) {
+      if (geolocateControl.trigger) {
+        geolocateControl.trigger();
+      } else {
+        if(!this.props.selectedCrossingId)
+          setTimeout(() => geolocateControl._onClickGeolocate(), 5);
+      }
     }
   }
 

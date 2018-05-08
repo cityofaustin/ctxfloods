@@ -61,6 +61,7 @@ class CrossingMapPage extends Component {
       viewport: viewportAndCenter.viewport,
       center: viewportAndCenter.center,
       showDetailsOnMobile: false,
+      mapLoaded: false,
     };
   }
 
@@ -70,10 +71,16 @@ class CrossingMapPage extends Component {
       this.props.match.params.selectedCommunityId !==
       prevProps.match.params.selectedCommunityId;
 
-    console.log(this.props.match.params.selectedCrossingId);
+    const didSelectedCrossingChange =
+      this.props.match.params.selectedCrossingId !==
+      prevProps.match.params.selectedCrossingId;
 
-    if (didLoad || didSelectedCommunityChange) {
-      this.setSelectedCommunity();
+    if (didLoad || didSelectedCommunityChange || didSelectedCrossingChange) {
+      if(this.props.match.params.selectedCommunityId)
+        this.setSelectedCommunity();
+
+      if(this.props.match.params.selectedCrossingId && this.state.mapLoaded)
+        this.selectCrossing(Number(this.props.match.params.selectedCrossingId));
     }
   }
 
@@ -168,7 +175,13 @@ class CrossingMapPage extends Component {
 
   setShowDetailsOnMobile = showDetails => {
     this.setState({ showDetailsOnMobile: showDetails });
-  }
+  };
+
+  setMapLoaded = () => {
+    this.setState({mapLoaded: true});
+    if(this.props.match.params.selectedCrossingId)
+      this.selectCrossing(Number(this.props.match.params.selectedCrossingId));
+  };
 
   render() {
     const {
@@ -317,6 +330,8 @@ class CrossingMapPage extends Component {
                     registerMapResizeCallback={this.registerMapResizeCallback}
                     mobile={!params.fullsize}
                     setShowDetailsOnMobile={this.setShowDetailsOnMobile}
+                    setMapLoaded={this.setMapLoaded}
+                    autoGeoLocate={!this.props.match.params.selectedCommunityId && !this.props.match.params.selectedCrossingId}
                   />
                 </div>
               </div>
