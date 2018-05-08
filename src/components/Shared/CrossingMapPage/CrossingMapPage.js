@@ -70,6 +70,8 @@ class CrossingMapPage extends Component {
       this.props.match.params.selectedCommunityId !==
       prevProps.match.params.selectedCommunityId;
 
+    console.log(this.props.match.params.selectedCrossingId);
+
     if (didLoad || didSelectedCommunityChange) {
       this.setSelectedCommunity();
     }
