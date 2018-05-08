@@ -137,6 +137,7 @@ class CrossingMapPage extends Component {
       selectedCrossingName: crossingName,
       showDetailsOnMobile: false,
     });
+    if(crossingId) this.triggerMapResize();
   };
 
   toggleFullscreen = () => {
