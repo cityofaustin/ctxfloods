@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as MapboxGl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
+import { withRouter } from 'react-router';
 
 import { MapboxAccessToken } from 'constants/MapboxConstants';
 
@@ -184,11 +185,12 @@ class CrossingMap extends React.Component {
       selectedCrossing: mapCrossing,
     });
     this.flyTo(coordinates);
-    this.props.selectCrossing(
-      crossing.id,
-      crossing.latestStatusId,
-      crossing.name,
-    );
+    // this.props.selectCrossing(
+    //   crossing.id,
+    //   crossing.latestStatusId,
+    //   crossing.name,
+    // );
+    this.props.history.push(`/map/crossing/${crossing.id}`);
   };
 
   onCrossingClick = crossing => {
@@ -525,4 +527,4 @@ class CrossingMap extends React.Component {
   }
 }
 
-export default CrossingMap;
+export default withRouter(CrossingMap);

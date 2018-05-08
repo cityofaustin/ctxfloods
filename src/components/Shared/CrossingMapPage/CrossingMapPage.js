@@ -75,12 +75,12 @@ class CrossingMapPage extends Component {
       this.props.match.params.selectedCrossingId !==
       prevProps.match.params.selectedCrossingId;
 
-    if (didLoad || didSelectedCommunityChange || didSelectedCrossingChange) {
-      if(this.props.match.params.selectedCommunityId)
-        this.setSelectedCommunity();
+    if(didSelectedCrossingChange && this.state.mapLoaded) {
+      this.selectCrossing(Number(this.props.match.params.selectedCrossingId));
+    }
 
-      if(this.props.match.params.selectedCrossingId && this.state.mapLoaded)
-        this.selectCrossing(Number(this.props.match.params.selectedCrossingId));
+    if (didLoad || didSelectedCommunityChange) {
+      this.setSelectedCommunity();
     }
   }
 
@@ -145,7 +145,9 @@ class CrossingMapPage extends Component {
       selectedCrossingStatus: crossingStatus,
       showDetailsOnMobile: false,
     });
-    if(crossingId) this.triggerMapResize();
+    if(crossingId) {
+      this.triggerMapResize();
+    }
   };
 
   toggleFullscreen = () => {
