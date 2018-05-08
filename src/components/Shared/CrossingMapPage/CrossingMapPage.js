@@ -130,11 +130,10 @@ class CrossingMapPage extends Component {
     };
   };
 
-  selectCrossing = (crossingId, crossingStatus, crossingName) => {
+  selectCrossing = (crossingId, crossingStatus) => {
     this.setState({
       selectedCrossingId: crossingId,
       selectedCrossingStatus: crossingStatus,
-      selectedCrossingName: crossingName,
       showDetailsOnMobile: false,
     });
     if(crossingId) this.triggerMapResize();
@@ -177,7 +176,6 @@ class CrossingMapPage extends Component {
       selectedCrossingStatus,
       searchQuery,
       formattedSearchQuery,
-      selectedCrossingName,
       selectedLocationCoordinates,
       selectedCommunity,
     } = this.state;
@@ -228,7 +226,6 @@ class CrossingMapPage extends Component {
                       selectCrossing={this.selectCrossing}
                       searchQuery={searchQuery}
                       searchQueryUpdated={this.searchQueryUpdated}
-                      selectedCrossingName={selectedCrossingName}
                       toggleSearchFocus={() => null}
                       communities={allCommunities}
                       center={center}
@@ -262,7 +259,6 @@ class CrossingMapPage extends Component {
                     </div>
                     <CrossingMapSidebar
                       selectedCrossingId={selectedCrossingId}
-                      selectedCrossingName={selectedCrossingName}
                       currentUser={currentUser}
                       selectCrossing={this.selectCrossing}
                       searchQuery={searchQuery}
