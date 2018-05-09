@@ -138,8 +138,7 @@ class CrossingMap extends React.Component {
       if (geolocateControl.trigger) {
         geolocateControl.trigger();
       } else {
-        if(!this.props.selectedCrossingId)
-          setTimeout(() => geolocateControl._onClickGeolocate(), 5);
+        setTimeout(() => geolocateControl._onClickGeolocate(), 5);
       }
     }
   }
