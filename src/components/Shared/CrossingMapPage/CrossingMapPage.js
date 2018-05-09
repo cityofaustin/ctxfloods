@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import CrossingMap from 'components/Shared/Map/CrossingMap';
-import CrossingMapSidebar from 'components/Shared/CrossingMapPage/CrossingMapSidebar';
-import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
-import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
-import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
-import Fullscreen from 'react-full-screen';
-import FontAwesome from 'react-fontawesome';
-import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import { ContainerQuery } from 'react-container-query';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import classnames from 'classnames';
+import Fullscreen from 'react-full-screen';
+import FontAwesome from 'react-fontawesome';
+
+import CrossingMap from 'components/Shared/Map/CrossingMap';
+import CrossingMapSidebar from 'components/Shared/CrossingMapPage/CrossingMapSidebar';
+import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
+import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
+import FilterCheckbox from 'components/Shared/FilterCheckbox';
+
+import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
+import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
 import communityFragment from 'components/Shared/Map/queries/communityFragment';
 
@@ -259,8 +262,31 @@ class CrossingMapPage extends Component {
                       showDetailsOnMobile={this.state.showDetailsOnMobile}
                     />
                     {!selectedCrossingId && !this.state.searchFocused && (
-                      <div>
-                        FILTERS
+                      <div className="CrossingMapPage__mobile-status-filters">
+                        <FilterCheckbox
+                          isChecked={this.state.showOpen}
+                          onClick={this.toggleShowOpen}
+                        >
+                          Open
+                        </FilterCheckbox>
+                        <FilterCheckbox
+                          isChecked={this.state.showClosed}
+                          onClick={this.toggleShowClosed}
+                        >
+                          Closed
+                        </FilterCheckbox>
+                        <FilterCheckbox
+                          isChecked={this.state.showCaution}
+                          onClick={this.toggleShowCaution}
+                        >
+                          Caution
+                        </FilterCheckbox>
+                        <FilterCheckbox
+                          isChecked={this.state.showLongterm}
+                          onClick={this.toggleShowLongterm}
+                        >
+                          Long-Term
+                        </FilterCheckbox>
                       </div>
                     )}
                     {!params.fullsize &&

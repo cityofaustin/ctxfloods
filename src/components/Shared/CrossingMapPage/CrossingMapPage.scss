@@ -5,6 +5,12 @@
   margin: 0;
 }
 
+.CrossingMapPage__mobile-status-filters {
+  display: flex;
+  background: #3b77bd;
+  padding: .6rem;
+}
+
 .CrossingMapPage__map-container--hidden {
   display: none;
 }
