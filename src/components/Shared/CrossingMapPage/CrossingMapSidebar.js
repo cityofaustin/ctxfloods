@@ -25,7 +25,7 @@ class CrossingMapSidebar extends Component {
 
     this.state = {
       visible: true,
-      showFilters: false,
+      showFilters: true,
       searchFocused: false,
       showNearby: true,
       showHistory: false,

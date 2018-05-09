@@ -52,7 +52,7 @@ class CrossingMapPage extends Component {
       fullscreen: false,
       searchQuery: '',
       formattedSearchQuery: '%%',
-      showOpen: true,
+      showOpen: false,
       showClosed: true,
       showCaution: true,
       showLongterm: true,
