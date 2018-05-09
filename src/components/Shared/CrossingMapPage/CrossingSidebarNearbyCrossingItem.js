@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 import { statusNames, statusIcons } from 'constants/StatusConstants';
 import Date from 'components/Shared/DateTime/Date';
@@ -15,14 +16,13 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
       crossingId,
       crossing,
       crossingName,
-      selectCrossing,
       allCommunities
     } = this.props;
 
     return (
       <div
         className="CrossingMapPage_sidebar-nearby-crossing-container"
-        onClick={() => selectCrossing(crossingId)}
+        onClick={() => this.props.history.push(`/map/crossing/${crossingId}`)}
       >
         <div className="CrossingMapPage_sidebar-nearby-crossing-status-icon">
           <img
@@ -55,4 +55,4 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
   }
 }
 
-export default CrossingSidebarNearbyCrossingItem;
+export default withRouter(CrossingSidebarNearbyCrossingItem);

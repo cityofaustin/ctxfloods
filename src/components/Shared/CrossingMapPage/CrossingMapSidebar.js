@@ -286,7 +286,6 @@ class CrossingMapSidebar extends Component {
                         crossingName={c.name}
                         communityIds={c.communityIds}
                         allCommunities={allCommunities}
-                        selectCrossing={selectCrossing}
                       />
                     ))}
                   </div>
