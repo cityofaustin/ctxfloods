@@ -51,9 +51,9 @@ class PublicCrossingListItem extends React.Component {
             <div className="PublicCrossingListItem__status-name">
               <StatusName statusId={crossing.latestStatusId} />
             </div>
-            <a href={`/map`} className="PublicCrossingListItem__crossing-name">
+            <div className="PublicCrossingListItem__crossing-name">
               {crossing.name}
-            </a>
+            </div>
             <div>
               <Location crossing={crossing} />
               <CrossingCommunityList crossing={crossing} allCommunities={allCommunities}/>
