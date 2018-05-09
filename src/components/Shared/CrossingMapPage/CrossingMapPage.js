@@ -62,6 +62,7 @@ class CrossingMapPage extends Component {
       center: viewportAndCenter.center,
       showDetailsOnMobile: false,
       mapLoaded: false,
+      searchFocused: false,
     };
   }
 
@@ -184,6 +185,12 @@ class CrossingMapPage extends Component {
       this.selectCrossing(Number(this.props.match.params.selectedCrossingId));
   };
 
+  toggleSearchFocus = focused => {
+    this.setState({ searchFocused: focused }, () => {
+      this.triggerMapResize();
+    });
+  };
+
   render() {
     const {
       viewport,
@@ -242,7 +249,7 @@ class CrossingMapPage extends Component {
                       selectCrossing={this.selectCrossing}
                       searchQuery={searchQuery}
                       searchQueryUpdated={this.searchQueryUpdated}
-                      toggleSearchFocus={() => null}
+                      toggleSearchFocus={this.toggleSearchFocus}
                       communities={allCommunities}
                       center={center}
                       setSelectedLocationCoordinates={
@@ -251,6 +258,11 @@ class CrossingMapPage extends Component {
                       mobile={true}
                       showDetailsOnMobile={this.state.showDetailsOnMobile}
                     />
+                    {!selectedCrossingId && !this.state.searchFocused && (
+                      <div>
+                        FILTERS
+                      </div>
+                    )}
                     {!params.fullsize &&
                       selectedCrossingId && this.state.showDetailsOnMobile && (
                         <div className="CrossingMapPage__mobile-overlay">
