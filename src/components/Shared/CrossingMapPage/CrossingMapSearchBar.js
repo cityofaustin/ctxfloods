@@ -91,7 +91,7 @@ class CrossingMapSearchBar extends Component {
     { suggestion, suggestionValue, suggestionIndex, sectionIndex, method },
   ) => {
     if (suggestion.__typename === 'Crossing') {
-      this.props.selectCrossing(suggestion.id);
+      this.props.history.push(`/map/crossing/${suggestion.id}`);
     } else if (suggestion.__typename === 'Community') {
       this.props.history.push(`/map/community/${suggestion.id}`);
     } else if (suggestion.location) {
