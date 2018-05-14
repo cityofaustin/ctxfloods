@@ -135,20 +135,20 @@ class CrossingMapSearchBar extends Component {
         console.log('Fetch Error :-S', err);
         this.setState({ geocodeSuggestions: [] });
       });
-
-      // If we aren't filtering by community, get the communities
-      if (communities && !communityId) {
-        const inputValue = value.trim().toLowerCase();
-        const communitySuggestions = communities
-          .filter(c => c.name.toLowerCase().includes(inputValue))
-          .slice(0, 4);
-        this.setState({ communitySuggestions: communitySuggestions });
-      }
     } else {
-      this.setState({ geocodeSuggestions: [], communitySuggestions: [] });
+      this.setState({ geocodeSuggestions: [] });
     }
 
- 
+    // If we aren't filtering by community, get the communities
+    if (communities && !communityId) {
+      const inputValue = value.trim().toLowerCase();
+      const communitySuggestions = communities
+        .filter(c => c.name.toLowerCase().includes(inputValue))
+        .slice(0, 4);
+      this.setState({ communitySuggestions: communitySuggestions });
+    } else {
+      this.setState({ communitySuggestions: [] });
+    }
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
@@ -190,7 +190,9 @@ class CrossingMapSearchBar extends Component {
       communitySuggestions,
     } = this.state;
 
-    const suggestions = communitySuggestions.concat(crossingSuggestions).concat(geocodeSuggestions);
+    const suggestions = typedValue.length > 2 ?
+      communitySuggestions.concat(crossingSuggestions).concat(geocodeSuggestions) :
+      [];
 
     const value = selectedValue ? selectedValue : typedValue;
 
