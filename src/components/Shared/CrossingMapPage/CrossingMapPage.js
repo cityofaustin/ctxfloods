@@ -61,6 +61,7 @@ class CrossingMapPage extends Component {
       viewport: viewportAndCenter.viewport,
       center: viewportAndCenter.center,
       showDetailsOnMobile: false,
+      mapLoaded: false,
     };
   }
 
@@ -69,6 +70,14 @@ class CrossingMapPage extends Component {
     const didSelectedCommunityChange =
       this.props.match.params.selectedCommunityId !==
       prevProps.match.params.selectedCommunityId;
+
+    const didSelectedCrossingChange =
+      this.props.match.params.selectedCrossingId !==
+      prevProps.match.params.selectedCrossingId;
+
+    if(didSelectedCrossingChange && this.state.mapLoaded) {
+      this.selectCrossing(this.props.match.params.selectedCrossingId && Number(this.props.match.params.selectedCrossingId));
+    }
 
     if (didLoad || didSelectedCommunityChange) {
       this.setSelectedCommunity();
@@ -135,8 +144,9 @@ class CrossingMapPage extends Component {
       selectedCrossingId: crossingId,
       selectedCrossingStatus: crossingStatus,
       showDetailsOnMobile: false,
+    }, () => {
+      this.triggerMapResize();
     });
-    if(crossingId) this.triggerMapResize();
   };
 
   toggleFullscreen = () => {
@@ -166,7 +176,13 @@ class CrossingMapPage extends Component {
 
   setShowDetailsOnMobile = showDetails => {
     this.setState({ showDetailsOnMobile: showDetails });
-  }
+  };
+
+  setMapLoaded = () => {
+    this.setState({mapLoaded: true});
+    if(this.props.match.params.selectedCrossingId)
+      this.selectCrossing(Number(this.props.match.params.selectedCrossingId));
+  };
 
   render() {
     const {
@@ -315,6 +331,8 @@ class CrossingMapPage extends Component {
                     registerMapResizeCallback={this.registerMapResizeCallback}
                     mobile={!params.fullsize}
                     setShowDetailsOnMobile={this.setShowDetailsOnMobile}
+                    setMapLoaded={this.setMapLoaded}
+                    autoGeoLocate={!this.props.match.params.selectedCommunityId && !this.props.match.params.selectedCrossingId}
                   />
                 </div>
               </div>

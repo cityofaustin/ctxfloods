@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import Autosuggest from 'react-autosuggest';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 
 import CrossingMapSearchCrossingSuggestions from 'components/Shared/CrossingMapPage/CrossingMapSearchCrossingSuggestions';
 import 'components/Shared/CrossingMapPage/CrossingMapSearchBar.css';

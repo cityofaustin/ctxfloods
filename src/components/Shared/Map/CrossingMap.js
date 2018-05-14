@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as MapboxGl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
+import { withRouter } from 'react-router';
 
 import { MapboxAccessToken } from 'constants/MapboxConstants';
 
@@ -114,6 +115,8 @@ class CrossingMap extends React.Component {
 
     // disable map rotation using touch rotation gesture
     map.touchZoomRotate.disableRotation();
+
+    this.props.setMapLoaded();
   };
 
   addGeoLocateControl(map) {
@@ -131,10 +134,13 @@ class CrossingMap extends React.Component {
 
     // New versions of mapboxgl-js will have a trigger function instead
     // https://github.com/mapbox/mapbox-gl-js/issues/5464
-    if (geolocateControl.trigger) {
-      geolocateControl.trigger();
-    } else {
-      setTimeout(() => geolocateControl._onClickGeolocate(), 5);
+    if(this.props.autoGeoLocate) {
+      if (geolocateControl.trigger) {
+        geolocateControl.trigger();
+      } else {
+        if(!this.props.selectedCrossingId)
+          setTimeout(() => geolocateControl._onClickGeolocate(), 5);
+      }
     }
   }
 
@@ -179,25 +185,10 @@ class CrossingMap extends React.Component {
       selectedCrossing: mapCrossing,
     });
     this.flyTo(coordinates);
-    this.props.selectCrossing(
-      crossing.id,
-      crossing.latestStatusId,
-      crossing.name,
-    );
   };
 
   onCrossingClick = crossing => {
-    this.setState({ selectedCrossingId: crossing.properties.crossingId });
-    this.setState({ selectedCrossing: crossing.properties });
-    this.setState({
-      selectedCrossingCoordinates: crossing.geometry.coordinates,
-    });
-    this.flyTo(crossing.geometry.coordinates);
-    this.props.selectCrossing(
-      crossing.properties.crossingId,
-      crossing.properties.crossingStatus,
-      crossing.properties.crossingName,
-    );
+    this.props.history.push(`/map/crossing/${crossing.properties.crossingId}`);
   };
 
   onMapClick = e => {
@@ -220,15 +211,13 @@ class CrossingMap extends React.Component {
       { layers: layersToQuery },
     );
 
-    // const features = map.queryRenderedFeatures(e.point);
-
     if (features && features[0] && features[0].properties.crossingId) {
       this.onCrossingClick(features[0]);
     } else {
       this.setState({ selectedCrossingId: -1 });
       this.setState({ selectedCrossing: null });
       this.setState({ selectedCrossingCoordinates: null });
-      this.props.selectCrossing(null, null);
+      this.props.history.push(`/map/`);
     }
   };
 
@@ -520,4 +509,4 @@ class CrossingMap extends React.Component {
   }
 }
 
-export default CrossingMap;
+export default withRouter(CrossingMap);
