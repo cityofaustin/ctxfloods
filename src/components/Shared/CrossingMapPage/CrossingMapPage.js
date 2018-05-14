@@ -60,6 +60,7 @@ class CrossingMapPage extends Component {
       selectedCommunity: null,
       viewport: viewportAndCenter.viewport,
       center: viewportAndCenter.center,
+      showDetailsOnMobile: false,
     };
   }
 
@@ -129,12 +130,13 @@ class CrossingMapPage extends Component {
     };
   };
 
-  selectCrossing = (crossingId, crossingStatus, crossingName) => {
+  selectCrossing = (crossingId, crossingStatus) => {
     this.setState({
       selectedCrossingId: crossingId,
       selectedCrossingStatus: crossingStatus,
-      selectedCrossingName: crossingName,
+      showDetailsOnMobile: false,
     });
+    if(crossingId) this.triggerMapResize();
   };
 
   toggleFullscreen = () => {
@@ -162,6 +164,10 @@ class CrossingMapPage extends Component {
     this.setState({ selectedLocationCoordinates: coordinates });
   };
 
+  setShowDetailsOnMobile = showDetails => {
+    this.setState({ showDetailsOnMobile: showDetails });
+  }
+
   render() {
     const {
       viewport,
@@ -170,7 +176,6 @@ class CrossingMapPage extends Component {
       selectedCrossingStatus,
       searchQuery,
       formattedSearchQuery,
-      selectedCrossingName,
       selectedLocationCoordinates,
       selectedCommunity,
     } = this.state;
@@ -221,16 +226,17 @@ class CrossingMapPage extends Component {
                       selectCrossing={this.selectCrossing}
                       searchQuery={searchQuery}
                       searchQueryUpdated={this.searchQueryUpdated}
-                      selectedCrossingName={selectedCrossingName}
                       toggleSearchFocus={() => null}
                       communities={allCommunities}
                       center={center}
                       setSelectedLocationCoordinates={
                         this.setSelectedLocationCoordinates
                       }
+                      mobile={true}
+                      showDetailsOnMobile={this.state.showDetailsOnMobile}
                     />
                     {!params.fullsize &&
-                      selectedCrossingId && (
+                      selectedCrossingId && this.state.showDetailsOnMobile && (
                         <div className="CrossingMapPage__mobile-overlay">
                           <SelectedCrossingContainer
                             crossingId={selectedCrossingId}
@@ -253,7 +259,6 @@ class CrossingMapPage extends Component {
                     </div>
                     <CrossingMapSidebar
                       selectedCrossingId={selectedCrossingId}
-                      selectedCrossingName={selectedCrossingName}
                       currentUser={currentUser}
                       selectCrossing={this.selectCrossing}
                       searchQuery={searchQuery}
@@ -282,7 +287,7 @@ class CrossingMapPage extends Component {
                 <div
                   className={classnames('CrossingMapPage__map-container', {
                     'CrossingMapPage__map-container--hidden':
-                      !params.fullsize && selectedCrossingId,
+                      !params.fullsize && selectedCrossingId && this.state.showDetailsOnMobile,
                   })}
                 >
                   <CrossingMap
@@ -308,6 +313,8 @@ class CrossingMapPage extends Component {
                       selectedCommunity && selectedCommunity.id
                     }
                     registerMapResizeCallback={this.registerMapResizeCallback}
+                    mobile={!params.fullsize}
+                    setShowDetailsOnMobile={this.setShowDetailsOnMobile}
                   />
                 </div>
               </div>

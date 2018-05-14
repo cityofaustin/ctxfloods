@@ -8,8 +8,6 @@ import CrossingMapSearchCrossingSuggestions from 'components/Shared/CrossingMapP
 import 'components/Shared/CrossingMapPage/CrossingMapSearchBar.css';
 import { statusNames, statusIcons } from 'constants/StatusConstants';
 
-import CloseDarkSvg from 'images/close-dark.svg';
-
 const HERE_APP_ID = `NwvYKNdIJp8nYo74bUTU`;
 const HERE_APP_CODE = `VHZxGy1nmghs2BCbo0cVCQ`;
 
@@ -162,7 +160,9 @@ class CrossingMapSearchBar extends Component {
   clearSearch = () => {
     this.props.selectCrossing(null, null);
     this.setState({ typedValue: '', selectedValue: null });
-    this.props.history.push('/map');
+    if(!this.props.location.pathname.includes('dashboard')) {
+      this.props.history.push('/map');
+    }
   };
 
   updateCrossingSuggestions = suggestions => {
@@ -216,12 +216,12 @@ class CrossingMapSearchBar extends Component {
           updateSuggestions={this.updateCrossingSuggestions}
         />
         <div className="CrossingMapSearchBar__text-entry">
-          {selectedCrossingId && (
+          {selectedCrossingId && (!this.props.mobile || this.props.showDetailsOnMobile) && (
             <div
-              className="CrossingMapSearchBar__selected-item"
+              className="CrossingMapSearchBar__close-selection"
               onClick={this.clearSearch}
             >
-              Back to Search
+              <FontAwesome name="window-close" size="2x" />
             </div>
           )}
           {!selectedCrossingId && (
