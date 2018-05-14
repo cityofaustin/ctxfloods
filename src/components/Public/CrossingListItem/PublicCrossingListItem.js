@@ -22,7 +22,7 @@ const containerQuery = {
 
 class PublicCrossingListItem extends React.Component {
   render() {
-    const { crossing, allCommunities } = this.props;
+    const { crossing, allCommunities, reasons, durations } = this.props;
     const { createdAt } = crossing.statusUpdateByLatestStatusUpdateId;
 
     var show = [];
@@ -71,19 +71,16 @@ class PublicCrossingListItem extends React.Component {
         <div className="PublicCrossingListItem__details">
           {show.includes('reason') && (
             <DetailsItem title="Reason">
-              {/* TODO: Add actual reason */}
-              Blah reason
+              {reasons.find(r => r.id === crossing.statusUpdateByLatestStatusUpdateId.statusReasonId).name}
             </DetailsItem>
           )}
           {show.includes('reopen') && (
-            <DetailsItem title="Reason">
-              {/* TODO: Add actual reopen */}
-              Blah minutes
+            <DetailsItem title="Duration">
+              {durations.find(r => r.id === crossing.statusUpdateByLatestStatusUpdateId.statusDurationId).name}
             </DetailsItem>
           )}
           {show.includes('notes') && (
             <DetailsItem title="Notes">
-              {/* TODO: Add actual reopen */}
               {crossing.statusUpdateByLatestStatusUpdateId.notes}
             </DetailsItem>
           )}
