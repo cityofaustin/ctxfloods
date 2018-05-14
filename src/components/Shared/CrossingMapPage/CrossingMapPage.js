@@ -55,7 +55,7 @@ class CrossingMapPage extends Component {
       fullscreen: false,
       searchQuery: '',
       formattedSearchQuery: '%%',
-      showOpen: false,
+      showOpen: this.props.match.url.includes('dashboard'),
       showClosed: true,
       showCaution: true,
       showLongterm: true,
