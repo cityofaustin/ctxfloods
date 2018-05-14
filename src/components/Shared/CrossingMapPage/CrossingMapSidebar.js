@@ -154,7 +154,12 @@ class CrossingMapSidebar extends Component {
       <div className="CrossingMapSidebar__overlay-container">
         {visible && (
           <div className="CrossingMapSidebar__content">
-            <div className="CrossingMapSidebar__content-noscroll">
+            <div className={classnames(
+                        'CrossingMapSidebar__content-noscroll',
+                        {
+                          'CrossingMapSidebar__content-noscroll--searchFocused': this.state.searchFocused,
+                        },
+                      )}>
               <CrossingMapSearchBar
                 selectedCrossingId={selectedCrossingId}
                 selectCrossing={selectCrossing}

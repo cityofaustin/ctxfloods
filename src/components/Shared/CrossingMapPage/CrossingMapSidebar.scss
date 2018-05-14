@@ -19,6 +19,16 @@
   }
 }
 
+.CrossingMapSidebar__content-noscroll {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.CrossingMapSidebar__content-noscroll--searchFocused {
+  flex-shrink: 1;
+}
+
 .CrossingMapSidebar__content-scroll {
   overflow: scroll;
 }
@@ -35,8 +45,6 @@
   position: absolute;
   z-index: 1000;
   margin-top: 28px;
-}
-.CrossingMapPage_sidebar-toggle-container {
 }
 
 .CrossingMapPage_sidebar-filter-sort-toggle-container {
@@ -85,10 +93,6 @@
   display: flex;
   justify-content: space-around;
   padding: 10px;
-}
-
-.CrossingMapPage_sidebar-nearbycrossings {
-  overflow: hidden;
 }
 
 .CrossingMapPage_sidebar-nearby-history-toggle {
