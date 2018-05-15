@@ -43,7 +43,7 @@ class FloodsRoutes extends Component {
         <Route
           path="/dashboard"
           exact
-          render={() => <Redirect to="/dashboard/crossings/map" />}
+          render={() => <Redirect to="/dashboard/map" />}
         />
 
         <Switch>
@@ -121,7 +121,20 @@ class FloodsRoutes extends Component {
           currentUser={currentUser}
         />
         <PrivateRoute
-          path="/dashboard/crossings/map"
+          exact
+          path="/dashboard/map"
+          component={CrossingMapPage}
+          authenticated={auth.isAuthenticated()}
+          authorized={auth.roleAuthorized([
+            'floods_community_editor',
+            'floods_community_admin',
+            'floods_super_admin',
+          ])}
+          currentUser={currentUser}
+        />
+        <PrivateRoute
+          exact
+          path="/dashboard/map/crossing/:selectedCrossingId"
           component={CrossingMapPage}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized([

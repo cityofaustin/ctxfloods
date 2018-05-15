@@ -187,7 +187,11 @@ class CrossingMap extends React.Component {
   };
 
   onCrossingClick = crossing => {
-    this.props.history.push(`/map/crossing/${crossing.properties.crossingId}`);
+    if(this.props.match.url.includes('dashboard')) {
+      this.props.history.push(`/dashboard/map/crossing/${crossing.properties.crossingId}`);
+    } else {
+      this.props.history.push(`/map/crossing/${crossing.properties.crossingId}`);
+    }
   };
 
   onMapClick = e => {
@@ -216,7 +220,13 @@ class CrossingMap extends React.Component {
       this.setState({ selectedCrossingId: -1 });
       this.setState({ selectedCrossing: null });
       this.setState({ selectedCrossingCoordinates: null });
-      this.props.history.push(`/map/`);
+
+      debugger;
+      if(this.props.match.url.includes('dashboard')) {
+        this.props.history.push(`/dashboard/map/`);
+      } else {
+        this.props.history.push(`/map/`);
+      }
     }
   };
 
