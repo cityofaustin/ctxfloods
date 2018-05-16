@@ -11,7 +11,7 @@ export default function PublicHeader({ location }) {
     <div>
       <TopBar>
         <div>
-          <a href="/">Translate</a>
+          <!-- <a href="/">Translate</a> -->
         </div>
       </TopBar>
       <Header location={location}>
