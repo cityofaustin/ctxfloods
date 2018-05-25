@@ -9,11 +9,7 @@ import CommunityListDropdownButton from 'components/Shared/CommunityListDropdown
 export default function PublicHeader({ location }) {
   return (
     <div>
-      <TopBar>
-        <div>
-          <!-- <a href="/">Translate</a> -->
-        </div>
-      </TopBar>
+      <TopBar />
       <Header location={location}>
         <li
           className={
