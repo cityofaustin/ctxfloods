@@ -22,10 +22,10 @@ class Dropdown extends Component {
               {opt.name}
             </option>
           ))}
+          <div className="Chevron">
+            <FontAwesome name="chevron-down" />
+          </div>
         </select>
-        <div className="Chevron">
-          <FontAwesome name="chevron-down" />
-        </div>
       </div>
     );
   }

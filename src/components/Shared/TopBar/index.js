@@ -2,7 +2,7 @@ import React from 'react';
 
 import './TopBar.css';
 
-export default function TopBar({ children }) {
+export default function TopBar() {
   return (
     <div className="TopBar">
       <div className="TopBar__banner-message">
@@ -18,7 +18,6 @@ export default function TopBar({ children }) {
           </a>.
         </div>
       </div>
-      <div>{children}</div>
     </div>
   );
 }
