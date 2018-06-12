@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import CrossingMap from 'components/Shared/Map/CrossingMap';
-import CrossingMapSidebar from 'components/Shared/CrossingMapPage/CrossingMapSidebar';
-import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
-import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
-import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
-import Fullscreen from 'react-full-screen';
-import FontAwesome from 'react-fontawesome';
-import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import { ContainerQuery } from 'react-container-query';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import classnames from 'classnames';
+import Fullscreen from 'react-full-screen';
+import FontAwesome from 'react-fontawesome';
+
+import CrossingMap from 'components/Shared/Map/CrossingMap';
+import CrossingMapSidebar from 'components/Shared/CrossingMapPage/CrossingMapSidebar';
+import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
+import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
+import FilterCheckbox from 'components/Shared/FilterCheckbox';
+
+import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
+import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
 import communityFragment from 'components/Shared/Map/queries/communityFragment';
 
@@ -52,7 +55,7 @@ class CrossingMapPage extends Component {
       fullscreen: false,
       searchQuery: '',
       formattedSearchQuery: '%%',
-      showOpen: true,
+      showOpen: this.props.match.url.includes('dashboard'),
       showClosed: true,
       showCaution: true,
       showLongterm: true,
@@ -60,6 +63,9 @@ class CrossingMapPage extends Component {
       selectedCommunity: null,
       viewport: viewportAndCenter.viewport,
       center: viewportAndCenter.center,
+      showDetailsOnMobile: false,
+      mapLoaded: false,
+      searchFocused: false,
     };
   }
 
@@ -68,6 +74,14 @@ class CrossingMapPage extends Component {
     const didSelectedCommunityChange =
       this.props.match.params.selectedCommunityId !==
       prevProps.match.params.selectedCommunityId;
+
+    const didSelectedCrossingChange =
+      this.props.match.params.selectedCrossingId !==
+      prevProps.match.params.selectedCrossingId;
+
+    if(didSelectedCrossingChange && this.state.mapLoaded) {
+      this.selectCrossing(this.props.match.params.selectedCrossingId && Number(this.props.match.params.selectedCrossingId));
+    }
 
     if (didLoad || didSelectedCommunityChange) {
       this.setSelectedCommunity();
@@ -129,11 +143,13 @@ class CrossingMapPage extends Component {
     };
   };
 
-  selectCrossing = (crossingId, crossingStatus, crossingName) => {
+  selectCrossing = (crossingId, crossingStatus) => {
     this.setState({
       selectedCrossingId: crossingId,
       selectedCrossingStatus: crossingStatus,
-      selectedCrossingName: crossingName,
+      showDetailsOnMobile: false,
+    }, () => {
+      this.triggerMapResize();
     });
   };
 
@@ -162,6 +178,22 @@ class CrossingMapPage extends Component {
     this.setState({ selectedLocationCoordinates: coordinates });
   };
 
+  setShowDetailsOnMobile = showDetails => {
+    this.setState({ showDetailsOnMobile: showDetails });
+  };
+
+  setMapLoaded = () => {
+    this.setState({mapLoaded: true});
+    if(this.props.match.params.selectedCrossingId)
+      this.selectCrossing(Number(this.props.match.params.selectedCrossingId));
+  };
+
+  toggleSearchFocus = focused => {
+    this.setState({ searchFocused: focused }, () => {
+      this.triggerMapResize();
+    });
+  };
+
   render() {
     const {
       viewport,
@@ -170,7 +202,6 @@ class CrossingMapPage extends Component {
       selectedCrossingStatus,
       searchQuery,
       formattedSearchQuery,
-      selectedCrossingName,
       selectedLocationCoordinates,
       selectedCommunity,
     } = this.state;
@@ -221,16 +252,45 @@ class CrossingMapPage extends Component {
                       selectCrossing={this.selectCrossing}
                       searchQuery={searchQuery}
                       searchQueryUpdated={this.searchQueryUpdated}
-                      selectedCrossingName={selectedCrossingName}
-                      toggleSearchFocus={() => null}
+                      toggleSearchFocus={this.toggleSearchFocus}
                       communities={allCommunities}
                       center={center}
                       setSelectedLocationCoordinates={
                         this.setSelectedLocationCoordinates
                       }
+                      mobile={true}
+                      showDetailsOnMobile={this.state.showDetailsOnMobile}
                     />
+                    {!selectedCrossingId && !this.state.searchFocused && (
+                      <div className="CrossingMapPage__mobile-status-filters">
+                        <FilterCheckbox
+                          isChecked={this.state.showOpen}
+                          onClick={this.toggleShowOpen}
+                        >
+                          Open
+                        </FilterCheckbox>
+                        <FilterCheckbox
+                          isChecked={this.state.showClosed}
+                          onClick={this.toggleShowClosed}
+                        >
+                          Closed
+                        </FilterCheckbox>
+                        <FilterCheckbox
+                          isChecked={this.state.showCaution}
+                          onClick={this.toggleShowCaution}
+                        >
+                          Caution
+                        </FilterCheckbox>
+                        <FilterCheckbox
+                          isChecked={this.state.showLongterm}
+                          onClick={this.toggleShowLongterm}
+                        >
+                          Long-Term
+                        </FilterCheckbox>
+                      </div>
+                    )}
                     {!params.fullsize &&
-                      selectedCrossingId && (
+                      selectedCrossingId && this.state.showDetailsOnMobile && (
                         <div className="CrossingMapPage__mobile-overlay">
                           <SelectedCrossingContainer
                             crossingId={selectedCrossingId}
@@ -253,7 +313,6 @@ class CrossingMapPage extends Component {
                     </div>
                     <CrossingMapSidebar
                       selectedCrossingId={selectedCrossingId}
-                      selectedCrossingName={selectedCrossingName}
                       currentUser={currentUser}
                       selectCrossing={this.selectCrossing}
                       searchQuery={searchQuery}
@@ -282,7 +341,7 @@ class CrossingMapPage extends Component {
                 <div
                   className={classnames('CrossingMapPage__map-container', {
                     'CrossingMapPage__map-container--hidden':
-                      !params.fullsize && selectedCrossingId,
+                      !params.fullsize && selectedCrossingId && this.state.showDetailsOnMobile,
                   })}
                 >
                   <CrossingMap
@@ -308,6 +367,10 @@ class CrossingMapPage extends Component {
                       selectedCommunity && selectedCommunity.id
                     }
                     registerMapResizeCallback={this.registerMapResizeCallback}
+                    mobile={!params.fullsize}
+                    setShowDetailsOnMobile={this.setShowDetailsOnMobile}
+                    setMapLoaded={this.setMapLoaded}
+                    autoGeoLocate={!this.props.match.params.selectedCommunityId && !this.props.match.params.selectedCrossingId}
                   />
                 </div>
               </div>

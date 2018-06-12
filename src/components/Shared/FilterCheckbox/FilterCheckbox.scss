@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: auto;
 }
 .FilterCheckbox__button {
   padding: 0 0.5rem;
@@ -11,9 +12,8 @@
   }
 }
 .FilterCheckbox__children {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   line-height: 1.4rem;
   font-weight: 600;
   color: #fff;
-  text-transform: uppercase;
 }
