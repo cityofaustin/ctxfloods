@@ -6,7 +6,8 @@
 @import 'css/global/map';
 @import 'css/mixins/colors';
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -26,7 +27,7 @@ body {
 
 .FloodsApp {
   margin: 0 auto;
-  height: 100%;
+  height: calc(100% - 1px);
   display: flex;
   flex-direction: column;
 }
