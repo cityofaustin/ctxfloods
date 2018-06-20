@@ -134,7 +134,7 @@ class CrossingMap extends React.Component {
 
     // New versions of mapboxgl-js will have a trigger function instead
     // https://github.com/mapbox/mapbox-gl-js/issues/5464
-    if(this.props.autoGeoLocate) {
+    if (this.props.autoGeoLocate) {
       if (geolocateControl.trigger) {
         geolocateControl.trigger();
       } else {
@@ -187,10 +187,14 @@ class CrossingMap extends React.Component {
   };
 
   onCrossingClick = crossing => {
-    if(this.props.match.url.includes('dashboard')) {
-      this.props.history.push(`/dashboard/map/crossing/${crossing.properties.crossingId}`);
+    if (this.props.match.url.includes('dashboard')) {
+      this.props.history.push(
+        `/dashboard/map/crossing/${crossing.properties.crossingId}`,
+      );
     } else {
-      this.props.history.push(`/map/crossing/${crossing.properties.crossingId}`);
+      this.props.history.push(
+        `/map/crossing/${crossing.properties.crossingId}`,
+      );
     }
   };
 
@@ -221,8 +225,7 @@ class CrossingMap extends React.Component {
       this.setState({ selectedCrossing: null });
       this.setState({ selectedCrossingCoordinates: null });
 
-      debugger;
-      if(this.props.match.url.includes('dashboard')) {
+      if (this.props.match.url.includes('dashboard')) {
         this.props.history.push(`/dashboard/map/`);
       } else {
         this.props.history.push(`/map/`);
@@ -501,7 +504,11 @@ class CrossingMap extends React.Component {
           >
             <div>
               {this.state.selectedCrossing.crossingName}
-              {this.props.mobile && <button onClick={() => this.props.setShowDetailsOnMobile(true)}>Details</button>}
+              {this.props.mobile && (
+                <button onClick={() => this.props.setShowDetailsOnMobile(true)}>
+                  Details
+                </button>
+              )}
             </div>
           </Popup>
         )}
@@ -509,9 +516,10 @@ class CrossingMap extends React.Component {
           <Layer
             type="symbol"
             id="marker"
-            layout={{ "icon-image": "marker-15" }}>
-            <Feature coordinates={this.state.selectedLocationCoordinates}/>
-          </Layer>        
+            layout={{ 'icon-image': 'marker-15' }}
+          >
+            <Feature coordinates={this.state.selectedLocationCoordinates} />
+          </Layer>
         )}
       </Map>
     );
