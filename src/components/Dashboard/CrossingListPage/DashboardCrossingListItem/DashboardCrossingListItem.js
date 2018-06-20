@@ -12,7 +12,7 @@ import User from 'components/Shared/CrossingListItem/User';
 import CrossingCommunityList from 'components/Shared/CrossingListItem/CrossingCommunityList';
 import StatusToggle from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/StatusToggle';
 import DashboardCrossingListItemControl from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItemControl';
-import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
+import Dropdown from 'components/Shared/Form/Dropdown';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 

@@ -22,6 +22,7 @@ import ResetPasswordPage from 'components/Dashboard/ResetPasswordPage/ResetPassw
 import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
 import AboutPage from 'components/Shared/AboutPage';
 import FloodSafetyPage from 'components/Shared/FloodSafetyPage';
+import ReportIncidentPage from 'components/Shared/ReportIncidentPage';
 
 class FloodsRoutes extends Component {
   onLogin = () => {
@@ -88,6 +89,7 @@ class FloodsRoutes extends Component {
         <Route exact path="/data" component={OpenDataPage} />
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/flood-safety" component={FloodSafetyPage} />
+        <Route exact path="/report-incident" component={ReportIncidentPage} />
 
         <PrivateRoute
           path="/dashboard/users"
