@@ -51,7 +51,7 @@
   "scripts": {
     "start-js": "NODE_PATH=src react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "start-local": "REACT_APP_BACKEND_URL='http://192.168.1.113:5000' yarn run start",
+    "start-local": "REACT_APP_BACKEND_URL='http://localhost:5000' yarn run start",
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",
     "watch-css": "yarn run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive",
     "get-schema": "./src/stories/schema/getSchema.sh",
