@@ -16,7 +16,7 @@
     "graphql-tag": "2.8.0",
     "jwt-decode": "^2.2.0",
     "mapbox": "^1.0.0-beta9",
-    "mapbox-gl": "0.44.1",
+    "mapbox-gl": "^0.46.0-beta.1",
     "mobile-detect": "^1.4.1",
     "moment": "2.20.1",
     "node-sass-chokidar": "^0.0.3",
