@@ -13,8 +13,12 @@ import Checkbox from 'components/Shared/Form/Checkbox';
 import IncidentLocationMap from './IncidentLocationMap';
 import './ReportIncidentPage.css';
 
-const Required = () => <span className="ReportIncidentPage__required">Required*</span>
-const Optional = () => <span className="ReportIncidentPage__optional">Optional</span>
+const Required = () => (
+  <span className="ReportIncidentPage__required">Required*</span>
+);
+const Optional = () => (
+  <span className="ReportIncidentPage__optional">Optional</span>
+);
 
 function toggleArrayItem(array, item) {
   if (array.includes(item)) {
@@ -33,35 +37,59 @@ class ReportIncidentPage extends Component {
       latitude: AustinCenterLngLat[1],
       longitude: AustinCenterLngLat[0],
       communityIds: [],
-      errorMessage: null,
+      errorMessage: '',
+      loading: false,
+      usersNotifiedCount: null,
+      createdReport: null,
     };
   }
 
   onSubmit = async e => {
-    e.preventDefault();
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/incident/report`, {
-      method: 'POST',
-      body: JSON.stringify({
-        notes: this.state.notes,
-        description: this.state.description,
-        latitude: this.state.latitude,
-        longitude: this.state.longitude,
-        communityIds: this.state.communityIds,
-      }),
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-    })
-      .then(res => {
-        console.log(res.status);
-        console.log(res);
-      })
-      .catch(err => {
-        logError(err);
-        this.setState({
-          errorMessage: err.message,
-        });
+    try {
+      e.preventDefault();
+
+      this.setState({
+        loading: true,
+        errorMessage: '',
       });
+
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/incident/report`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            notes: this.state.notes,
+            description: this.state.description,
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            communityIds: this.state.communityIds,
+          }),
+          headers: new Headers({
+            'Content-Type': 'application/json',
+          }),
+        },
+      );
+
+      const data = await res.json();
+
+      if (data.errorMessage) {
+        throw new Error(data.errorMessage);
+      }
+
+      this.setState({
+        usersNotifiedCount: data.usersNotifiedCount,
+        createdReport: data.createdReport,
+      });
+    } catch (err) {
+      logError(err);
+      this.setState({
+        errorMessage: err.message,
+      });
+    } finally {
+      this.setState({
+        loading: false,
+      });
+    }
   };
 
   toggleCommunity = e => {
@@ -72,17 +100,33 @@ class ReportIncidentPage extends Component {
   };
 
   render() {
+    if (this.state.createdReport) {
+      return (
+        <ContentPage className="ReportIncidentPage">
+          <h1>Report Incident</h1>
+          <h2>Incident report #{this.state.createdReport.id} created</h2>
+          <p>
+            Notified {this.state.usersNotifiedCount} community{' '}
+            {this.state.usersNotifiedCount > 1
+              ? 'administrators'
+              : 'administrator'}.
+          </p>
+        </ContentPage>
+      );
+    }
+
     return (
-      <ContentPage>
-        {this.state.errorMessage && <div>Error: {this.state.errorMessage}</div>}
+      <ContentPage className="ReportIncidentPage">
         <h1>Report Incident</h1>
         <p>
-          Report an incident such as flooding. Your report will be sent the
-          relevant community administrators.
+          Report an incident such as flooding. Your report will be sent to the
+          appropriate community administrators.
         </p>
         <form onSubmit={this.onSubmit}>
           <div>
-            <h2>Describe the incident <Required /></h2>
+            <h2>
+              What happened? <Required />
+            </h2>
             <TextArea
               rows={3}
               cols={50}
@@ -94,12 +138,14 @@ class ReportIncidentPage extends Component {
           </div>
           <div>
             <h2>
-              Which communities should this incident be reported to? <Required />
+              Which communities should this incident be reported to?{' '}
+              <Required />
             </h2>
             <fieldset value={this.state.notes}>
               {this.props.data.allCommunities &&
                 this.props.data.allCommunities.nodes.map(community => (
                   <Checkbox
+                    key={community.id}
                     value={community.id}
                     checked={this.state.communityIds.includes(community.id)}
                     onChange={this.toggleCommunity}
@@ -110,7 +156,9 @@ class ReportIncidentPage extends Component {
             </fieldset>
           </div>
           <div>
-            <h2>Where did this incident occur? <Required /></h2>
+            <h2>
+              Where did this incident occur? <Required />
+            </h2>
             <div>
               <TextArea
                 rows={3}
@@ -123,7 +171,9 @@ class ReportIncidentPage extends Component {
                 }
               />
             </div>
-            <h2>Where on the map did this incident occurr? <Optional /></h2>
+            <h2>
+              Where on the map did this incident occurr? <Optional />
+            </h2>
             <div>
               <IncidentLocationMap
                 coordinates={[this.state.longitude, this.state.latitude]}
@@ -135,12 +185,21 @@ class ReportIncidentPage extends Component {
                 }}
               />
             </div>
-
           </div>
+          {this.state.errorMessage && (
+            <div className="ReportIncidentPage__error-message">
+              {this.state.errorMessage}
+            </div>
+          )}
           <div>
             <ButtonPrimary
+              loading={this.state.loading}
               onClick={this.onSubmit}
-              disabled={!this.state.notes || !this.state.communityIds.length || !this.state.locationDescription}
+              disabled={
+                !this.state.notes ||
+                !this.state.communityIds.length ||
+                !this.state.locationDescription
+              }
             >
               Submit
             </ButtonPrimary>

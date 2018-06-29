@@ -3,11 +3,6 @@ import ReactMapboxGl, { Layer, Feature, ZoomControl } from 'react-mapbox-gl';
 
 import { MapboxAccessToken } from 'constants/MapboxConstants';
 
-console.log({
-ZoomControl
-
-})
-
 const Map = ReactMapboxGl({
   accessToken: MapboxAccessToken,
 });
