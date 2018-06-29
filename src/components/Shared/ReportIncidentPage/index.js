@@ -3,13 +3,18 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { logError } from 'services/logger';
+import { AustinCenterLngLat } from 'constants/MapboxConstants';
 
 import ContentPage from 'components/Shared/ContentPage';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 import TextArea from 'components/Shared/Form/TextArea';
 import Checkbox from 'components/Shared/Form/Checkbox';
 
-import "./ReportIncidentPage.css";
+import IncidentLocationMap from './IncidentLocationMap';
+import './ReportIncidentPage.css';
+
+const Required = () => <span className="ReportIncidentPage__required">Required*</span>
+const Optional = () => <span className="ReportIncidentPage__optional">Optional</span>
 
 function toggleArrayItem(array, item) {
   if (array.includes(item)) {
@@ -25,8 +30,8 @@ class ReportIncidentPage extends Component {
     this.state = {
       notes: '',
       description: '',
-      latitude: 30,
-      longitude: 30,
+      latitude: AustinCenterLngLat[1],
+      longitude: AustinCenterLngLat[0],
       communityIds: [],
       errorMessage: null,
     };
@@ -77,7 +82,7 @@ class ReportIncidentPage extends Component {
         </p>
         <form onSubmit={this.onSubmit}>
           <div>
-            <h2>Describe the incident (required)</h2>
+            <h2>Describe the incident <Required /></h2>
             <TextArea
               rows={3}
               cols={50}
@@ -88,7 +93,9 @@ class ReportIncidentPage extends Component {
             />
           </div>
           <div>
-            <h2>Which communities should this incident be reported to? (required)</h2>
+            <h2>
+              Which communities should this incident be reported to? <Required />
+            </h2>
             <fieldset value={this.state.notes}>
               {this.props.data.allCommunities &&
                 this.props.data.allCommunities.nodes.map(community => (
@@ -103,11 +110,8 @@ class ReportIncidentPage extends Component {
             </fieldset>
           </div>
           <div>
-            <h2>Where did this incident occur?</h2>
+            <h2>Where did this incident occur? <Required /></h2>
             <div>
-              <h3 htmlFor="incident-location-description">
-                Additional location details (optional)
-              </h3>
               <TextArea
                 rows={3}
                 cols={50}
@@ -119,14 +123,24 @@ class ReportIncidentPage extends Component {
                 }
               />
             </div>
+            <h2>Where on the map did this incident occurr? <Optional /></h2>
+            <div>
+              <IncidentLocationMap
+                coordinates={[this.state.longitude, this.state.latitude]}
+                onChange={e => {
+                  this.setState({
+                    latitude: e.lngLat.lat,
+                    longitude: e.lngLat.lng,
+                  });
+                }}
+              />
+            </div>
+
           </div>
           <div>
             <ButtonPrimary
               onClick={this.onSubmit}
-              disabled={
-                !this.state.notes ||
-                !this.state.communityIds.length
-              }
+              disabled={!this.state.notes || !this.state.communityIds.length || !this.state.locationDescription}
             >
               Submit
             </ButtonPrimary>
