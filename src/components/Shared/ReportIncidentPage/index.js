@@ -3,14 +3,14 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { logError } from 'services/logger';
-import { AustinCenterLngLat } from 'constants/MapboxConstants';
 
 import ContentPage from 'components/Shared/ContentPage';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
+import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import TextArea from 'components/Shared/Form/TextArea';
 import Checkbox from 'components/Shared/Form/Checkbox';
 
-import IncidentLocationMap from './IncidentLocationMap';
+import IncidentLocationModal from './IncidentLocationModal';
 import './ReportIncidentPage.css';
 
 const Required = () => (
@@ -34,13 +34,14 @@ class ReportIncidentPage extends Component {
     this.state = {
       notes: '',
       description: '',
-      latitude: AustinCenterLngLat[1],
-      longitude: AustinCenterLngLat[0],
+      latitude: null,
+      longitude: null,
       communityIds: [],
       errorMessage: '',
       loading: false,
       usersNotifiedCount: null,
       createdReport: null,
+      isLocationModalOpen: false,
     };
   }
 
@@ -174,17 +175,41 @@ class ReportIncidentPage extends Component {
             <h2>
               Where on the map did this incident occurr? <Optional />
             </h2>
-            <div>
-              <IncidentLocationMap
-                coordinates={[this.state.longitude, this.state.latitude]}
-                onChange={e => {
+            <ButtonSecondary
+              className="ReportIncidentPage__location-btn"
+              onClick={e => {
+                e.preventDefault();
+                this.setState({
+                  isLocationModalOpen: true,
+                });
+              }}
+            >
+              {this.state.longitude
+                ? 'Update location'
+                : 'Choose location on map'}
+            </ButtonSecondary>
+            {this.state.isLocationModalOpen && (
+              <IncidentLocationModal
+                isOpen={this.state.isLocationModalOpen}
+                lngLat={
+                  this.state.longitude && [
+                    this.state.longitude,
+                    this.state.latitude,
+                  ]
+                }
+                onClose={() => {
                   this.setState({
-                    latitude: e.lngLat.lat,
-                    longitude: e.lngLat.lng,
+                    isLocationModalOpen: false,
+                  });
+                }}
+                saveLngLat={lngLat => {
+                  this.setState({
+                    longitude: lngLat[0],
+                    latitude: lngLat[1],
                   });
                 }}
               />
-            </div>
+            )}
           </div>
           {this.state.errorMessage && (
             <div className="ReportIncidentPage__error-message">

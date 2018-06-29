@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from 'react-mapbox-gl';
 
 import { MapboxAccessToken } from 'constants/MapboxConstants';
@@ -7,7 +8,12 @@ const Map = ReactMapboxGl({
   accessToken: MapboxAccessToken,
 });
 
-class IncidentLocationMap extends Component {
+export default class IncidentLocationMap extends Component {
+  static propTypes = {
+    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
+    onCoordinatesChange: PropTypes.func.isRequired,
+  }
+
   onStyleLoad = map => {
     map.resize();
   };
@@ -43,5 +49,3 @@ class IncidentLocationMap extends Component {
     );
   }
 }
-
-export default IncidentLocationMap;
