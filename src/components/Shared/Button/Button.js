@@ -17,7 +17,7 @@ export default function Button({
     <button
       className={classnames('Shared__button', className)}
       onClick={onClick}
-      disabled={loading || disabled}
+      disabled={!!(loading || disabled)}
       {...props}
     >
       {loading && (
