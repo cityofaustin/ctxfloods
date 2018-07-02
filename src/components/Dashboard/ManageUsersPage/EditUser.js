@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
+import Dropdown from 'components/Shared/Form/Dropdown';
 import 'components/Dashboard/ManageUsersPage/EditUser.css';
 import EditUserControl from 'components/Dashboard/ManageUsersPage/EditUserControl';
 

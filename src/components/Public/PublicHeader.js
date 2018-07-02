@@ -46,6 +46,15 @@ export default function PublicHeader({ location }) {
         >
           <Link to="/about">About</Link>
         </li>
+        <li
+          className={
+            location.pathname.endsWith('report-incident')
+              ? 'Header__tab--active'
+              : 'Header__tab'
+          }
+        >
+          <Link to="/report-incident">Report Incident</Link>
+        </li>
       </Header>
     </div>
   );

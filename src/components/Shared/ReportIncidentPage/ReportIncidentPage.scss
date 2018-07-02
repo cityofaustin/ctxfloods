@@ -1,0 +1,48 @@
+fieldset {
+  border: 1px solid #b0bec5;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.IncidentLocationMap {
+  width: 450px;
+  height: 450px;
+  max-width: 90vw;
+  max-height: 50vh;
+  border: 1px solid #b0bec5;
+  border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+  .IncidentLocationMap {
+    max-height: 70vh;
+  }
+}
+
+.ReportIncidentPage__required,
+.ReportIncidentPage__optional {
+  color: #f44337;
+  font-weight: normal;
+  padding-left: 0.3rem;
+}
+
+.ReportIncidentPage__optional {
+  color: #666;
+}
+
+.ReportIncidentPage__error-message {
+  background: #fcf3f4;
+  white-space: pre-wrap;
+  padding: 1rem;
+  font-size: 1.3rem;
+  margin: 1rem 0;
+  border-radius: 5px;
+}
+
+.ReportIncidentPage__location-btn {
+  margin-bottom: 3rem;
+}
+
+.IncidentLocationModal__btn-primary {
+  margin-right: 2rem;
+}

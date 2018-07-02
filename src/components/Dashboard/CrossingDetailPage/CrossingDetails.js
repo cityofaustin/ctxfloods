@@ -14,7 +14,7 @@ import Label from 'components/Shared/Form/Label';
 
 import updateCrossingFragment from 'components/Dashboard/CrossingListPage/queries/updateCrossingFragment';
 import addCrossingToCommunityFragment from 'components/Dashboard/CrossingListPage/queries/addCrossingToCommunityFragment';
-import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
+import Dropdown from 'components/Shared/Form/Dropdown';
 
 import CommunityTag from './CommunityTag';
 import CommunityTagAddButton from './CommunityTagAddButton';

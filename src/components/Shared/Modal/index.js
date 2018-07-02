@@ -2,6 +2,7 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import classNames from 'classnames';
 
 import './Modal.css';
 
@@ -11,12 +12,12 @@ try {
   // Ignore error from #root not existing when running tests
 }
 
-export default function Modal({ title, children, footer, onClose, ...props }) {
+export default function Modal({ title, children, footer, onClose, className, ...props }) {
   return (
     <ReactModal
       contentLabel={title}
       onRequestClose={onClose}
-      className="FloodsModalDialog"
+      className={classNames("FloodsModalDialog", className)}
       overlayClassName="FloodsModalOverlay"
       {...props}
     >

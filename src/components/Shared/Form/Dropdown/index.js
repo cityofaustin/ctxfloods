@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'components/Dashboard/Dropdown/Dropdown.css';
+import 'components/Shared/Form/Dropdown/Dropdown.css';
 
 import FontAwesome from 'react-fontawesome';
 
