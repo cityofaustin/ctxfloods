@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import Recaptcha from 'react-recaptcha';
 
 import { logError } from 'services/logger';
 
@@ -42,6 +43,7 @@ class ReportIncidentPage extends Component {
       usersNotifiedCount: null,
       createdReport: null,
       isLocationModalOpen: false,
+      recaptchaResponse: null,
     };
   }
 
@@ -64,6 +66,7 @@ class ReportIncidentPage extends Component {
             latitude: this.state.latitude,
             longitude: this.state.longitude,
             communityIds: this.state.communityIds,
+            recaptchaResponse: this.state.recaptchaResponse,
           }),
           headers: new Headers({
             'Content-Type': 'application/json',
@@ -211,6 +214,15 @@ class ReportIncidentPage extends Component {
               />
             )}
           </div>
+          <div className="ReportIncidentPage__recaptcha">
+            <Recaptcha
+              sitekey="6LdY6WEUAAAAADPtMxF-9XCApC-e3XgEeDiqc7Xc"
+              render="explicit"
+              verifyCallback={recaptchaResponse =>
+                this.setState({ recaptchaResponse })
+              }
+            />
+          </div>
           {this.state.errorMessage && (
             <div className="ReportIncidentPage__error-message">
               {this.state.errorMessage}
@@ -223,7 +235,8 @@ class ReportIncidentPage extends Component {
               disabled={
                 !this.state.notes ||
                 !this.state.communityIds.length ||
-                !this.state.locationDescription
+                !this.state.locationDescription ||
+                !this.state.recaptchaResponse
               }
             >
               Submit
