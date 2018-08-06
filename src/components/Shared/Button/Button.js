@@ -21,13 +21,15 @@ export default function Button({
       {...props}
     >
       {loading && (
-        <FontAwesome
-          name="spinner"
-          size="lg"
-          className="fa-spin Shared__button-spinner"
-        />
+        <React.Fragment>
+          <FontAwesome
+            name="spinner"
+            size="lg"
+            className="fa-spin Shared__button-spinner"
+          />
+          Loading
+        </React.Fragment>
       )}
-      {loading && 'Loading'}
       {!loading && children}
     </button>
   );
