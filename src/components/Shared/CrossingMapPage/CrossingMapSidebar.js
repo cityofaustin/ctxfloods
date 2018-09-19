@@ -52,7 +52,8 @@ class CrossingMapSidebar extends Component {
       this.props.openCrossings !== nextProps.openCrossings ||
       this.props.closedCrossings !== nextProps.closedCrossings ||
       this.props.cautionCrossings !== nextProps.cautionCrossings ||
-      this.props.longtermCrossings !== nextProps.longtermCrossings
+      this.props.longtermCrossings !== nextProps.longtermCrossings ||
+      this.props.selectedCrossingId !== nextProps.selectedCrossingId
     ) {
       const nearbyCrossings = this.getNearbyCrossings(
         nextProps.center,
@@ -64,6 +65,7 @@ class CrossingMapSidebar extends Component {
         nextProps.showClosed,
         nextProps.showCaution,
         nextProps.showLongterm,
+        nextProps.selectedCrossingId
       );
       this.setState({ nearbyCrossings: nearbyCrossings });
     }
@@ -109,6 +111,7 @@ class CrossingMapSidebar extends Component {
     showClosed,
     showCaution,
     showLongterm,
+    selectedCrossingId
   ) => {
     let nearbyCrossings = [];
 
@@ -118,6 +121,10 @@ class CrossingMapSidebar extends Component {
       nearbyCrossings.push(...cautionCrossings);
     if (showLongterm && longtermCrossings)
       nearbyCrossings.push(...longtermCrossings);
+
+    _.remove(nearbyCrossings, c =>
+      c.id === selectedCrossingId
+    )
 
     return nearbyCrossings.length
       ? _.sortBy(nearbyCrossings, c =>
@@ -170,7 +177,7 @@ class CrossingMapSidebar extends Component {
                 setSelectedLocationCoordinates={setSelectedLocationCoordinates}
                 toggleSearchFocus={this.toggleSearchFocus}
                 communities={allCommunities}
-                communityId={(currentUser && 
+                communityId={(currentUser &&
                               currentUser.role !== 'floods_super_admin') ?
                              currentUser.communityId : null}
               />
