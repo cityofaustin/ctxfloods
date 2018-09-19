@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import 'components/Shared/Form/Dropdown/Dropdown.css';
 
-import FontAwesome from 'react-fontawesome';
-
 class Dropdown extends Component {
   render() {
     const { selected, options, disabled } = this.props;
@@ -23,9 +21,6 @@ class Dropdown extends Component {
             </option>
           ))}
         </select>
-        <div className="Chevron">
-          <FontAwesome name="chevron-down" />
-        </div>
       </div>
     );
   }
