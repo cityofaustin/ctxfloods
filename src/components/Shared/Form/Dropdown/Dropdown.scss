@@ -7,6 +7,7 @@ $dropdown-height: 40px;
   background-size: 22px;
   border-radius: 5px;
   display: block; // "block" rather than "flex" is required for arrow to display
+  position: relative;
   overflow: hidden;
 }
 
@@ -26,6 +27,7 @@ $dropdown-height: 40px;
   border-radius: inherit;
   margin-left: -$dropdown-height + 1;
   margin-top: -.7px;
+  position: absolute;
 }
 
 .Dropdown__select {
