@@ -30,7 +30,7 @@ export default function DashboardHeader({ location, currentUser, ...props }) {
               : 'Header__tab'
           }
         >
-          <Link to="/dashboard/crossings/map">Crossings Map</Link>
+          <Link to="/dashboard/map">Crossings Map</Link>
         </li>
         <CommunityListDropdownButton />
         <li
