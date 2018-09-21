@@ -15,6 +15,7 @@ class CommunityListDropdown extends Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
     closeDropdown: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired,
   };
 
   handleClickOutside = () => {
@@ -33,7 +34,7 @@ class CommunityListDropdown extends Component {
       <div className="CommunityListDropdown">
         {this.props.data.allCommunities.nodes.map(community => (
           <Link
-            to={`/map/community/${community.id}`}
+            to={`${(this.props.location.pathname.includes('dashboard') ? '/dashboard' : '')}/map/community/${community.id}`}
             className="CommunityListDropdown__item"
             onClick={this.props.closeDropdown}
             key={community.id}

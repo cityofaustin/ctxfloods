@@ -18,7 +18,7 @@ export default function PublicHeader({ location }) {
         >
           <Link to="/map">Crossings Map</Link>
         </li>
-        <CommunityListDropdownButton />
+        <CommunityListDropdownButton location={location}/>
         <li
           className={
             location.pathname.endsWith('safety')

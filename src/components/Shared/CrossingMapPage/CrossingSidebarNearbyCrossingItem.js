@@ -22,7 +22,13 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
     return (
       <div
         className="CrossingMapPage_sidebar-nearby-crossing-container"
-        onClick={() => this.props.history.push(`/map/crossing/${crossingId}`)}
+        onClick={() => {
+          if (this.props.match.url.includes('dashboard')) {
+            this.props.history.push(`/dashboard/map/crossing/${crossingId}`);
+          } else {
+            this.props.history.push(`/map/crossing/${crossingId}`);
+          }
+        }}
       >
         <div className="CrossingMapPage_sidebar-nearby-crossing-status-icon">
           <img

@@ -147,6 +147,18 @@ class FloodsRoutes extends Component {
           currentUser={currentUser}
         />
         <PrivateRoute
+          exact
+          path="/dashboard/map/community/:selectedCommunityId"
+          component={CrossingMapPage}
+          authenticated={auth.isAuthenticated()}
+          authorized={auth.roleAuthorized([
+            'floods_community_editor',
+            'floods_community_admin',
+            'floods_super_admin',
+          ])}
+          currentUser={currentUser}
+        />
+        <PrivateRoute
           path="/dashboard/crossings/list"
           component={CrossingListPage}
           authenticated={auth.isAuthenticated()}
