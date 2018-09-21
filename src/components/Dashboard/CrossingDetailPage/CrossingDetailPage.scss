@@ -3,6 +3,12 @@
   background: #fff;
 }
 
+// CrossingDetailPage is already in block display, so it doesn't need this hack
+.AddCrossingPage .CrossingDetails__container .CrossingDetails {
+  overflow: scroll;
+  display: block;
+}
+
 @media (min-width: 700px) {
   .AddCrossingPage {
     display: flex;
