@@ -32,7 +32,7 @@ export default function DashboardHeader({ location, currentUser, ...props }) {
         >
           <Link to="/dashboard/map">Crossings Map</Link>
         </li>
-        <CommunityListDropdownButton location={location}/>
+        <CommunityListDropdownButton onDash={location.pathname.includes('dashboard')}/>
         <li
           className={
             location.pathname.endsWith('crossings/add')

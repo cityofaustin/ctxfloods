@@ -22,7 +22,7 @@ const getSuggestionValue = suggestion => {
 const Suggestion = suggestion => (
   <div className="CrossingMapSearchBar__suggestion-container">
     <div className="CrossingMapSearchBar__suggestion-icon">
-      {suggestion.__typename === 'Crossing' && 
+      {suggestion.__typename === 'Crossing' &&
         <img
           src={statusIcons[suggestion.latestStatusId]}
           alt={statusNames[suggestion.latestStatusId]}
@@ -86,22 +86,18 @@ class CrossingMapSearchBar extends Component {
     }
   };
 
+  dashPrepend = () => {
+    return this.props.onDash ? '/dashboard' : '';
+  };
+
   onSuggestionSelected = (
     event,
     { suggestion, suggestionValue, suggestionIndex, sectionIndex, method },
   ) => {
     if (suggestion.__typename === 'Crossing') {
-      if(this.props.location.pathname.includes('dashboard')) {
-        this.props.history.push(`dashboard/map/crossing/${suggestion.id}`);
-      } else {
-        this.props.history.push(`/map/crossing/${suggestion.id}`);
-      }
+      this.props.history.push(`${this.dashPrepend()}/map/crossing/${suggestion.id}`);
     } else if (suggestion.__typename === 'Community') {
-      if(this.props.location.pathname.includes('dashboard')) {
-        this.props.history.push(`/dashboard/map/community/${suggestion.id}`);
-      } else {
-        this.props.history.push(`/map/community/${suggestion.id}`);
-      }
+      this.props.history.push(`${this.dashPrepend()}/map/community/${suggestion.id}`);
     } else if (suggestion.location) {
       const lng = suggestion.location[1];
       const lat = suggestion.location[0];
@@ -168,11 +164,7 @@ class CrossingMapSearchBar extends Component {
   clearSearch = () => {
     this.props.selectCrossing(null, null);
     this.setState({ typedValue: '', selectedValue: null });
-    if(this.props.location.pathname.includes('dashboard')) {
-      this.props.history.push('/dashboard/map');
-    } else {
-      this.props.history.push('/map');
-    }
+    this.props.history.push(`${this.dashPrepend()}/map`);
   };
 
   updateCrossingSuggestions = suggestions => {
