@@ -91,9 +91,17 @@ class CrossingMapSearchBar extends Component {
     { suggestion, suggestionValue, suggestionIndex, sectionIndex, method },
   ) => {
     if (suggestion.__typename === 'Crossing') {
-      this.props.history.push(`/map/crossing/${suggestion.id}`);
+      if(this.props.location.pathname.includes('dashboard')) {
+        this.props.history.push(`dashboard/map/crossing/${suggestion.id}`);
+      } else {
+        this.props.history.push(`/map/crossing/${suggestion.id}`);
+      }
     } else if (suggestion.__typename === 'Community') {
-      this.props.history.push(`/map/community/${suggestion.id}`);
+      if(this.props.location.pathname.includes('dashboard')) {
+        this.props.history.push(`/dashboard/map/community/${suggestion.id}`);
+      } else {
+        this.props.history.push(`/map/community/${suggestion.id}`);
+      }
     } else if (suggestion.location) {
       const lng = suggestion.location[1];
       const lat = suggestion.location[0];
@@ -160,7 +168,9 @@ class CrossingMapSearchBar extends Component {
   clearSearch = () => {
     this.props.selectCrossing(null, null);
     this.setState({ typedValue: '', selectedValue: null });
-    if(!this.props.location.pathname.includes('dashboard')) {
+    if(this.props.location.pathname.includes('dashboard')) {
+      this.props.history.push('/dashboard/map');
+    } else {
       this.props.history.push('/map');
     }
   };
