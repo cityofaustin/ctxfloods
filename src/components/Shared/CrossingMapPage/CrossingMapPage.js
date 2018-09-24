@@ -260,6 +260,7 @@ class CrossingMapPage extends Component {
                       }
                       mobile={true}
                       showDetailsOnMobile={this.state.showDetailsOnMobile}
+                      onDash={this.props.match.url.includes('dashboard')}
                     />
                     {!selectedCrossingId && !this.state.searchFocused && (
                       <div className="CrossingMapPage__mobile-status-filters">

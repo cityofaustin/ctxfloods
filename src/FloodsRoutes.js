@@ -91,6 +91,45 @@ class FloodsRoutes extends Component {
         <Route exact path="/flood-safety" component={FloodSafetyPage} />
         <Route exact path="/report-incident" component={ReportIncidentPage} />
 
+        <Switch>
+          <PrivateRoute
+            exact
+            path="/dashboard/map/community/:selectedCommunityId"
+            component={CrossingMapPage}
+            authenticated={auth.isAuthenticated()}
+            authorized={auth.roleAuthorized([
+              'floods_community_editor',
+              'floods_community_admin',
+              'floods_super_admin',
+            ])}
+            currentUser={currentUser}
+          />
+          <PrivateRoute
+            exact
+            path="/dashboard/map/crossing/:selectedCrossingId"
+            component={CrossingMapPage}
+            authenticated={auth.isAuthenticated()}
+            authorized={auth.roleAuthorized([
+              'floods_community_editor',
+              'floods_community_admin',
+              'floods_super_admin',
+            ])}
+            currentUser={currentUser}
+          />
+          <PrivateRoute
+            exact
+            path="/dashboard/map"
+            component={CrossingMapPage}
+            authenticated={auth.isAuthenticated()}
+            authorized={auth.roleAuthorized([
+              'floods_community_editor',
+              'floods_community_admin',
+              'floods_super_admin',
+            ])}
+            currentUser={currentUser}
+          />
+        </Switch>
+
         <PrivateRoute
           path="/dashboard/users"
           exact
@@ -117,30 +156,6 @@ class FloodsRoutes extends Component {
           component={EditUserPage}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized([
-            'floods_community_admin',
-            'floods_super_admin',
-          ])}
-          currentUser={currentUser}
-        />
-        <PrivateRoute
-          exact
-          path="/dashboard/map"
-          component={CrossingMapPage}
-          authenticated={auth.isAuthenticated()}
-          authorized={auth.roleAuthorized([
-            'floods_community_editor',
-            'floods_community_admin',
-            'floods_super_admin',
-          ])}
-          currentUser={currentUser}
-        />
-        <PrivateRoute
-          exact
-          path="/dashboard/map/crossing/:selectedCrossingId"
-          component={CrossingMapPage}
-          authenticated={auth.isAuthenticated()}
-          authorized={auth.roleAuthorized([
-            'floods_community_editor',
             'floods_community_admin',
             'floods_super_admin',
           ])}
