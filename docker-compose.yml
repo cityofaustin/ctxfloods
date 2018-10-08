@@ -1,12 +1,22 @@
 version: '3'
 services:
   floodsdb:
-    image: postgres
+    image: mdillon/postgis
     ports:
      - "5432:5432"
     environment:
       POSTGRES_DB: 'floods'
-      POSTGRES_USER: 'floods'
+      POSTGRES_USER: 'postgres'
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    depends_on:
+     - "floodsdb"
+    environment:
+      DATABASE_INIT_URL: "postgres://postgres@floodsdb:5432/"
+      DATABASE_SETUP_URL: "postgres://postgres@floodsdb:5432/floods"
+      DATABASE_URL: "postgres://floods_postgraphql@floodsdb:5432/floods"
   frontend:
     build:
       context: .
@@ -15,7 +25,7 @@ services:
      - "3000:3000"
     environment:
       REACT_APP_BACKEND_URL: http://localhost:5000
-    # volumes:
-    #  - ".:/app"
+    volumes:
+      - "./src:/app/src"
     entrypoint:  yarn start
 

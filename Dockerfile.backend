@@ -1,10 +1,14 @@
-FROM node:10.8.0-slim
+FROM node:9
 
 RUN mkdir /app
-
-COPY "$PWD/joplin" /app/joplin
-COPY "$PWD/docker-entrypoint.watchassets.sh" /app/docker-entrypoint.watchassets.sh
-
-WORKDIR /app/joplin
-RUN yarn
 WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends postgresql-client
+
+RUN git clone https://github.com/cityofaustin/ctxfloods-backend
+WORKDIR /app/ctxfloods-backend
+COPY backend-entrypoint.sh /app/ctxfloods-backend/
+RUN ls
+RUN yarn
+
+ENTRYPOINT ["./backend-entrypoint.sh"]
