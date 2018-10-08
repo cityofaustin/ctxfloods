@@ -44,7 +44,7 @@
     "@storybook/addon-storyshots": "3.3.15",
     "@storybook/cli": "3.3.15",
     "@storybook/react": "3.3.15",
-    "ctxfloods-backend": "https://github.com/cityofaustin/ctxfloods-backend.git#dev",
+    "ctxfloods-backend": "https://github.com/cityofaustin/ctxfloods-backend.git",
     "npm-run-all": "4.1.2",
     "react-scripts": "1.1.1",
     "storybook-addon-apollo-graphql": "^0.1.2"
@@ -69,7 +69,5 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "moduleRoots": [
-    "src"
-  ]
+  "moduleRoots": ["src"]
 }

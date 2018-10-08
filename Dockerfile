@@ -3,8 +3,8 @@ FROM node
 RUN mkdir /app
 WORKDIR /app
 
-COPY package.json /app/package.json
+COPY "$PWD/package.json" /app/package.json
 RUN yarn
 
-COPY src /app/src
-COPY public /app/public
+COPY "$PWD/src" /app/src
+COPY "$PWD/public" /app/public

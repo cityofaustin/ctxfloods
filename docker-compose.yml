@@ -1,12 +1,12 @@
 version: '3'
 services:
-  floodsdb:
-    image: postgres
-    ports:
-     - "5432:5432"
-    environment:
-      POSTGRES_DB: 'floods'
-      POSTGRES_USER: 'floods'
+  # floodsdb:
+  #   image: postgres
+  #   ports:
+  #    - "5432:5432"
+  #   environment:
+  #     POSTGRES_DB: 'floods'
+  #     POSTGRES_USER: 'floods'
   frontend:
     build:
       context: .
@@ -14,8 +14,8 @@ services:
     ports:
      - "3000:3000"
     environment:
-      REACT_APP_BACKEND_URL: http://localhost:5000
-    # volumes:
-    #  - ".:/app"
+      REACT_APP_BACKEND_URL: https://fzd0rh62c5.execute-api.us-east-1.amazonaws.com/dev
+    volumes:
+      - "./src:/app/src"
     entrypoint:  yarn start
 
