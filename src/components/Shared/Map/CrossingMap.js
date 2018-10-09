@@ -250,13 +250,37 @@ class CrossingMap extends React.Component {
   };
 
   setShowDetailsOnMobile = () => {
+    // Let's hack this together so it makes some kinda sense
+    // and we can figure out how much to offset the map
+    // for the details popup
+    const { map } = this.state;
+
+    // First, let's get the size of the map in pixels
+    const mapHeightInPixels = map.getContainer().offsetHeight;
+
+    // Then, let's get the size on the popup in pixels
+    // STUPID HACK - Just use 250 for now
+    const popupHeightInPixels = 250;
+
+    // Now let's get the ratio of popup height to map height
+    const relativePopupSize = popupHeightInPixels / mapHeightInPixels;
+
+    // Then we need to get the size of the map in latitude
+    const mapHeightInLat =
+      map.getBounds().getNorth() - map.getBounds().getSouth();
+
+    // Now we need to calculate our offset using the ratio and the
+    // height of the map in lat
+    const offset = mapHeightInLat * relativePopupSize / 2;
+
+    // And then apply it to the coordinates
     const coordinates = [
       JSON.parse(this.state.selectedCrossing.geojson).coordinates[0],
-      JSON.parse(this.state.selectedCrossing.geojson).coordinates[1] + 0.1,
+      JSON.parse(this.state.selectedCrossing.geojson).coordinates[1] + offset,
     ];
 
-    this.flyTo(coordinates);
     this.setState({ showDetailsOnMobile: true });
+    this.flyTo(coordinates);
   };
 
   render() {
