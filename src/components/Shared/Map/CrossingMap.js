@@ -171,6 +171,7 @@ class CrossingMap extends React.Component {
   };
 
   selectCrossing = crossing => {
+    // If we're on mobile move it down a little bit so the detailed popup doesn't get hidden
     const coordinates = JSON.parse(crossing.geojson).coordinates;
 
     const mapCrossing = {
@@ -248,8 +249,14 @@ class CrossingMap extends React.Component {
     }
   };
 
-  setShowDetailsOnMobile = showDetails => {
-    this.setState({ showDetailsOnMobile: showDetails });
+  setShowDetailsOnMobile = () => {
+    const coordinates = [
+      JSON.parse(this.state.selectedCrossing.geojson).coordinates[0],
+      JSON.parse(this.state.selectedCrossing.geojson).coordinates[1] + 0.1,
+    ];
+
+    this.flyTo(coordinates);
+    this.setState({ showDetailsOnMobile: true });
   };
 
   render() {
@@ -507,12 +514,15 @@ class CrossingMap extends React.Component {
             coordinates={
               JSON.parse(this.state.selectedCrossing.geojson).coordinates
             }
+            anchor="bottom"
           >
             <div>
               {this.state.selectedCrossing.crossingName}
               {this.props.mobile &&
-                !this.state.showDetailsOnMobile && (
-                  <button onClick={() => this.setShowDetailsOnMobile(true)}>
+                (!this.state.showDetailsOnMobile &&
+                  this.state.selectedCrossing.crossingStatus !==
+                    STATUS_OPEN) && (
+                  <button onClick={() => this.setShowDetailsOnMobile()}>
                     Details
                   </button>
                 )}

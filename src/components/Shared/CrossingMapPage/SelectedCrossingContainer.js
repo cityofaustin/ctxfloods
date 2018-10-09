@@ -8,7 +8,7 @@ import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/st
 import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
-import MobileDetailsPopup from 'components/Shared/Map/MobileDetailsPopup';
+import MobileDetailsContainer from 'components/Shared/Map/MobileDetailsContainer';
 
 class SelectedCrossingContainer extends Component {
   render() {
@@ -34,7 +34,7 @@ class SelectedCrossingContainer extends Component {
 
     if (this.props.isMobileDetails) {
       return (
-        <MobileDetailsPopup
+        <MobileDetailsContainer
           crossing={crossing}
           reasons={statusReasons}
           durations={statusDurations}
