@@ -33,7 +33,13 @@ class SelectedCrossingContainer extends Component {
       .nodes;
 
     if (this.props.isMobileDetails) {
-      return <MobileDetailsPopup crossing={crossing} reasons={statusReasons} />;
+      return (
+        <MobileDetailsPopup
+          crossing={crossing}
+          reasons={statusReasons}
+          durations={statusDurations}
+        />
+      );
     }
 
     return currentUser ? (
