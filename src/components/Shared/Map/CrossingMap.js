@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import * as MapboxGl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
 import { withRouter } from 'react-router';
+import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
 
 import { MapboxAccessToken } from 'constants/MapboxConstants';
 
@@ -32,6 +33,7 @@ class CrossingMap extends React.Component {
       selectedCrossingCoordinates: null,
       selectedLocationCoordinates: null,
       firstLoadComplete: false,
+      showDetailsOnMobile: false,
     };
 
     props.registerMapResizeCallback(this.resizeMap);
@@ -181,6 +183,7 @@ class CrossingMap extends React.Component {
     this.setState({
       selectedCrossingCoordinates: coordinates,
       selectedCrossing: mapCrossing,
+      showDetailsOnMobile: false,
     });
     this.flyTo(coordinates);
   };
@@ -243,6 +246,10 @@ class CrossingMap extends React.Component {
     if (this.state.map) {
       this.state.map.resize();
     }
+  };
+
+  setShowDetailsOnMobile = showDetails => {
+    this.setState({ showDetailsOnMobile: showDetails });
   };
 
   render() {
@@ -503,10 +510,17 @@ class CrossingMap extends React.Component {
           >
             <div>
               {this.state.selectedCrossing.crossingName}
-              {this.props.mobile && (
-                <button onClick={() => this.props.setShowDetailsOnMobile(true)}>
-                  Details
-                </button>
+              {this.props.mobile &&
+                !this.state.showDetailsOnMobile && (
+                  <button onClick={() => this.setShowDetailsOnMobile(true)}>
+                    Details
+                  </button>
+                )}
+              {this.state.showDetailsOnMobile && (
+                <SelectedCrossingContainer
+                  crossingId={this.state.selectedCrossing.crossingId}
+                  isMobileDetails={true}
+                />
               )}
             </div>
           </Popup>
