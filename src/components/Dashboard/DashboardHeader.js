@@ -16,25 +16,13 @@ export default function DashboardHeader({ location, currentUser, ...props }) {
       <Header title="Dashboard" location={location}>
         <li
           className={
-            location.pathname.endsWith('crossings/list')
-              ? 'Header__tab--active'
-              : 'Header__tab'
-          }
-        >
-          <Link to="/dashboard/crossings/list">Crossings List</Link>
-        </li>
-        <li
-          className={
-            location.pathname.includes('/crossings/map')
+            location.pathname.includes('/map')
               ? 'Header__tab--active'
               : 'Header__tab'
           }
         >
           <Link to="/dashboard/map">Crossings Map</Link>
         </li>
-        <CommunityListDropdownButton
-          onDash={location.pathname.includes('dashboard')}
-        />
         <li
           className={
             location.pathname.endsWith('crossings/add')
