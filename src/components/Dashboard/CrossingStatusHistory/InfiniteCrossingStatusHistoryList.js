@@ -114,7 +114,7 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component {
     virtualizingList = allStatusUpdates.edges;
 
     return (
-      <div>
+      <div style={{ height: 'calc(100vh - 140px)' }}>
         <InfiniteLoader
           isRowLoaded={this._isRowLoaded}
           loadMoreRows={loadMoreRows}
@@ -122,27 +122,21 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component {
           threshold={10}
         >
           {({ onRowsRendered, registerChild }) => (
-            <WindowScroller>
-              {({ height, isScrolling, scrollTop }) => (
-                <AutoSizer disableHeight>
-                  {({ width }) => (
-                    <List
-                      ref={ref => (registerChild = listRef = ref)}
-                      className="List"
-                      autoHeight
-                      deferredMeasurementCache={cache}
-                      height={height}
-                      rowHeight={cache.rowHeight}
-                      width={width}
-                      onRowsRendered={onRowsRendered}
-                      rowCount={allStatusUpdates.totalCount}
-                      rowRenderer={this._rowRenderer}
-                      scrollTop={scrollTop}
-                    />
-                  )}
-                </AutoSizer>
+            <AutoSizer>
+              {({ height, width }) => (
+                <List
+                  ref={ref => (registerChild = listRef = ref)}
+                  className="List"
+                  height={height}
+                  deferredMeasurementCache={cache}
+                  rowHeight={cache.rowHeight}
+                  width={width}
+                  onRowsRendered={onRowsRendered}
+                  rowCount={allStatusUpdates.totalCount}
+                  rowRenderer={this._rowRenderer}
+                />
               )}
-            </WindowScroller>
+            </AutoSizer>
           )}
         </InfiniteLoader>
       </div>
