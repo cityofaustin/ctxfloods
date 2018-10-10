@@ -151,6 +151,7 @@ class CrossingMapSidebar extends Component {
       selectedCrossingName,
       center,
       setSelectedLocationCoordinates,
+      onDash
     } = this.props;
 
     const { nearbyCrossings } = this.state;
@@ -180,6 +181,7 @@ class CrossingMapSidebar extends Component {
                     ? currentUser.communityId
                     : null
                 }
+                onDash={onDash}
               />
 
               {!searchFocused &&
