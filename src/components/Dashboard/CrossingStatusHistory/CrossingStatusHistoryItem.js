@@ -69,11 +69,11 @@ const ReasonDurationNotes = ({
 class CrossingStatusHistoryItem extends Component {
   static propTypes = {
     showNames: PropTypes.bool,
-  }
+  };
 
   static defaultProps = {
     showNames: false,
-  }
+  };
 
   render() {
     const { update, showNames, measure, cqParams } = this.props;

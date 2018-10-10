@@ -12,7 +12,7 @@ export default class IncidentLocationMap extends Component {
   static propTypes = {
     coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
     onCoordinatesChange: PropTypes.func.isRequired,
-  }
+  };
 
   onStyleLoad = map => {
     map.resize();

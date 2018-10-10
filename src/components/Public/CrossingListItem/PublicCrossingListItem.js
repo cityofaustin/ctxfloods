@@ -56,7 +56,10 @@ class PublicCrossingListItem extends React.Component {
             </div>
             <div>
               <Location crossing={crossing} />
-              <CrossingCommunityList crossing={crossing} allCommunities={allCommunities}/>
+              <CrossingCommunityList
+                crossing={crossing}
+                allCommunities={allCommunities}
+              />
             </div>
           </div>
           <div className="PublicCrossingListItem__datetime">
@@ -71,12 +74,25 @@ class PublicCrossingListItem extends React.Component {
         <div className="PublicCrossingListItem__details">
           {show.includes('reason') && (
             <DetailsItem title="Reason">
-              {reasons.find(r => r.id === crossing.statusUpdateByLatestStatusUpdateId.statusReasonId).name}
+              {
+                reasons.find(
+                  r =>
+                    r.id ===
+                    crossing.statusUpdateByLatestStatusUpdateId.statusReasonId,
+                ).name
+              }
             </DetailsItem>
           )}
           {show.includes('reopen') && (
             <DetailsItem title="Duration">
-              {durations.find(r => r.id === crossing.statusUpdateByLatestStatusUpdateId.statusDurationId).name}
+              {
+                durations.find(
+                  r =>
+                    r.id ===
+                    crossing.statusUpdateByLatestStatusUpdateId
+                      .statusDurationId,
+                ).name
+              }
             </DetailsItem>
           )}
           {show.includes('notes') && (

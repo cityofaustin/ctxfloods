@@ -12,7 +12,7 @@ export default class CommunityListDropdownButton extends Component {
         {this.state.isOpen && (
           <CommunityListDropdown
             closeDropdown={() => this.setState({ isOpen: false })}
-            onDash = {this.props.onDash}
+            onDash={this.props.onDash}
           />
         )}
         <div

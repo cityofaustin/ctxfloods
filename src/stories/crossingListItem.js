@@ -36,7 +36,7 @@ const openCrossing = {
       lastName: 'Admin',
     },
   },
-  communityIds: [ 1234 ],
+  communityIds: [1234],
 };
 
 const closedCrossing = {
@@ -54,7 +54,7 @@ const closedCrossing = {
       lastName: 'Admin',
     },
   },
-  communityIds: [ 1234 ],
+  communityIds: [1234],
 };
 
 const cautionCrossing = {
@@ -72,7 +72,7 @@ const cautionCrossing = {
       lastName: 'Admin',
     },
   },
-  communityIds: [ 1234 ],
+  communityIds: [1234],
 };
 
 const longtermCrossing = {
@@ -91,7 +91,7 @@ const longtermCrossing = {
       lastName: 'Admin',
     },
   },
-  communityIds: [ 1234 ],
+  communityIds: [1234],
 };
 
 storiesOf('Crossing List Item', module)

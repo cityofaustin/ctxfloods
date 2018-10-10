@@ -18,7 +18,9 @@ export default function PublicHeader({ location }) {
         >
           <Link to="/map">Crossings Map</Link>
         </li>
-        <CommunityListDropdownButton onDash={location.pathname.includes('dashboard')}/>
+        <CommunityListDropdownButton
+          onDash={location.pathname.includes('dashboard')}
+        />
         <li
           className={
             location.pathname.endsWith('safety')

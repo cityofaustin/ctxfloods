@@ -34,7 +34,9 @@ class CommunityListDropdown extends Component {
       <div className="CommunityListDropdown">
         {this.props.data.allCommunities.nodes.map(community => (
           <Link
-            to={`${(this.props.onDash ? '/dashboard' : '')}/map/community/${community.id}`}
+            to={`${this.props.onDash ? '/dashboard' : ''}/map/community/${
+              community.id
+            }`}
             className="CommunityListDropdown__item"
             onClick={this.props.closeDropdown}
             key={community.id}

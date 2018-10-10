@@ -29,13 +29,15 @@ export default class CameraEditButton extends Component {
             });
           }}
         >
-        <FontAwesome
-          name="camera"
-          size="lg"
-        />
+          <FontAwesome name="camera" size="lg" />
         </button>
         {this.state.isOpen && (
-          <CameraEditModal crossingId={crossingId} cameraType={cameraType} cameraId={cameraId} onClose={() => this.setState({isOpen: false})}/>
+          <CameraEditModal
+            crossingId={crossingId}
+            cameraType={cameraType}
+            cameraId={cameraId}
+            onClose={() => this.setState({ isOpen: false })}
+          />
         )}
       </Fragment>
     );

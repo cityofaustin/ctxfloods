@@ -12,9 +12,12 @@ class CameraViewer extends Component {
 
     return (
       <div>
-      {cameraType === 'beholder' &&
-        <iframe title='beholderCarousel' src={`https://my.beholderhq.com/cameras/${cameraId}/carousel`} />
-      }
+        {cameraType === 'beholder' && (
+          <iframe
+            title="beholderCarousel"
+            src={`https://my.beholderhq.com/cameras/${cameraId}/carousel`}
+          />
+        )}
       </div>
     );
   }

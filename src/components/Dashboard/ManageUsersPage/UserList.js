@@ -12,23 +12,23 @@ const manageUsersHeaders = [
     type: 'checkbox_select',
   },
   {
-    title: 'Name'
+    title: 'Name',
   },
   {
-    title: 'Role'
+    title: 'Role',
   },
   {
-    title: 'Community'
+    title: 'Community',
   },
   {
-    title: 'Active'
+    title: 'Active',
   },
 ];
 
 class UserList extends Component {
   state = {
     archiveModalOpen: null,
-  }
+  };
 
   parseRole(role) {
     const roleArray = role.split('_');
@@ -65,7 +65,11 @@ class UserList extends Component {
         this.parseRole(user.role),
         user.communityByCommunityId.name,
         <div>
-          <input type="checkbox" checked={user.active} onChange={() => this.setState({archiveModalOpen: user.id})}/>
+          <input
+            type="checkbox"
+            checked={user.active}
+            onChange={() => this.setState({ archiveModalOpen: user.id })}
+          />
           {this.state.archiveModalOpen === user.id && (
             <ArchiveUserModal
               user={user}
