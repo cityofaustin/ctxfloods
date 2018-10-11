@@ -21,11 +21,17 @@ class SelectedCrossingContainer extends Component {
     ) {
       if (!prevProps.data || !prevProps.data.crossingById) {
         const {
+          crossingId,
           statusReasonId,
           statusDurationId,
           notes,
         } = this.props.data.crossingById.statusUpdateByLatestStatusUpdateId;
-        this.props.setHeight(statusReasonId, statusDurationId, notes);
+        this.props.setHeight(
+          crossingId,
+          statusReasonId,
+          statusDurationId,
+          notes,
+        );
       }
     }
   }

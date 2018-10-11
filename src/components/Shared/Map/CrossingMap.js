@@ -34,6 +34,7 @@ class CrossingMap extends React.Component {
       selectedLocationCoordinates: null,
       firstLoadComplete: false,
       showDetailsOnMobile: false,
+      cachedHeights: {},
     };
 
     props.registerMapResizeCallback(this.resizeMap);
@@ -250,23 +251,36 @@ class CrossingMap extends React.Component {
     }
   };
 
-  setDetailsHeight = (statusReasonId, statusDurationId, notes) => {
+  setDetailsHeight = (crossingId, statusReasonId, statusDurationId, notes) => {
     // Let's hack this together so it makes some kinda sense
     // and we can figure out how much to offset the map
     // for the details popup
-    const { map } = this.state;
+    const { map, cachedHeights } = this.state;
 
     // First, let's get the size of the map in pixels
     const mapHeightInPixels = map.getContainer().offsetHeight;
 
     // Then, let's get the size on the popup in pixels
-    // STUPID HACK - guess the height using crossing data
-    let popupHeightInPixels = 40;
-    if (statusReasonId) popupHeightInPixels += 40;
-    if (statusDurationId) popupHeightInPixels += 40;
+    let popupHeightInPixels;
 
-    // STUPID HACK CONT. - we use about 20 chars per line
-    if (notes) popupHeightInPixels += (Math.floor(notes.length / 20) - 1) * 20;
+    // STUPID HACK - guess the height using crossing data
+    if (cachedHeights[crossingId]) {
+      popupHeightInPixels = cachedHeights[crossingId];
+    } else {
+      popupHeightInPixels = 40;
+      if (statusReasonId) popupHeightInPixels += 40;
+      if (statusDurationId) popupHeightInPixels += 40;
+
+      // STUPID HACK CONT. - we use about 20 chars per line
+      if (notes)
+        popupHeightInPixels += (Math.floor(notes.length / 20) - 1) * 20;
+
+      // STUPID HACK CONT. - cache the heights because our
+      // componentDidUpdate logic in SelectedCrossingContainer
+      // is having issues when we've already clicked a crossing
+      cachedHeights[crossingId] = popupHeightInPixels;
+      this.setState({ cachedHeights: cachedHeights });
+    }
 
     // Now let's get the ratio of popup height to map height
     const relativePopupSize = popupHeightInPixels / mapHeightInPixels;
@@ -290,6 +304,11 @@ class CrossingMap extends React.Component {
 
   setShowDetailsOnMobile = () => {
     this.setState({ showDetailsOnMobile: true });
+
+    const { cachedHeights, selectedCrossingId } = this.state;
+
+    if (cachedHeights[selectedCrossingId])
+      this.setDetailsHeight(selectedCrossingId);
   };
 
   render() {
@@ -563,8 +582,14 @@ class CrossingMap extends React.Component {
                 <SelectedCrossingContainer
                   crossingId={this.state.selectedCrossing.crossingId}
                   isMobileDetails={true}
-                  setHeight={(statusReasonId, statusDurationId, notes) =>
+                  setHeight={(
+                    crossingId,
+                    statusReasonId,
+                    statusDurationId,
+                    notes,
+                  ) =>
                     this.setDetailsHeight(
+                      crossingId,
                       statusReasonId,
                       statusDurationId,
                       notes,
