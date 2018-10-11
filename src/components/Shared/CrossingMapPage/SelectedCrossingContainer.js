@@ -11,6 +11,25 @@ import crossingFragment from 'components/Dashboard/CrossingListPage/queries/cros
 import MobileDetailsContainer from 'components/Shared/Map/MobileDetailsContainer';
 
 class SelectedCrossingContainer extends Component {
+  componentDidUpdate(prevProps) {
+    if (!this.props.isMobileDetails) return;
+
+    if (
+      this.props.data &&
+      !this.props.data.loading &&
+      this.props.data.crossingById
+    ) {
+      if (!prevProps.data || !prevProps.data.crossingById) {
+        const {
+          statusReasonId,
+          statusDurationId,
+          notes,
+        } = this.props.data.crossingById.statusUpdateByLatestStatusUpdateId;
+        this.props.setHeight(statusReasonId, statusDurationId, notes);
+      }
+    }
+  }
+
   render() {
     const { currentUser, selectCrossing, allCommunities } = this.props;
 

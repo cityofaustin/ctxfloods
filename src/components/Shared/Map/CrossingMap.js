@@ -227,6 +227,7 @@ class CrossingMap extends React.Component {
       this.setState({ selectedCrossingId: -1 });
       this.setState({ selectedCrossing: null });
       this.setState({ selectedCrossingCoordinates: null });
+      this.setState({ showDetailsOnMobile: false });
 
       if (this.props.match.url.includes('dashboard')) {
         this.props.history.push(`/dashboard/map/`);
@@ -249,7 +250,7 @@ class CrossingMap extends React.Component {
     }
   };
 
-  setShowDetailsOnMobile = () => {
+  setDetailsHeight = (statusReasonId, statusDurationId, notes) => {
     // Let's hack this together so it makes some kinda sense
     // and we can figure out how much to offset the map
     // for the details popup
@@ -259,8 +260,13 @@ class CrossingMap extends React.Component {
     const mapHeightInPixels = map.getContainer().offsetHeight;
 
     // Then, let's get the size on the popup in pixels
-    // STUPID HACK - Just use 250 for now
-    const popupHeightInPixels = 250;
+    // STUPID HACK - guess the height using crossing data
+    let popupHeightInPixels = 40;
+    if (statusReasonId) popupHeightInPixels += 40;
+    if (statusDurationId) popupHeightInPixels += 40;
+
+    // STUPID HACK CONT. - we use about 20 chars per line
+    if (notes) popupHeightInPixels += (Math.floor(notes.length / 20) - 1) * 20;
 
     // Now let's get the ratio of popup height to map height
     const relativePopupSize = popupHeightInPixels / mapHeightInPixels;
@@ -279,8 +285,11 @@ class CrossingMap extends React.Component {
       JSON.parse(this.state.selectedCrossing.geojson).coordinates[1] + offset,
     ];
 
-    this.setState({ showDetailsOnMobile: true });
     this.flyTo(coordinates);
+  };
+
+  setShowDetailsOnMobile = () => {
+    this.setState({ showDetailsOnMobile: true });
   };
 
   render() {
@@ -554,6 +563,13 @@ class CrossingMap extends React.Component {
                 <SelectedCrossingContainer
                   crossingId={this.state.selectedCrossing.crossingId}
                   isMobileDetails={true}
+                  setHeight={(statusReasonId, statusDurationId, notes) =>
+                    this.setDetailsHeight(
+                      statusReasonId,
+                      statusDurationId,
+                      notes,
+                    )
+                  }
                 />
               )}
             </div>
