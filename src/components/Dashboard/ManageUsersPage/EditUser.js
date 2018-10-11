@@ -22,7 +22,7 @@ class EditUser extends Component {
         lastName: userToEdit.lastName,
         jobTitle: userToEdit.jobTitle,
         phoneNumber: userToEdit.phoneNumber,
-      }
+      };
     } else {
       this.state = {
         newUser: true,
@@ -140,47 +140,48 @@ class EditUser extends Component {
             />
           </EditUserControl>
         </div>
-        {this.props.currentUser.role === 'floods_super_admin' && newUser && (
-          <EditUserControl label="Select a role" isRequired>
-            <form>
-              <div className="EditUser__control-radio-button">
-                <label>
-                  <input
-                    type="radio"
-                    value="floods_community_editor"
-                    checked={role === 'floods_community_editor'}
-                    onChange={this.roleChanged}
-                  />
-                  Contributor | Update, edit, and add crossings in their
-                  communities
-                </label>
-              </div>
-              <div className="EditUser__control-radio-button">
-                <label>
-                  <input
-                    type="radio"
-                    value="floods_community_admin"
-                    checked={role === 'floods_community_admin'}
-                    onChange={this.roleChanged}
-                  />
-                  Admin | Update, edit, and add crossings in their communities,
-                  and add and delete users in their communities
-                </label>
-              </div>
-              <div className="EditUser__control-radio-button">
-                <label>
-                  <input
-                    type="radio"
-                    value="floods_super_admin"
-                    checked={role === 'floods_super_admin'}
-                    onChange={this.roleChanged}
-                  />
-                  Owner | Take all actions in all communities
-                </label>
-              </div>
-            </form>
-          </EditUserControl>
-        )}
+        {this.props.currentUser.role === 'floods_super_admin' &&
+          newUser && (
+            <EditUserControl label="Select a role" isRequired>
+              <form>
+                <div className="EditUser__control-radio-button">
+                  <label>
+                    <input
+                      type="radio"
+                      value="floods_community_editor"
+                      checked={role === 'floods_community_editor'}
+                      onChange={this.roleChanged}
+                    />
+                    Contributor | Update, edit, and add crossings in their
+                    communities
+                  </label>
+                </div>
+                <div className="EditUser__control-radio-button">
+                  <label>
+                    <input
+                      type="radio"
+                      value="floods_community_admin"
+                      checked={role === 'floods_community_admin'}
+                      onChange={this.roleChanged}
+                    />
+                    Admin | Update, edit, and add crossings in their
+                    communities, and add and delete users in their communities
+                  </label>
+                </div>
+                <div className="EditUser__control-radio-button">
+                  <label>
+                    <input
+                      type="radio"
+                      value="floods_super_admin"
+                      checked={role === 'floods_super_admin'}
+                      onChange={this.roleChanged}
+                    />
+                    Owner | Take all actions in all communities
+                  </label>
+                </div>
+              </form>
+            </EditUserControl>
+          )}
         {this.props.currentUser.role === 'floods_super_admin' && (
           <EditUserControl label="Community" isRequired={newUser}>
             <Dropdown

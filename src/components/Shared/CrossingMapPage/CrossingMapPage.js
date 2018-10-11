@@ -324,6 +324,7 @@ class CrossingMapPage extends Component {
                         this.setSelectedLocationCoordinates
                       }
                       triggerMapResize={this.triggerMapResize}
+                      onDash={this.props.match.url.includes('dashboard')}
                     />
                   </React.Fragment>
                 )}

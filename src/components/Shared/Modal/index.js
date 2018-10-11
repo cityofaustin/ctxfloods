@@ -12,12 +12,19 @@ try {
   // Ignore error from #root not existing when running tests
 }
 
-export default function Modal({ title, children, footer, onClose, className, ...props }) {
+export default function Modal({
+  title,
+  children,
+  footer,
+  onClose,
+  className,
+  ...props
+}) {
   return (
     <ReactModal
       contentLabel={title}
       onRequestClose={onClose}
-      className={classNames("FloodsModalDialog", className)}
+      className={classNames('FloodsModalDialog', className)}
       overlayClassName="FloodsModalOverlay"
       {...props}
     >

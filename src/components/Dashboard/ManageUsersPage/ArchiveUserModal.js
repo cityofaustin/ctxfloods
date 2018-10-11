@@ -34,7 +34,12 @@ class ArchiveUserModal extends Component {
   }
 
   reactivateUser = () => {
-    this.setState({ reactivating: true, userReactivated: false, reactivateEmailSent: false, errorMessage: null });
+    this.setState({
+      reactivating: true,
+      userReactivated: false,
+      reactivateEmailSent: false,
+      errorMessage: null,
+    });
 
     this.props
       .reactivateUserMutation({
@@ -89,7 +94,6 @@ class ArchiveUserModal extends Component {
       });
   };
 
-
   deactivateUser = () => {
     this.props
       .deactivateUserMutation({
@@ -117,7 +121,7 @@ class ArchiveUserModal extends Component {
   render() {
     const { user } = this.props;
 
-    if(this.state.reactivating) {
+    if (this.state.reactivating) {
       return (
         <ActivateUserModal
           onClose={this.props.onClose}
@@ -125,12 +129,12 @@ class ArchiveUserModal extends Component {
           emailSent={this.state.reactivateEmailSent}
           errorMessage={this.state.errorMessage}
         />
-      )
+      );
     }
 
     return (
       <Modal
-        title={user.active ? "Deactivate User" : "Reactivate User"}
+        title={user.active ? 'Deactivate User' : 'Reactivate User'}
         isOpen
         onClose={this.props.onClose}
         footer={
@@ -139,7 +143,7 @@ class ArchiveUserModal extends Component {
               className="ArchiveUserModal__primary-button"
               onClick={user.active ? this.deactivateUser : this.reactivateUser}
             >
-              {user.active ? "Deactivate" : "Reactivate"}
+              {user.active ? 'Deactivate' : 'Reactivate'}
             </ButtonPrimary>
             <ButtonSecondary onClick={this.props.onClose}>
               Cancel
@@ -147,7 +151,10 @@ class ArchiveUserModal extends Component {
           </div>
         }
       >
-        <p>This will {user.active ? "deactivate" : "reactivate"} {user.firstName} {user.lastName}.</p>
+        <p>
+          This will {user.active ? 'deactivate' : 'reactivate'} {user.firstName}{' '}
+          {user.lastName}.
+        </p>
         <p>Do you want to continue?</p>
         {this.state.errorMessage && (
           <ModalErrorMessage>{this.state.errorMessage}</ModalErrorMessage>
@@ -158,8 +165,8 @@ class ArchiveUserModal extends Component {
 }
 
 const deactivateUserMutation = gql`
-  mutation($userId:Int!) {
-    deactivateUser(input: {userId: $userId}) {
+  mutation($userId: Int!) {
+    deactivateUser(input: { userId: $userId }) {
       user {
         ...userActive
       }
@@ -169,8 +176,8 @@ const deactivateUserMutation = gql`
 `;
 
 const reactivateUserMutation = gql`
-  mutation($userId:Int!) {
-    reactivateUser(input: {userId: $userId}) {
+  mutation($userId: Int!) {
+    reactivateUser(input: { userId: $userId }) {
       user {
         ...userActive
       }

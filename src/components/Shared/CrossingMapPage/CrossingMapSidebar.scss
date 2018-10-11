@@ -8,7 +8,7 @@
   width: 430px;
   display: flex;
   flex-direction: column;
-  
+
   .CrossingListItem {
     margin-bottom: 0px;
   }
@@ -30,7 +30,7 @@
 }
 
 .CrossingMapSidebar__content-scroll {
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .CrossingMapPage_sidebar-toggle {

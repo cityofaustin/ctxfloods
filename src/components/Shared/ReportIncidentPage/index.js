@@ -113,7 +113,8 @@ class ReportIncidentPage extends Component {
             Notified {this.state.usersNotifiedCount} community{' '}
             {this.state.usersNotifiedCount > 1
               ? 'administrators'
-              : 'administrator'}.
+              : 'administrator'}
+            .
           </p>
         </ContentPage>
       );
