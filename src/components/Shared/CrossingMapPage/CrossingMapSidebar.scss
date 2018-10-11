@@ -26,6 +26,7 @@
 }
 
 .CrossingMapSidebar__content-noscroll--searchFocused {
+  min-height: 0px; //Required for scrolling to work on child flex elements
   flex-shrink: 1;
 }
 
