@@ -172,7 +172,6 @@ class CrossingMap extends React.Component {
   };
 
   selectCrossing = crossing => {
-    // If we're on mobile move it down a little bit so the detailed popup doesn't get hidden
     const coordinates = JSON.parse(crossing.geojson).coordinates;
 
     const mapCrossing = {
