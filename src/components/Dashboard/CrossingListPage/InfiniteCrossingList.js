@@ -4,7 +4,6 @@ import {
   InfiniteLoader,
   AutoSizer,
   List,
-  WindowScroller,
   CellMeasurer,
   CellMeasurerCache,
 } from 'react-virtualized';
