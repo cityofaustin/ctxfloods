@@ -16,7 +16,7 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
       crossingId,
       crossing,
       crossingName,
-      allCommunities
+      allCommunities,
     } = this.props;
 
     return (
@@ -45,7 +45,10 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
             {crossingName}
           </div>
           <div className="CrossingMapPage_sidebar-nearby-crossing-details-communities">
-            <CrossingCommunityList crossing={crossing} allCommunities={allCommunities}/>
+            <CrossingCommunityList
+              crossing={crossing}
+              allCommunities={allCommunities}
+            />
           </div>
         </div>
         <div className="CrossingMapPage_sidebar-nearby-crossing-update-datetime">

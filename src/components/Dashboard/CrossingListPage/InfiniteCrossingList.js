@@ -4,7 +4,6 @@ import {
   InfiniteLoader,
   AutoSizer,
   List,
-  WindowScroller,
   CellMeasurer,
   CellMeasurerCache,
 } from 'react-virtualized';
@@ -148,7 +147,7 @@ export default class InfiniteCrossingList extends React.Component {
     virtualizingList = crossingsQuery.edges;
 
     return (
-      <div>
+      <div style={{ height: 'calc(100vh - 140px)' }}>
         <InfiniteLoader
           isRowLoaded={this._isRowLoaded}
           loadMoreRows={loadMoreRows}
@@ -156,27 +155,21 @@ export default class InfiniteCrossingList extends React.Component {
           threshold={10}
         >
           {({ onRowsRendered, registerChild }) => (
-            <WindowScroller>
-              {({ height, isScrolling, scrollTop }) => (
-                <AutoSizer disableHeight>
-                  {({ width }) => (
-                    <List
-                      ref={ref => (registerChild = listRef = ref)}
-                      className="List"
-                      autoHeight
-                      height={height}
-                      width={width}
-                      onRowsRendered={onRowsRendered}
-                      rowCount={crossingsQuery.totalCount}
-                      deferredMeasurementCache={cache}
-                      rowHeight={cache.rowHeight}
-                      rowRenderer={this._rowRenderer}
-                      scrollTop={scrollTop}
-                    />
-                  )}
-                </AutoSizer>
+            <AutoSizer>
+              {({ height, width }) => (
+                <List
+                  ref={ref => (registerChild = listRef = ref)}
+                  className="List"
+                  height={height}
+                  width={width}
+                  onRowsRendered={onRowsRendered}
+                  rowCount={crossingsQuery.totalCount}
+                  deferredMeasurementCache={cache}
+                  rowHeight={cache.rowHeight}
+                  rowRenderer={this._rowRenderer}
+                />
               )}
-            </WindowScroller>
+            </AutoSizer>
           )}
         </InfiniteLoader>
       </div>

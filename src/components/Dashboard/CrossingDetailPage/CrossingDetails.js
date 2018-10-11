@@ -258,7 +258,11 @@ class CrossingDetails extends Component {
               </div>
             )}
             {!addMode && (
-              <CameraEditButton crossingId={crossing.id} cameraType={crossing.cameraType} cameraId={crossing.cameraId} />
+              <CameraEditButton
+                crossingId={crossing.id}
+                cameraType={crossing.cameraType}
+                cameraId={crossing.cameraId}
+              />
             )}
             <div className="CrossingDetails__communities">
               <Label>Communities</Label>

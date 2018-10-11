@@ -17,11 +17,15 @@ export default function CrossingCommunityList({ crossing, allCommunities }) {
           return null;
         }
         const community = allCommunities.find(c => c.id === communityId);
-        return community && (
-          <Link to={`/map/community/${community.id}`} key={community.id}>
-            <span className="CrossingCommunityList__item">{community.name}</span>
-          </Link>
-        )
+        return (
+          community && (
+            <Link to={`/map/community/${community.id}`} key={community.id}>
+              <span className="CrossingCommunityList__item">
+                {community.name}
+              </span>
+            </Link>
+          )
+        );
       })}
     </div>
   );

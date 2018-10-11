@@ -13,7 +13,7 @@ class EditUserPage extends Component {
   state = {
     redirect: false,
     errorMessage: null,
-  }
+  };
 
   componentDidCatch(err) {
     logError(err);
@@ -41,7 +41,7 @@ class EditUserPage extends Component {
   };
 
   closeErrorModal = () => {
-    this.setState({errorMessage: null});
+    this.setState({ errorMessage: null });
   };
 
   render() {
@@ -52,8 +52,7 @@ class EditUserPage extends Component {
     const { currentUser } = this.props;
 
     const isLoading =
-      !this.props.UserByIdQuery ||
-      this.props.UserByIdQuery.loading;
+      !this.props.UserByIdQuery || this.props.UserByIdQuery.loading;
 
     if (isLoading) {
       return <div>Loading</div>;
@@ -69,9 +68,7 @@ class EditUserPage extends Component {
           onClose={this.closeErrorModal}
           footer={
             <div>
-              <ButtonPrimary onClick={this.closeErrorModal}>
-                OK
-              </ButtonPrimary>
+              <ButtonPrimary onClick={this.closeErrorModal}>OK</ButtonPrimary>
             </div>
           }
         >
@@ -79,9 +76,11 @@ class EditUserPage extends Component {
             <ModalErrorMessage>{this.state.errorMessage}</ModalErrorMessage>
           </div>
         </Modal>
-        <h1>Edit User - {user.firstName} {user.lastName}</h1>
+        <h1>
+          Edit User - {user.firstName} {user.lastName}
+        </h1>
         <EditUser
-          onCancel={() => this.setState({redirect: true})}
+          onCancel={() => this.setState({ redirect: true })}
           onSubmit={this.editUser}
           currentUser={currentUser}
           userToEdit={user}
@@ -92,8 +91,8 @@ class EditUserPage extends Component {
 }
 
 const UserByIdQuery = gql`
-  query userById($userId:Int!) {
-    userById(id:$userId) {
+  query userById($userId: Int!) {
+    userById(id: $userId) {
       id
       emailAddress
       firstName
@@ -105,18 +104,22 @@ const UserByIdQuery = gql`
 `;
 
 const editUserMutation = gql`
-  mutation($userId:Int!,
-           $lastName:String!,
-           $firstName:String!,
-           $jobTitle:String!,
-           $phoneNumber:String!)
-  {
-    editUser(input: { userId: $userId,
-                      lastName: $lastName,
-                      firstName: $firstName,
-                      jobTitle: $jobTitle,
-                      phoneNumber: $phoneNumber })
-    {
+  mutation(
+    $userId: Int!
+    $lastName: String!
+    $firstName: String!
+    $jobTitle: String!
+    $phoneNumber: String!
+  ) {
+    editUser(
+      input: {
+        userId: $userId
+        lastName: $lastName
+        firstName: $firstName
+        jobTitle: $jobTitle
+        phoneNumber: $phoneNumber
+      }
+    ) {
       user {
         id
       }

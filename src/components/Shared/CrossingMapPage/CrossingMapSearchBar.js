@@ -22,18 +22,19 @@ const getSuggestionValue = suggestion => {
 const Suggestion = suggestion => (
   <div className="CrossingMapSearchBar__suggestion-container">
     <div className="CrossingMapSearchBar__suggestion-icon">
-      {suggestion.__typename === 'Crossing' &&
+      {suggestion.__typename === 'Crossing' && (
         <img
           src={statusIcons[suggestion.latestStatusId]}
           alt={statusNames[suggestion.latestStatusId]}
         />
-      }
+      )}
       {suggestion.__typename === 'Community' && (
         <FontAwesome name="globe" size="2x" />
       )}
-      {suggestion.__typename !== 'Crossing' && suggestion.__typename !== 'Community' && (
-        <FontAwesome name="map-marker" size="2x" />
-      )}
+      {suggestion.__typename !== 'Crossing' &&
+        suggestion.__typename !== 'Community' && (
+          <FontAwesome name="map-marker" size="2x" />
+        )}
     </div>
     <div>
       <div className="CrossingMapSearchBar__suggestion-text--primary">
@@ -54,7 +55,7 @@ const formatSearchQuery = query => {
 class CrossingMapSearchBar extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
-  }
+  };
 
   state = {
     typedValue: '',
@@ -95,9 +96,13 @@ class CrossingMapSearchBar extends Component {
     { suggestion, suggestionValue, suggestionIndex, sectionIndex, method },
   ) => {
     if (suggestion.__typename === 'Crossing') {
-      this.props.history.push(`${this.dashPrepend()}/map/crossing/${suggestion.id}`);
+      this.props.history.push(
+        `${this.dashPrepend()}/map/crossing/${suggestion.id}`,
+      );
     } else if (suggestion.__typename === 'Community') {
-      this.props.history.push(`${this.dashPrepend()}/map/community/${suggestion.id}`);
+      this.props.history.push(
+        `${this.dashPrepend()}/map/community/${suggestion.id}`,
+      );
     } else if (suggestion.location) {
       const lng = suggestion.location[1];
       const lat = suggestion.location[0];
@@ -114,29 +119,36 @@ class CrossingMapSearchBar extends Component {
     const inputLength = value.length;
 
     if (inputLength > 2) {
-      fetch(`https://places.api.here.com/places/v1/autosuggest?at=${center.lat},${center.lng}&q=${value}&app_id=${HERE_APP_ID}&app_code=${HERE_APP_CODE}`)
-      .then(response => {
-        if (response.status !== 200) {
-          console.log('Looks like there was a problem. Status Code: ' +
-            response.status);
-          this.setState({ geocodeSuggestions: [] });
-          return;
-        }
+      fetch(
+        `https://places.api.here.com/places/v1/autosuggest?at=${center.lat},${
+          center.lng
+        }&q=${value}&app_id=${HERE_APP_ID}&app_code=${HERE_APP_CODE}`,
+      )
+        .then(response => {
+          if (response.status !== 200) {
+            console.log(
+              'Looks like there was a problem. Status Code: ' + response.status,
+            );
+            this.setState({ geocodeSuggestions: [] });
+            return;
+          }
 
-        response.json().then(data => {
-          const filteredResults = data.results.filter(
-            result => result.position && result.vicinity
-          );
-          const suggestions = filteredResults.map(
-            result => ({name: result.title, location: result.position, humanAddress: result.vicinity.replace(/<br\/>/g, ', ')})
-          );
-          this.setState({ geocodeSuggestions: suggestions });
+          response.json().then(data => {
+            const filteredResults = data.results.filter(
+              result => result.position && result.vicinity,
+            );
+            const suggestions = filteredResults.map(result => ({
+              name: result.title,
+              location: result.position,
+              humanAddress: result.vicinity.replace(/<br\/>/g, ', '),
+            }));
+            this.setState({ geocodeSuggestions: suggestions });
+          });
+        })
+        .catch(err => {
+          console.log('Fetch Error :-S', err);
+          this.setState({ geocodeSuggestions: [] });
         });
-      })
-      .catch(err => {
-        console.log('Fetch Error :-S', err);
-        this.setState({ geocodeSuggestions: [] });
-      });
     } else {
       this.setState({ geocodeSuggestions: [] });
     }
@@ -192,9 +204,12 @@ class CrossingMapSearchBar extends Component {
       communitySuggestions,
     } = this.state;
 
-    const suggestions = typedValue.length > 2 ?
-      communitySuggestions.concat(crossingSuggestions).concat(geocodeSuggestions) :
-      [];
+    const suggestions =
+      typedValue.length > 2
+        ? communitySuggestions
+            .concat(crossingSuggestions)
+            .concat(geocodeSuggestions)
+        : [];
 
     const value = selectedValue ? selectedValue : typedValue;
 
@@ -218,14 +233,15 @@ class CrossingMapSearchBar extends Component {
           updateSuggestions={this.updateCrossingSuggestions}
         />
         <div className="CrossingMapSearchBar__text-entry">
-          {selectedCrossingId && (!this.props.mobile || this.props.showDetailsOnMobile) && (
-            <div
-              className="CrossingMapSearchBar__close-selection"
-              onClick={this.clearSearch}
-            >
-              <FontAwesome name="window-close" size="2x" />
-            </div>
-          )}
+          {selectedCrossingId &&
+            (!this.props.mobile || this.props.showDetailsOnMobile) && (
+              <div
+                className="CrossingMapSearchBar__close-selection"
+                onClick={this.clearSearch}
+              >
+                <FontAwesome name="window-close" size="2x" />
+              </div>
+            )}
           {!selectedCrossingId && (
             <Autosuggest
               ref={autosuggest => {

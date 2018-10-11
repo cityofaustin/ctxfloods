@@ -79,8 +79,11 @@ class CrossingMapPage extends Component {
       this.props.match.params.selectedCrossingId !==
       prevProps.match.params.selectedCrossingId;
 
-    if(didSelectedCrossingChange && this.state.mapLoaded) {
-      this.selectCrossing(this.props.match.params.selectedCrossingId && Number(this.props.match.params.selectedCrossingId));
+    if (didSelectedCrossingChange && this.state.mapLoaded) {
+      this.selectCrossing(
+        this.props.match.params.selectedCrossingId &&
+          Number(this.props.match.params.selectedCrossingId),
+      );
     }
 
     if (didLoad || didSelectedCommunityChange) {
@@ -144,13 +147,16 @@ class CrossingMapPage extends Component {
   };
 
   selectCrossing = (crossingId, crossingStatus) => {
-    this.setState({
-      selectedCrossingId: crossingId,
-      selectedCrossingStatus: crossingStatus,
-      showDetailsOnMobile: false,
-    }, () => {
-      this.triggerMapResize();
-    });
+    this.setState(
+      {
+        selectedCrossingId: crossingId,
+        selectedCrossingStatus: crossingStatus,
+        showDetailsOnMobile: false,
+      },
+      () => {
+        this.triggerMapResize();
+      },
+    );
   };
 
   toggleFullscreen = () => {
@@ -183,8 +189,8 @@ class CrossingMapPage extends Component {
   };
 
   setMapLoaded = () => {
-    this.setState({mapLoaded: true});
-    if(this.props.match.params.selectedCrossingId)
+    this.setState({ mapLoaded: true });
+    if (this.props.match.params.selectedCrossingId)
       this.selectCrossing(Number(this.props.match.params.selectedCrossingId));
   };
 
@@ -262,36 +268,38 @@ class CrossingMapPage extends Component {
                       showDetailsOnMobile={this.state.showDetailsOnMobile}
                       onDash={this.props.match.url.includes('dashboard')}
                     />
-                    {!selectedCrossingId && !this.state.searchFocused && (
-                      <div className="CrossingMapPage__mobile-status-filters">
-                        <FilterCheckbox
-                          isChecked={this.state.showOpen}
-                          onClick={this.toggleShowOpen}
-                        >
-                          Open
-                        </FilterCheckbox>
-                        <FilterCheckbox
-                          isChecked={this.state.showClosed}
-                          onClick={this.toggleShowClosed}
-                        >
-                          Closed
-                        </FilterCheckbox>
-                        <FilterCheckbox
-                          isChecked={this.state.showCaution}
-                          onClick={this.toggleShowCaution}
-                        >
-                          Caution
-                        </FilterCheckbox>
-                        <FilterCheckbox
-                          isChecked={this.state.showLongterm}
-                          onClick={this.toggleShowLongterm}
-                        >
-                          Long-Term
-                        </FilterCheckbox>
-                      </div>
-                    )}
+                    {!selectedCrossingId &&
+                      !this.state.searchFocused && (
+                        <div className="CrossingMapPage__mobile-status-filters">
+                          <FilterCheckbox
+                            isChecked={this.state.showOpen}
+                            onClick={this.toggleShowOpen}
+                          >
+                            Open
+                          </FilterCheckbox>
+                          <FilterCheckbox
+                            isChecked={this.state.showClosed}
+                            onClick={this.toggleShowClosed}
+                          >
+                            Closed
+                          </FilterCheckbox>
+                          <FilterCheckbox
+                            isChecked={this.state.showCaution}
+                            onClick={this.toggleShowCaution}
+                          >
+                            Caution
+                          </FilterCheckbox>
+                          <FilterCheckbox
+                            isChecked={this.state.showLongterm}
+                            onClick={this.toggleShowLongterm}
+                          >
+                            Long-Term
+                          </FilterCheckbox>
+                        </div>
+                      )}
                     {!params.fullsize &&
-                      selectedCrossingId && this.state.showDetailsOnMobile && (
+                      selectedCrossingId &&
+                      this.state.showDetailsOnMobile && (
                         <div className="CrossingMapPage__mobile-overlay">
                           <SelectedCrossingContainer
                             crossingId={selectedCrossingId}
@@ -336,13 +344,16 @@ class CrossingMapPage extends Component {
                         this.setSelectedLocationCoordinates
                       }
                       triggerMapResize={this.triggerMapResize}
+                      onDash={this.props.match.url.includes('dashboard')}
                     />
                   </React.Fragment>
                 )}
                 <div
                   className={classnames('CrossingMapPage__map-container', {
                     'CrossingMapPage__map-container--hidden':
-                      !params.fullsize && selectedCrossingId && this.state.showDetailsOnMobile,
+                      !params.fullsize &&
+                      selectedCrossingId &&
+                      this.state.showDetailsOnMobile,
                   })}
                 >
                   <CrossingMap
@@ -371,7 +382,10 @@ class CrossingMapPage extends Component {
                     mobile={!params.fullsize}
                     setShowDetailsOnMobile={this.setShowDetailsOnMobile}
                     setMapLoaded={this.setMapLoaded}
-                    autoGeoLocate={!this.props.match.params.selectedCommunityId && !this.props.match.params.selectedCrossingId}
+                    autoGeoLocate={
+                      !this.props.match.params.selectedCommunityId &&
+                      !this.props.match.params.selectedCrossingId
+                    }
                   />
                 </div>
               </div>

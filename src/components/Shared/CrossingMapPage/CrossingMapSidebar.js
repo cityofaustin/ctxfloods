@@ -65,7 +65,7 @@ class CrossingMapSidebar extends Component {
         nextProps.showClosed,
         nextProps.showCaution,
         nextProps.showLongterm,
-        nextProps.selectedCrossingId
+        nextProps.selectedCrossingId,
       );
       this.setState({ nearbyCrossings: nearbyCrossings });
     }
@@ -111,7 +111,7 @@ class CrossingMapSidebar extends Component {
     showClosed,
     showCaution,
     showLongterm,
-    selectedCrossingId
+    selectedCrossingId,
   ) => {
     let nearbyCrossings = [];
 
@@ -122,9 +122,7 @@ class CrossingMapSidebar extends Component {
     if (showLongterm && longtermCrossings)
       nearbyCrossings.push(...longtermCrossings);
 
-    _.remove(nearbyCrossings, c =>
-      c.id === selectedCrossingId
-    )
+    _.remove(nearbyCrossings, c => c.id === selectedCrossingId);
 
     return nearbyCrossings.length
       ? _.sortBy(nearbyCrossings, c =>
@@ -153,6 +151,7 @@ class CrossingMapSidebar extends Component {
       selectedCrossingName,
       center,
       setSelectedLocationCoordinates,
+      onDash
     } = this.props;
 
     const { nearbyCrossings } = this.state;
@@ -161,12 +160,12 @@ class CrossingMapSidebar extends Component {
       <div className="CrossingMapSidebar__overlay-container">
         {visible && (
           <div className="CrossingMapSidebar__content">
-            <div className={classnames(
-                        'CrossingMapSidebar__content-noscroll',
-                        {
-                          'CrossingMapSidebar__content-noscroll--searchFocused': this.state.searchFocused,
-                        },
-                      )}>
+            <div
+              className={classnames('CrossingMapSidebar__content-noscroll', {
+                'CrossingMapSidebar__content-noscroll--searchFocused': this
+                  .state.searchFocused,
+              })}
+            >
               <CrossingMapSearchBar
                 selectedCrossingId={selectedCrossingId}
                 selectCrossing={selectCrossing}
@@ -177,107 +176,113 @@ class CrossingMapSidebar extends Component {
                 setSelectedLocationCoordinates={setSelectedLocationCoordinates}
                 toggleSearchFocus={this.toggleSearchFocus}
                 communities={allCommunities}
-                communityId={(currentUser &&
-                              currentUser.role !== 'floods_super_admin') ?
-                             currentUser.communityId : null}
+                communityId={
+                  currentUser && currentUser.role !== 'floods_super_admin'
+                    ? currentUser.communityId
+                    : null
+                }
+                onDash={onDash}
               />
 
-              {!searchFocused && selectedCrossingId && (
-                <SelectedCrossingContainer
-                  crossingId={selectedCrossingId}
-                  currentUser={currentUser}
-                  selectCrossing={selectCrossing}
-                  allCommunities={allCommunities}
-                />
-              )}
-              {!searchFocused && !selectedCrossingId && (
-                <div>
-                  <div className="CrossingMapPage_sidebar-filter-sort-toggle-container">
-                    <div
-                      className={classnames(
-                        'CrossingMapPage_sidebar-filter-toggle',
-                        {
-                          selected: this.state.showFilters,
-                        },
-                      )}
-                      onClick={this.toggleFilters}
-                    >
-                      <div className="CrossingMapPage_sidebar-filter-toggle-text">
-                        {this.state.showFilters ? (
-                          <span className="CrossingMapPage_sidebar-filter-toggle-icon">
-                            <FontAwesome name="minus" ariaLabel="Hide" />
-                          </span>
-                        ) : (
-                          <span className="CrossingMapPage_sidebar-filter-toggle-icon">
-                            <FontAwesome name="plus" ariaLabel="Show" />
-                          </span>
-                        )}{' '}
-                        Filter
+              {!searchFocused &&
+                selectedCrossingId && (
+                  <SelectedCrossingContainer
+                    crossingId={selectedCrossingId}
+                    currentUser={currentUser}
+                    selectCrossing={selectCrossing}
+                    allCommunities={allCommunities}
+                  />
+                )}
+              {!searchFocused &&
+                !selectedCrossingId && (
+                  <div>
+                    <div className="CrossingMapPage_sidebar-filter-sort-toggle-container">
+                      <div
+                        className={classnames(
+                          'CrossingMapPage_sidebar-filter-toggle',
+                          {
+                            selected: this.state.showFilters,
+                          },
+                        )}
+                        onClick={this.toggleFilters}
+                      >
+                        <div className="CrossingMapPage_sidebar-filter-toggle-text">
+                          {this.state.showFilters ? (
+                            <span className="CrossingMapPage_sidebar-filter-toggle-icon">
+                              <FontAwesome name="minus" ariaLabel="Hide" />
+                            </span>
+                          ) : (
+                            <span className="CrossingMapPage_sidebar-filter-toggle-icon">
+                              <FontAwesome name="plus" ariaLabel="Show" />
+                            </span>
+                          )}{' '}
+                          Filter
+                        </div>
+                      </div>
+                      <div className="CrossingMapPage_sidebar-sort-toggle">
+                        Last Updated
+                        <span className="CrossingMapPage_sidebar-sort-toggle-icon">
+                          <FontAwesome name="chevron-down" ariaLabel="Sort" />
+                        </span>
                       </div>
                     </div>
-                    <div className="CrossingMapPage_sidebar-sort-toggle">
-                      Last Updated
-                      <span className="CrossingMapPage_sidebar-sort-toggle-icon">
-                        <FontAwesome name="chevron-down" ariaLabel="Sort" />
-                      </span>
+                    {this.state.showFilters && (
+                      <div className="CrossingMapPage_sidebar-filter-container">
+                        <FilterCheckbox
+                          isChecked={showOpen}
+                          onClick={toggleShowOpen}
+                        >
+                          Open
+                        </FilterCheckbox>
+                        <FilterCheckbox
+                          isChecked={showClosed}
+                          onClick={toggleShowClosed}
+                        >
+                          Closed
+                        </FilterCheckbox>
+                        <FilterCheckbox
+                          isChecked={showCaution}
+                          onClick={toggleShowCaution}
+                        >
+                          Caution
+                        </FilterCheckbox>
+                        <FilterCheckbox
+                          isChecked={showLongterm}
+                          onClick={toggleShowLongterm}
+                        >
+                          Long-Term Closure
+                        </FilterCheckbox>
+                      </div>
+                    )}
+                  </div>
+                )}
+              {!searchFocused &&
+                selectedCrossingId && (
+                  <div className="CrossingMapPage_sidebar-nearby-history-toggle">
+                    <div
+                      className={classnames(
+                        'CrossingMapPage_sidebar-nearby-tab',
+                        {
+                          selected: this.state.showNearby,
+                        },
+                      )}
+                      onClick={() => this.toggleNearbyHistory('nearby')}
+                    >
+                      <FontAwesome name="map-marker" /> Nearby
+                    </div>
+                    <div
+                      className={classnames(
+                        'CrossingMapPage_sidebar-history-tab',
+                        {
+                          selected: this.state.showHistory,
+                        },
+                      )}
+                      onClick={() => this.toggleNearbyHistory('history')}
+                    >
+                      <FontAwesome name="history" /> History
                     </div>
                   </div>
-                  {this.state.showFilters && (
-                    <div className="CrossingMapPage_sidebar-filter-container">
-                      <FilterCheckbox
-                        isChecked={showOpen}
-                        onClick={toggleShowOpen}
-                      >
-                        Open
-                      </FilterCheckbox>
-                      <FilterCheckbox
-                        isChecked={showClosed}
-                        onClick={toggleShowClosed}
-                      >
-                        Closed
-                      </FilterCheckbox>
-                      <FilterCheckbox
-                        isChecked={showCaution}
-                        onClick={toggleShowCaution}
-                      >
-                        Caution
-                      </FilterCheckbox>
-                      <FilterCheckbox
-                        isChecked={showLongterm}
-                        onClick={toggleShowLongterm}
-                      >
-                        Long-Term Closure
-                      </FilterCheckbox>
-                    </div>
-                  )}
-                </div>
-              )}
-              {!searchFocused && selectedCrossingId && (
-                <div className="CrossingMapPage_sidebar-nearby-history-toggle">
-                  <div
-                    className={classnames(
-                      'CrossingMapPage_sidebar-nearby-tab',
-                      {
-                        selected: this.state.showNearby,
-                      },
-                    )}
-                    onClick={() => this.toggleNearbyHistory('nearby')}
-                  >
-                    <FontAwesome name="map-marker" /> Nearby
-                  </div>
-                  <div
-                    className={classnames(
-                      'CrossingMapPage_sidebar-history-tab',
-                      {
-                        selected: this.state.showHistory,
-                      },
-                    )}
-                    onClick={() => this.toggleNearbyHistory('history')}
-                  >
-                    <FontAwesome name="history" /> History
-                  </div>
-                </div>
-              )}
+                )}
             </div>
             {!searchFocused && (
               <div className="CrossingMapSidebar__content-scroll">
