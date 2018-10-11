@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { ContainerQuery } from 'react-container-query';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import classnames from 'classnames';
 import Fullscreen from 'react-full-screen';
 import FontAwesome from 'react-fontawesome';
 
