@@ -8,7 +8,34 @@ import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/st
 import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
+import MobileDetailsContainer from 'components/Shared/Map/MobileDetailsContainer';
+
 class SelectedCrossingContainer extends Component {
+  componentDidUpdate(prevProps) {
+    if (!this.props.isMobileDetails) return;
+
+    if (
+      this.props.data &&
+      !this.props.data.loading &&
+      this.props.data.crossingById
+    ) {
+      if (!prevProps.data || !prevProps.data.crossingById) {
+        const {
+          crossingId,
+          statusReasonId,
+          statusDurationId,
+          notes,
+        } = this.props.data.crossingById.statusUpdateByLatestStatusUpdateId;
+        this.props.setHeight(
+          crossingId,
+          statusReasonId,
+          statusDurationId,
+          notes,
+        );
+      }
+    }
+  }
+
   render() {
     const { currentUser, selectCrossing, allCommunities } = this.props;
 
@@ -29,6 +56,16 @@ class SelectedCrossingContainer extends Component {
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
     const statusDurations = this.props.statusDurationsQuery.allStatusDurations
       .nodes;
+
+    if (this.props.isMobileDetails) {
+      return (
+        <MobileDetailsContainer
+          crossing={crossing}
+          reasons={statusReasons}
+          durations={statusDurations}
+        />
+      );
+    }
 
     return currentUser ? (
       <DashboardCrossingListItem

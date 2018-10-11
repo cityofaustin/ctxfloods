@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import * as MapboxGl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
 import { withRouter } from 'react-router';
+import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
 
 import { MapboxAccessToken } from 'constants/MapboxConstants';
 
@@ -32,6 +33,8 @@ class CrossingMap extends React.Component {
       selectedCrossingCoordinates: null,
       selectedLocationCoordinates: null,
       firstLoadComplete: false,
+      showDetailsOnMobile: false,
+      cachedHeights: {},
     };
 
     props.registerMapResizeCallback(this.resizeMap);
@@ -181,6 +184,7 @@ class CrossingMap extends React.Component {
     this.setState({
       selectedCrossingCoordinates: coordinates,
       selectedCrossing: mapCrossing,
+      showDetailsOnMobile: false,
     });
     this.flyTo(coordinates);
   };
@@ -223,6 +227,7 @@ class CrossingMap extends React.Component {
       this.setState({ selectedCrossingId: -1 });
       this.setState({ selectedCrossing: null });
       this.setState({ selectedCrossingCoordinates: null });
+      this.setState({ showDetailsOnMobile: false });
 
       if (this.props.match.url.includes('dashboard')) {
         this.props.history.push(`/dashboard/map/`);
@@ -243,6 +248,66 @@ class CrossingMap extends React.Component {
     if (this.state.map) {
       this.state.map.resize();
     }
+  };
+
+  setDetailsHeight = (crossingId, statusReasonId, statusDurationId, notes) => {
+    // Let's hack this together so it makes some kinda sense
+    // and we can figure out how much to offset the map
+    // for the details popup
+    const { map, cachedHeights } = this.state;
+
+    // First, let's get the size of the map in pixels
+    const mapHeightInPixels = map.getContainer().offsetHeight;
+
+    // Then, let's get the size on the popup in pixels
+    let popupHeightInPixels;
+
+    // STUPID HACK - guess the height using crossing data
+    if (cachedHeights[crossingId]) {
+      popupHeightInPixels = cachedHeights[crossingId];
+    } else {
+      popupHeightInPixels = 40;
+      if (statusReasonId) popupHeightInPixels += 40;
+      if (statusDurationId) popupHeightInPixels += 40;
+
+      // STUPID HACK CONT. - we use about 20 chars per line
+      if (notes)
+        popupHeightInPixels += (Math.floor(notes.length / 20) - 1) * 20;
+
+      // STUPID HACK CONT. - cache the heights because our
+      // componentDidUpdate logic in SelectedCrossingContainer
+      // is having issues when we've already clicked a crossing
+      cachedHeights[crossingId] = popupHeightInPixels;
+      this.setState({ cachedHeights: cachedHeights });
+    }
+
+    // Now let's get the ratio of popup height to map height
+    const relativePopupSize = popupHeightInPixels / mapHeightInPixels;
+
+    // Then we need to get the size of the map in latitude
+    const mapHeightInLat =
+      map.getBounds().getNorth() - map.getBounds().getSouth();
+
+    // Now we need to calculate our offset using the ratio and the
+    // height of the map in lat
+    const offset = mapHeightInLat * relativePopupSize / 2;
+
+    // And then apply it to the coordinates
+    const coordinates = [
+      JSON.parse(this.state.selectedCrossing.geojson).coordinates[0],
+      JSON.parse(this.state.selectedCrossing.geojson).coordinates[1] + offset,
+    ];
+
+    this.flyTo(coordinates);
+  };
+
+  setShowDetailsOnMobile = () => {
+    this.setState({ showDetailsOnMobile: true });
+
+    const { cachedHeights, selectedCrossingId } = this.state;
+
+    if (cachedHeights[selectedCrossingId])
+      this.setDetailsHeight(selectedCrossingId);
   };
 
   render() {
@@ -500,13 +565,36 @@ class CrossingMap extends React.Component {
             coordinates={
               JSON.parse(this.state.selectedCrossing.geojson).coordinates
             }
+            anchor="bottom"
           >
             <div>
               {this.state.selectedCrossing.crossingName}
-              {this.props.mobile && (
-                <button onClick={() => this.props.setShowDetailsOnMobile(true)}>
-                  Details
-                </button>
+              {this.props.mobile &&
+                (!this.state.showDetailsOnMobile &&
+                  this.state.selectedCrossing.crossingStatus !==
+                    STATUS_OPEN) && (
+                  <button onClick={() => this.setShowDetailsOnMobile()}>
+                    Details
+                  </button>
+                )}
+              {this.state.showDetailsOnMobile && (
+                <SelectedCrossingContainer
+                  crossingId={this.state.selectedCrossing.crossingId}
+                  isMobileDetails={true}
+                  setHeight={(
+                    crossingId,
+                    statusReasonId,
+                    statusDurationId,
+                    notes,
+                  ) =>
+                    this.setDetailsHeight(
+                      crossingId,
+                      statusReasonId,
+                      statusDurationId,
+                      notes,
+                    )
+                  }
+                />
               )}
             </div>
           </Popup>

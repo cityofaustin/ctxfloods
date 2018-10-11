@@ -234,7 +234,7 @@ class CrossingMapSearchBar extends Component {
         />
         <div className="CrossingMapSearchBar__text-entry">
           {selectedCrossingId &&
-            (!this.props.mobile || this.props.showDetailsOnMobile) && (
+            !this.props.mobile && (
               <div
                 className="CrossingMapSearchBar__close-selection"
                 onClick={this.clearSearch}
@@ -242,7 +242,7 @@ class CrossingMapSearchBar extends Component {
                 <FontAwesome name="window-close" size="2x" />
               </div>
             )}
-          {!selectedCrossingId && (
+          {(!selectedCrossingId || this.props.mobile) && (
             <Autosuggest
               ref={autosuggest => {
                 if (autosuggest !== null) {
