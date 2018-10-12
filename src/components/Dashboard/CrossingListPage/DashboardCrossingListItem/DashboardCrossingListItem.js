@@ -13,6 +13,7 @@ import CrossingCommunityList from 'components/Shared/CrossingListItem/CrossingCo
 import StatusToggle from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/StatusToggle';
 import DashboardCrossingListItemControl from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItemControl';
 import Dropdown from 'components/Shared/Form/Dropdown';
+import SingleOptionDropdown from'components/Shared/Form/Dropdown/SingleOptionDropdown';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 
@@ -487,7 +488,13 @@ class DashboardCrossingListItem extends React.Component {
   }
 
   render() {
-    const { crossing, reasons, durations, allCommunities } = this.props;
+    const { crossing, durations, allCommunities } = this.props;
+
+    let {reasons} = this.props;
+    reasons = reasons.filter(
+      reason => reason.statusId === this.state.selectedStatus
+    )
+
     const {
       createdAt,
       userByCreatorId,
@@ -567,13 +574,17 @@ class DashboardCrossingListItem extends React.Component {
               label="Reason"
               isRequired={this.isDirty()}
             >
+            {(reasons.length > 1) ? (
               <Dropdown
-                options={reasons.filter(
-                  reason => reason.statusId === this.state.selectedStatus,
-                )}
+                options={reasons}
                 selected={this.state.selectedReason}
                 onChange={this.reasonChanged}
               />
+            ) : (
+              <SingleOptionDropdown
+                option={reasons[0].name}
+              />
+            )}
             </DashboardCrossingListItemControl>
           )}
           <DashboardCrossingListItemControl label="Notes to the public">
