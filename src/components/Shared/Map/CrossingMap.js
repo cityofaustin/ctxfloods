@@ -190,15 +190,7 @@ class CrossingMap extends React.Component {
   };
 
   onCrossingClick = crossing => {
-    if (this.props.match.url.includes('dashboard')) {
-      this.props.history.push(
-        `/dashboard/map/crossing/${crossing.properties.crossingId}`,
-      );
-    } else {
-      this.props.history.push(
-        `/map/crossing/${crossing.properties.crossingId}`,
-      );
-    }
+    this.props.history.push(`${this.props.onDash ? '/dashboard' : ''}/map/crossing/${crossing.properties.crossingId}`);
   };
 
   onMapClick = e => {
@@ -324,6 +316,7 @@ class CrossingMap extends React.Component {
       closedCrossings,
       cautionCrossings,
       longtermCrossings,
+      onDash,
     } = this.props;
 
     return (
@@ -581,6 +574,7 @@ class CrossingMap extends React.Component {
                 <SelectedCrossingContainer
                   crossingId={this.state.selectedCrossing.crossingId}
                   isMobileDetails={true}
+                  onDash={onDash}
                   setHeight={(
                     crossingId,
                     statusReasonId,

@@ -535,6 +535,7 @@ class DashboardCrossingListItem extends React.Component {
                 <CrossingCommunityList
                   crossing={crossing}
                   allCommunities={allCommunities}
+                  onDash={this.props.onDash}
                 />
               </div>
             </div>

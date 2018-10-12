@@ -234,6 +234,8 @@ class CrossingMapPage extends Component {
       ? this.props.longtermCrossings.searchCrossings.nodes
       : null;
 
+    const onDash = this.props.match.url.includes('dashboard')
+
     return (
       <ContainerQuery query={containerQuery}>
         {params => (
@@ -257,7 +259,7 @@ class CrossingMapPage extends Component {
                         this.setSelectedLocationCoordinates
                       }
                       mobile={true}
-                      onDash={this.props.match.url.includes('dashboard')}
+                      onDash={onDash}
                     />
                     {!this.state.searchFocused && (
                       <div className="CrossingMapPage__mobile-status-filters">
@@ -323,7 +325,7 @@ class CrossingMapPage extends Component {
                         this.setSelectedLocationCoordinates
                       }
                       triggerMapResize={this.triggerMapResize}
-                      onDash={this.props.match.url.includes('dashboard')}
+                      onDash={onDash}
                     />
                   </React.Fragment>
                 )}
@@ -357,6 +359,7 @@ class CrossingMapPage extends Component {
                       !this.props.match.params.selectedCommunityId &&
                       !this.props.match.params.selectedCrossingId
                     }
+                    onDash={onDash}
                   />
                 </div>
               </div>

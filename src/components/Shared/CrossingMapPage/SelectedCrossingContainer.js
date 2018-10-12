@@ -37,7 +37,7 @@ class SelectedCrossingContainer extends Component {
   }
 
   render() {
-    const { currentUser, selectCrossing, allCommunities } = this.props;
+    const { currentUser, selectCrossing, allCommunities, onDash } = this.props;
 
     const isLoading =
       !this.props.data ||
@@ -77,6 +77,7 @@ class SelectedCrossingContainer extends Component {
         listOrMap="map"
         selectCrossing={selectCrossing}
         allCommunities={allCommunities}
+        onDash={onDash}
       />
     ) : (
       <PublicCrossingListItem
@@ -85,6 +86,7 @@ class SelectedCrossingContainer extends Component {
         reasons={statusReasons}
         durations={statusDurations}
         allCommunities={allCommunities}
+        onDash={onDash}
       />
     );
   }
