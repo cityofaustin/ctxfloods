@@ -1,6 +1,6 @@
 $dropdown-height: 40px;
 
-.Dropdown {
+.DropdownFacade {
   height: $dropdown-height;
   background-color: #f9f9fa;
   border: 1px solid #d6d4dc;
@@ -9,6 +9,15 @@ $dropdown-height: 40px;
   display: block; // "block" rather than "flex" is required for arrow to display
   position: relative;
   overflow: hidden;
+}
+
+.Dropdown {
+  @extend .DropdownFacade;
+}
+
+.SingleOptionDropdown {
+  @extend .DropdownFacade;
+  padding: 10px;
 }
 
 // Arrow

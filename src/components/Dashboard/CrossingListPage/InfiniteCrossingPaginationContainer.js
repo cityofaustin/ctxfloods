@@ -94,6 +94,7 @@ export class InfiniteCrossingPaginationContainer extends Component {
       loadMoreRows,
       currentUser,
       sortByUpdatedAsc,
+      onDash
     } = this.props;
 
     if (isLoading) {
@@ -123,6 +124,7 @@ export class InfiniteCrossingPaginationContainer extends Component {
                 sortByUpdatedAsc={sortByUpdatedAsc}
                 crossingQueryVariables={crossingQueryVariables}
                 cqClassName={cqClassName}
+                onDash={onDash}
               />
             </div>
           );

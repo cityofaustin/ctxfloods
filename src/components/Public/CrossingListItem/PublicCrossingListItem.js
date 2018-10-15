@@ -22,7 +22,7 @@ const containerQuery = {
 
 class PublicCrossingListItem extends React.Component {
   render() {
-    const { crossing, allCommunities, reasons, durations } = this.props;
+    const { crossing, allCommunities, reasons, durations, onDash } = this.props;
     const { createdAt } = crossing.statusUpdateByLatestStatusUpdateId;
 
     var show = [];
@@ -59,6 +59,7 @@ class PublicCrossingListItem extends React.Component {
               <CrossingCommunityList
                 crossing={crossing}
                 allCommunities={allCommunities}
+                onDash={onDash}
               />
             </div>
           </div>

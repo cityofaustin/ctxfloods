@@ -106,6 +106,7 @@ export default class InfiniteCrossingList extends React.Component {
         {({ measure }) => (
           <div className="CrossingListItemMeasureContainer" style={style}>
             <DashboardCrossingListItem
+              onDash={this.props.onDash}
               onLoad={measure}
               key={crossing.id}
               crossing={crossing}

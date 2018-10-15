@@ -191,6 +191,7 @@ class CrossingMapSidebar extends Component {
                     currentUser={currentUser}
                     selectCrossing={selectCrossing}
                     allCommunities={allCommunities}
+                    onDash={onDash}
                   />
                 )}
               {!searchFocused &&
@@ -298,6 +299,7 @@ class CrossingMapSidebar extends Component {
                         crossingName={c.name}
                         communityIds={c.communityIds}
                         allCommunities={allCommunities}
+                        onDash={onDash}
                       />
                     ))}
                   </div>

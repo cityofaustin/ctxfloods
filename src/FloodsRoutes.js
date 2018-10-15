@@ -171,6 +171,7 @@ class FloodsRoutes extends Component {
             'floods_super_admin',
           ])}
           currentUser={currentUser}
+          onDash={true}
         />
         <PrivateRoute
           path="/dashboard/crossing/:id"
