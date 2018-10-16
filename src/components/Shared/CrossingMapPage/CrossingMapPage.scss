@@ -47,12 +47,14 @@
   flex: auto;
   display: flex;
   flex-direction: column;
+  min-height: 0px; // Required for map UI to work on non-chrome browsers
 }
 
 .fullscreen {
   flex: auto;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .CrossingMapPage {
@@ -60,9 +62,10 @@
   display: flex;
   position: relative;
   flex-direction: row;
+  height: 100%;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 860px) {
   .CrossingMapPage {
     flex-direction: column;
   }

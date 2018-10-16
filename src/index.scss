@@ -32,4 +32,6 @@ body {
   height: calc(100% - 1px);
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }

@@ -8,9 +8,36 @@ import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/st
 import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
+import MobileDetailsContainer from 'components/Shared/Map/MobileDetailsContainer';
+
 class SelectedCrossingContainer extends Component {
+  componentDidUpdate(prevProps) {
+    if (!this.props.isMobileDetails) return;
+
+    if (
+      this.props.data &&
+      !this.props.data.loading &&
+      this.props.data.crossingById
+    ) {
+      if (!prevProps.data || !prevProps.data.crossingById) {
+        const {
+          crossingId,
+          statusReasonId,
+          statusDurationId,
+          notes,
+        } = this.props.data.crossingById.statusUpdateByLatestStatusUpdateId;
+        this.props.setHeight(
+          crossingId,
+          statusReasonId,
+          statusDurationId,
+          notes,
+        );
+      }
+    }
+  }
+
   render() {
-    const { currentUser, selectCrossing, allCommunities } = this.props;
+    const { currentUser, selectCrossing, allCommunities, onDash } = this.props;
 
     const isLoading =
       !this.props.data ||
@@ -30,6 +57,16 @@ class SelectedCrossingContainer extends Component {
     const statusDurations = this.props.statusDurationsQuery.allStatusDurations
       .nodes;
 
+    if (this.props.isMobileDetails) {
+      return (
+        <MobileDetailsContainer
+          crossing={crossing}
+          reasons={statusReasons}
+          durations={statusDurations}
+        />
+      );
+    }
+
     return currentUser ? (
       <DashboardCrossingListItem
         key={crossing.id}
@@ -40,6 +77,7 @@ class SelectedCrossingContainer extends Component {
         listOrMap="map"
         selectCrossing={selectCrossing}
         allCommunities={allCommunities}
+        onDash={onDash}
       />
     ) : (
       <PublicCrossingListItem
@@ -48,6 +86,7 @@ class SelectedCrossingContainer extends Component {
         reasons={statusReasons}
         durations={statusDurations}
         allCommunities={allCommunities}
+        onDash={onDash}
       />
     );
   }

@@ -1,1 +1,1 @@
-export const LARGE_ITEM_MIN_WIDTH = 600;
+export const LARGE_ITEM_MIN_WIDTH = 860;

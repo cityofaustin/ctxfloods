@@ -8330,6 +8330,10 @@ react-onclickoutside@^6.7.1:
   version "6.7.1"
   resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.7.1.tgz#6a5b5b8b4eae6b776259712c89c8a2b36b17be93"
 
+react-recaptcha@^2.3.9:
+  version "2.3.9"
+  resolved "https://registry.yarnpkg.com/react-recaptcha/-/react-recaptcha-2.3.9.tgz#b20870f498bca10438c95b7f8460825f46c758d3"
+
 react-router-dom@^4.1.1:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.2.2.tgz#c8a81df3adc58bba8a76782e946cbd4eae649b8d"

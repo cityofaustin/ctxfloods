@@ -16,13 +16,16 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
       crossingId,
       crossing,
       crossingName,
-      allCommunities
+      allCommunities,
+      onDash
     } = this.props;
 
     return (
       <div
         className="CrossingMapPage_sidebar-nearby-crossing-container"
-        onClick={() => this.props.history.push(`/map/crossing/${crossingId}`)}
+        onClick={() => {
+          this.props.history.push(`${this.props.onDash ? '/dashboard' : ''}/map/crossing/${crossingId}`);
+        }}
       >
         <div className="CrossingMapPage_sidebar-nearby-crossing-status-icon">
           <img
@@ -39,7 +42,11 @@ class CrossingSidebarNearbyCrossingItem extends React.Component {
             {crossingName}
           </div>
           <div className="CrossingMapPage_sidebar-nearby-crossing-details-communities">
-            <CrossingCommunityList crossing={crossing} allCommunities={allCommunities}/>
+            <CrossingCommunityList
+              crossing={crossing}
+              allCommunities={allCommunities}
+              onDash={onDash}
+            />
           </div>
         </div>
         <div className="CrossingMapPage_sidebar-nearby-crossing-update-datetime">

@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { ContainerQuery } from 'react-container-query';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import classnames from 'classnames';
 import Fullscreen from 'react-full-screen';
 import FontAwesome from 'react-fontawesome';
 
 import CrossingMap from 'components/Shared/Map/CrossingMap';
 import CrossingMapSidebar from 'components/Shared/CrossingMapPage/CrossingMapSidebar';
 import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
-import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
 import FilterCheckbox from 'components/Shared/FilterCheckbox';
 
 import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
@@ -63,7 +61,6 @@ class CrossingMapPage extends Component {
       selectedCommunity: null,
       viewport: viewportAndCenter.viewport,
       center: viewportAndCenter.center,
-      showDetailsOnMobile: false,
       mapLoaded: false,
       searchFocused: false,
     };
@@ -79,8 +76,11 @@ class CrossingMapPage extends Component {
       this.props.match.params.selectedCrossingId !==
       prevProps.match.params.selectedCrossingId;
 
-    if(didSelectedCrossingChange && this.state.mapLoaded) {
-      this.selectCrossing(this.props.match.params.selectedCrossingId && Number(this.props.match.params.selectedCrossingId));
+    if (didSelectedCrossingChange && this.state.mapLoaded) {
+      this.selectCrossing(
+        this.props.match.params.selectedCrossingId &&
+          Number(this.props.match.params.selectedCrossingId),
+      );
     }
 
     if (didLoad || didSelectedCommunityChange) {
@@ -144,13 +144,15 @@ class CrossingMapPage extends Component {
   };
 
   selectCrossing = (crossingId, crossingStatus) => {
-    this.setState({
-      selectedCrossingId: crossingId,
-      selectedCrossingStatus: crossingStatus,
-      showDetailsOnMobile: false,
-    }, () => {
-      this.triggerMapResize();
-    });
+    this.setState(
+      {
+        selectedCrossingId: crossingId,
+        selectedCrossingStatus: crossingStatus,
+      },
+      () => {
+        this.triggerMapResize();
+      },
+    );
   };
 
   toggleFullscreen = () => {
@@ -178,13 +180,9 @@ class CrossingMapPage extends Component {
     this.setState({ selectedLocationCoordinates: coordinates });
   };
 
-  setShowDetailsOnMobile = showDetails => {
-    this.setState({ showDetailsOnMobile: showDetails });
-  };
-
   setMapLoaded = () => {
-    this.setState({mapLoaded: true});
-    if(this.props.match.params.selectedCrossingId)
+    this.setState({ mapLoaded: true });
+    if (this.props.match.params.selectedCrossingId)
       this.selectCrossing(Number(this.props.match.params.selectedCrossingId));
   };
 
@@ -236,6 +234,8 @@ class CrossingMapPage extends Component {
       ? this.props.longtermCrossings.searchCrossings.nodes
       : null;
 
+    const onDash = this.props.match.url.includes('dashboard')
+
     return (
       <ContainerQuery query={containerQuery}>
         {params => (
@@ -259,9 +259,9 @@ class CrossingMapPage extends Component {
                         this.setSelectedLocationCoordinates
                       }
                       mobile={true}
-                      showDetailsOnMobile={this.state.showDetailsOnMobile}
+                      onDash={onDash}
                     />
-                    {!selectedCrossingId && !this.state.searchFocused && (
+                    {!this.state.searchFocused && (
                       <div className="CrossingMapPage__mobile-status-filters">
                         <FilterCheckbox
                           isChecked={this.state.showOpen}
@@ -289,16 +289,6 @@ class CrossingMapPage extends Component {
                         </FilterCheckbox>
                       </div>
                     )}
-                    {!params.fullsize &&
-                      selectedCrossingId && this.state.showDetailsOnMobile && (
-                        <div className="CrossingMapPage__mobile-overlay">
-                          <SelectedCrossingContainer
-                            crossingId={selectedCrossingId}
-                            currentUser={currentUser}
-                            selectCrossing={this.selectCrossing}
-                          />
-                        </div>
-                      )}
                   </React.Fragment>
                 )}
                 {params.fullsize && (
@@ -335,15 +325,11 @@ class CrossingMapPage extends Component {
                         this.setSelectedLocationCoordinates
                       }
                       triggerMapResize={this.triggerMapResize}
+                      onDash={onDash}
                     />
                   </React.Fragment>
                 )}
-                <div
-                  className={classnames('CrossingMapPage__map-container', {
-                    'CrossingMapPage__map-container--hidden':
-                      !params.fullsize && selectedCrossingId && this.state.showDetailsOnMobile,
-                  })}
-                >
+                <div className="CrossingMapPage__map-container">
                   <CrossingMap
                     mapHeight="100%"
                     mapWidth="100%"
@@ -368,9 +354,12 @@ class CrossingMapPage extends Component {
                     }
                     registerMapResizeCallback={this.registerMapResizeCallback}
                     mobile={!params.fullsize}
-                    setShowDetailsOnMobile={this.setShowDetailsOnMobile}
                     setMapLoaded={this.setMapLoaded}
-                    autoGeoLocate={!this.props.match.params.selectedCommunityId && !this.props.match.params.selectedCrossingId}
+                    autoGeoLocate={
+                      !this.props.match.params.selectedCommunityId &&
+                      !this.props.match.params.selectedCrossingId
+                    }
+                    onDash={onDash}
                   />
                 </div>
               </div>

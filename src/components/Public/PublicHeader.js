@@ -18,7 +18,9 @@ export default function PublicHeader({ location }) {
         >
           <Link to="/map">Crossings Map</Link>
         </li>
-        <CommunityListDropdownButton />
+        <CommunityListDropdownButton
+          onDash={location.pathname.includes('dashboard')}
+        />
         <li
           className={
             location.pathname.endsWith('safety')
@@ -45,6 +47,15 @@ export default function PublicHeader({ location }) {
           }
         >
           <Link to="/about">About</Link>
+        </li>
+        <li
+          className={
+            location.pathname.endsWith('report-incident')
+              ? 'Header__tab--active'
+              : 'Header__tab'
+          }
+        >
+          <Link to="/report-incident">Report Incident</Link>
         </li>
       </Header>
     </div>

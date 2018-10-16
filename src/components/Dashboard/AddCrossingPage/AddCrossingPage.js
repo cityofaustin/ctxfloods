@@ -17,7 +17,6 @@ class AddCrossingPage extends Component {
   };
 
   render() {
-
     const isLoading = !this.props.data || this.props.data.loading;
 
     if (isLoading) {

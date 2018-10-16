@@ -88,7 +88,8 @@ class AddUserPage extends Component {
     const { currentUser } = this.props;
     const { showModal, userAdded, emailSent, errorMessage } = this.state;
 
-    const redirect = this.state.redirect || (userAdded && emailSent && !showModal);
+    const redirect =
+      this.state.redirect || (userAdded && emailSent && !showModal);
 
     if (redirect) {
       return <Redirect to="/dashboard/users" push />;
