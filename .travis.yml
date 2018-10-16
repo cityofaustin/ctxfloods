@@ -21,4 +21,4 @@ env:
   - secure: WX8iki16LxMj5WfiLfYz6GyGu+uHJAnRTli37uy4KrL4xQAcoAMzmxi7PQumzD5iECxuaDhiBoveRAD1+IvEy+jtl32Z6WLz4VnhYoR7OKCHL9rqi/f1KPMl6AkIWHg0VZDFuOdldbgsa7vNeiqIC99XwQ/qV/7jeKIWx5rCieK2SHmQ7QcdXkZPYiOT+qVB1BscsivllaVKW/KnBoEKdzocKrtnKueaKatWRVWTK9DZupZg4KQuMRfcP9d5WmbLBjPJ5nHWcejXGNZoKxp8wIi2DQ9DGUqDtoGsDrWaJgsjd58s/1k1nTNHAG/qCTNajcaO1J8DzjQdFZcLRO2ux3w7OMeBKiEGBWRcGVso0i2bVhYZFCaIJ+sA6UtgLbYRcUQulK0yM2I5t7ZQJ/+jdgZLS/Zg3IogZSV0sXaS1pVUgN/jV0mAyW4s2L+jarCSPlY4CtHz2guZ60ZJXztuv6Rv6etOgLQLPuXv9K5LrTyp6jF3uQl/p6nNBG4A+/EkgLFj0XL21fcP0TzDR7/WzbjuIBRCQxvFqRl5Z6te+aLJt2wI0Clp+zELDH4Fx4F52BYYugmJwgAA5y5ZlgJ1cVBvtW+mf7jEx03IXIY5xa9fS84EUs1IXgza6wLkg4KSj3Y2IGdRwIL0OrzFL5XCdHpy0/my8xSFq569P+cBRv4=
   - CURRENT_FLOODS_BRANCH_NAME=legacy-crossings
   - S3_BUCKET=ctxfloods-frontend-legacy-crossings
-  - REACT_APP_BACKEND_URL=https://5199xk4uxc.execute-api.us-east-1.amazonaws.com/dev
+  - REACT_APP_BACKEND_URL=https://71nyzv9cjd.execute-api.us-east-1.amazonaws.com/prod
