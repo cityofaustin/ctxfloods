@@ -1,0 +1,53 @@
+$dropdown-height: 40px;
+
+.DropdownFacade {
+  height: $dropdown-height;
+  background-color: #f9f9fa;
+  border: 1px solid #d6d4dc;
+  background-size: 22px;
+  border-radius: 5px;
+  display: block; // "block" rather than "flex" is required for arrow to display
+  position: relative;
+  overflow: hidden;
+}
+
+.Dropdown {
+  @extend .DropdownFacade;
+}
+
+.SingleOptionDropdown {
+  @extend .DropdownFacade;
+  padding: 10px;
+}
+
+// Arrow
+.Dropdown::after {
+  font-family: "FontAwesome";
+  content: "\f078";
+  background: #5f7d8c;
+  color: #fff;
+  font-size: 1.3rem;
+  position: absolute;
+  pointer-events: none;
+  text-align: center;
+  line-height: $dropdown-height;
+  height: $dropdown-height;
+  width: $dropdown-height;
+  border-radius: inherit;
+  margin-left: -$dropdown-height + 1;
+  margin-top: -.7px;
+  position: absolute;
+}
+
+.Dropdown__select {
+  flex: 1;
+  background: transparent;
+  padding: 10px;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  border: 0;
+  border-radius: 0;
+  height: 40px;
+  -webkit-appearance: none;
+  width: 100%;
+}

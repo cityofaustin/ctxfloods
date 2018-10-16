@@ -15,7 +15,8 @@ export default function TopBar({ children }) {
             rel="noopener noreferrer"
           >
             atxfloods.com
-          </a>.
+          </a>
+          .
         </div>
       </div>
       <div>{children}</div>

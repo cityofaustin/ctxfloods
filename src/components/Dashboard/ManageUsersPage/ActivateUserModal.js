@@ -6,11 +6,17 @@ import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 
 class ActivateUserModal extends Component {
   render() {
-    const { userActivated, emailSent, onClose, errorMessage, userIsNew } = this.props;
+    const {
+      userActivated,
+      emailSent,
+      onClose,
+      errorMessage,
+      userIsNew,
+    } = this.props;
 
     return (
       <Modal
-        title={userIsNew ? "Adding User" : "Reactivating User"}
+        title={userIsNew ? 'Adding User' : 'Reactivating User'}
         isOpen
         onClose={onClose}
         footer={
@@ -27,7 +33,13 @@ class ActivateUserModal extends Component {
         {!(userActivated && emailSent) &&
           !errorMessage && (
             <div>
-              {!userActivated && <p>{userIsNew ? "Adding User to Database" : "Reactivating User in Database"}</p>}
+              {!userActivated && (
+                <p>
+                  {userIsNew
+                    ? 'Adding User to Database'
+                    : 'Reactivating User in Database'}
+                </p>
+              )}
               {userActivated && !emailSent && <p>Sending registration email</p>}
               <div>
                 <FontAwesome name="spinner" size="lg" className="fa-spin" />

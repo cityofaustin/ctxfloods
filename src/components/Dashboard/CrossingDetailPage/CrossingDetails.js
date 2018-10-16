@@ -14,7 +14,7 @@ import Label from 'components/Shared/Form/Label';
 
 import updateCrossingFragment from 'components/Dashboard/CrossingListPage/queries/updateCrossingFragment';
 import addCrossingToCommunityFragment from 'components/Dashboard/CrossingListPage/queries/addCrossingToCommunityFragment';
-import Dropdown from 'components/Dashboard/Dropdown/Dropdown';
+import Dropdown from 'components/Shared/Form/Dropdown';
 
 import CommunityTag from './CommunityTag';
 import CommunityTagAddButton from './CommunityTagAddButton';
@@ -258,7 +258,11 @@ class CrossingDetails extends Component {
               </div>
             )}
             {!addMode && (
-              <CameraEditButton crossingId={crossing.id} cameraType={crossing.cameraType} cameraId={crossing.cameraId} />
+              <CameraEditButton
+                crossingId={crossing.id}
+                cameraType={crossing.cameraType}
+                cameraId={crossing.cameraId}
+              />
             )}
             <div className="CrossingDetails__communities">
               <Label>Communities</Label>

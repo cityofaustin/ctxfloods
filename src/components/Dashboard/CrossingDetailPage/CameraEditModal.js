@@ -82,11 +82,7 @@ class CameraEditModal extends Component {
         onClose={this.props.onClose}
         footer={
           <div>
-            <ButtonPrimary
-              onClick={this.updateCamera}
-            >
-              Save
-            </ButtonPrimary>
+            <ButtonPrimary onClick={this.updateCamera}>Save</ButtonPrimary>
             <ButtonSecondary onClick={this.props.onClose}>
               Cancel
             </ButtonSecondary>
@@ -109,7 +105,10 @@ class CameraEditModal extends Component {
             onChange={this.cameraIdChanged}
           />
         </div>
-        <CameraViewer cameraId={this.state.cameraId} cameraType={this.state.cameraType} />
+        <CameraViewer
+          cameraId={this.state.cameraId}
+          cameraType={this.state.cameraType}
+        />
         {this.state.errorMessage && (
           <ModalErrorMessage>{this.state.errorMessage}</ModalErrorMessage>
         )}
@@ -119,8 +118,14 @@ class CameraEditModal extends Component {
 }
 
 const updateCameraMutation = gql`
-  mutation($crossingId:Int!, $cameraId:String!, $cameraType:String!) {
-    setCameraForCrossing(input:{crossingId:$crossingId, cameraId:$cameraId, cameraType:$cameraType}) {
+  mutation($crossingId: Int!, $cameraId: String!, $cameraType: String!) {
+    setCameraForCrossing(
+      input: {
+        crossingId: $crossingId
+        cameraId: $cameraId
+        cameraType: $cameraType
+      }
+    ) {
       crossing {
         id
         cameraId

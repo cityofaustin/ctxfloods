@@ -44,7 +44,7 @@ class CrossingListPage extends Component {
   };
 
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, onDash } = this.props;
 
     return (
       <div className="CrossingListPage">
@@ -73,6 +73,7 @@ class CrossingListPage extends Component {
           sortByUpdatedAsc={this.state.sortByUpdatedAsc}
           searchQuery={this.state.formattedSearchQuery}
           currentUser={currentUser}
+          onDash={onDash}
         />
       </div>
     );

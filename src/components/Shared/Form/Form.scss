@@ -1,4 +1,4 @@
-.Shared__text-input {
+.Shared__text-input, .Shared__text-area {
   border: 1px solid #b0bec5;
   padding: 1rem;
   border-radius: 5px;
@@ -9,6 +9,10 @@
     border-color: #04a9f4;
     box-shadow: 0 0 0 1px #04a9f4;
   }
+}
+
+.Shared__text-area {
+  width: 100%;
 }
 
 .Shared__text-input--disabled {
@@ -30,4 +34,12 @@
   font-weight: 400;
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
+}
+
+.Shared__checkbox {
+  padding: 0.3rem 0;
+  font-size: 1.5rem;
+}
+.Shared__checkbox input {
+  margin-right: 1rem;
 }
