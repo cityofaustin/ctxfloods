@@ -23,3 +23,6 @@ fi
 
 # Load static files into bucket
 aws s3 sync $CURRENT_DIR/../build/. s3://$BUCKET_NAME --acl public-read
+
+# Enable Static Web Hosting
+aws s3api put-bucket-website --bucket $BUCKET_NAME --website-configuration file://$CURRENT_DIR/website.json
