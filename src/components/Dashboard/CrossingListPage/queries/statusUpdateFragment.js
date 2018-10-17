@@ -15,6 +15,7 @@ const statusUpdateFragment = gql`
       statusDurationId
       createdAt
       notes
+      image
       userByCreatorId {
         firstName
         lastName
