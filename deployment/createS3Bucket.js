@@ -3,8 +3,12 @@ const s3 = new aws.S3();
 
 const bucketName = process.env.BUCKET_NAME;
 
-s3.listBuckets()
-.then((data) => {
+s3.listBuckets((err, data) => {
+  if (err) {
+    console.log('Error', err);
+    process.exit(1);
+  }
+
   if (data.Buckets.find(bucket => bucket.Name === bucketName)) {
     console.log(`Bucket "${bucketName}" already exists.`);
   } else {
@@ -16,13 +20,14 @@ s3.listBuckets()
     const bucketParams = {
       Bucket: bucketName
     };
-    return s3.createBucket(bucketParams)
-    .then(() => {
-      console.log(`Bucket "${bucketName}" built in region ${data.Location}`);
-    })
+
+    s3.createBucket(bucketParams, (err, data) => {
+      if (err) {
+        console.log(`Bucket "${bucketName}" failed to build.`, err);
+        process.exit(1);
+      } else {
+        console.log(`Bucket "${bucketName}" built in region ${data.Location}`);
+      }
+    });
   }
-})
-.catch((err) => {
-  console.error(err);
-  process.exit(1);
-})
+});

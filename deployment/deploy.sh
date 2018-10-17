@@ -22,4 +22,4 @@ if [ $? != 0 ]; then
 fi
 
 # Load static files into bucket
-aws s3 sync $CURRENT_DIR/../build/. s3://$BUCKET_NAME --acl public_read
+aws s3 sync $CURRENT_DIR/../build/. s3://$BUCKET_NAME --acl public-read
