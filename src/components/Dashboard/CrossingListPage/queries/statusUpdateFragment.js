@@ -16,6 +16,7 @@ const statusUpdateFragment = gql`
       indefiniteClosure
       createdAt
       notes
+      image
       userByCreatorId {
         firstName
         lastName
