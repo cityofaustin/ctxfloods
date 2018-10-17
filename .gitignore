@@ -4,3 +4,5 @@ src/.DS_Store
 .DS_Store
 **/*.orig
 yarn-error.log
+local
+build

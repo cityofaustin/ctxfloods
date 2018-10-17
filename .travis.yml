@@ -1,17 +1,38 @@
 language: node_js
 node_js:
 - 8
-before_script: yarn;
+
+install:
+  - yarn
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
 script: yarn test;
 before_deploy: yarn build;
-deploy:
-  provider: s3
-  access_key_id: "$AWS_ACCESS_KEY_ID"
-  secret_access_key: "$AWS_SECRET_ACCESS_KEY"
-  bucket: "$S3_BUCKET"
-  skip_cleanup: true
-  local_dir: build
-  acl: public_read
-  on:
-    all_branches: true
-    condition: "$AWS_ACCESS_KEY_ID"
+jobs:
+  include:
+    - stage: deploy
+      name: "Deploy Prod"
+      env: REACT_APP_BACKEND_URL=$TRAVIS_BACKEND_PROD
+      deploy:
+        provider: script
+        script: bash ./deployment/deploy.sh prod
+        skip_cleanup: true
+        on:
+          branch: master
+    - stage: deploy
+      name: "Deploy Prod-Legacy-Sync"
+      deploy:
+        provider: script
+        script: bash ./deployment/deploy.sh prod-legacy-sync
+        skip_cleanup: true
+        on:
+          branch: master
+    - stage: deploy
+      name: "Deploy Dev"
+      deploy:
+        provider: script
+        script: bash ./deployment/deploy.sh
+        skip_cleanup: true
+        on:
+          all_branches: true
+          condition: "$(node ./deployment/checkDevBranchWhitelist.js) = true"
