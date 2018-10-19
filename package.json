@@ -37,7 +37,6 @@
     "react-onclickoutside": "^6.7.1",
     "react-recaptcha": "^2.3.9",
     "react-router-dom": "^4.1.1",
-    "react-test-renderer": "16.2.0",
     "react-virtualized": "9.18.5"
   },
   "devDependencies": {
@@ -47,6 +46,7 @@
     "ctxfloods-backend": "https://github.com/cityofaustin/ctxfloods-backend.git#dev",
     "npm-run-all": "4.1.2",
     "react-scripts": "1.1.1",
+    "react-test-renderer": "^16.5.2",
     "storybook-addon-apollo-graphql": "^0.1.2"
   },
   "scripts": {
