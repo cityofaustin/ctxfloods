@@ -21,6 +21,9 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
+# Build with env variables sourced
+yarn build;
+
 # Load static files into bucket
 aws s3 sync $CURRENT_DIR/../build/. s3://$BUCKET_NAME --acl public-read
 
