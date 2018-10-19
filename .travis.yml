@@ -6,7 +6,6 @@ install:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
 script: yarn test;
-before_deploy: yarn build;
 deploy:
   - provider: script
     script: bash ./deployment/deploy.sh prod
