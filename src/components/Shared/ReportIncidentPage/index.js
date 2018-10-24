@@ -217,7 +217,7 @@ class ReportIncidentPage extends Component {
           </div>
           <div className="ReportIncidentPage__recaptcha">
             <Recaptcha
-              sitekey="6LdY6WEUAAAAADPtMxF-9XCApC-e3XgEeDiqc7Xc"
+              sitekey="6LdUs3YUAAAAALEB7OGR-Gcozoa3xFPMFB5W6GvK"
               render="explicit"
               verifyCallback={recaptchaResponse =>
                 this.setState({ recaptchaResponse })
