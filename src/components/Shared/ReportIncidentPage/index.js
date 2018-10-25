@@ -111,7 +111,7 @@ class ReportIncidentPage extends Component {
           <h2>Incident report #{this.state.createdReport.id} created</h2>
           <p>
             Notified {this.state.usersNotifiedCount} community{' '}
-            {this.state.usersNotifiedCount > 1
+            {this.state.usersNotifiedCount === 1
               ? 'administrators'
               : 'administrator'}
             .
