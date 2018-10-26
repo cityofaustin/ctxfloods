@@ -34,7 +34,7 @@ class ReportIncidentPage extends Component {
 
     this.state = {
       notes: '',
-      description: '',
+      locationDescription: '',
       latitude: null,
       longitude: null,
       communityIds: [],
@@ -62,7 +62,7 @@ class ReportIncidentPage extends Component {
           method: 'POST',
           body: JSON.stringify({
             notes: this.state.notes,
-            description: this.state.description,
+            locationDescription: this.state.locationDescription,
             latitude: this.state.latitude,
             longitude: this.state.longitude,
             communityIds: this.state.communityIds,
