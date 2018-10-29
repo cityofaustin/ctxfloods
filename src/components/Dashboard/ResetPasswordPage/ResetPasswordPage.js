@@ -20,6 +20,7 @@ class ResetPasswordPage extends Component {
       confirmPassword: '',
       passwordResetSuccessfully: false,
       errorHappened: false,
+      errorMessage: ""
     };
 
     const { resetterJwt } = props.match.params;
@@ -40,8 +41,14 @@ class ResetPasswordPage extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const password = this.state.password.trim();
-
-    this.props
+    const confirmPassword = this.state.confirmPassword.trim();
+    if (!password.length || (password !== confirmPassword)) {
+      this.setState({
+        errorHappened: true,
+        errorMessage: "Passwords did not match"
+      })
+    } else {
+      this.props
       .mutate({
         variables: { newPassword: password },
       })
@@ -58,8 +65,10 @@ class ResetPasswordPage extends Component {
         this.setState({
           passwordResetSuccessfully: false,
           errorHappened: true,
+          errorMessage: "Server Error. Failed to reset password."
         });
       });
+    }
   };
 
   render() {
@@ -68,6 +77,7 @@ class ResetPasswordPage extends Component {
       password,
       confirmPassword,
       errorHappened,
+      errorMessage
     } = this.state;
 
     return (
@@ -78,7 +88,7 @@ class ResetPasswordPage extends Component {
             {errorHappened && (
               <div className="ResetPasswordPage__error-text">
                 {' '}
-                Failed to reset password{' '}
+                {errorMessage}{' '}
               </div>
             )}
             <form onSubmit={this.handleSubmit}>

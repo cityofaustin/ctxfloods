@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import Recaptcha from 'react-recaptcha';
+import Recaptcha from "react-google-recaptcha";
 
 import { logError } from 'services/logger';
 
@@ -34,7 +34,7 @@ class ReportIncidentPage extends Component {
 
     this.state = {
       notes: '',
-      description: '',
+      locationDescription: '',
       latitude: null,
       longitude: null,
       communityIds: [],
@@ -62,7 +62,7 @@ class ReportIncidentPage extends Component {
           method: 'POST',
           body: JSON.stringify({
             notes: this.state.notes,
-            description: this.state.description,
+            locationDescription: this.state.locationDescription,
             latitude: this.state.latitude,
             longitude: this.state.longitude,
             communityIds: this.state.communityIds,
@@ -111,7 +111,7 @@ class ReportIncidentPage extends Component {
           <h2>Incident report #{this.state.createdReport.id} created</h2>
           <p>
             Notified {this.state.usersNotifiedCount} community{' '}
-            {this.state.usersNotifiedCount > 1
+            {this.state.usersNotifiedCount === 1
               ? 'administrators'
               : 'administrator'}
             .
@@ -217,9 +217,9 @@ class ReportIncidentPage extends Component {
           </div>
           <div className="ReportIncidentPage__recaptcha">
             <Recaptcha
-              sitekey="6LdY6WEUAAAAADPtMxF-9XCApC-e3XgEeDiqc7Xc"
+              sitekey="6LdUs3YUAAAAALEB7OGR-Gcozoa3xFPMFB5W6GvK"
               render="explicit"
-              verifyCallback={recaptchaResponse =>
+              onChange={recaptchaResponse =>
                 this.setState({ recaptchaResponse })
               }
             />

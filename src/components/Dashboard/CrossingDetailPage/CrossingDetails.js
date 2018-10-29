@@ -265,7 +265,7 @@ class CrossingDetails extends Component {
               />
             )}
             <div className="CrossingDetails__communities">
-              <Label>Communities</Label>
+              <Label>{!addMode ? "Communities" : "Community"}</Label>
               <div className="CrossingDetails__communities-list">
                 {crossingCommunities.map(community => {
                   return (
@@ -281,7 +281,8 @@ class CrossingDetails extends Component {
                     />
                   );
                 })}
-                {!this.state.addCommunity &&
+                { !this.props.addMode &&
+                  !this.state.addCommunity &&
                   this.state.dropdownCommunities.length > 0 &&
                   currentUser.role !== 'floods_community_editor' && (
                     <CommunityTagAddButton onClick={this.addCommunityClicked} />

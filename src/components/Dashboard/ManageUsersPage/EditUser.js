@@ -96,7 +96,8 @@ class EditUser extends Component {
       return 'Loading';
     }
 
-    const communities = this.props.data.allCommunities.nodes;
+    const communities = this.props.data.allCommunities.nodes
+      .filter(node => node.id !== 1337 && node.id !== 9002);
 
     const { onCancel } = this.props;
     const {
