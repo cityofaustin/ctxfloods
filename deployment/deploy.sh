@@ -29,3 +29,15 @@ aws s3 sync $CURRENT_DIR/../build/. s3://$BUCKET_NAME --acl public-read
 
 # Enable Static Web Hosting
 aws s3api put-bucket-website --bucket $BUCKET_NAME --website-configuration file://$CURRENT_DIR/website.json
+
+# Invalidate files from CloudFront cache for production deployments.
+if \
+  [ "$DEPLOY_ENV" = "prod" ] || \
+  [ "$DEPLOY_ENV" = "prod-legacy-sync" ]
+then
+  node $CURRENT_DIR/invalidateCloudFront.js
+  if [ $? != 0 ]; then
+    echo "CloudFront Invalidation failed"
+    exit 1
+  fi
+fi
