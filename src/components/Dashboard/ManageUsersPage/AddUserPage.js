@@ -44,6 +44,7 @@ class AddUserPage extends Component {
           phoneNumber: user.phoneNumber,
           password: password,
         },
+        refetchQueries: ['searchUsers']
       })
       .then(({ data }) => {
         this.setState({ userAdded: true });
