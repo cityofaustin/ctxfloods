@@ -92,7 +92,12 @@ class AddUserPage extends Component {
       this.state.redirect || (userAdded && emailSent && !showModal);
 
     if (redirect) {
-      return <Redirect to="/dashboard/users" push />;
+      return <Redirect
+        push
+        to={{
+          pathname: '/dashboard/users',
+          state: { referrer: this.props.location}
+        }} />;
     }
 
     return (
