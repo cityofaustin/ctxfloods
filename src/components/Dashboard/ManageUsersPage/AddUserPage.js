@@ -51,7 +51,13 @@ class AddUserPage extends Component {
       })
       .catch(err => {
         logError(err);
-        this.setState({ errorMessage: err.message });
+        let errMessage = err.message;
+        if (err.message === `GraphQL error: duplicate key value violates unique constraint "user_account_email_key"`) {
+          errMessage = "An account with that email address already exists.";
+        } else if (err.message === `GraphQL error: new row for relation "user_account" violates check constraint "user_account_email_check"`) {
+          errMessage = "The email address entered is invalid. Please update with a valid email address to continue.";
+        }
+        this.setState({ errorMessage: errMessage });
       });
   };
 
