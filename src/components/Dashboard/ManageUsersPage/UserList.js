@@ -8,10 +8,6 @@ import userActiveFragment from 'components/Dashboard/ManageUsersPage/queries/use
 
 const manageUsersHeaders = [
   {
-    title: '',
-    type: 'checkbox_select',
-  },
-  {
     title: 'Name',
   },
   {
@@ -88,7 +84,7 @@ class UserList extends Component {
       <Table
         data={userData}
         headers={manageUsersHeaders}
-        checkboxColumn={true}
+        checkboxColumn={false}
       />
     );
   }
