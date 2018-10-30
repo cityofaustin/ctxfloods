@@ -99,6 +99,7 @@ const UserByIdQuery = gql`
       lastName
       jobTitle
       phoneNumber
+      communityId
     }
   }
 `;
