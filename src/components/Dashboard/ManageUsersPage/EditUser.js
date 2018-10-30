@@ -22,6 +22,7 @@ class EditUser extends Component {
         lastName: userToEdit.lastName,
         jobTitle: userToEdit.jobTitle,
         phoneNumber: userToEdit.phoneNumber,
+        communityId: userToEdit.communityId,
       };
     } else {
       this.state = {
@@ -96,8 +97,11 @@ class EditUser extends Component {
       return 'Loading';
     }
 
-    const communities = this.props.data.allCommunities.nodes
-      .filter(node => node.id !== 1337 && node.id !== 9002);
+    let communities = this.props.data.allCommunities.nodes
+
+    if (this.state.newUser) {
+      communities = communities.filter(node => node.id !== 1337 && node.id !== 9002);
+    }
 
     const { onCancel } = this.props;
     const {
