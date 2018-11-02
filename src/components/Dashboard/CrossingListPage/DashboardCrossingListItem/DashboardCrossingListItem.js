@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import moment from 'moment';
 import { logError } from 'services/logger';
 
-import Date from 'components/Shared/DateTime/Date';
+import PrettyDate from 'components/Shared/DateTime/Date';
 import Hour from 'components/Shared/DateTime/Hour';
 import Location from 'components/Shared/CrossingListItem/Location';
 import User from 'components/Shared/CrossingListItem/User';
@@ -13,6 +13,7 @@ import CrossingCommunityList from 'components/Shared/CrossingListItem/CrossingCo
 import StatusToggle from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/StatusToggle';
 import DashboardCrossingListItemControl from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItemControl';
 import Dropdown from 'components/Shared/Form/Dropdown';
+import DatePicker from 'components/Shared/DatePicker';
 import SingleOptionDropdown from'components/Shared/Form/Dropdown/SingleOptionDropdown';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
@@ -25,6 +26,7 @@ import statusUpdateFragment from 'components/Dashboard/CrossingListPage/queries/
 
 import * as statusConstants from 'constants/StatusConstants';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
+import { INDEFINITE } from 'constants/StatusConstants';
 
 import 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItem.css';
 
@@ -43,7 +45,7 @@ class DashboardCrossingListItem extends React.Component {
       selectedReason:
         props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId,
       selectedDuration:
-        props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId,
+        props.crossing.statusUpdateByLatestStatusUpdateId.statusDurationId || new Date(),
       notes: props.crossing.statusUpdateByLatestStatusUpdateId.notes,
     };
   }
@@ -418,7 +420,7 @@ class DashboardCrossingListItem extends React.Component {
       selectedReason: this.props.reasons.find(
         reason => reason.statusId === statusConstants.LONGTERM,
       ).id,
-      selectedDuration: this.props.durations[0].id,
+      selectedDuration: null,
     });
 
     if (this.props.clearMeasurerCache) {
@@ -434,8 +436,15 @@ class DashboardCrossingListItem extends React.Component {
     }
   };
 
-  durationChanged = e => {
-    this.setState({ selectedDuration: e.target.value });
+  openDateChanged = openDate => {
+    console.log("ey you picked a date", openDate)
+    if (openDate === INDEFINITE) {
+      this.setState({ selectedOpenDate: null });
+      this.setState({ selectedIndefiniteClosure: true });
+    } else {
+      this.setState({ selectedOpenDate: openDate });
+      this.setState({ selectedIndefiniteClosure: false });
+    }
 
     if (this.props.clearMeasurerCache) {
       this.props.clearMeasurerCache();
@@ -541,7 +550,7 @@ class DashboardCrossingListItem extends React.Component {
             </div>
             <div className="DashboardCrossingListItem__overview-meta">
               <div>
-                <Date date={createdAt} />
+                <PrettyDate date={createdAt} />
               </div>
               <div>
                 <Hour date={createdAt} />
@@ -601,10 +610,9 @@ class DashboardCrossingListItem extends React.Component {
               label="Duration"
               isRequired={this.isDirty()}
             >
-              <Dropdown
-                options={durations}
-                selected={this.state.selectedDuration}
-                onChange={this.durationChanged}
+              <DatePicker
+                date={this.state.openDate}
+                onChange={this.openDateChanged}
               />
             </DashboardCrossingListItemControl>
           )}
