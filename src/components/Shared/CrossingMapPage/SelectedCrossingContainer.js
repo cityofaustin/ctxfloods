@@ -5,7 +5,6 @@ import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import statusUpdateFragment from 'components/Dashboard/CrossingListPage/queries/statusUpdateFragment';
 import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/statusReasonsQuery';
-import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
 import MobileDetailsContainer from 'components/Shared/Map/MobileDetailsContainer';
@@ -23,13 +22,15 @@ class SelectedCrossingContainer extends Component {
         const {
           crossingId,
           statusReasonId,
-          statusDurationId,
+          openDate,
+          indefiniteClosure,
           notes,
         } = this.props.data.crossingById.statusUpdateByLatestStatusUpdateId;
         this.props.setHeight(
           crossingId,
           statusReasonId,
-          statusDurationId,
+          openDate,
+          indefiniteClosure,
           notes,
         );
       }
@@ -44,8 +45,6 @@ class SelectedCrossingContainer extends Component {
       this.props.data.loading ||
       !this.props.statusReasonsQuery ||
       this.props.statusReasonsQuery.loading ||
-      !this.props.statusDurationsQuery ||
-      this.props.statusDurationsQuery.loading ||
       !this.props.data.crossingById;
 
     if (isLoading) {
@@ -54,15 +53,12 @@ class SelectedCrossingContainer extends Component {
 
     const crossing = this.props.data.crossingById;
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
-    const statusDurations = this.props.statusDurationsQuery.allStatusDurations
-      .nodes;
 
     if (this.props.isMobileDetails) {
       return (
         <MobileDetailsContainer
           crossing={crossing}
           reasons={statusReasons}
-          durations={statusDurations}
         />
       );
     }
@@ -72,7 +68,6 @@ class SelectedCrossingContainer extends Component {
         key={crossing.id}
         crossing={crossing}
         reasons={statusReasons}
-        durations={statusDurations}
         currentUser={currentUser}
         listOrMap="map"
         selectCrossing={selectCrossing}
@@ -84,7 +79,6 @@ class SelectedCrossingContainer extends Component {
         key={crossing.id}
         crossing={crossing}
         reasons={statusReasons}
-        durations={statusDurations}
         allCommunities={allCommunities}
         onDash={onDash}
       />
@@ -113,5 +107,4 @@ export default compose(
     }),
   }),
   graphql(statusReasonsQuery, { name: 'statusReasonsQuery' }),
-  graphql(statusDurationsQuery, { name: 'statusDurationsQuery' }),
 )(SelectedCrossingContainer);

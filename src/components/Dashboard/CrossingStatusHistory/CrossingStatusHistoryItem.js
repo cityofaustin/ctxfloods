@@ -14,7 +14,7 @@ const ReasonDurationNotes = ({
   shouldDisplayDuration,
   shouldDisplayNotes,
   reason,
-  duration,
+  openDate,
   notes,
   smallSize,
 }) => (
@@ -36,7 +36,7 @@ const ReasonDurationNotes = ({
             Expected Reopen
           </span>
           <div className="CrossingStatusHistoryItem__subdetails-content">
-            {duration}
+            {openDate}
           </div>
         </div>
       )}
@@ -85,7 +85,7 @@ class CrossingStatusHistoryItem extends Component {
       'statusReasonByStatusReasonId.name',
       'Unconfirmed',
     );
-    const duration = get(update, 'statusDurationByStatusDurationId.name', '--');
+    const openDate = get(update, 'openDate', '--');
     const createdAt = get(update, 'createdAt', '--');
     const crossingId = get(update, 'crossingId');
     const crossingName = get(update, 'crossingByCrossingId.name');
@@ -132,7 +132,7 @@ class CrossingStatusHistoryItem extends Component {
                   shouldDisplayDuration={shouldDisplay.duration}
                   shouldDisplayNotes={shouldDisplay.notes}
                   reason={reason}
-                  duration={duration}
+                  openDate={openDate}
                   notes={notes}
                 />
               )}
@@ -158,7 +158,7 @@ class CrossingStatusHistoryItem extends Component {
                   shouldDisplayDuration={shouldDisplay.duration}
                   shouldDisplayNotes={shouldDisplay.notes}
                   reason={reason}
-                  duration={duration}
+                  openDate={openDate}
                   notes={notes}
                 />
               </div>

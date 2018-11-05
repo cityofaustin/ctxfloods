@@ -48,5 +48,3 @@ export const displayedInputs = {
     duration: true,
   },
 };
-
-export const INDEFINITE = "INDEFINITE";

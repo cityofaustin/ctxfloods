@@ -2,28 +2,14 @@ import 'flatpickr/dist/themes/material_blue.css';
 import Flatpickr from 'react-flatpickr';
 import moment from 'moment';
 import React, { Component } from 'react';
-import { INDEFINITE } from '../../../constants/StatusConstants';
 
 /**
   Passes an estimated openDate via the "onChange" prop.
-  If "Indefinite Closure" checkbox is ticked, then the openDate will be set to '3000-01-01.'
-  ''
+  Unless the "Indefinite Closure" checkbox is ticked, then the crossing will not have an estimated openDate.
 **/
 export default class DatePicker extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      indefinite: false,
-      flatpickrDate: this.stringToDate(this.props.date)
-    }
-    if (this.dateToString(this.props.date) === INDEFINITE) {
-      this.state.indefinite = true;
-    }
-  }
-
   stringToDate(dateString) {
-    return (dateString && dateString !== INDEFINITE) ?
-      moment(dateString).toDate() : null;
+    return dateString ? moment(dateString).toDate() : null;
   }
 
   dateToString(date) {
@@ -31,7 +17,8 @@ export default class DatePicker extends Component {
   }
 
   render() {
-    const { flatpickrDate } = this.state;
+    const { openDate, indefiniteClosure } = this.props;
+    const flatpickrDate = this.stringToDate(openDate)
 
     return (
       <div>
@@ -46,10 +33,11 @@ export default class DatePicker extends Component {
               }}
               value={flatpickrDate}
               onChange={date => {
-                const stringifiedDate = this.dateToString(date[0])
-                this.setState({indefinite: false});
-                this.setState({flatpickrDate: stringifiedDate});
-                this.props.onChange(stringifiedDate);
+                const newOpenDate = this.dateToString(date[0])
+                this.props.onChange({
+                  indefiniteClosure: false,
+                  openDate: newOpenDate
+                });
               }}
             />
           </div>
@@ -58,16 +46,19 @@ export default class DatePicker extends Component {
           Indefinite Closure:
           <input
             type="checkbox"
-            checked={this.state.indefinite}
+            checked={indefiniteClosure}
             onChange={() => {
-              if (this.state.indefinite) {
-                this.setState({indefinite: false});
-                this.setState({flatpickrDate: null});
-                this.props.onChange(null);
+              console.log("checkbox was ", indefiniteClosure)
+              if (indefiniteClosure) {
+                this.props.onChange({
+                  indefiniteClosure: false,
+                  openDate: null,
+                });
               } else {
-                this.setState({indefinite: true});
-                this.setState({flatpickrDate: null});
-                this.props.onChange(INDEFINITE);
+                this.props.onChange({
+                  indefiniteClosure: true,
+                  openDate: null
+                });
               }
             }}
           />

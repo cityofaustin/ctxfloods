@@ -4,7 +4,6 @@ import { graphql, compose } from 'react-apollo';
 import 'react-virtualized/styles.css';
 import crossingsQuery from 'components/Dashboard/CrossingListPage/queries/crossingsQuery';
 import statusReasonsQuery from 'components/Dashboard/CrossingListPage/queries/statusReasonsQuery';
-import statusDurationsQuery from 'components/Dashboard/CrossingListPage/queries/statusDurationsQuery';
 import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
 import gql from 'graphql-tag';
@@ -83,8 +82,6 @@ export class InfiniteCrossingPaginationContainer extends Component {
     const isLoading =
       !this.props.statusReasonsQuery ||
       this.props.statusReasonsQuery.loading ||
-      !this.props.statusDurationsQuery ||
-      this.props.statusDurationsQuery.loading ||
       !this.props.communitiesQuery ||
       this.props.communitiesQuery.loading ||
       this.props.loading;
@@ -102,8 +99,6 @@ export class InfiniteCrossingPaginationContainer extends Component {
     }
 
     const statusReasons = this.props.statusReasonsQuery.allStatusReasons.nodes;
-    const statusDurations = this.props.statusDurationsQuery.allStatusDurations
-      .nodes;
     const communities = this.props.communitiesQuery.allCommunities.nodes;
 
     return (
@@ -118,7 +113,6 @@ export class InfiniteCrossingPaginationContainer extends Component {
                 loadMoreRows={loadMoreRows}
                 crossingsQuery={searchCrossings}
                 statusReasons={statusReasons}
-                statusDurations={statusDurations}
                 allCommunities={communities}
                 currentUser={currentUser}
                 sortByUpdatedAsc={sortByUpdatedAsc}
@@ -148,6 +142,5 @@ const communitiesQuery = gql`
 export default compose(
   graphql(crossingsQuery, configObject),
   graphql(statusReasonsQuery, { name: 'statusReasonsQuery' }),
-  graphql(statusDurationsQuery, { name: 'statusDurationsQuery' }),
   graphql(communitiesQuery, { name: 'communitiesQuery' }),
 )(InfiniteCrossingPaginationContainer);

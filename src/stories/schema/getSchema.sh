@@ -1,3 +1,10 @@
+# When the database schema changes, you must do two steps for that information
+# to propagate to the frontend's schema.graphql
+# 1. Run yarn build-schema on the backend
+# 2. Run get-graphql-schema on a running backend server
+#    The backend can either by run manually or with the first part of this script.
+# TODO: automate this step better.
+
 # Run yarn to make sure we have the backend in node modules
 yarn;
 
@@ -5,7 +12,7 @@ yarn;
 cd node_modules/ctxfloods-backend;
 yarn;
 yarn init-local-db;
-yarn local-drop-rebuild;
+# yarn local-drop-rebuild;
 yarn start-express-server &
 cd ../..;
 

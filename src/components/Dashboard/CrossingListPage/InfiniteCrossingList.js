@@ -81,7 +81,6 @@ export default class InfiniteCrossingList extends React.Component {
   _rowRenderer({ key, index, style, parent }) {
     const {
       statusReasons,
-      statusDurations,
       currentUser,
       crossingQueryVariables,
       cqClassName,
@@ -111,7 +110,6 @@ export default class InfiniteCrossingList extends React.Component {
               key={crossing.id}
               crossing={crossing}
               reasons={statusReasons}
-              durations={statusDurations}
               allCommunities={allCommunities}
               currentUser={currentUser}
               cqClassName={cqClassName}
