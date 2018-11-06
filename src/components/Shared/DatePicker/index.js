@@ -23,8 +23,8 @@ export default class DatePicker extends Component {
 
     return (
       <div className="duration-container">
-        {true &&
-          <table className='duration-table'>
+        <table className='duration-table'>
+          <tbody>
             <tr>
               <td>
                 Estimated Open Date:
@@ -57,7 +57,6 @@ export default class DatePicker extends Component {
                   type="checkbox"
                   checked={indefiniteClosure}
                   onChange={() => {
-                    console.log("checkbox was ", indefiniteClosure)
                     if (indefiniteClosure) {
                       this.props.onChange({
                         indefiniteClosure: false,
@@ -73,8 +72,8 @@ export default class DatePicker extends Component {
                 />
               </td>
             </tr>
-          </table>
-        }
+          </tbody>
+        </table>
       </div>
     )
   }
