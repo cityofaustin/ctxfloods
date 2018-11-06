@@ -35,17 +35,13 @@ const MobileDetailsContainer = ({ crossing, reasons }) => {
           }
         </DetailsItem>
       )}
-      { /** show.includes('reopen') && (
+      { show.includes('reopen') && (
         <DetailsItem title="Duration">
-          {
-            durations.find(
-              r =>
-                r.id ===
-                crossing.statusUpdateByLatestStatusUpdateId.statusDurationId,
-            ).name
-          }
+          {(crossing.statusUpdateByLatestStatusUpdateId.indefiniteClosure) ?
+          ("Closed Indefinitely") :
+          (`Expected to Reopen ${crossing.statusUpdateByLatestStatusUpdateId.openDate}`)}
         </DetailsItem>
-      )**/}
+      )}
       {show.includes('notes') && (
         <DetailsItem title="Notes">
           {crossing.statusUpdateByLatestStatusUpdateId.notes}
