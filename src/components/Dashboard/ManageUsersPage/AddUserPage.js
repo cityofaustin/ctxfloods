@@ -44,6 +44,7 @@ class AddUserPage extends Component {
           phoneNumber: user.phoneNumber,
           password: password,
         },
+        refetchQueries: ['searchUsers']
       })
       .then(({ data }) => {
         this.setState({ userAdded: true });
@@ -51,7 +52,13 @@ class AddUserPage extends Component {
       })
       .catch(err => {
         logError(err);
-        this.setState({ errorMessage: err.message });
+        let errMessage = err.message;
+        if (err.message === `GraphQL error: duplicate key value violates unique constraint "user_account_email_key"`) {
+          errMessage = "An account with that email address already exists.";
+        } else if (err.message === `GraphQL error: new row for relation "user_account" violates check constraint "user_account_email_check"`) {
+          errMessage = "The email address entered is invalid. Please update with a valid email address to continue.";
+        }
+        this.setState({ errorMessage: errMessage });
       });
   };
 
@@ -92,7 +99,12 @@ class AddUserPage extends Component {
       this.state.redirect || (userAdded && emailSent && !showModal);
 
     if (redirect) {
-      return <Redirect to="/dashboard/users" push />;
+      return <Redirect
+        push
+        to={{
+          pathname: '/dashboard/users',
+          state: { referrer: this.props.location}
+        }} />;
     }
 
     return (
