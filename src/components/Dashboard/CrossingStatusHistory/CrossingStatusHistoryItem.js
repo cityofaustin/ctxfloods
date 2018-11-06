@@ -15,6 +15,7 @@ const ReasonDurationNotes = ({
   shouldDisplayNotes,
   reason,
   openDate,
+  indefiniteClosure,
   notes,
   smallSize,
 }) => (
@@ -33,10 +34,12 @@ const ReasonDurationNotes = ({
       {shouldDisplayDuration && (
         <div className="CrossingStatusHistoryItem__duration">
           <span className="CrossingStatusHistoryItem__subdetails-title">
-            Expected Reopen
+            Duration
           </span>
           <div className="CrossingStatusHistoryItem__subdetails-content">
-            {openDate}
+            {(indefiniteClosure) ?
+            ("Closed Indefinitely") :
+            (`Expected to Reopen ${openDate}`)}
           </div>
         </div>
       )}
@@ -86,6 +89,7 @@ class CrossingStatusHistoryItem extends Component {
       'Unconfirmed',
     );
     const openDate = get(update, 'openDate', '--');
+    const indefiniteClosure = get(update, 'indefiniteClosure', '--');
     const createdAt = get(update, 'createdAt', '--');
     const crossingId = get(update, 'crossingId');
     const crossingName = get(update, 'crossingByCrossingId.name');
@@ -133,6 +137,7 @@ class CrossingStatusHistoryItem extends Component {
                   shouldDisplayNotes={shouldDisplay.notes}
                   reason={reason}
                   openDate={openDate}
+                  indefiniteClosure={indefiniteClosure}
                   notes={notes}
                 />
               )}

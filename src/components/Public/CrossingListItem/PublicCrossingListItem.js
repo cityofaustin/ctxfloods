@@ -23,7 +23,7 @@ const containerQuery = {
 class PublicCrossingListItem extends React.Component {
   render() {
     const { crossing, allCommunities, reasons, onDash } = this.props;
-    const { createdAt } = crossing.statusUpdateByLatestStatusUpdateId;
+    const { createdAt, openDate, indefiniteClosure } = crossing.statusUpdateByLatestStatusUpdateId;
 
     var show = [];
     switch (crossing.latestStatusId) {
@@ -84,20 +84,13 @@ class PublicCrossingListItem extends React.Component {
               }
             </DetailsItem>
           )}
-          { /**
-            show.includes('reopen') && (
+          {show.includes('reopen') && (
             <DetailsItem title="Duration">
-              {
-                durations.find(
-                  r =>
-                    r.id ===
-                    crossing.statusUpdateByLatestStatusUpdateId
-                      .statusDurationId,
-                ).name
-              }
+              {(indefiniteClosure) ?
+              ("Closed Indefinitely") :
+              (`Expected to Reopen ${openDate}`)}
             </DetailsItem>
-          )
-        **/}
+          )}
           {show.includes('notes') && (
             <DetailsItem title="Notes">
               {crossing.statusUpdateByLatestStatusUpdateId.notes}
