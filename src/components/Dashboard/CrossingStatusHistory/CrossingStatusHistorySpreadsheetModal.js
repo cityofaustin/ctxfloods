@@ -42,7 +42,7 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
       const history = this.props.data.allStatusUpdates.edges;
 
       const headers = crossingId
-        ? [['Date & Time', 'Status', 'Reason', 'Duration', 'Notes']]
+        ? [['Date & Time', 'Status', 'Reason', 'Open Date', 'Indefinite Closure', 'Notes']]
         : [
             [
               'Crossing Name',
@@ -50,7 +50,8 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
               'Date & Time',
               'Status',
               'Reason',
-              'Duration',
+              'Open Date',
+              'Indefinite Closure',
               'Notes',
             ],
           ];
@@ -63,11 +64,8 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
             'node.statusReasonByStatusReasonId.name',
             '',
           );
-          const duration = get(
-            update,
-            'node.statusDurationByStatusDurationId.name',
-            '',
-          );
+          const openDate = get(update, 'node.openDate');
+          const indefiniteClosure = get(update, 'node.indefiniteClosure');
           const createdAt = get(update, 'node.createdAt');
           const crossingName = get(update, 'node.crossingByCrossingId.name');
           const crossingAddress = get(
@@ -77,14 +75,15 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
           const notes = get(update, 'node.notes', '');
 
           return crossingId
-            ? [createdAt, status, reason, duration, notes]
+            ? [createdAt, status, reason, openDate, indefiniteClosure, notes]
             : [
                 crossingName,
                 crossingAddress,
                 createdAt,
                 status,
                 reason,
-                duration,
+                openDate,
+                indefiniteClosure,
                 notes,
               ];
         }),
