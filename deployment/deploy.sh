@@ -14,6 +14,15 @@ then
 fi
 source $CURRENT_DIR/vars/$DEPLOY_ENV.sh
 
+# Check for custom REACT_APP_BACKEND_URL
+node $CURRENT_DIR/writeDevBackend.js
+if [ $? != 0 ]; then
+  echo "writeDevBackend script failed"
+  exit 1
+fi
+# Source custom REACT_APP_BACKEND_URL if it exists
+[ -f $CURRENT_DIR/dev_react_app_backend_url.tmp ] && source $CURRENT_DIR/dev_react_app_backend_url.tmp
+
 # Create s3 bucket
 node $CURRENT_DIR/createS3Bucket.js
 if [ $? != 0 ]; then
