@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import 'flatpickr/dist/themes/material_blue.css';
 import 'components/Shared/DatePicker/DatePicker.css';
 /**
-  Passes an estimated openDate via the "onChange" prop.
-  Unless the "Indefinite Closure" checkbox is ticked, then the crossing will not have an estimated openDate.
+  Passes an estimated reopenDate via the "onChange" prop.
+  Unless the "Indefinite Closure" checkbox is ticked, then the crossing will not have an estimated reopenDate.
 **/
 export default class DatePicker extends Component {
   stringToDate(dateString) {
@@ -18,8 +18,8 @@ export default class DatePicker extends Component {
   }
 
   render() {
-    const { openDate, indefiniteClosure } = this.props;
-    const flatpickrDate = this.stringToDate(openDate)
+    const { reopenDate, indefiniteClosure } = this.props;
+    const flatpickrDate = this.stringToDate(reopenDate)
 
     return (
       <div className="duration-container">
@@ -27,7 +27,7 @@ export default class DatePicker extends Component {
           <tbody>
             <tr>
               <td>
-                Estimated Open Date:
+                Estimated Reopen Date:
               </td>
               <td>
                 <Flatpickr
@@ -39,10 +39,10 @@ export default class DatePicker extends Component {
                   }}
                   value={flatpickrDate}
                   onChange={date => {
-                    const newOpenDate = this.dateToString(date[0])
+                    const newReopenDate = this.dateToString(date[0])
                     this.props.onChange({
                       indefiniteClosure: false,
-                      openDate: newOpenDate
+                      reopenDate: newReopenDate
                     });
                   }}
                 />
@@ -60,12 +60,12 @@ export default class DatePicker extends Component {
                     if (indefiniteClosure) {
                       this.props.onChange({
                         indefiniteClosure: false,
-                        openDate: null,
+                        reopenDate: null,
                       });
                     } else {
                       this.props.onChange({
                         indefiniteClosure: true,
-                        openDate: null
+                        reopenDate: null
                       });
                     }
                   }}

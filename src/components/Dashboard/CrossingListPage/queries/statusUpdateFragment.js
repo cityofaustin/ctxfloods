@@ -12,7 +12,7 @@ const statusUpdateFragment = gql`
       crossingId
       statusId
       statusReasonId
-      openDate
+      reopenDate
       indefiniteClosure
       createdAt
       notes

@@ -6,7 +6,7 @@ const newStatusUpdateMutation = gql`
     $crossingId: Int
     $statusId: Int
     $reasonId: Int
-    $openDate: Date
+    $reopenDate: Date
     $indefiniteClosure: Boolean
     $notes: String
   ) {
@@ -15,7 +15,7 @@ const newStatusUpdateMutation = gql`
         crossingId: $crossingId
         statusId: $statusId
         statusReasonId: $reasonId
-        openDate: $openDate
+        reopenDate: $reopenDate
         indefiniteClosure: $indefiniteClosure
         notes: $notes
       }

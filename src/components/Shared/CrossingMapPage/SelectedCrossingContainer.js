@@ -22,14 +22,14 @@ class SelectedCrossingContainer extends Component {
         const {
           crossingId,
           statusReasonId,
-          openDate,
+          reopenDate,
           indefiniteClosure,
           notes,
         } = this.props.data.crossingById.statusUpdateByLatestStatusUpdateId;
         this.props.setHeight(
           crossingId,
           statusReasonId,
-          openDate,
+          reopenDate,
           indefiniteClosure,
           notes,
         );

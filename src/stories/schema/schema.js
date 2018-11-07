@@ -1139,7 +1139,7 @@ input NewStatusUpdateInput {
   crossingId: Int
   notes: String
   statusReasonId: Int
-  openDate: Date
+  reopenDate: Date
   indefiniteClosure: Boolean
 }
 
@@ -2157,7 +2157,6 @@ input StatusCondition {
 enum StatusDetail {
   REASON
   DURATION
-  OPEN_DATE
 }
 
 # A connection to a list of 'Status' values.
@@ -2320,10 +2319,10 @@ type StatusUpdate implements Node {
   # The time this update was made.
   createdAt: Datetime
 
-  # Estimated date for longterm closure to re-open.
-  openDate: Date
+  # Estimated date for longterm closure to reopen.
+  reopenDate: Date
 
-  # Flag for a longterm closure with no estimated re-open date.
+  # Flag for a longterm closure with no estimated reopen date.
   indefiniteClosure: Boolean
 
   # Reads a single 'User' that is related to this 'StatusUpdate'.
@@ -2388,8 +2387,8 @@ input StatusUpdateCondition {
   # Checks for equality with the object’s 'createdAt' field.
   createdAt: Datetime
 
-  # Checks for equality with the object’s 'openDate' field.
-  openDate: Date
+  # Checks for equality with the object’s 'reopenDate' field.
+  reopenDate: Date
 
   # Checks for equality with the object’s 'indefiniteClosure' field.
   indefiniteClosure: Boolean
@@ -2438,8 +2437,8 @@ enum StatusUpdatesOrderBy {
   NOTES_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
-  OPEN_DATE_ASC
-  OPEN_DATE_DESC
+  REOPEN_DATE_ASC
+  REOPEN_DATE_DESC
   INDEFINITE_CLOSURE_ASC
   INDEFINITE_CLOSURE_DESC
 }

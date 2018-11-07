@@ -81,7 +81,7 @@ const cautionCrossing = {
 //   statusUpdateByLatestStatusUpdateId: {
 //     statusId: 4,
 //     statusReasonId: 2,
-//     openDate: '2020-11-18',
+//     reopenDate: '2020-11-18',
 //     indefiniteClosure: false,
 //     createdAt: '2017-10-10T04:35:37.306767',
 //     notes: 'Gonna be a while',

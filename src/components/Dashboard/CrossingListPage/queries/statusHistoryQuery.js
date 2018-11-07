@@ -28,7 +28,7 @@ const statusHistoryQuery = gql`
           statusReasonByStatusReasonId {
             name
           }
-          openDate
+          reopenDate
           indefiniteClosure
           createdAt
           notes

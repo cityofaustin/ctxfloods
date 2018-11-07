@@ -64,7 +64,7 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
             'node.statusReasonByStatusReasonId.name',
             '',
           );
-          const openDate = get(update, 'node.openDate');
+          const reopenDate = get(update, 'node.reopenDate');
           const indefiniteClosure = get(update, 'node.indefiniteClosure');
           const createdAt = get(update, 'node.createdAt');
           const crossingName = get(update, 'node.crossingByCrossingId.name');
@@ -75,14 +75,14 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
           const notes = get(update, 'node.notes', '');
 
           return crossingId
-            ? [createdAt, status, reason, openDate, indefiniteClosure, notes]
+            ? [createdAt, status, reason, reopenDate, indefiniteClosure, notes]
             : [
                 crossingName,
                 crossingAddress,
                 createdAt,
                 status,
                 reason,
-                openDate,
+                reopenDate,
                 indefiniteClosure,
                 notes,
               ];

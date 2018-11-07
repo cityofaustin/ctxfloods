@@ -39,7 +39,7 @@ const MobileDetailsContainer = ({ crossing, reasons }) => {
         <DetailsItem title="Duration">
           {(crossing.statusUpdateByLatestStatusUpdateId.indefiniteClosure) ?
           ("Closed Indefinitely") :
-          (`Expected to Reopen ${crossing.statusUpdateByLatestStatusUpdateId.openDate}`)}
+          (`Expected to Reopen ${crossing.statusUpdateByLatestStatusUpdateId.reopenDate}`)}
         </DetailsItem>
       )}
       {show.includes('notes') && (

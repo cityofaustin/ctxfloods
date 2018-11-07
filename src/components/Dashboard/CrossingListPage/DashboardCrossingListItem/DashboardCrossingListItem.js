@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import moment from 'moment';
 import { logError } from 'services/logger';
 
-import PrettyDate from 'components/Shared/DateTime/Date';
+import Date from 'components/Shared/DateTime/Date';
 import Hour from 'components/Shared/DateTime/Hour';
 import Location from 'components/Shared/CrossingListItem/Location';
 import User from 'components/Shared/CrossingListItem/User';
@@ -43,8 +43,8 @@ class DashboardCrossingListItem extends React.Component {
         props.crossing.statusUpdateByLatestStatusUpdateId.statusId,
       selectedReason:
         props.crossing.statusUpdateByLatestStatusUpdateId.statusReasonId,
-      selectedOpenDate:
-        props.crossing.statusUpdateByLatestStatusUpdateId.openDate,
+      selectedReopenDate:
+        props.crossing.statusUpdateByLatestStatusUpdateId.reopenDate,
       selectedIndefiniteClosure:
         props.crossing.statusUpdateByLatestStatusUpdateId.indefiniteClosure,
       notes: props.crossing.statusUpdateByLatestStatusUpdateId.notes,
@@ -58,7 +58,7 @@ class DashboardCrossingListItem extends React.Component {
       if (savedState) {
         this.setState({ selectedStatus: savedState.selectedStatus });
         this.setState({ selectedReason: savedState.selectedReason });
-        this.setState({ selectedOpenDate: savedState.selectedOpenDate });
+        this.setState({ selectedReopenDate: savedState.selectedReopenDate });
         this.setState({ selectedIndefiniteClosure: savedState.selectedIndefiniteClosure });
         this.setState({ notes: savedState.notes });
         this.props.clearMeasurerCache();
@@ -73,7 +73,7 @@ class DashboardCrossingListItem extends React.Component {
       crossingId: this.props.crossing.id,
       selectedStatus: this.state.selectedStatus,
       selectedReason: this.state.selectedReason,
-      selectedOpenDate: this.state.selectedOpenDate,
+      selectedReopenDate: this.state.selectedReopenDate,
       selectedIndefiniteClosure: this.state.selectedIndefiniteClosure,
       notes: this.state.notes,
     };
@@ -255,7 +255,7 @@ class DashboardCrossingListItem extends React.Component {
       communityIds: this.props.crossing.communityIds,
       statusId: this.state.selectedStatus,
       reasonId: this.state.selectedReason,
-      openDate: this.state.selectedOpenDate,
+      reopenDate: this.state.selectedReopenDate,
       indefiniteClosure: this.state.selectedIndefiniteClosure,
       notes: this.state.notes,
       user: this.props.currentUser,
@@ -293,7 +293,7 @@ class DashboardCrossingListItem extends React.Component {
           crossingId: updateData.crossingId,
           statusId: updateData.statusId,
           reasonId: updateData.reasonId,
-          openDate: updateData.openDate,
+          reopenDate: updateData.reopenDate,
           indefiniteClosure: updateData.indefiniteClosure,
           notes: updateData.notes,
         },
@@ -314,7 +314,7 @@ class DashboardCrossingListItem extends React.Component {
                   crossingId: updateData.crossingId,
                   statusId: updateData.statusId,
                   statusReasonId: updateData.reasonId,
-                  openDate: updateData.openDate,
+                  reopenDate: updateData.reopenDate,
                   indefiniteClosure: updateData.indefiniteClosure,
                   createdAt: moment().format(),
                   notes: updateData.notes,
@@ -364,7 +364,7 @@ class DashboardCrossingListItem extends React.Component {
         this.setState({
           selectedStatus: update.statusId,
           selectedReason: update.statusReasonId,
-          selectedOpenDate: update.openDate,
+          selectedReopenDate: update.reopenDate,
           selectedIndefiniteClosure: update.indefiniteClosure,
           notes: update.notes,
         });
@@ -383,7 +383,7 @@ class DashboardCrossingListItem extends React.Component {
       selectedStatus: statusConstants.OPEN,
       notes: '',
       selectedReason: null,
-      selectedOpenDate: null,
+      selectedReopenDate: null,
       selectedIndefiniteClosure: false,
     });
     if (this.props.clearMeasurerCache) {
@@ -398,7 +398,7 @@ class DashboardCrossingListItem extends React.Component {
       selectedReason: this.props.reasons.find(
         reason => reason.statusId === statusConstants.CAUTION,
       ).id,
-      selectedOpenDate: null,
+      selectedReopenDate: null,
       selectedIndefiniteClosure: false,
     });
 
@@ -414,7 +414,7 @@ class DashboardCrossingListItem extends React.Component {
       selectedReason: this.props.reasons.find(
         reason => reason.statusId === statusConstants.CLOSED,
       ).id,
-      selectedOpenDate: null,
+      selectedReopenDate: null,
       selectedIndefiniteClosure: false,
     });
 
@@ -430,8 +430,8 @@ class DashboardCrossingListItem extends React.Component {
       selectedReason: this.props.reasons.find(
         reason => reason.statusId === statusConstants.LONGTERM,
       ).id,
-      selectedOpenDate: this.props.crossing.statusUpdateByLatestStatusUpdateId
-        .openDate,
+      selectedReopenDate: this.props.crossing.statusUpdateByLatestStatusUpdateId
+        .reopenDate,
       selectedIndefiniteClosure: this.props.crossing.statusUpdateByLatestStatusUpdateId
         .indefiniteClosure,
     });
@@ -449,8 +449,8 @@ class DashboardCrossingListItem extends React.Component {
     }
   };
 
-  durationChanged = ({indefiniteClosure, openDate}) => {
-    this.setState({ selectedOpenDate: openDate });
+  durationChanged = ({indefiniteClosure, reopenDate}) => {
+    this.setState({ selectedReopenDate: reopenDate });
     this.setState({ selectedIndefiniteClosure: indefiniteClosure });
 
     if (this.props.clearMeasurerCache) {
@@ -472,8 +472,8 @@ class DashboardCrossingListItem extends React.Component {
         .statusId,
       selectedReason: this.props.crossing.statusUpdateByLatestStatusUpdateId
         .statusReasonId,
-      selectedOpenDate: this.props.crossing.statusUpdateByLatestStatusUpdateId
-        .openDate,
+      selectedReopenDate: this.props.crossing.statusUpdateByLatestStatusUpdateId
+        .reopenDate,
       selectedIndefiniteClosure : this.props.crossing.statusUpdateByLatestStatusUpdateId
         .indefiniteClosure,
       notes: this.props.crossing.statusUpdateByLatestStatusUpdateId.notes,
@@ -493,7 +493,7 @@ class DashboardCrossingListItem extends React.Component {
     const savedReason = this.props.crossing.statusUpdateByLatestStatusUpdateId
       .statusReasonId;
     const savedOpenDate = this.props.crossing.statusUpdateByLatestStatusUpdateId
-      .openDate;
+      .reopenDate;
     const savedIndefiniteClosure = this.props.crossing.statusUpdateByLatestStatusUpdateId
       .indefiniteClosure;
     const savedNotes = this.props.crossing.statusUpdateByLatestStatusUpdateId
@@ -502,7 +502,7 @@ class DashboardCrossingListItem extends React.Component {
     return (
       savedStatus !== this.state.selectedStatus ||
       savedReason !== this.state.selectedReason ||
-      savedOpenDate !== this.state.selectedOpenDate ||
+      savedOpenDate !== this.state.selectedReopenDate ||
       savedIndefiniteClosure !== this.state.selectedIndefiniteClosure ||
       savedNotes !== this.state.notes
     );
@@ -562,7 +562,7 @@ class DashboardCrossingListItem extends React.Component {
             </div>
             <div className="DashboardCrossingListItem__overview-meta">
               <div>
-                <PrettyDate date={createdAt} />
+                <Date date={createdAt} />
               </div>
               <div>
                 <Hour date={createdAt} />
@@ -623,7 +623,7 @@ class DashboardCrossingListItem extends React.Component {
               isRequired={this.isDirty()}
             >
               <DatePicker
-                openDate={this.state.selectedOpenDate}
+                reopenDate={this.state.selectedReopenDate}
                 indefiniteClosure={this.state.selectedIndefiniteClosure}
                 onChange={this.durationChanged}
               />

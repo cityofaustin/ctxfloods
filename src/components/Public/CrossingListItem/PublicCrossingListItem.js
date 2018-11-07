@@ -23,7 +23,7 @@ const containerQuery = {
 class PublicCrossingListItem extends React.Component {
   render() {
     const { crossing, allCommunities, reasons, onDash } = this.props;
-    const { createdAt, openDate, indefiniteClosure } = crossing.statusUpdateByLatestStatusUpdateId;
+    const { createdAt, reopenDate, indefiniteClosure } = crossing.statusUpdateByLatestStatusUpdateId;
 
     var show = [];
     switch (crossing.latestStatusId) {
@@ -35,7 +35,7 @@ class PublicCrossingListItem extends React.Component {
         show = ['reason', 'notes'];
         break;
       case statusConstants.LONGTERM:
-        show = ['reason', 'reopen', 'notes'];
+        show = ['reason', 'duration', 'notes'];
         break;
       default:
         break;
@@ -84,11 +84,11 @@ class PublicCrossingListItem extends React.Component {
               }
             </DetailsItem>
           )}
-          {show.includes('reopen') && (
+          {show.includes('duration') && (
             <DetailsItem title="Duration">
               {(indefiniteClosure) ?
               ("Closed Indefinitely") :
-              (`Expected to Reopen ${openDate}`)}
+              (`Expected to Reopen ${reopenDate}`)}
             </DetailsItem>
           )}
           {show.includes('notes') && (
