@@ -363,8 +363,8 @@ const addCrossingMutation = gql`
     $humanAddress: String!
     $description: String!
     $communityId: Int!
-    $longitude: Float!
-    $latitude: Float!
+    $longitude: BigFloat!
+    $latitude: BigFloat!
   ) {
     newCrossing(
       input: {
