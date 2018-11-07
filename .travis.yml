@@ -22,4 +22,4 @@ deploy:
     skip_cleanup: true
     on:
       all_branches: true
-      condition: "$(node ./deployment/checkDevBranchWhitelist.js) = true"
+      condition: "$(node ./deployment/shouldDeploy.js) = true"

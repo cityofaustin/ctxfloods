@@ -387,7 +387,7 @@ export default compose(
     name: 'openCrossings',
     options: ownProps => ({
       variables: {
-        search: '%',
+        search: '%%',
         showOpen: true,
         showClosed: false,
         showCaution: false,
@@ -404,7 +404,7 @@ export default compose(
     name: 'closedCrossings',
     options: ownProps => ({
       variables: {
-        search: '%',
+        search: '%%',
         showOpen: false,
         showClosed: true,
         showCaution: false,
@@ -421,7 +421,7 @@ export default compose(
     name: 'cautionCrossings',
     options: ownProps => ({
       variables: {
-        search: '%',
+        search: '%%',
         showOpen: false,
         showClosed: false,
         showCaution: true,
@@ -438,7 +438,7 @@ export default compose(
     name: 'longtermCrossings',
     options: ownProps => ({
       variables: {
-        search: '%',
+        search: '%%',
         showOpen: false,
         showClosed: false,
         showCaution: false,

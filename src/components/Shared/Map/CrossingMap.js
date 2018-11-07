@@ -242,7 +242,7 @@ class CrossingMap extends React.Component {
     }
   };
 
-  setDetailsHeight = (crossingId, statusReasonId, statusDurationId, notes) => {
+  setDetailsHeight = (crossingId, statusReasonId, reopenDate, indefiniteClosure, notes) => {
     // Let's hack this together so it makes some kinda sense
     // and we can figure out how much to offset the map
     // for the details popup
@@ -260,7 +260,7 @@ class CrossingMap extends React.Component {
     } else {
       popupHeightInPixels = 40;
       if (statusReasonId) popupHeightInPixels += 40;
-      if (statusDurationId) popupHeightInPixels += 40;
+      if (reopenDate || indefiniteClosure) popupHeightInPixels += 40;
 
       // STUPID HACK CONT. - we use about 20 chars per line
       if (notes)
@@ -578,13 +578,15 @@ class CrossingMap extends React.Component {
                   setHeight={(
                     crossingId,
                     statusReasonId,
-                    statusDurationId,
+                    reopenDate,
+                    indefiniteClosure,
                     notes,
                   ) =>
                     this.setDetailsHeight(
                       crossingId,
                       statusReasonId,
-                      statusDurationId,
+                      reopenDate,
+                      indefiniteClosure,
                       notes,
                     )
                   }
