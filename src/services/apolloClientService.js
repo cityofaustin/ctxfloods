@@ -14,11 +14,11 @@ const httpLink = createHttpLink({
 const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   if ( graphQLErrors.name === "JsonWebTokenError") {
     localStorage.removeItem('jwt_user_token');
-    return forward(operation);
+    window.location.reload(); // Refreshing page will redirect unauthenticated user to the login page.
   }
   // TODO: make an error page for displaying all errors
-  logError(graphQLErrors);
-  logError(networkError);
+  logError("graphQLErrors", graphQLErrors);
+  logError("networkError", networkError);
 });
 
 const jwtMiddleware = new ApolloLink((operation, forward) => {

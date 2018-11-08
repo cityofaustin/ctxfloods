@@ -1,4 +1,5 @@
 import decode from 'jwt-decode';
+import { logError } from './logger';
 
 export function getTokenExpirationDate(token) {
   const decoded = decode(token);
@@ -11,7 +12,14 @@ export function getTokenExpirationDate(token) {
 }
 
 export function isTokenExpired(token) {
-  const date = getTokenExpirationDate(token);
+  let date;
+  try {
+    date = getTokenExpirationDate(token);
+  } catch(e) {
+    logError(e);
+    localStorage.removeItem('jwt_user_token');
+    window.location.reload();
+  }
   const offsetSeconds = 0;
   if (date === null) {
     return false;
