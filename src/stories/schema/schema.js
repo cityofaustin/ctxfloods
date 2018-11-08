@@ -15,23 +15,23 @@ type AddCrossingToCommunityPayload {
   clientMutationId: String
   crossing: Crossing
 
-  # An edge for our 'Crossing'. May be used by Relay 1.
-  crossingEdge(
-    # The method to use when ordering 'Crossing'.
-    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
-  ): CrossingsEdge
-
-  # Reads a single 'Status' that is related to this 'Crossing'.
-  statusByLatestStatusId: Status
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
 
+  # Reads a single 'Status' that is related to this 'Crossing'.
+  statusByLatestStatusId: Status
+
   # Reads a single 'WazeStreet' that is related to this 'Crossing'.
   wazeStreetByWazeStreetId: WazeStreet
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'Crossing'. May be used by Relay 1.
+  crossingEdge(
+    # The method to use when ordering 'Crossing'.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CrossingsEdge
 }
 
 # All input for the 'authenticate' mutation.
@@ -54,6 +54,9 @@ type AuthenticatePayload {
   query: Query
 }
 
+# A floating point number that requires more precision than IEEE 754 binary 64
+scalar BigFloat
+
 # All input for the 'changeCommunityName' mutation.
 input ChangeCommunityNameInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
@@ -70,14 +73,14 @@ type ChangeCommunityNamePayload {
   clientMutationId: String
   community: Community
 
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
   # An edge for our 'Community'. May be used by Relay 1.
   communityEdge(
     # The method to use when ordering 'Community'.
-    orderBy: CommunitiesOrderBy = PRIMARY_KEY_ASC
+    orderBy: [CommunitiesOrderBy!] = [PRIMARY_KEY_ASC]
   ): CommunitiesEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
 }
 
 # All input for the 'changeStatusName' mutation.
@@ -96,14 +99,14 @@ type ChangeStatusNamePayload {
   clientMutationId: String
   status: Status
 
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
   # An edge for our 'Status'. May be used by Relay 1.
   statusEdge(
     # The method to use when ordering 'Status'.
-    orderBy: StatusesOrderBy = PRIMARY_KEY_ASC
+    orderBy: [StatusesOrderBy!] = [PRIMARY_KEY_ASC]
   ): StatusesEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
 }
 
 # All input for the 'changeStatusReasonName' mutation.
@@ -122,32 +125,32 @@ type ChangeStatusReasonNamePayload {
   clientMutationId: String
   statusReason: StatusReason
 
-  # An edge for our 'StatusReason'. May be used by Relay 1.
-  statusReasonEdge(
-    # The method to use when ordering 'StatusReason'.
-    orderBy: StatusReasonsOrderBy = PRIMARY_KEY_ASC
-  ): StatusReasonsEdge
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'Status' that is related to this 'StatusReason'.
   statusByStatusId: Status
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'StatusReason'. May be used by Relay 1.
+  statusReasonEdge(
+    # The method to use when ordering 'StatusReason'.
+    orderBy: [StatusReasonsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StatusReasonsEdge
 }
 
 # A connection to a list of 'Community' values.
 type CommunitiesConnection {
+  # A list of 'Community' objects.
+  nodes: [Community]!
+
+  # A list of edges which contains the 'Community' and cursor to aid in pagination.
+  edges: [CommunitiesEdge!]!
+
   # Information to aid in pagination.
   pageInfo: PageInfo!
 
   # The count of *all* 'Community' you could get from the connection.
   totalCount: Int
-
-  # A list of edges which contains the 'Community' and cursor to aid in pagination.
-  edges: [CommunitiesEdge]
-
-  # A list of 'Community' objects.
-  nodes: [Community!]
 }
 
 # A 'Community' edge in the connection.
@@ -156,13 +159,11 @@ type CommunitiesEdge {
   cursor: Cursor
 
   # The 'Community' at the end of the edge.
-  node: Community!
+  node: Community
 }
 
 # Methods to use when ordering 'Community'.
 enum CommunitiesOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   NATURAL
   ID_ASC
   ID_DESC
@@ -172,12 +173,14 @@ enum CommunitiesOrderBy {
   ABBREVIATION_DESC
   VIEWPORTGEOJSON_ASC
   VIEWPORTGEOJSON_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 # A community defined by a geospatial area.
 type Community implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
+  nodeId: ID!
 
   # The primary unique identifier for the community.
   id: Int!
@@ -189,17 +192,8 @@ type Community implements Node {
   # The viewport of the community.
   viewportgeojson: String
 
-  # Reads and enables paginatation through a set of 'User'.
+  # Reads and enables pagination through a set of 'User'.
   usersByCommunityId(
-    # The method to use when ordering 'User'.
-    orderBy: UsersOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -210,9 +204,18 @@ type Community implements Node {
     # based pagination. May not be used with 'last'.
     offset: Int
 
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'User'.
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+
     # A condition to be used in determining which values should be returned by the collection.
     condition: UserCondition
-  ): UsersConnection
+  ): UsersConnection!
 }
 
 # A condition to be used against 'Community' object types. All fields are tested
@@ -234,7 +237,7 @@ input CommunityCondition {
 # A road crossing that might flood.
 type Crossing implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
+  nodeId: ID!
 
   # The primary unique identifier for the crossing.
   id: Int!
@@ -281,51 +284,17 @@ type Crossing implements Node {
   # The crossings street name according to the Waze geocoder.
   wazeStreetId: Int
 
-  # Get all the communities for a crossing.
-  communities(
-    # The method to use when ordering 'Community'.
-    orderBy: CrossingCommunitiesOrderBy = NATURAL
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-  ): CrossingCommunitiesConnection
-
-  # Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.
-  humanCoordinates: String
+  # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
+  statusUpdateByLatestStatusUpdateId: StatusUpdate
 
   # Reads a single 'Status' that is related to this 'Crossing'.
   statusByLatestStatusId: Status
 
-  # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
-  statusUpdateByLatestStatusUpdateId: StatusUpdate
-
   # Reads a single 'WazeStreet' that is related to this 'Crossing'.
   wazeStreetByWazeStreetId: WazeStreet
 
-  # Reads and enables paginatation through a set of 'StatusUpdate'.
+  # Reads and enables pagination through a set of 'StatusUpdate'.
   statusUpdatesByCrossingId(
-    # The method to use when ordering 'StatusUpdate'.
-    orderBy: StatusUpdatesOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -336,38 +305,40 @@ type Crossing implements Node {
     # based pagination. May not be used with 'last'.
     offset: Int
 
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'StatusUpdate'.
+    orderBy: [StatusUpdatesOrderBy!] = [PRIMARY_KEY_ASC]
+
     # A condition to be used in determining which values should be returned by the collection.
     condition: StatusUpdateCondition
-  ): StatusUpdatesConnection
-}
+  ): StatusUpdatesConnection!
 
-# A connection to a list of 'Community' values.
-type CrossingCommunitiesConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
+  # Get all the communities for a crossing.
+  communities(
+    # Only read the first 'n' values of the set.
+    first: Int
 
-  # The count of *all* 'Community' you could get from the connection.
-  totalCount: Int
+    # Only read the last 'n' values of the set.
+    last: Int
 
-  # A list of edges which contains the 'Community' and cursor to aid in pagination.
-  edges: [CrossingCommunitiesEdge]
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
 
-  # A list of 'Community' objects.
-  nodes: [Community]
-}
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
 
-# A 'Community' edge in the connection.
-type CrossingCommunitiesEdge {
-  # A cursor for use in pagination.
-  cursor: Cursor
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+  ): CommunitiesConnection!
 
-  # The 'Community' at the end of the edge.
-  node: Community
-}
-
-# Methods to use when ordering 'Community'.
-enum CrossingCommunitiesOrderBy {
-  NATURAL
+  # Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.
+  humanCoordinates: String
 }
 
 # A condition to be used against 'Crossing' object types. All fields are tested
@@ -419,67 +390,19 @@ input CrossingCondition {
   wazeStreetId: Int
 }
 
-# A road crossing that might flood.
-input CrossingInput {
-  # The primary unique identifier for the crossing.
-  id: Int
-
-  # The legacy id of the crossing from ATXFloods.
-  legacyId: Int
-
-  # The name of the crossing.
-  name: String!
-
-  # The human readable address of the crossing.
-  humanAddress: String!
-
-  # The description of the crossing.
-  description: String!
-
-  # The GIS coordinates of the crossing created with ST_MakePoint.
-  coordinates: String!
-
-  # The GeoJSON coordinates of the crossing.
-  geojson: String!
-
-  # The timestamp of the latest status update for the crossing.
-  latestStatusCreatedAt: Datetime
-
-  # If the crossing is active or not.
-  active: Boolean
-
-  # The ids of the communities the crossing belongs to.
-  communityIds: [Int]
-
-  # The latest status update of the crossing.
-  latestStatusUpdateId: Int
-
-  # The latest status of the crossing.
-  latestStatusId: Int
-
-  # The type of camera associated with this crossing.
-  cameraType: String
-
-  # The id of a camera associated with this crossing.
-  cameraId: String
-
-  # The crossings street name according to the Waze geocoder.
-  wazeStreetId: Int
-}
-
 # A connection to a list of 'Crossing' values.
 type CrossingsConnection {
+  # A list of 'Crossing' objects.
+  nodes: [Crossing]!
+
+  # A list of edges which contains the 'Crossing' and cursor to aid in pagination.
+  edges: [CrossingsEdge!]!
+
   # Information to aid in pagination.
   pageInfo: PageInfo!
 
   # The count of *all* 'Crossing' you could get from the connection.
   totalCount: Int
-
-  # A list of edges which contains the 'Crossing' and cursor to aid in pagination.
-  edges: [CrossingsEdge]
-
-  # A list of 'Crossing' objects.
-  nodes: [Crossing!]
 }
 
 # A 'Crossing' edge in the connection.
@@ -488,13 +411,11 @@ type CrossingsEdge {
   cursor: Cursor
 
   # The 'Crossing' at the end of the edge.
-  node: Crossing!
+  node: Crossing
 }
 
 # Methods to use when ordering 'Crossing'.
 enum CrossingsOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   NATURAL
   ID_ASC
   ID_DESC
@@ -526,6 +447,8 @@ enum CrossingsOrderBy {
   CAMERA_ID_DESC
   WAZE_STREET_ID_ASC
   WAZE_STREET_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 # A location in a connection that can be used for resuming pagination.
@@ -553,95 +476,95 @@ type DeactivateUserPayload {
   clientMutationId: String
   user: User
 
-  # An edge for our 'User'. May be used by Relay 1.
-  userEdge(
-    # The method to use when ordering 'User'.
-    orderBy: UsersOrderBy = PRIMARY_KEY_ASC
-  ): UsersEdge
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'Community' that is related to this 'User'.
   communityByCommunityId: Community
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'User'. May be used by Relay 1.
+  userEdge(
+    # The method to use when ordering 'User'.
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): UsersEdge
 }
 
-# All input for the 'deleteCommunity' mutation.
-input DeleteCommunityInput {
+# All input for the 'deleteCommunityFunction' mutation.
+input DeleteCommunityFunctionInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
   communityId: Int!
 }
 
-# The output of our 'deleteCommunity' mutation.
-type DeleteCommunityPayload {
+# The output of our 'deleteCommunityFunction' mutation.
+type DeleteCommunityFunctionPayload {
   # The exact same 'clientMutationId' that was provided in the mutation input,
   # unchanged and unused. May be used by a client to track mutations.
   clientMutationId: String
   community: Community
 
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
   # An edge for our 'Community'. May be used by Relay 1.
   communityEdge(
     # The method to use when ordering 'Community'.
-    orderBy: CommunitiesOrderBy = PRIMARY_KEY_ASC
+    orderBy: [CommunitiesOrderBy!] = [PRIMARY_KEY_ASC]
   ): CommunitiesEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
 }
 
-# All input for the 'deleteStatus' mutation.
-input DeleteStatusInput {
+# All input for the 'deleteStatusFunction' mutation.
+input DeleteStatusFunctionInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
   statusId: Int!
 }
 
-# The output of our 'deleteStatus' mutation.
-type DeleteStatusPayload {
+# The output of our 'deleteStatusFunction' mutation.
+type DeleteStatusFunctionPayload {
   # The exact same 'clientMutationId' that was provided in the mutation input,
   # unchanged and unused. May be used by a client to track mutations.
   clientMutationId: String
   status: Status
 
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
   # An edge for our 'Status'. May be used by Relay 1.
   statusEdge(
     # The method to use when ordering 'Status'.
-    orderBy: StatusesOrderBy = PRIMARY_KEY_ASC
+    orderBy: [StatusesOrderBy!] = [PRIMARY_KEY_ASC]
   ): StatusesEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
 }
 
-# All input for the 'deleteStatusReason' mutation.
-input DeleteStatusReasonInput {
+# All input for the 'deleteStatusReasonFunction' mutation.
+input DeleteStatusReasonFunctionInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
   statusReasonId: Int!
 }
 
-# The output of our 'deleteStatusReason' mutation.
-type DeleteStatusReasonPayload {
+# The output of our 'deleteStatusReasonFunction' mutation.
+type DeleteStatusReasonFunctionPayload {
   # The exact same 'clientMutationId' that was provided in the mutation input,
   # unchanged and unused. May be used by a client to track mutations.
   clientMutationId: String
   statusReason: StatusReason
 
-  # An edge for our 'StatusReason'. May be used by Relay 1.
-  statusReasonEdge(
-    # The method to use when ordering 'StatusReason'.
-    orderBy: StatusReasonsOrderBy = PRIMARY_KEY_ASC
-  ): StatusReasonsEdge
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'Status' that is related to this 'StatusReason'.
   statusByStatusId: Status
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'StatusReason'. May be used by Relay 1.
+  statusReasonEdge(
+    # The method to use when ordering 'StatusReason'.
+    orderBy: [StatusReasonsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StatusReasonsEdge
 }
 
 # All input for the 'editCrossing' mutation.
@@ -661,23 +584,23 @@ type EditCrossingPayload {
   clientMutationId: String
   crossing: Crossing
 
-  # An edge for our 'Crossing'. May be used by Relay 1.
-  crossingEdge(
-    # The method to use when ordering 'Crossing'.
-    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
-  ): CrossingsEdge
-
-  # Reads a single 'Status' that is related to this 'Crossing'.
-  statusByLatestStatusId: Status
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
 
+  # Reads a single 'Status' that is related to this 'Crossing'.
+  statusByLatestStatusId: Status
+
   # Reads a single 'WazeStreet' that is related to this 'Crossing'.
   wazeStreetByWazeStreetId: WazeStreet
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'Crossing'. May be used by Relay 1.
+  crossingEdge(
+    # The method to use when ordering 'Crossing'.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CrossingsEdge
 }
 
 # All input for the 'editUser' mutation.
@@ -699,51 +622,22 @@ type EditUserPayload {
   clientMutationId: String
   user: User
 
-  # An edge for our 'User'. May be used by Relay 1.
-  userEdge(
-    # The method to use when ordering 'User'.
-    orderBy: UsersOrderBy = PRIMARY_KEY_ASC
-  ): UsersEdge
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'Community' that is related to this 'User'.
   communityByCommunityId: Community
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
-}
-
-# A connection to a list of 'User' values.
-type FindUsersInCommunitiesConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
-
-  # The count of *all* 'User' you could get from the connection.
-  totalCount: Int
-
-  # A list of edges which contains the 'User' and cursor to aid in pagination.
-  edges: [FindUsersInCommunitiesEdge]
-
-  # A list of 'User' objects.
-  nodes: [User]
-}
-
-# A 'User' edge in the connection.
-type FindUsersInCommunitiesEdge {
-  # A cursor for use in pagination.
-  cursor: Cursor
-
-  # The 'User' at the end of the edge.
-  node: User
-}
-
-# Methods to use when ordering 'User'.
-enum FindUsersInCommunitiesOrderBy {
-  NATURAL
+  # An edge for our 'User'. May be used by Relay 1.
+  userEdge(
+    # The method to use when ordering 'User'.
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): UsersEdge
 }
 
 type IncidentReport implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
+  nodeId: ID!
   id: Int!
   notes: String
   locationDescription: String
@@ -776,17 +670,17 @@ input IncidentReportCondition {
 
 # A connection to a list of 'IncidentReport' values.
 type IncidentReportsConnection {
+  # A list of 'IncidentReport' objects.
+  nodes: [IncidentReport]!
+
+  # A list of edges which contains the 'IncidentReport' and cursor to aid in pagination.
+  edges: [IncidentReportsEdge!]!
+
   # Information to aid in pagination.
   pageInfo: PageInfo!
 
   # The count of *all* 'IncidentReport' you could get from the connection.
   totalCount: Int
-
-  # A list of edges which contains the 'IncidentReport' and cursor to aid in pagination.
-  edges: [IncidentReportsEdge]
-
-  # A list of 'IncidentReport' objects.
-  nodes: [IncidentReport!]
 }
 
 # A 'IncidentReport' edge in the connection.
@@ -795,13 +689,11 @@ type IncidentReportsEdge {
   cursor: Cursor
 
   # The 'IncidentReport' at the end of the edge.
-  node: IncidentReport!
+  node: IncidentReport
 }
 
 # Methods to use when ordering 'IncidentReport'.
 enum IncidentReportsOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   NATURAL
   ID_ASC
   ID_DESC
@@ -815,6 +707,8 @@ enum IncidentReportsOrderBy {
   COMMUNITY_IDS_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 # A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
@@ -860,22 +754,22 @@ type Mutation {
   ): DeactivateUserPayload
 
   # Deletes a community.
-  deleteCommunity(
+  deleteCommunityFunction(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: DeleteCommunityInput!
-  ): DeleteCommunityPayload
+    input: DeleteCommunityFunctionInput!
+  ): DeleteCommunityFunctionPayload
 
   # Deletes a status.
-  deleteStatus(
+  deleteStatusFunction(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: DeleteStatusInput!
-  ): DeleteStatusPayload
+    input: DeleteStatusFunctionInput!
+  ): DeleteStatusFunctionPayload
 
   # Deletes a status reason.
-  deleteStatusReason(
+  deleteStatusReasonFunction(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: DeleteStatusReasonInput!
-  ): DeleteStatusReasonPayload
+    input: DeleteStatusReasonFunctionInput!
+  ): DeleteStatusReasonFunctionPayload
 
   # Edits an existing crossing.
   editCrossing(
@@ -996,14 +890,14 @@ type NewCommunityPayload {
   clientMutationId: String
   community: Community
 
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
   # An edge for our 'Community'. May be used by Relay 1.
   communityEdge(
     # The method to use when ordering 'Community'.
-    orderBy: CommunitiesOrderBy = PRIMARY_KEY_ASC
+    orderBy: [CommunitiesOrderBy!] = [PRIMARY_KEY_ASC]
   ): CommunitiesEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
 }
 
 # All input for the 'newCrossing' mutation.
@@ -1014,8 +908,8 @@ input NewCrossingInput {
   name: String
   humanAddress: String
   communityId: Int
-  longitude: Float
-  latitude: Float
+  longitude: BigFloat
+  latitude: BigFloat
   description: String
   legacyId: Int
   wazeStreetId: Int
@@ -1028,23 +922,23 @@ type NewCrossingPayload {
   clientMutationId: String
   crossing: Crossing
 
-  # An edge for our 'Crossing'. May be used by Relay 1.
-  crossingEdge(
-    # The method to use when ordering 'Crossing'.
-    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
-  ): CrossingsEdge
-
-  # Reads a single 'Status' that is related to this 'Crossing'.
-  statusByLatestStatusId: Status
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
 
+  # Reads a single 'Status' that is related to this 'Crossing'.
+  statusByLatestStatusId: Status
+
   # Reads a single 'WazeStreet' that is related to this 'Crossing'.
   wazeStreetByWazeStreetId: WazeStreet
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'Crossing'. May be used by Relay 1.
+  crossingEdge(
+    # The method to use when ordering 'Crossing'.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CrossingsEdge
 }
 
 # All input for the 'newIncidentReport' mutation.
@@ -1054,8 +948,8 @@ input NewIncidentReportInput {
   clientMutationId: String
   notes: String
   locationDescription: String
-  longitude: Float
-  latitude: Float
+  longitude: BigFloat
+  latitude: BigFloat
   communityIds: [Int]
 }
 
@@ -1066,14 +960,14 @@ type NewIncidentReportPayload {
   clientMutationId: String
   incidentReport: IncidentReport
 
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
   # An edge for our 'IncidentReport'. May be used by Relay 1.
   incidentReportEdge(
     # The method to use when ordering 'IncidentReport'.
-    orderBy: IncidentReportsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [IncidentReportsOrderBy!] = [PRIMARY_KEY_ASC]
   ): IncidentReportsEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
 }
 
 # All input for the 'newStatus' mutation.
@@ -1091,14 +985,14 @@ type NewStatusPayload {
   clientMutationId: String
   status: Status
 
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
   # An edge for our 'Status'. May be used by Relay 1.
   statusEdge(
     # The method to use when ordering 'Status'.
-    orderBy: StatusesOrderBy = PRIMARY_KEY_ASC
+    orderBy: [StatusesOrderBy!] = [PRIMARY_KEY_ASC]
   ): StatusesEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
 }
 
 # All input for the 'newStatusReason' mutation.
@@ -1117,17 +1011,17 @@ type NewStatusReasonPayload {
   clientMutationId: String
   statusReason: StatusReason
 
-  # An edge for our 'StatusReason'. May be used by Relay 1.
-  statusReasonEdge(
-    # The method to use when ordering 'StatusReason'.
-    orderBy: StatusReasonsOrderBy = PRIMARY_KEY_ASC
-  ): StatusReasonsEdge
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'Status' that is related to this 'StatusReason'.
   statusByStatusId: Status
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'StatusReason'. May be used by Relay 1.
+  statusReasonEdge(
+    # The method to use when ordering 'StatusReason'.
+    orderBy: [StatusReasonsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StatusReasonsEdge
 }
 
 # All input for the 'newStatusUpdate' mutation.
@@ -1150,11 +1044,11 @@ type NewStatusUpdatePayload {
   clientMutationId: String
   statusUpdate: StatusUpdate
 
-  # An edge for our 'StatusUpdate'. May be used by Relay 1.
-  statusUpdateEdge(
-    # The method to use when ordering 'StatusUpdate'.
-    orderBy: StatusUpdatesOrderBy = PRIMARY_KEY_ASC
-  ): StatusUpdatesEdge
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
+  # Reads a single 'Status' that is related to this 'StatusUpdate'.
+  statusByStatusId: Status
 
   # Reads a single 'User' that is related to this 'StatusUpdate'.
   userByCreatorId: User
@@ -1162,14 +1056,14 @@ type NewStatusUpdatePayload {
   # Reads a single 'Crossing' that is related to this 'StatusUpdate'.
   crossingByCrossingId: Crossing
 
-  # Reads a single 'Status' that is related to this 'StatusUpdate'.
-  statusByStatusId: Status
-
   # Reads a single 'StatusReason' that is related to this 'StatusUpdate'.
   statusReasonByStatusReasonId: StatusReason
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'StatusUpdate'. May be used by Relay 1.
+  statusUpdateEdge(
+    # The method to use when ordering 'StatusUpdate'.
+    orderBy: [StatusUpdatesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StatusUpdatesEdge
 }
 
 # All input for the 'newWazeStreet' mutation.
@@ -1177,9 +1071,9 @@ input NewWazeStreetInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
-  longitude: Float
-  latitude: Float
-  distance: Float
+  longitude: BigFloat
+  latitude: BigFloat
+  distance: BigFloat
   name: String
   names: [String]
   createdAt: Datetime
@@ -1193,14 +1087,14 @@ type NewWazeStreetPayload {
   clientMutationId: String
   wazeStreet: WazeStreet
 
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
   # An edge for our 'WazeStreet'. May be used by Relay 1.
   wazeStreetEdge(
     # The method to use when ordering 'WazeStreet'.
-    orderBy: WazeStreetsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [WazeStreetsOrderBy!] = [PRIMARY_KEY_ASC]
   ): WazeStreetsEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
 }
 
 # All input for the 'newWazeStreetWithId' mutation.
@@ -1209,9 +1103,9 @@ input NewWazeStreetWithIdInput {
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
   id: Int
-  longitude: Float
-  latitude: Float
-  distance: Float
+  longitude: BigFloat
+  latitude: BigFloat
+  distance: BigFloat
   name: String
   names: [String]
   createdAt: Datetime
@@ -1225,20 +1119,20 @@ type NewWazeStreetWithIdPayload {
   clientMutationId: String
   wazeStreet: WazeStreet
 
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
   # An edge for our 'WazeStreet'. May be used by Relay 1.
   wazeStreetEdge(
     # The method to use when ordering 'WazeStreet'.
-    orderBy: WazeStreetsOrderBy = PRIMARY_KEY_ASC
+    orderBy: [WazeStreetsOrderBy!] = [PRIMARY_KEY_ASC]
   ): WazeStreetsEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
 }
 
 # An object with a globally unique 'ID'.
 interface Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
+  nodeId: ID!
 }
 
 # Information about pagination in a connection.
@@ -1258,25 +1152,259 @@ type PageInfo {
 
 # The root query type which gives access points into the data universe.
 type Query implements Node {
+  # Exposes the root query type nested one level down. This is helpful for Relay 1
+  # which can only query top level fields if they are in a particular form.
+  query: Query!
+
+  # The root query type must be a 'Node' to work well with Relay 1 mutations. This just resolves to 'query'.
+  nodeId: ID!
+
   # Fetches an object given its globally unique 'ID'.
   node(
     # The globally unique 'ID'.
-    __id: ID!
+    nodeId: ID!
   ): Node
+
+  # Reads and enables pagination through a set of 'Community'.
+  allCommunities(
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'Community'.
+    orderBy: [CommunitiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: CommunityCondition
+  ): CommunitiesConnection
+
+  # Reads and enables pagination through a set of 'Crossing'.
+  allCrossings(
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'Crossing'.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: CrossingCondition
+  ): CrossingsConnection
+
+  # Reads and enables pagination through a set of 'IncidentReport'.
+  allIncidentReports(
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'IncidentReport'.
+    orderBy: [IncidentReportsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: IncidentReportCondition
+  ): IncidentReportsConnection
+
+  # Reads and enables pagination through a set of 'Status'.
+  allStatuses(
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'Status'.
+    orderBy: [StatusesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: StatusCondition
+  ): StatusesConnection
+
+  # Reads and enables pagination through a set of 'StatusAssociation'.
+  allStatusAssociations(
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'StatusAssociation'.
+    orderBy: [StatusAssociationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: StatusAssociationCondition
+  ): StatusAssociationsConnection
+
+  # Reads and enables pagination through a set of 'StatusReason'.
+  allStatusReasons(
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'StatusReason'.
+    orderBy: [StatusReasonsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: StatusReasonCondition
+  ): StatusReasonsConnection
+
+  # Reads and enables pagination through a set of 'StatusUpdate'.
+  allStatusUpdates(
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'StatusUpdate'.
+    orderBy: [StatusUpdatesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: StatusUpdateCondition
+  ): StatusUpdatesConnection
+
+  # Reads and enables pagination through a set of 'User'.
+  allUsers(
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'User'.
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: UserCondition
+  ): UsersConnection
+
+  # Reads and enables pagination through a set of 'WazeStreet'.
+  allWazeStreets(
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'WazeStreet'.
+    orderBy: [WazeStreetsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: WazeStreetCondition
+  ): WazeStreetsConnection
+  communityById(id: Int!): Community
+  crossingById(id: Int!): Crossing
+  incidentReportById(id: Int!): IncidentReport
+  statusById(id: Int!): Status
+  statusAssociationById(id: Int!): StatusAssociation
+  statusReasonById(id: Int!): StatusReason
+  statusUpdateById(id: Int!): StatusUpdate
+  userById(id: Int!): User
+  wazeStreetById(id: Int!): WazeStreet
 
   # Gets the user who was identified by our JWT.
   currentUser: User
 
   # Finds users that administrate the specified communities.
   findUsersInCommunities(
-    # The method to use when ordering 'User'.
-    orderBy: FindUsersInCommunitiesOrderBy = NATURAL
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
+    communityIds: [Int]
 
     # Only read the first 'n' values of the set.
     first: Int
@@ -1287,35 +1415,19 @@ type Query implements Node {
     # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
     # based pagination. May not be used with 'last'.
     offset: Int
-    communityIds: [Int]
-  ): FindUsersInCommunitiesConnection
 
-  # Gets the legacy abbreviation of the first community for a crossing.
-  legacyJurisdictionAbbreviation(crossing: CrossingInput): String
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+  ): UsersConnection!
 
   # Generates legacy xml from current data.
   legacyXml: String
 
   # Searches crossings.
   searchCrossings(
-    # The method to use when ordering 'Crossing'.
-    orderBy: SearchCrossingsOrderBy = NATURAL
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
     search: String
     showOpen: Boolean
     showClosed: Boolean
@@ -1323,65 +1435,48 @@ type Query implements Node {
     showLongterm: Boolean
     orderAsc: Boolean
     communityId: Int
-  ): SearchCrossingsConnection
+
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+  ): CrossingsConnection!
 
   # Searches users.
   searchUsers(
-    # The method to use when ordering 'User'.
-    orderBy: SearchUsersOrderBy = NATURAL
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
     search: String
     community: Int
-  ): SearchUsersConnection
 
-  # Reads and enables paginatation through a set of 'WazeFeedIncidents'.
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+  ): UsersConnection!
+
+  # Reads and enables pagination through a set of 'WazeFeedIncident'.
   wazeFeed(
-    # The method to use when ordering 'WazeFeedIncidents'.
-    orderBy: WazeFeedOrderBy = NATURAL
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-  ): WazeFeedConnection
-
-  # Reads and enables paginatation through a set of 'Community'.
-  allCommunities(
-    # The method to use when ordering 'Community'.
-    orderBy: CommunitiesOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -1392,300 +1487,66 @@ type Query implements Node {
     # based pagination. May not be used with 'last'.
     offset: Int
 
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: CommunityCondition
-  ): CommunitiesConnection
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+  ): WazeFeedIncidentsConnection!
 
   # Reads a single 'Community' using its globally unique 'ID'.
   community(
     # The globally unique 'ID' to be used in selecting a single 'Community'.
-    __id: ID!
+    nodeId: ID!
   ): Community
-  communityById(
-    # The primary unique identifier for the community.
-    id: Int!
-  ): Community
-
-  # Reads and enables paginatation through a set of 'Crossing'.
-  allCrossings(
-    # The method to use when ordering 'Crossing'.
-    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: CrossingCondition
-  ): CrossingsConnection
 
   # Reads a single 'Crossing' using its globally unique 'ID'.
   crossing(
     # The globally unique 'ID' to be used in selecting a single 'Crossing'.
-    __id: ID!
+    nodeId: ID!
   ): Crossing
-  crossingById(
-    # The primary unique identifier for the crossing.
-    id: Int!
-  ): Crossing
-
-  # Reads and enables paginatation through a set of 'IncidentReport'.
-  allIncidentReports(
-    # The method to use when ordering 'IncidentReport'.
-    orderBy: IncidentReportsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: IncidentReportCondition
-  ): IncidentReportsConnection
 
   # Reads a single 'IncidentReport' using its globally unique 'ID'.
   incidentReport(
     # The globally unique 'ID' to be used in selecting a single 'IncidentReport'.
-    __id: ID!
+    nodeId: ID!
   ): IncidentReport
-  incidentReportById(id: Int!): IncidentReport
-
-  # Reads and enables paginatation through a set of 'Status'.
-  allStatuses(
-    # The method to use when ordering 'Status'.
-    orderBy: StatusesOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: StatusCondition
-  ): StatusesConnection
 
   # Reads a single 'Status' using its globally unique 'ID'.
   status(
     # The globally unique 'ID' to be used in selecting a single 'Status'.
-    __id: ID!
+    nodeId: ID!
   ): Status
-  statusById(
-    # The primary unique identifier for the status.
-    id: Int!
-  ): Status
-
-  # Reads and enables paginatation through a set of 'StatusAssociation'.
-  allStatusAssociations(
-    # The method to use when ordering 'StatusAssociation'.
-    orderBy: StatusAssociationsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: StatusAssociationCondition
-  ): StatusAssociationsConnection
 
   # Reads a single 'StatusAssociation' using its globally unique 'ID'.
   statusAssociation(
     # The globally unique 'ID' to be used in selecting a single 'StatusAssociation'.
-    __id: ID!
+    nodeId: ID!
   ): StatusAssociation
-  statusAssociationById(
-    # The primary unique identifier for the status association.
-    id: Int!
-  ): StatusAssociation
-
-  # Reads and enables paginatation through a set of 'StatusReason'.
-  allStatusReasons(
-    # The method to use when ordering 'StatusReason'.
-    orderBy: StatusReasonsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: StatusReasonCondition
-  ): StatusReasonsConnection
 
   # Reads a single 'StatusReason' using its globally unique 'ID'.
   statusReason(
     # The globally unique 'ID' to be used in selecting a single 'StatusReason'.
-    __id: ID!
+    nodeId: ID!
   ): StatusReason
-  statusReasonById(
-    # The primary unique identifier for the status reason.
-    id: Int!
-  ): StatusReason
-
-  # Reads and enables paginatation through a set of 'StatusUpdate'.
-  allStatusUpdates(
-    # The method to use when ordering 'StatusUpdate'.
-    orderBy: StatusUpdatesOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: StatusUpdateCondition
-  ): StatusUpdatesConnection
 
   # Reads a single 'StatusUpdate' using its globally unique 'ID'.
   statusUpdate(
     # The globally unique 'ID' to be used in selecting a single 'StatusUpdate'.
-    __id: ID!
+    nodeId: ID!
   ): StatusUpdate
-  statusUpdateById(
-    # The primary key for the status update.
-    id: Int!
-  ): StatusUpdate
-
-  # Reads and enables paginatation through a set of 'User'.
-  allUsers(
-    # The method to use when ordering 'User'.
-    orderBy: UsersOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: UserCondition
-  ): UsersConnection
 
   # Reads a single 'User' using its globally unique 'ID'.
   user(
     # The globally unique 'ID' to be used in selecting a single 'User'.
-    __id: ID!
+    nodeId: ID!
   ): User
-  userById(
-    # The primary unique identifier for the user.
-    id: Int!
-  ): User
-
-  # Reads and enables paginatation through a set of 'WazeStreet'.
-  allWazeStreets(
-    # The method to use when ordering 'WazeStreet'.
-    orderBy: WazeStreetsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: WazeStreetCondition
-  ): WazeStreetsConnection
 
   # Reads a single 'WazeStreet' using its globally unique 'ID'.
   wazeStreet(
     # The globally unique 'ID' to be used in selecting a single 'WazeStreet'.
-    __id: ID!
+    nodeId: ID!
   ): WazeStreet
-  wazeStreetById(id: Int!): WazeStreet
-
-  # Exposes the root query type nested one level down. This is helpful for Relay 1
-  # which can only query top level fields if they are in a particular form.
-  query: Query!
-
-  # The root query type must be a 'Node' to work well with Relay 1 mutations. This just resolves to 'query'.
-  __id: ID!
 }
 
 # All input for the 'reactivateUser' mutation.
@@ -1703,17 +1564,17 @@ type ReactivateUserPayload {
   clientMutationId: String
   user: User
 
-  # An edge for our 'User'. May be used by Relay 1.
-  userEdge(
-    # The method to use when ordering 'User'.
-    orderBy: UsersOrderBy = PRIMARY_KEY_ASC
-  ): UsersEdge
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'Community' that is related to this 'User'.
   communityByCommunityId: Community
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'User'. May be used by Relay 1.
+  userEdge(
+    # The method to use when ordering 'User'.
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): UsersEdge
 }
 
 # All input for the 'registerUser' mutation.
@@ -1738,17 +1599,17 @@ type RegisterUserPayload {
   clientMutationId: String
   user: User
 
-  # An edge for our 'User'. May be used by Relay 1.
-  userEdge(
-    # The method to use when ordering 'User'.
-    orderBy: UsersOrderBy = PRIMARY_KEY_ASC
-  ): UsersEdge
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'Community' that is related to this 'User'.
   communityByCommunityId: Community
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'User'. May be used by Relay 1.
+  userEdge(
+    # The method to use when ordering 'User'.
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): UsersEdge
 }
 
 # All input for the 'removeCrossingFromCommunity' mutation.
@@ -1767,23 +1628,23 @@ type RemoveCrossingFromCommunityPayload {
   clientMutationId: String
   crossing: Crossing
 
-  # An edge for our 'Crossing'. May be used by Relay 1.
-  crossingEdge(
-    # The method to use when ordering 'Crossing'.
-    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
-  ): CrossingsEdge
-
-  # Reads a single 'Status' that is related to this 'Crossing'.
-  statusByLatestStatusId: Status
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
 
+  # Reads a single 'Status' that is related to this 'Crossing'.
+  statusByLatestStatusId: Status
+
   # Reads a single 'WazeStreet' that is related to this 'Crossing'.
   wazeStreetByWazeStreetId: WazeStreet
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'Crossing'. May be used by Relay 1.
+  crossingEdge(
+    # The method to use when ordering 'Crossing'.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CrossingsEdge
 }
 
 # All input for the 'removeCrossing' mutation.
@@ -1801,23 +1662,23 @@ type RemoveCrossingPayload {
   clientMutationId: String
   crossing: Crossing
 
-  # An edge for our 'Crossing'. May be used by Relay 1.
-  crossingEdge(
-    # The method to use when ordering 'Crossing'.
-    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
-  ): CrossingsEdge
-
-  # Reads a single 'Status' that is related to this 'Crossing'.
-  statusByLatestStatusId: Status
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
 
+  # Reads a single 'Status' that is related to this 'Crossing'.
+  statusByLatestStatusId: Status
+
   # Reads a single 'WazeStreet' that is related to this 'Crossing'.
   wazeStreetByWazeStreetId: WazeStreet
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'Crossing'. May be used by Relay 1.
+  crossingEdge(
+    # The method to use when ordering 'Crossing'.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CrossingsEdge
 }
 
 # All input for the 'resetPassword' mutation.
@@ -1839,64 +1700,6 @@ type ResetPasswordPayload {
   query: Query
 }
 
-# A connection to a list of 'Crossing' values.
-type SearchCrossingsConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
-
-  # The count of *all* 'Crossing' you could get from the connection.
-  totalCount: Int
-
-  # A list of edges which contains the 'Crossing' and cursor to aid in pagination.
-  edges: [SearchCrossingsEdge]
-
-  # A list of 'Crossing' objects.
-  nodes: [Crossing]
-}
-
-# A 'Crossing' edge in the connection.
-type SearchCrossingsEdge {
-  # A cursor for use in pagination.
-  cursor: Cursor
-
-  # The 'Crossing' at the end of the edge.
-  node: Crossing
-}
-
-# Methods to use when ordering 'Crossing'.
-enum SearchCrossingsOrderBy {
-  NATURAL
-}
-
-# A connection to a list of 'User' values.
-type SearchUsersConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
-
-  # The count of *all* 'User' you could get from the connection.
-  totalCount: Int
-
-  # A list of edges which contains the 'User' and cursor to aid in pagination.
-  edges: [SearchUsersEdge]
-
-  # A list of 'User' objects.
-  nodes: [User]
-}
-
-# A 'User' edge in the connection.
-type SearchUsersEdge {
-  # A cursor for use in pagination.
-  cursor: Cursor
-
-  # The 'User' at the end of the edge.
-  node: User
-}
-
-# Methods to use when ordering 'User'.
-enum SearchUsersOrderBy {
-  NATURAL
-}
-
 # All input for the 'seedLegacyCrossing' mutation.
 input SeedLegacyCrossingInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
@@ -1905,8 +1708,8 @@ input SeedLegacyCrossingInput {
   name: String
   humanAddress: String
   communityId: Int
-  longitude: Float
-  latitude: Float
+  longitude: BigFloat
+  latitude: BigFloat
   description: String
   legacyId: Int
   wazeStreetId: Int
@@ -1917,7 +1720,6 @@ type SeedLegacyCrossingPayload {
   # The exact same 'clientMutationId' that was provided in the mutation input,
   # unchanged and unused. May be used by a client to track mutations.
   clientMutationId: String
-  string: String
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -1940,29 +1742,29 @@ type SetCameraForCrossingPayload {
   clientMutationId: String
   crossing: Crossing
 
-  # An edge for our 'Crossing'. May be used by Relay 1.
-  crossingEdge(
-    # The method to use when ordering 'Crossing'.
-    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
-  ): CrossingsEdge
-
-  # Reads a single 'Status' that is related to this 'Crossing'.
-  statusByLatestStatusId: Status
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
 
+  # Reads a single 'Status' that is related to this 'Crossing'.
+  statusByLatestStatusId: Status
+
   # Reads a single 'WazeStreet' that is related to this 'Crossing'.
   wazeStreetByWazeStreetId: WazeStreet
 
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
+  # An edge for our 'Crossing'. May be used by Relay 1.
+  crossingEdge(
+    # The method to use when ordering 'Crossing'.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CrossingsEdge
 }
 
 # A status a crossing might be in.
 type Status implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
+  nodeId: ID!
 
   # The primary unique identifier for the status.
   id: Int!
@@ -1970,17 +1772,8 @@ type Status implements Node {
   # The name of the status.
   name: String!
 
-  # Reads and enables paginatation through a set of 'Crossing'.
+  # Reads and enables pagination through a set of 'Crossing'.
   crossingsByLatestStatusId(
-    # The method to use when ordering 'Crossing'.
-    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -1990,22 +1783,22 @@ type Status implements Node {
     # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
     # based pagination. May not be used with 'last'.
     offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'Crossing'.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: CrossingCondition
-  ): CrossingsConnection
+  ): CrossingsConnection!
 
-  # Reads and enables paginatation through a set of 'StatusReason'.
+  # Reads and enables pagination through a set of 'StatusReason'.
   statusReasonsByStatusId(
-    # The method to use when ordering 'StatusReason'.
-    orderBy: StatusReasonsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -2015,22 +1808,22 @@ type Status implements Node {
     # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
     # based pagination. May not be used with 'last'.
     offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'StatusReason'.
+    orderBy: [StatusReasonsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: StatusReasonCondition
-  ): StatusReasonsConnection
+  ): StatusReasonsConnection!
 
-  # Reads and enables paginatation through a set of 'StatusAssociation'.
+  # Reads and enables pagination through a set of 'StatusAssociation'.
   statusAssociationsByStatusId(
-    # The method to use when ordering 'StatusAssociation'.
-    orderBy: StatusAssociationsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -2040,22 +1833,22 @@ type Status implements Node {
     # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
     # based pagination. May not be used with 'last'.
     offset: Int
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'StatusAssociation'.
+    orderBy: [StatusAssociationsOrderBy!] = [PRIMARY_KEY_ASC]
 
     # A condition to be used in determining which values should be returned by the collection.
     condition: StatusAssociationCondition
-  ): StatusAssociationsConnection
+  ): StatusAssociationsConnection!
 
-  # Reads and enables paginatation through a set of 'StatusUpdate'.
+  # Reads and enables pagination through a set of 'StatusUpdate'.
   statusUpdatesByStatusId(
-    # The method to use when ordering 'StatusUpdate'.
-    orderBy: StatusUpdatesOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -2066,15 +1859,24 @@ type Status implements Node {
     # based pagination. May not be used with 'last'.
     offset: Int
 
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'StatusUpdate'.
+    orderBy: [StatusUpdatesOrderBy!] = [PRIMARY_KEY_ASC]
+
     # A condition to be used in determining which values should be returned by the collection.
     condition: StatusUpdateCondition
-  ): StatusUpdatesConnection
+  ): StatusUpdatesConnection!
 }
 
 # An association of a status to a rule about status details.
 type StatusAssociation implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
+  nodeId: ID!
 
   # The primary unique identifier for the status association.
   id: Int!
@@ -2108,17 +1910,17 @@ input StatusAssociationCondition {
 
 # A connection to a list of 'StatusAssociation' values.
 type StatusAssociationsConnection {
+  # A list of 'StatusAssociation' objects.
+  nodes: [StatusAssociation]!
+
+  # A list of edges which contains the 'StatusAssociation' and cursor to aid in pagination.
+  edges: [StatusAssociationsEdge!]!
+
   # Information to aid in pagination.
   pageInfo: PageInfo!
 
   # The count of *all* 'StatusAssociation' you could get from the connection.
   totalCount: Int
-
-  # A list of edges which contains the 'StatusAssociation' and cursor to aid in pagination.
-  edges: [StatusAssociationsEdge]
-
-  # A list of 'StatusAssociation' objects.
-  nodes: [StatusAssociation!]
 }
 
 # A 'StatusAssociation' edge in the connection.
@@ -2127,13 +1929,11 @@ type StatusAssociationsEdge {
   cursor: Cursor
 
   # The 'StatusAssociation' at the end of the edge.
-  node: StatusAssociation!
+  node: StatusAssociation
 }
 
 # Methods to use when ordering 'StatusAssociation'.
 enum StatusAssociationsOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   NATURAL
   ID_ASC
   ID_DESC
@@ -2143,6 +1943,8 @@ enum StatusAssociationsOrderBy {
   DETAIL_DESC
   RULE_ASC
   RULE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 # A condition to be used against 'Status' object types. All fields are tested for equality and combined with a logical ‘and.’
@@ -2161,17 +1963,17 @@ enum StatusDetail {
 
 # A connection to a list of 'Status' values.
 type StatusesConnection {
+  # A list of 'Status' objects.
+  nodes: [Status]!
+
+  # A list of edges which contains the 'Status' and cursor to aid in pagination.
+  edges: [StatusesEdge!]!
+
   # Information to aid in pagination.
   pageInfo: PageInfo!
 
   # The count of *all* 'Status' you could get from the connection.
   totalCount: Int
-
-  # A list of edges which contains the 'Status' and cursor to aid in pagination.
-  edges: [StatusesEdge]
-
-  # A list of 'Status' objects.
-  nodes: [Status!]
 }
 
 # A 'Status' edge in the connection.
@@ -2180,24 +1982,24 @@ type StatusesEdge {
   cursor: Cursor
 
   # The 'Status' at the end of the edge.
-  node: Status!
+  node: Status
 }
 
 # Methods to use when ordering 'Status'.
 enum StatusesOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   NATURAL
   ID_ASC
   ID_DESC
   NAME_ASC
   NAME_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 # A reason a crossing might be in a given status.
 type StatusReason implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
+  nodeId: ID!
 
   # The primary unique identifier for the status reason.
   id: Int!
@@ -2211,17 +2013,8 @@ type StatusReason implements Node {
   # Reads a single 'Status' that is related to this 'StatusReason'.
   statusByStatusId: Status
 
-  # Reads and enables paginatation through a set of 'StatusUpdate'.
+  # Reads and enables pagination through a set of 'StatusUpdate'.
   statusUpdatesByStatusReasonId(
-    # The method to use when ordering 'StatusUpdate'.
-    orderBy: StatusUpdatesOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -2232,9 +2025,18 @@ type StatusReason implements Node {
     # based pagination. May not be used with 'last'.
     offset: Int
 
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'StatusUpdate'.
+    orderBy: [StatusUpdatesOrderBy!] = [PRIMARY_KEY_ASC]
+
     # A condition to be used in determining which values should be returned by the collection.
     condition: StatusUpdateCondition
-  ): StatusUpdatesConnection
+  ): StatusUpdatesConnection!
 }
 
 # A condition to be used against 'StatusReason' object types. All fields are
@@ -2252,17 +2054,17 @@ input StatusReasonCondition {
 
 # A connection to a list of 'StatusReason' values.
 type StatusReasonsConnection {
+  # A list of 'StatusReason' objects.
+  nodes: [StatusReason]!
+
+  # A list of edges which contains the 'StatusReason' and cursor to aid in pagination.
+  edges: [StatusReasonsEdge!]!
+
   # Information to aid in pagination.
   pageInfo: PageInfo!
 
   # The count of *all* 'StatusReason' you could get from the connection.
   totalCount: Int
-
-  # A list of edges which contains the 'StatusReason' and cursor to aid in pagination.
-  edges: [StatusReasonsEdge]
-
-  # A list of 'StatusReason' objects.
-  nodes: [StatusReason!]
 }
 
 # A 'StatusReason' edge in the connection.
@@ -2271,13 +2073,11 @@ type StatusReasonsEdge {
   cursor: Cursor
 
   # The 'StatusReason' at the end of the edge.
-  node: StatusReason!
+  node: StatusReason
 }
 
 # Methods to use when ordering 'StatusReason'.
 enum StatusReasonsOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   NATURAL
   ID_ASC
   ID_DESC
@@ -2285,6 +2085,8 @@ enum StatusReasonsOrderBy {
   STATUS_ID_DESC
   NAME_ASC
   NAME_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 enum StatusRule {
@@ -2296,7 +2098,7 @@ enum StatusRule {
 # A status update of a crossing.
 type StatusUpdate implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
+  nodeId: ID!
 
   # The primary key for the status update.
   id: Int!
@@ -2325,29 +2127,20 @@ type StatusUpdate implements Node {
   # Flag for a longterm closure with no estimated reopen date.
   indefiniteClosure: Boolean
 
+  # Reads a single 'Status' that is related to this 'StatusUpdate'.
+  statusByStatusId: Status
+
   # Reads a single 'User' that is related to this 'StatusUpdate'.
   userByCreatorId: User
 
   # Reads a single 'Crossing' that is related to this 'StatusUpdate'.
   crossingByCrossingId: Crossing
 
-  # Reads a single 'Status' that is related to this 'StatusUpdate'.
-  statusByStatusId: Status
-
   # Reads a single 'StatusReason' that is related to this 'StatusUpdate'.
   statusReasonByStatusReasonId: StatusReason
 
-  # Reads and enables paginatation through a set of 'Crossing'.
+  # Reads and enables pagination through a set of 'Crossing'.
   crossingsByLatestStatusUpdateId(
-    # The method to use when ordering 'Crossing'.
-    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -2358,9 +2151,18 @@ type StatusUpdate implements Node {
     # based pagination. May not be used with 'last'.
     offset: Int
 
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'Crossing'.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
+
     # A condition to be used in determining which values should be returned by the collection.
     condition: CrossingCondition
-  ): CrossingsConnection
+  ): CrossingsConnection!
 }
 
 # A condition to be used against 'StatusUpdate' object types. All fields are
@@ -2396,17 +2198,17 @@ input StatusUpdateCondition {
 
 # A connection to a list of 'StatusUpdate' values.
 type StatusUpdatesConnection {
+  # A list of 'StatusUpdate' objects.
+  nodes: [StatusUpdate]!
+
+  # A list of edges which contains the 'StatusUpdate' and cursor to aid in pagination.
+  edges: [StatusUpdatesEdge!]!
+
   # Information to aid in pagination.
   pageInfo: PageInfo!
 
   # The count of *all* 'StatusUpdate' you could get from the connection.
   totalCount: Int
-
-  # A list of edges which contains the 'StatusUpdate' and cursor to aid in pagination.
-  edges: [StatusUpdatesEdge]
-
-  # A list of 'StatusUpdate' objects.
-  nodes: [StatusUpdate!]
 }
 
 # A 'StatusUpdate' edge in the connection.
@@ -2415,13 +2217,11 @@ type StatusUpdatesEdge {
   cursor: Cursor
 
   # The 'StatusUpdate' at the end of the edge.
-  node: StatusUpdate!
+  node: StatusUpdate
 }
 
 # Methods to use when ordering 'StatusUpdate'.
 enum StatusUpdatesOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   NATURAL
   ID_ASC
   ID_DESC
@@ -2441,12 +2241,14 @@ enum StatusUpdatesOrderBy {
   REOPEN_DATE_DESC
   INDEFINITE_CLOSURE_ASC
   INDEFINITE_CLOSURE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 # A user of the flood tracking applicaiton.
 type User implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
+  nodeId: ID!
 
   # The primary unique identifier for the user.
   id: Int!
@@ -2476,17 +2278,8 @@ type User implements Node {
   # Reads a single 'Community' that is related to this 'User'.
   communityByCommunityId: Community
 
-  # Reads and enables paginatation through a set of 'StatusUpdate'.
+  # Reads and enables pagination through a set of 'StatusUpdate'.
   statusUpdatesByCreatorId(
-    # The method to use when ordering 'StatusUpdate'.
-    orderBy: StatusUpdatesOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -2497,9 +2290,18 @@ type User implements Node {
     # based pagination. May not be used with 'last'.
     offset: Int
 
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'StatusUpdate'.
+    orderBy: [StatusUpdatesOrderBy!] = [PRIMARY_KEY_ASC]
+
     # A condition to be used in determining which values should be returned by the collection.
     condition: StatusUpdateCondition
-  ): StatusUpdatesConnection
+  ): StatusUpdatesConnection!
 }
 
 # A condition to be used against 'User' object types. All fields are tested for equality and combined with a logical ‘and.’
@@ -2534,17 +2336,17 @@ input UserCondition {
 
 # A connection to a list of 'User' values.
 type UsersConnection {
+  # A list of 'User' objects.
+  nodes: [User]!
+
+  # A list of edges which contains the 'User' and cursor to aid in pagination.
+  edges: [UsersEdge!]!
+
   # Information to aid in pagination.
   pageInfo: PageInfo!
 
   # The count of *all* 'User' you could get from the connection.
   totalCount: Int
-
-  # A list of edges which contains the 'User' and cursor to aid in pagination.
-  edges: [UsersEdge]
-
-  # A list of 'User' objects.
-  nodes: [User!]
 }
 
 # A 'User' edge in the connection.
@@ -2553,13 +2355,11 @@ type UsersEdge {
   cursor: Cursor
 
   # The 'User' at the end of the edge.
-  node: User!
+  node: User
 }
 
 # Methods to use when ordering 'User'.
 enum UsersOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   NATURAL
   ID_ASC
   ID_DESC
@@ -2579,33 +2379,11 @@ enum UsersOrderBy {
   PHONE_NUMBER_DESC
   ACTIVE_ASC
   ACTIVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
-# A connection to a list of 'WazeFeedIncidents' values.
-type WazeFeedConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
-
-  # The count of *all* 'WazeFeedIncidents' you could get from the connection.
-  totalCount: Int
-
-  # A list of edges which contains the 'WazeFeedIncidents' and cursor to aid in pagination.
-  edges: [WazeFeedEdge]
-
-  # A list of 'WazeFeedIncidents' objects.
-  nodes: [WazeFeedIncidents]
-}
-
-# A 'WazeFeedIncidents' edge in the connection.
-type WazeFeedEdge {
-  # A cursor for use in pagination.
-  cursor: Cursor
-
-  # The 'WazeFeedIncidents' at the end of the edge.
-  node: WazeFeedIncidents
-}
-
-type WazeFeedIncidents {
+type WazeFeedIncident {
   id: Int
   street: String
   polyline: String
@@ -2617,9 +2395,28 @@ type WazeFeedIncidents {
   reference: String
 }
 
-# Methods to use when ordering 'WazeFeedIncidents'.
-enum WazeFeedOrderBy {
-  NATURAL
+# A connection to a list of 'WazeFeedIncident' values.
+type WazeFeedIncidentsConnection {
+  # A list of 'WazeFeedIncident' objects.
+  nodes: [WazeFeedIncident]!
+
+  # A list of edges which contains the 'WazeFeedIncident' and cursor to aid in pagination.
+  edges: [WazeFeedIncidentsEdge!]!
+
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # The count of *all* 'WazeFeedIncident' you could get from the connection.
+  totalCount: Int
+}
+
+# A 'WazeFeedIncident' edge in the connection.
+type WazeFeedIncidentsEdge {
+  # A cursor for use in pagination.
+  cursor: Cursor
+
+  # The 'WazeFeedIncident' at the end of the edge.
+  node: WazeFeedIncident
 }
 
 # A street name suggested by the Waze geocoder. When we query the waze geocoder it
@@ -2627,29 +2424,17 @@ enum WazeFeedOrderBy {
 # need our street names to match their internal names.
 type WazeStreet implements Node {
   # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
+  nodeId: ID!
   id: Int!
   coordinates: String
-  distance: Float
+  distance: BigFloat
   name: String
   names: [String]
   createdAt: Datetime
   updatedAt: Datetime
 
-  # Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.
-  humanCoordinates: String
-
-  # Reads and enables paginatation through a set of 'Crossing'.
+  # Reads and enables pagination through a set of 'Crossing'.
   crossingsByWazeStreetId(
-    # The method to use when ordering 'Crossing'.
-    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
     # Only read the first 'n' values of the set.
     first: Int
 
@@ -2660,9 +2445,21 @@ type WazeStreet implements Node {
     # based pagination. May not be used with 'last'.
     offset: Int
 
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # The method to use when ordering 'Crossing'.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
+
     # A condition to be used in determining which values should be returned by the collection.
     condition: CrossingCondition
-  ): CrossingsConnection
+  ): CrossingsConnection!
+
+  # Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.
+  humanCoordinates: String
 }
 
 # A condition to be used against 'WazeStreet' object types. All fields are tested
@@ -2675,7 +2472,7 @@ input WazeStreetCondition {
   coordinates: String
 
   # Checks for equality with the object’s 'distance' field.
-  distance: Float
+  distance: BigFloat
 
   # Checks for equality with the object’s 'name' field.
   name: String
@@ -2692,17 +2489,17 @@ input WazeStreetCondition {
 
 # A connection to a list of 'WazeStreet' values.
 type WazeStreetsConnection {
+  # A list of 'WazeStreet' objects.
+  nodes: [WazeStreet]!
+
+  # A list of edges which contains the 'WazeStreet' and cursor to aid in pagination.
+  edges: [WazeStreetsEdge!]!
+
   # Information to aid in pagination.
   pageInfo: PageInfo!
 
   # The count of *all* 'WazeStreet' you could get from the connection.
   totalCount: Int
-
-  # A list of edges which contains the 'WazeStreet' and cursor to aid in pagination.
-  edges: [WazeStreetsEdge]
-
-  # A list of 'WazeStreet' objects.
-  nodes: [WazeStreet!]
 }
 
 # A 'WazeStreet' edge in the connection.
@@ -2711,13 +2508,11 @@ type WazeStreetsEdge {
   cursor: Cursor
 
   # The 'WazeStreet' at the end of the edge.
-  node: WazeStreet!
+  node: WazeStreet
 }
 
 # Methods to use when ordering 'WazeStreet'.
 enum WazeStreetsOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   NATURAL
   ID_ASC
   ID_DESC
@@ -2733,6 +2528,8 @@ enum WazeStreetsOrderBy {
   CREATED_AT_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 `; export default schema;
