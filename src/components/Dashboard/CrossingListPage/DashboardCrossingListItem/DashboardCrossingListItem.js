@@ -169,10 +169,12 @@ class DashboardCrossingListItem extends React.Component {
 
   updateMap(store, updatedCrossing) {
     // Update the selected crossing
-    this.props.selectCrossing(
-      updatedCrossing.id,
-      updatedCrossing.latestStatusId,
-    );
+    if (this.props.listOrMap === 'map') {
+      this.props.selectCrossing(
+        updatedCrossing.id,
+        updatedCrossing.latestStatusId,
+      );
+    }
 
     // Get all the query variable combinations we have cached
     const queryVariables = Object.keys(store.data.data)
@@ -345,8 +347,10 @@ class DashboardCrossingListItem extends React.Component {
           });
 
           // If we're in a list view, fix the sort order
+          // Map queries must also be updated, even if change took place on list page.
           if (this.props.listOrMap === 'list') {
             this.fixSort(store, updatedCrossing);
+            this.updateMap(store, updatedCrossing);
           }
 
           // If we're on the map, update the map queries
