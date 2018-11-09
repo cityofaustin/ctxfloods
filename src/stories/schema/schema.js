@@ -27,6 +27,9 @@ type AddCrossingToCommunityPayload {
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
 
+  # Reads a single 'WazeStreet' that is related to this 'Crossing'.
+  wazeStreetByWazeStreetId: WazeStreet
+
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
 }
@@ -72,32 +75,6 @@ type ChangeCommunityNamePayload {
     # The method to use when ordering 'Community'.
     orderBy: CommunitiesOrderBy = PRIMARY_KEY_ASC
   ): CommunitiesEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
-}
-
-# All input for the 'changeStatusDurationName' mutation.
-input ChangeStatusDurationNameInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-  statusDurationId: Int!
-  name: String!
-}
-
-# The output of our 'changeStatusDurationName' mutation.
-type ChangeStatusDurationNamePayload {
-  # The exact same 'clientMutationId' that was provided in the mutation input,
-  # unchanged and unused. May be used by a client to track mutations.
-  clientMutationId: String
-  statusDuration: StatusDuration
-
-  # An edge for our 'StatusDuration'. May be used by Relay 1.
-  statusDurationEdge(
-    # The method to use when ordering 'StatusDuration'.
-    orderBy: StatusDurationsOrderBy = PRIMARY_KEY_ASC
-  ): StatusDurationsEdge
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -295,6 +272,15 @@ type Crossing implements Node {
   # The latest status of the crossing.
   latestStatusId: Int
 
+  # The type of camera associated with this crossing.
+  cameraType: String
+
+  # The id of a camera associated with this crossing.
+  cameraId: String
+
+  # The crossings street name according to the Waze geocoder.
+  wazeStreetId: Int
+
   # Get all the communities for a crossing.
   communities(
     # The method to use when ordering 'Community'.
@@ -325,6 +311,9 @@ type Crossing implements Node {
 
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
+
+  # Reads a single 'WazeStreet' that is related to this 'Crossing'.
+  wazeStreetByWazeStreetId: WazeStreet
 
   # Reads and enables paginatation through a set of 'StatusUpdate'.
   statusUpdatesByCrossingId(
@@ -419,6 +408,15 @@ input CrossingCondition {
 
   # Checks for equality with the object’s 'latestStatusId' field.
   latestStatusId: Int
+
+  # Checks for equality with the object’s 'cameraType' field.
+  cameraType: String
+
+  # Checks for equality with the object’s 'cameraId' field.
+  cameraId: String
+
+  # Checks for equality with the object’s 'wazeStreetId' field.
+  wazeStreetId: Int
 }
 
 # A road crossing that might flood.
@@ -458,6 +456,15 @@ input CrossingInput {
 
   # The latest status of the crossing.
   latestStatusId: Int
+
+  # The type of camera associated with this crossing.
+  cameraType: String
+
+  # The id of a camera associated with this crossing.
+  cameraId: String
+
+  # The crossings street name according to the Waze geocoder.
+  wazeStreetId: Int
 }
 
 # A connection to a list of 'Crossing' values.
@@ -513,10 +520,19 @@ enum CrossingsOrderBy {
   LATEST_STATUS_UPDATE_ID_DESC
   LATEST_STATUS_ID_ASC
   LATEST_STATUS_ID_DESC
+  CAMERA_TYPE_ASC
+  CAMERA_TYPE_DESC
+  CAMERA_ID_ASC
+  CAMERA_ID_DESC
+  WAZE_STREET_ID_ASC
+  WAZE_STREET_ID_DESC
 }
 
 # A location in a connection that can be used for resuming pagination.
 scalar Cursor
+
+# The day, does not include a time.
+scalar Date
 
 # A point in time as described by the [ISO
 # 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
@@ -570,31 +586,6 @@ type DeleteCommunityPayload {
     # The method to use when ordering 'Community'.
     orderBy: CommunitiesOrderBy = PRIMARY_KEY_ASC
   ): CommunitiesEdge
-
-  # Our root query field type. Allows us to run any query from our mutation payload.
-  query: Query
-}
-
-# All input for the 'deleteStatusDuration' mutation.
-input DeleteStatusDurationInput {
-  # An arbitrary string value with no semantic meaning. Will be included in the
-  # payload verbatim. May be used to track mutations by the client.
-  clientMutationId: String
-  statusDurationId: Int!
-}
-
-# The output of our 'deleteStatusDuration' mutation.
-type DeleteStatusDurationPayload {
-  # The exact same 'clientMutationId' that was provided in the mutation input,
-  # unchanged and unused. May be used by a client to track mutations.
-  clientMutationId: String
-  statusDuration: StatusDuration
-
-  # An edge for our 'StatusDuration'. May be used by Relay 1.
-  statusDurationEdge(
-    # The method to use when ordering 'StatusDuration'.
-    orderBy: StatusDurationsOrderBy = PRIMARY_KEY_ASC
-  ): StatusDurationsEdge
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -682,54 +673,148 @@ type EditCrossingPayload {
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
 
+  # Reads a single 'WazeStreet' that is related to this 'Crossing'.
+  wazeStreetByWazeStreetId: WazeStreet
+
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
 }
 
-# An interval of time that has passed where the smallest distinct unit is a second.
-type Interval {
-  # A quantity of seconds. This is the only non-integer field, as all the other
-  # fields will dump their overflow into a smaller unit of time. Intervals don’t
-  # have a smaller unit than seconds.
-  seconds: Float
-
-  # A quantity of minutes.
-  minutes: Int
-
-  # A quantity of hours.
-  hours: Int
-
-  # A quantity of days.
-  days: Int
-
-  # A quantity of months
-  months: Int
-
-  # A quantity of years
-  years: Int
+# All input for the 'editUser' mutation.
+input EditUserInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+  userId: Int!
+  firstName: String!
+  lastName: String!
+  jobTitle: String!
+  phoneNumber: String!
 }
 
-# An interval of time that has passed where the smallest distinct unit is a second.
-input IntervalInput {
-  # A quantity of seconds. This is the only non-integer field, as all the other
-  # fields will dump their overflow into a smaller unit of time. Intervals don’t
-  # have a smaller unit than seconds.
-  seconds: Float
+# The output of our 'editUser' mutation.
+type EditUserPayload {
+  # The exact same 'clientMutationId' that was provided in the mutation input,
+  # unchanged and unused. May be used by a client to track mutations.
+  clientMutationId: String
+  user: User
 
-  # A quantity of minutes.
-  minutes: Int
+  # An edge for our 'User'. May be used by Relay 1.
+  userEdge(
+    # The method to use when ordering 'User'.
+    orderBy: UsersOrderBy = PRIMARY_KEY_ASC
+  ): UsersEdge
 
-  # A quantity of hours.
-  hours: Int
+  # Reads a single 'Community' that is related to this 'User'.
+  communityByCommunityId: Community
 
-  # A quantity of days.
-  days: Int
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+}
 
-  # A quantity of months
-  months: Int
+# A connection to a list of 'User' values.
+type FindUsersInCommunitiesConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
 
-  # A quantity of years
-  years: Int
+  # The count of *all* 'User' you could get from the connection.
+  totalCount: Int
+
+  # A list of edges which contains the 'User' and cursor to aid in pagination.
+  edges: [FindUsersInCommunitiesEdge]
+
+  # A list of 'User' objects.
+  nodes: [User]
+}
+
+# A 'User' edge in the connection.
+type FindUsersInCommunitiesEdge {
+  # A cursor for use in pagination.
+  cursor: Cursor
+
+  # The 'User' at the end of the edge.
+  node: User
+}
+
+# Methods to use when ordering 'User'.
+enum FindUsersInCommunitiesOrderBy {
+  NATURAL
+}
+
+type IncidentReport implements Node {
+  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  __id: ID!
+  id: Int!
+  notes: String
+  locationDescription: String
+  coordinates: String
+  communityIds: [Int]
+  createdAt: Datetime
+}
+
+# A condition to be used against 'IncidentReport' object types. All fields are
+# tested for equality and combined with a logical ‘and.’
+input IncidentReportCondition {
+  # Checks for equality with the object’s 'id' field.
+  id: Int
+
+  # Checks for equality with the object’s 'notes' field.
+  notes: String
+
+  # Checks for equality with the object’s 'locationDescription' field.
+  locationDescription: String
+
+  # Checks for equality with the object’s 'coordinates' field.
+  coordinates: String
+
+  # Checks for equality with the object’s 'communityIds' field.
+  communityIds: [Int]
+
+  # Checks for equality with the object’s 'createdAt' field.
+  createdAt: Datetime
+}
+
+# A connection to a list of 'IncidentReport' values.
+type IncidentReportsConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # The count of *all* 'IncidentReport' you could get from the connection.
+  totalCount: Int
+
+  # A list of edges which contains the 'IncidentReport' and cursor to aid in pagination.
+  edges: [IncidentReportsEdge]
+
+  # A list of 'IncidentReport' objects.
+  nodes: [IncidentReport!]
+}
+
+# A 'IncidentReport' edge in the connection.
+type IncidentReportsEdge {
+  # A cursor for use in pagination.
+  cursor: Cursor
+
+  # The 'IncidentReport' at the end of the edge.
+  node: IncidentReport!
+}
+
+# Methods to use when ordering 'IncidentReport'.
+enum IncidentReportsOrderBy {
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NOTES_ASC
+  NOTES_DESC
+  LOCATION_DESCRIPTION_ASC
+  LOCATION_DESCRIPTION_DESC
+  COORDINATES_ASC
+  COORDINATES_DESC
+  COMMUNITY_IDS_ASC
+  COMMUNITY_IDS_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
 }
 
 # A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
@@ -755,12 +840,6 @@ type Mutation {
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: ChangeCommunityNameInput!
   ): ChangeCommunityNamePayload
-
-  # Changes the name of a status duration.
-  changeStatusDurationName(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: ChangeStatusDurationNameInput!
-  ): ChangeStatusDurationNamePayload
 
   # Changes the name of a status.
   changeStatusName(
@@ -792,12 +871,6 @@ type Mutation {
     input: DeleteStatusInput!
   ): DeleteStatusPayload
 
-  # Deletes a status duration.
-  deleteStatusDuration(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: DeleteStatusDurationInput!
-  ): DeleteStatusDurationPayload
-
   # Deletes a status reason.
   deleteStatusReason(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -809,6 +882,12 @@ type Mutation {
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: EditCrossingInput!
   ): EditCrossingPayload
+
+  # Edits an existing user.
+  editUser(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: EditUserInput!
+  ): EditUserPayload
 
   # Adds a community.
   newCommunity(
@@ -822,17 +901,17 @@ type Mutation {
     input: NewCrossingInput!
   ): NewCrossingPayload
 
+  # Adds an incident report.
+  newIncidentReport(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: NewIncidentReportInput!
+  ): NewIncidentReportPayload
+
   # Adds a status.
   newStatus(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: NewStatusInput!
   ): NewStatusPayload
-
-  # Adds a status duration.
-  newStatusDuration(
-    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    input: NewStatusDurationInput!
-  ): NewStatusDurationPayload
 
   # Adds a status reason.
   newStatusReason(
@@ -845,6 +924,18 @@ type Mutation {
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: NewStatusUpdateInput!
   ): NewStatusUpdatePayload
+
+  # Adds a waze street. Uses the default autoincrement id.
+  newWazeStreet(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: NewWazeStreetInput!
+  ): NewWazeStreetPayload
+
+  # Adds a waze street. You must specify the id. Used to populate the initial data from wazeStreets.csv.
+  newWazeStreetWithId(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: NewWazeStreetWithIdInput!
+  ): NewWazeStreetWithIdPayload
 
   # Reactivates a user and creates an account.
   reactivateUser(
@@ -875,6 +966,18 @@ type Mutation {
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: ResetPasswordInput!
   ): ResetPasswordPayload
+
+  # Adds a new crossing or adds an existing legacy crossing to a community.
+  seedLegacyCrossing(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: SeedLegacyCrossingInput!
+  ): SeedLegacyCrossingPayload
+
+  # Sets a camera for a crossing.
+  setCameraForCrossing(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: SetCameraForCrossingInput!
+  ): SetCameraForCrossingPayload
 }
 
 # All input for the 'newCommunity' mutation.
@@ -908,12 +1011,14 @@ input NewCrossingInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
-  name: String!
-  humanAddress: String!
-  description: String!
-  communityId: Int!
-  longitude: Float!
-  latitude: Float!
+  name: String
+  humanAddress: String
+  communityId: Int
+  longitude: Float
+  latitude: Float
+  description: String
+  legacyId: Int
+  wazeStreetId: Int
 }
 
 # The output of our 'newCrossing' mutation.
@@ -935,31 +1040,37 @@ type NewCrossingPayload {
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
 
+  # Reads a single 'WazeStreet' that is related to this 'Crossing'.
+  wazeStreetByWazeStreetId: WazeStreet
+
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
 }
 
-# All input for the 'newStatusDuration' mutation.
-input NewStatusDurationInput {
+# All input for the 'newIncidentReport' mutation.
+input NewIncidentReportInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
-  name: String!
-  timespan: IntervalInput!
+  notes: String
+  locationDescription: String
+  longitude: Float
+  latitude: Float
+  communityIds: [Int]
 }
 
-# The output of our 'newStatusDuration' mutation.
-type NewStatusDurationPayload {
+# The output of our 'newIncidentReport' mutation.
+type NewIncidentReportPayload {
   # The exact same 'clientMutationId' that was provided in the mutation input,
   # unchanged and unused. May be used by a client to track mutations.
   clientMutationId: String
-  statusDuration: StatusDuration
+  incidentReport: IncidentReport
 
-  # An edge for our 'StatusDuration'. May be used by Relay 1.
-  statusDurationEdge(
-    # The method to use when ordering 'StatusDuration'.
-    orderBy: StatusDurationsOrderBy = PRIMARY_KEY_ASC
-  ): StatusDurationsEdge
+  # An edge for our 'IncidentReport'. May be used by Relay 1.
+  incidentReportEdge(
+    # The method to use when ordering 'IncidentReport'.
+    orderBy: IncidentReportsOrderBy = PRIMARY_KEY_ASC
+  ): IncidentReportsEdge
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -1028,7 +1139,8 @@ input NewStatusUpdateInput {
   crossingId: Int
   notes: String
   statusReasonId: Int
-  statusDurationId: Int
+  reopenDate: Date
+  indefiniteClosure: Boolean
 }
 
 # The output of our 'newStatusUpdate' mutation.
@@ -1050,14 +1162,74 @@ type NewStatusUpdatePayload {
   # Reads a single 'Crossing' that is related to this 'StatusUpdate'.
   crossingByCrossingId: Crossing
 
-  # Reads a single 'StatusDuration' that is related to this 'StatusUpdate'.
-  statusDurationByStatusDurationId: StatusDuration
-
   # Reads a single 'Status' that is related to this 'StatusUpdate'.
   statusByStatusId: Status
 
   # Reads a single 'StatusReason' that is related to this 'StatusUpdate'.
   statusReasonByStatusReasonId: StatusReason
+
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+}
+
+# All input for the 'newWazeStreet' mutation.
+input NewWazeStreetInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+  longitude: Float
+  latitude: Float
+  distance: Float
+  name: String
+  names: [String]
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+# The output of our 'newWazeStreet' mutation.
+type NewWazeStreetPayload {
+  # The exact same 'clientMutationId' that was provided in the mutation input,
+  # unchanged and unused. May be used by a client to track mutations.
+  clientMutationId: String
+  wazeStreet: WazeStreet
+
+  # An edge for our 'WazeStreet'. May be used by Relay 1.
+  wazeStreetEdge(
+    # The method to use when ordering 'WazeStreet'.
+    orderBy: WazeStreetsOrderBy = PRIMARY_KEY_ASC
+  ): WazeStreetsEdge
+
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+}
+
+# All input for the 'newWazeStreetWithId' mutation.
+input NewWazeStreetWithIdInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+  id: Int
+  longitude: Float
+  latitude: Float
+  distance: Float
+  name: String
+  names: [String]
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+# The output of our 'newWazeStreetWithId' mutation.
+type NewWazeStreetWithIdPayload {
+  # The exact same 'clientMutationId' that was provided in the mutation input,
+  # unchanged and unused. May be used by a client to track mutations.
+  clientMutationId: String
+  wazeStreet: WazeStreet
+
+  # An edge for our 'WazeStreet'. May be used by Relay 1.
+  wazeStreetEdge(
+    # The method to use when ordering 'WazeStreet'.
+    orderBy: WazeStreetsOrderBy = PRIMARY_KEY_ASC
+  ): WazeStreetsEdge
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -1094,6 +1266,29 @@ type Query implements Node {
 
   # Gets the user who was identified by our JWT.
   currentUser: User
+
+  # Finds users that administrate the specified communities.
+  findUsersInCommunities(
+    # The method to use when ordering 'User'.
+    orderBy: FindUsersInCommunitiesOrderBy = NATURAL
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+    communityIds: [Int]
+  ): FindUsersInCommunitiesConnection
 
   # Gets the legacy abbreviation of the first community for a crossing.
   legacyJurisdictionAbbreviation(crossing: CrossingInput): String
@@ -1153,6 +1348,28 @@ type Query implements Node {
     search: String
     community: Int
   ): SearchUsersConnection
+
+  # Reads and enables paginatation through a set of 'WazeFeedIncidents'.
+  wazeFeed(
+    # The method to use when ordering 'WazeFeedIncidents'.
+    orderBy: WazeFeedOrderBy = NATURAL
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+  ): WazeFeedConnection
 
   # Reads and enables paginatation through a set of 'Community'.
   allCommunities(
@@ -1224,6 +1441,38 @@ type Query implements Node {
     id: Int!
   ): Crossing
 
+  # Reads and enables paginatation through a set of 'IncidentReport'.
+  allIncidentReports(
+    # The method to use when ordering 'IncidentReport'.
+    orderBy: IncidentReportsOrderBy = PRIMARY_KEY_ASC
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: IncidentReportCondition
+  ): IncidentReportsConnection
+
+  # Reads a single 'IncidentReport' using its globally unique 'ID'.
+  incidentReport(
+    # The globally unique 'ID' to be used in selecting a single 'IncidentReport'.
+    __id: ID!
+  ): IncidentReport
+  incidentReportById(id: Int!): IncidentReport
+
   # Reads and enables paginatation through a set of 'Status'.
   allStatuses(
     # The method to use when ordering 'Status'.
@@ -1293,41 +1542,6 @@ type Query implements Node {
     # The primary unique identifier for the status association.
     id: Int!
   ): StatusAssociation
-
-  # Reads and enables paginatation through a set of 'StatusDuration'.
-  allStatusDurations(
-    # The method to use when ordering 'StatusDuration'.
-    orderBy: StatusDurationsOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: StatusDurationCondition
-  ): StatusDurationsConnection
-
-  # Reads a single 'StatusDuration' using its globally unique 'ID'.
-  statusDuration(
-    # The globally unique 'ID' to be used in selecting a single 'StatusDuration'.
-    __id: ID!
-  ): StatusDuration
-  statusDurationById(
-    # The primary unique identifier for the status duration.
-    id: Int!
-  ): StatusDuration
 
   # Reads and enables paginatation through a set of 'StatusReason'.
   allStatusReasons(
@@ -1434,6 +1648,38 @@ type Query implements Node {
     id: Int!
   ): User
 
+  # Reads and enables paginatation through a set of 'WazeStreet'.
+  allWazeStreets(
+    # The method to use when ordering 'WazeStreet'.
+    orderBy: WazeStreetsOrderBy = PRIMARY_KEY_ASC
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: WazeStreetCondition
+  ): WazeStreetsConnection
+
+  # Reads a single 'WazeStreet' using its globally unique 'ID'.
+  wazeStreet(
+    # The globally unique 'ID' to be used in selecting a single 'WazeStreet'.
+    __id: ID!
+  ): WazeStreet
+  wazeStreetById(id: Int!): WazeStreet
+
   # Exposes the root query type nested one level down. This is helpful for Relay 1
   # which can only query top level fields if they are in a particular form.
   query: Query!
@@ -1448,9 +1694,6 @@ input ReactivateUserInput {
   # payload verbatim. May be used to track mutations by the client.
   clientMutationId: String
   userId: Int!
-  email: String!
-  password: String!
-  role: String!
 }
 
 # The output of our 'reactivateUser' mutation.
@@ -1536,6 +1779,9 @@ type RemoveCrossingFromCommunityPayload {
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
 
+  # Reads a single 'WazeStreet' that is related to this 'Crossing'.
+  wazeStreetByWazeStreetId: WazeStreet
+
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
 }
@@ -1566,6 +1812,9 @@ type RemoveCrossingPayload {
 
   # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
   statusUpdateByLatestStatusUpdateId: StatusUpdate
+
+  # Reads a single 'WazeStreet' that is related to this 'Crossing'.
+  wazeStreetByWazeStreetId: WazeStreet
 
   # Our root query field type. Allows us to run any query from our mutation payload.
   query: Query
@@ -1646,6 +1895,68 @@ type SearchUsersEdge {
 # Methods to use when ordering 'User'.
 enum SearchUsersOrderBy {
   NATURAL
+}
+
+# All input for the 'seedLegacyCrossing' mutation.
+input SeedLegacyCrossingInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+  name: String
+  humanAddress: String
+  communityId: Int
+  longitude: Float
+  latitude: Float
+  description: String
+  legacyId: Int
+  wazeStreetId: Int
+}
+
+# The output of our 'seedLegacyCrossing' mutation.
+type SeedLegacyCrossingPayload {
+  # The exact same 'clientMutationId' that was provided in the mutation input,
+  # unchanged and unused. May be used by a client to track mutations.
+  clientMutationId: String
+  string: String
+
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+}
+
+# All input for the 'setCameraForCrossing' mutation.
+input SetCameraForCrossingInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+  crossingId: Int!
+  cameraType: String!
+  cameraId: String!
+}
+
+# The output of our 'setCameraForCrossing' mutation.
+type SetCameraForCrossingPayload {
+  # The exact same 'clientMutationId' that was provided in the mutation input,
+  # unchanged and unused. May be used by a client to track mutations.
+  clientMutationId: String
+  crossing: Crossing
+
+  # An edge for our 'Crossing'. May be used by Relay 1.
+  crossingEdge(
+    # The method to use when ordering 'Crossing'.
+    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
+  ): CrossingsEdge
+
+  # Reads a single 'Status' that is related to this 'Crossing'.
+  statusByLatestStatusId: Status
+
+  # Reads a single 'StatusUpdate' that is related to this 'Crossing'.
+  statusUpdateByLatestStatusUpdateId: StatusUpdate
+
+  # Reads a single 'WazeStreet' that is related to this 'Crossing'.
+  wazeStreetByWazeStreetId: WazeStreet
+
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
 }
 
 # A status a crossing might be in.
@@ -1848,96 +2159,6 @@ enum StatusDetail {
   DURATION
 }
 
-# The amount of time a crossing might be in a given status.
-type StatusDuration implements Node {
-  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  __id: ID!
-
-  # The primary unique identifier for the status duration.
-  id: Int!
-
-  # The name of the status reason.
-  name: String!
-
-  # The timespan of the status reason.
-  timespan: Interval!
-
-  # Reads and enables paginatation through a set of 'StatusUpdate'.
-  statusUpdatesByStatusDurationId(
-    # The method to use when ordering 'StatusUpdate'.
-    orderBy: StatusUpdatesOrderBy = PRIMARY_KEY_ASC
-
-    # Read all values in the set before (above) this cursor.
-    before: Cursor
-
-    # Read all values in the set after (below) this cursor.
-    after: Cursor
-
-    # Only read the first 'n' values of the set.
-    first: Int
-
-    # Only read the last 'n' values of the set.
-    last: Int
-
-    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
-    # based pagination. May not be used with 'last'.
-    offset: Int
-
-    # A condition to be used in determining which values should be returned by the collection.
-    condition: StatusUpdateCondition
-  ): StatusUpdatesConnection
-}
-
-# A condition to be used against 'StatusDuration' object types. All fields are
-# tested for equality and combined with a logical ‘and.’
-input StatusDurationCondition {
-  # Checks for equality with the object’s 'id' field.
-  id: Int
-
-  # Checks for equality with the object’s 'name' field.
-  name: String
-
-  # Checks for equality with the object’s 'timespan' field.
-  timespan: IntervalInput
-}
-
-# A connection to a list of 'StatusDuration' values.
-type StatusDurationsConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
-
-  # The count of *all* 'StatusDuration' you could get from the connection.
-  totalCount: Int
-
-  # A list of edges which contains the 'StatusDuration' and cursor to aid in pagination.
-  edges: [StatusDurationsEdge]
-
-  # A list of 'StatusDuration' objects.
-  nodes: [StatusDuration!]
-}
-
-# A 'StatusDuration' edge in the connection.
-type StatusDurationsEdge {
-  # A cursor for use in pagination.
-  cursor: Cursor
-
-  # The 'StatusDuration' at the end of the edge.
-  node: StatusDuration!
-}
-
-# Methods to use when ordering 'StatusDuration'.
-enum StatusDurationsOrderBy {
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  NATURAL
-  ID_ASC
-  ID_DESC
-  NAME_ASC
-  NAME_DESC
-  TIMESPAN_ASC
-  TIMESPAN_DESC
-}
-
 # A connection to a list of 'Status' values.
 type StatusesConnection {
   # Information to aid in pagination.
@@ -2092,23 +2313,23 @@ type StatusUpdate implements Node {
   # The id of the status reason.
   statusReasonId: Int
 
-  # The id of the status duration.
-  statusDurationId: Int
-
   # Notes about the status update.
   notes: String!
 
   # The time this update was made.
   createdAt: Datetime
 
+  # Estimated date for longterm closure to reopen.
+  reopenDate: Date
+
+  # Flag for a longterm closure with no estimated reopen date.
+  indefiniteClosure: Boolean
+
   # Reads a single 'User' that is related to this 'StatusUpdate'.
   userByCreatorId: User
 
   # Reads a single 'Crossing' that is related to this 'StatusUpdate'.
   crossingByCrossingId: Crossing
-
-  # Reads a single 'StatusDuration' that is related to this 'StatusUpdate'.
-  statusDurationByStatusDurationId: StatusDuration
 
   # Reads a single 'Status' that is related to this 'StatusUpdate'.
   statusByStatusId: Status
@@ -2160,14 +2381,17 @@ input StatusUpdateCondition {
   # Checks for equality with the object’s 'statusReasonId' field.
   statusReasonId: Int
 
-  # Checks for equality with the object’s 'statusDurationId' field.
-  statusDurationId: Int
-
   # Checks for equality with the object’s 'notes' field.
   notes: String
 
   # Checks for equality with the object’s 'createdAt' field.
   createdAt: Datetime
+
+  # Checks for equality with the object’s 'reopenDate' field.
+  reopenDate: Date
+
+  # Checks for equality with the object’s 'indefiniteClosure' field.
+  indefiniteClosure: Boolean
 }
 
 # A connection to a list of 'StatusUpdate' values.
@@ -2209,12 +2433,14 @@ enum StatusUpdatesOrderBy {
   CROSSING_ID_DESC
   STATUS_REASON_ID_ASC
   STATUS_REASON_ID_DESC
-  STATUS_DURATION_ID_ASC
-  STATUS_DURATION_ID_DESC
   NOTES_ASC
   NOTES_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
+  REOPEN_DATE_ASC
+  REOPEN_DATE_DESC
+  INDEFINITE_CLOSURE_ASC
+  INDEFINITE_CLOSURE_DESC
 }
 
 # A user of the flood tracking applicaiton.
@@ -2355,5 +2581,158 @@ enum UsersOrderBy {
   ACTIVE_DESC
 }
 
-`;
-export default schema;
+# A connection to a list of 'WazeFeedIncidents' values.
+type WazeFeedConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # The count of *all* 'WazeFeedIncidents' you could get from the connection.
+  totalCount: Int
+
+  # A list of edges which contains the 'WazeFeedIncidents' and cursor to aid in pagination.
+  edges: [WazeFeedEdge]
+
+  # A list of 'WazeFeedIncidents' objects.
+  nodes: [WazeFeedIncidents]
+}
+
+# A 'WazeFeedIncidents' edge in the connection.
+type WazeFeedEdge {
+  # A cursor for use in pagination.
+  cursor: Cursor
+
+  # The 'WazeFeedIncidents' at the end of the edge.
+  node: WazeFeedIncidents
+}
+
+type WazeFeedIncidents {
+  id: Int
+  street: String
+  polyline: String
+  direction: String
+  type: String
+  subtype: String
+  starttime: Datetime
+  description: String
+  reference: String
+}
+
+# Methods to use when ordering 'WazeFeedIncidents'.
+enum WazeFeedOrderBy {
+  NATURAL
+}
+
+# A street name suggested by the Waze geocoder. When we query the waze geocoder it
+# can return multiple matching streets. For waze to consume the waze_feed they
+# need our street names to match their internal names.
+type WazeStreet implements Node {
+  # A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  __id: ID!
+  id: Int!
+  coordinates: String
+  distance: Float
+  name: String
+  names: [String]
+  createdAt: Datetime
+  updatedAt: Datetime
+
+  # Adds a human readable coordinates as a string in the Degrees, Minutes, Seconds representation.
+  humanCoordinates: String
+
+  # Reads and enables paginatation through a set of 'Crossing'.
+  crossingsByWazeStreetId(
+    # The method to use when ordering 'Crossing'.
+    orderBy: CrossingsOrderBy = PRIMARY_KEY_ASC
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first 'n' values of the set.
+    first: Int
+
+    # Only read the last 'n' values of the set.
+    last: Int
+
+    # Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    # based pagination. May not be used with 'last'.
+    offset: Int
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: CrossingCondition
+  ): CrossingsConnection
+}
+
+# A condition to be used against 'WazeStreet' object types. All fields are tested
+# for equality and combined with a logical ‘and.’
+input WazeStreetCondition {
+  # Checks for equality with the object’s 'id' field.
+  id: Int
+
+  # Checks for equality with the object’s 'coordinates' field.
+  coordinates: String
+
+  # Checks for equality with the object’s 'distance' field.
+  distance: Float
+
+  # Checks for equality with the object’s 'name' field.
+  name: String
+
+  # Checks for equality with the object’s 'names' field.
+  names: [String]
+
+  # Checks for equality with the object’s 'createdAt' field.
+  createdAt: Datetime
+
+  # Checks for equality with the object’s 'updatedAt' field.
+  updatedAt: Datetime
+}
+
+# A connection to a list of 'WazeStreet' values.
+type WazeStreetsConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # The count of *all* 'WazeStreet' you could get from the connection.
+  totalCount: Int
+
+  # A list of edges which contains the 'WazeStreet' and cursor to aid in pagination.
+  edges: [WazeStreetsEdge]
+
+  # A list of 'WazeStreet' objects.
+  nodes: [WazeStreet!]
+}
+
+# A 'WazeStreet' edge in the connection.
+type WazeStreetsEdge {
+  # A cursor for use in pagination.
+  cursor: Cursor
+
+  # The 'WazeStreet' at the end of the edge.
+  node: WazeStreet!
+}
+
+# Methods to use when ordering 'WazeStreet'.
+enum WazeStreetsOrderBy {
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+  NATURAL
+  ID_ASC
+  ID_DESC
+  COORDINATES_ASC
+  COORDINATES_DESC
+  DISTANCE_ASC
+  DISTANCE_DESC
+  NAME_ASC
+  NAME_DESC
+  NAMES_ASC
+  NAMES_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+`; export default schema;

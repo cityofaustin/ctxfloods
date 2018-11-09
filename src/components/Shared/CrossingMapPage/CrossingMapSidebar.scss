@@ -1,6 +1,8 @@
 .CrossingMapSidebar__overlay-container {
   display: flex;
   z-index: 2;
+  max-height: 100%;
+  overflow-y: auto;
 }
 
 .CrossingMapSidebar__content {

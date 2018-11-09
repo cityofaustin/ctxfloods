@@ -14,7 +14,8 @@ const ReasonDurationNotes = ({
   shouldDisplayDuration,
   shouldDisplayNotes,
   reason,
-  duration,
+  reopenDate,
+  indefiniteClosure,
   notes,
   smallSize,
 }) => (
@@ -33,10 +34,12 @@ const ReasonDurationNotes = ({
       {shouldDisplayDuration && (
         <div className="CrossingStatusHistoryItem__duration">
           <span className="CrossingStatusHistoryItem__subdetails-title">
-            Expected Reopen
+            Duration
           </span>
           <div className="CrossingStatusHistoryItem__subdetails-content">
-            {duration}
+            {(indefiniteClosure) ?
+            ("Closed Indefinitely") :
+            (`Expected to Reopen ${reopenDate}`)}
           </div>
         </div>
       )}
@@ -85,7 +88,8 @@ class CrossingStatusHistoryItem extends Component {
       'statusReasonByStatusReasonId.name',
       'Unconfirmed',
     );
-    const duration = get(update, 'statusDurationByStatusDurationId.name', '--');
+    const reopenDate = get(update, 'reopenDate', '--');
+    const indefiniteClosure = get(update, 'indefiniteClosure', '--');
     const createdAt = get(update, 'createdAt', '--');
     const crossingId = get(update, 'crossingId');
     const crossingName = get(update, 'crossingByCrossingId.name');
@@ -132,7 +136,8 @@ class CrossingStatusHistoryItem extends Component {
                   shouldDisplayDuration={shouldDisplay.duration}
                   shouldDisplayNotes={shouldDisplay.notes}
                   reason={reason}
-                  duration={duration}
+                  reopenDate={reopenDate}
+                  indefiniteClosure={indefiniteClosure}
                   notes={notes}
                 />
               )}
@@ -158,7 +163,7 @@ class CrossingStatusHistoryItem extends Component {
                   shouldDisplayDuration={shouldDisplay.duration}
                   shouldDisplayNotes={shouldDisplay.notes}
                   reason={reason}
-                  duration={duration}
+                  reopenDate={reopenDate}
                   notes={notes}
                 />
               </div>

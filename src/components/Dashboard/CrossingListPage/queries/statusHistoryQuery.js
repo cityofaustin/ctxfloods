@@ -28,9 +28,8 @@ const statusHistoryQuery = gql`
           statusReasonByStatusReasonId {
             name
           }
-          statusDurationByStatusDurationId {
-            name
-          }
+          reopenDate
+          indefiniteClosure
           createdAt
           notes
           crossingId

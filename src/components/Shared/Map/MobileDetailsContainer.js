@@ -5,7 +5,7 @@ import * as statusConstants from 'constants/StatusConstants';
 
 import 'components/Shared/Map/MobileDetailsContainer.css';
 
-const MobileDetailsContainer = ({ crossing, reasons, durations }) => {
+const MobileDetailsContainer = ({ crossing, reasons }) => {
   var show = [];
   switch (crossing.latestStatusId) {
     case statusConstants.OPEN:
@@ -35,15 +35,11 @@ const MobileDetailsContainer = ({ crossing, reasons, durations }) => {
           }
         </DetailsItem>
       )}
-      {show.includes('reopen') && (
+      { show.includes('reopen') && (
         <DetailsItem title="Duration">
-          {
-            durations.find(
-              r =>
-                r.id ===
-                crossing.statusUpdateByLatestStatusUpdateId.statusDurationId,
-            ).name
-          }
+          {(crossing.statusUpdateByLatestStatusUpdateId.indefiniteClosure) ?
+          ("Closed Indefinitely") :
+          (`Expected to Reopen ${crossing.statusUpdateByLatestStatusUpdateId.reopenDate}`)}
         </DetailsItem>
       )}
       {show.includes('notes') && (

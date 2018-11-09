@@ -1,0 +1,18 @@
+@import "../Form/Dropdown/Dropdown.scss";
+
+.flatpickr-extra {
+  font-size: 1em;
+  width: 80px;
+  text-align: center;
+}
+
+.duration-container {
+  @extend .DropdownFacade;
+  padding: 2px;
+  padding-left: 10px;
+  height: 55px;
+}
+
+.duration-table {
+  border-spacing: 0px 0px;
+}
