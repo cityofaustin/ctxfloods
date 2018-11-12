@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 
 import 'flatpickr/dist/themes/material_blue.css';
 import 'components/Shared/DatePicker/DatePicker.css';
+import Emoji from '../Emoji';
+
 /**
   Passes an estimated reopenDate via the "onChange" prop.
   Unless the "Indefinite Closure" checkbox is ticked, then the crossing will not have an estimated reopenDate.
@@ -29,13 +31,15 @@ export default class DatePicker extends Component {
               <td>
                 Estimated Reopen Date:
               </td>
+              <td className='table-spacing'>
+              </td>
               <td>
                 <Flatpickr
-                  className='flatpickr-extra'
                   options={{
                     dateFormat: 'Y-m-d',
                     minDate: 'today',
-                    enableTime: false
+                    enableTime: false,
+                    wrap: true
                   }}
                   value={flatpickrDate}
                   onChange={date => {
@@ -45,12 +49,22 @@ export default class DatePicker extends Component {
                       reopenDate: newReopenDate
                     });
                   }}
-                />
+                >
+                  <a className="flatpickr-input-button" title="toggle" data-toggle>
+                    <Emoji symbol="📅" label="calendar"/>
+                  </a>
+                  <input className='flatpickr-input-box' type="text" data-input />
+                  <span className="flatpickr-input-button" title="toggle" data-toggle>
+                    {!indefiniteClosure && reopenDate && <a>{reopenDate}</a>}
+                  </span>
+                </Flatpickr>
               </td>
             </tr>
             <tr>
               <td>
                 Indefinite Closure:
+              </td>
+              <td className='table-spacing'>
               </td>
               <td>
                 <input
