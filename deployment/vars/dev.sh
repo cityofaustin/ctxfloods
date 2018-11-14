@@ -19,4 +19,4 @@ case $TRAVIS_EVENT_TYPE in
 esac
 
 # App
-export REACT_APP_BACKEND_URL=$TRAVIS_BACKEND_DEV
+export REACT_APP_BACKEND_URL=$TRAVIS_BACKEND_DEV # Can be overwritten in devDeployConfig

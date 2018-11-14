@@ -22,5 +22,9 @@ module.exports = {
   "379-graphile": {
     deploy: true,
     backend: "https://zow834puu5.execute-api.us-east-1.amazonaws.com/dev"
+  },
+  "390-push-notify": {
+    deploy: true,
+    backend: "https://hy52isfm00.execute-api.us-east-1.amazonaws.com/dev"
   }
 };

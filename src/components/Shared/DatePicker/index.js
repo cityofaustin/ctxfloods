@@ -8,7 +8,7 @@ import Emoji from '../Emoji';
 
 /**
   Passes an estimated reopenDate via the "onChange" prop.
-  Unless the "Indefinite Closure" checkbox is ticked, then the crossing will not have an estimated reopenDate.
+  Unless the "Closed Indefinitely" checkbox is ticked, then the crossing will not have an estimated reopenDate.
 **/
 export default class DatePicker extends Component {
   stringToDate(dateString) {
@@ -64,7 +64,7 @@ export default class DatePicker extends Component {
             </tr>
             <tr>
               <td>
-                Indefinite Closure:
+                Closed Indefinitely:
               </td>
               <td className='table-spacing'>
               </td>

@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const devDeployConfig = require('./devDeployConfig.js');''
+const devDeployConfig = require('./devDeployConfig.js');
 const getBranch = require('./getBranch.js');
 
 /**

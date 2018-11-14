@@ -13,12 +13,17 @@ const httpLink = createHttpLink({
 
 const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   // TODO: make an error page for displaying all errors
-  logError("graphQLErrors", graphQLErrors);
-  logError("networkError", networkError);
-  if ( graphQLErrors.name === "JsonWebTokenError") {
-    localStorage.removeItem('jwt_user_token');
-    window.location.reload(); // Refreshing page will redirect unauthenticated user to the login page.
+  if (graphQLErrors) {
+    graphQLErrors.each((err) => {
+      if (err.name === "JsonWebTokenError") {
+        localStorage.removeItem('jwt_user_token');
+        window.location.reload(); // Refreshing page will redirect unauthenticated user to the login page.
+      } else {
+        logError(`[GraphQL error]: Message: ${err.message}`)
+      }
+    });
   }
+  logError("networkError", networkError);
 });
 
 const jwtMiddleware = new ApolloLink((operation, forward) => {
