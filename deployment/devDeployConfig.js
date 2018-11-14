@@ -18,5 +18,9 @@ module.exports = {
   "392-duration": {
     deploy: true,
     backend: "https://4tihkup6g2.execute-api.us-east-1.amazonaws.com/dev"
+  },
+  "379-graphile": {
+    deploy: true,
+    backend: "https://zow834puu5.execute-api.us-east-1.amazonaws.com/dev"
   }
 };

@@ -26,4 +26,4 @@ sed "s/\`/\'/g" ./src/stories/schema/schema.graphql >> ./src/stories/schema/sche
 echo "\`; export default schema;" >> ./src/stories/schema/schema.js;
 
 # Shut down the backend
-kill $(ps aux | grep 'node localServer.js' | grep -v 'grep' | awk '{print $2}');
+# kill $(ps aux | grep 'node localServer.js' | grep -v 'grep' | awk '{print $2}');

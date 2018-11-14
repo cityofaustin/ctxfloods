@@ -120,22 +120,41 @@ class CrossingMapPage extends Component {
 
   getViewportAndCenter = viewportgeojson => {
     const envelope = JSON.parse(viewportgeojson);
+    let viewport, center;
 
-    const viewport = [
-      [
-        Math.min(...envelope.coordinates[0].map(arr => arr[0])) - 0.1,
-        Math.min(...envelope.coordinates[0].map(arr => arr[1])) - 0.1,
-      ],
-      [
-        Math.max(...envelope.coordinates[0].map(arr => arr[0])) + 0.1,
-        Math.max(...envelope.coordinates[0].map(arr => arr[1])) + 0.1,
-      ],
-    ];
+    if (envelope.type === 'Point') {
+      viewport = [
+        [
+          envelope.coordinates[0] - 0.1,
+          envelope.coordinates[1] - 0.1
+        ],
+        [
+          envelope.coordinates[0] + 0.1,
+          envelope.coordinates[1] + 0.1
+        ]
+      ];
 
-    const center = {
-      lng: (viewport[0][0] + viewport[1][0]) / 2,
-      lat: (viewport[0][1] + viewport[1][1]) / 2,
-    };
+      center = {
+        lng: envelope.coordinates[0],
+        lat: envelope.coordinates[1]
+      }
+    } else {
+      viewport = [
+        [
+          Math.min(...envelope.coordinates[0].map(arr => arr[0])) - 0.1,
+          Math.min(...envelope.coordinates[0].map(arr => arr[1])) - 0.1,
+        ],
+        [
+          Math.max(...envelope.coordinates[0].map(arr => arr[0])) + 0.1,
+          Math.max(...envelope.coordinates[0].map(arr => arr[1])) + 0.1,
+        ],
+      ];
+
+      center = {
+        lng: (viewport[0][0] + viewport[1][0]) / 2,
+        lat: (viewport[0][1] + viewport[1][1]) / 2,
+      };
+    }
 
     return {
       viewport: viewport,
