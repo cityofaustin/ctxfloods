@@ -31,7 +31,7 @@ class EditUser extends Component {
         firstName: '',
         lastName: '',
         role: 'floods_community_editor',
-        communityId: props.currentUser.communityId,
+        communityId: (props.currentUser.role === 'floods_super_admin' ? '9001' : props.currentUser.communityId),
         jobTitle: '',
         phoneNumber: '',
       };

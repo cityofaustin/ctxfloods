@@ -14,7 +14,7 @@ const httpLink = createHttpLink({
 const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   // TODO: make an error page for displaying all errors
   if (graphQLErrors) {
-    graphQLErrors.each((err) => {
+    graphQLErrors.forEach((err) => {
       if (err.name === "JsonWebTokenError") {
         localStorage.removeItem('jwt_user_token');
         window.location.reload(); // Refreshing page will redirect unauthenticated user to the login page.

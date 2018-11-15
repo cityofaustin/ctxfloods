@@ -75,7 +75,8 @@ class AddUserPage extends Component {
           this.setState({
             emailSent: true,
           });
-        } else if (res.status === 400) {
+        } else if (res.status === 400 || res.status === 500) {
+          logError(res.errorMessage);
           this.setState({
             emailSent: false,
             errorMessage: 'Email failed to send',
