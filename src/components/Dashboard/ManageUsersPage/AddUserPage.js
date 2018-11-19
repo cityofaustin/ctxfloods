@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import generator from 'generate-password';
 
 import { logError } from 'services/logger';
@@ -24,7 +24,7 @@ class AddUserPage extends Component {
     this.setState({ errorMessage: err.message });
   }
 
-  addUser = user => {
+  addUserFactory = (withNewCommunity) => (params) => {
     this.setState({ showModal: true, errorMessage: null });
     const password = generator.generate({
       length: 30,
@@ -32,35 +32,47 @@ class AddUserPage extends Component {
       symbols: true,
       strict: true,
     });
-    this.props
-      .addUserMutation({
-        variables: {
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          role: user.role,
-          communityId: user.communityId,
-          jobTitle: user.jobTitle,
-          phoneNumber: user.phoneNumber,
-          password: password,
-        },
-        refetchQueries: ['searchUsers']
-      })
-      .then(({ data }) => {
-        this.setState({ userAdded: true });
-        this.sendEmail(user);
-      })
-      .catch(err => {
-        logError(err);
-        let errMessage = err.message;
-        if (err.message === `GraphQL error: duplicate key value violates unique constraint "user_account_email_key"`) {
-          errMessage = "An account with that email address already exists.";
-        } else if (err.message === `GraphQL error: new row for relation "user_account" violates check constraint "user_account_email_check"`) {
-          errMessage = "The email address entered is invalid. Please update with a valid email address to continue.";
-        }
-        this.setState({ errorMessage: errMessage });
-      });
+
+    let mutation, variables = {
+      email: params.email,
+      firstName: params.firstName,
+      lastName: params.lastName,
+      role: params.role,
+      jobTitle: params.jobTitle,
+      phoneNumber: params.phoneNumber,
+      password: password,
+    };
+
+    if (withNewCommunity) {
+      mutation = this.props.addUserWithNewCommunityMutation;
+      variables.communityName = params.communityName;
+    } else {
+      mutation = this.props.addUserMutation;
+      variables.communityId = params.communityId;
+    }
+
+    mutation({
+      variables,
+      refetchQueries: ['searchUsers', 'allCommunities']
+    })
+    .then(({ data }) => {
+      this.setState({ userAdded: true });
+      this.sendEmail(params);
+    })
+    .catch(err => {
+      logError(err);
+      let errMessage = err.message;
+      if (err.message === `GraphQL error: duplicate key value violates unique constraint "user_account_email_key"`) {
+        errMessage = "An account with that email address already exists.";
+      } else if (err.message === `GraphQL error: new row for relation "user_account" violates check constraint "user_account_email_check"`) {
+        errMessage = "The email address entered is invalid. Please update with a valid email address to continue.";
+      }
+      this.setState({ errorMessage: errMessage });
+    });
   };
+
+  addUser = this.addUserFactory(false);
+  addUserWithNewCommunity = this.addUserFactory(true);
 
   sendEmail = user => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/email/reset`, {
@@ -123,6 +135,7 @@ class AddUserPage extends Component {
         <EditUser
           onCancel={() => this.setState({ redirect: true })}
           onSubmit={this.addUser}
+          addUserWithNewCommunity={this.addUserWithNewCommunity}
           currentUser={currentUser}
         />
       </div>
@@ -160,6 +173,41 @@ const addUserMutation = gql`
   }
 `;
 
-export default graphql(addUserMutation, {
-  name: 'addUserMutation',
-})(AddUserPage);
+const addUserWithNewCommunityMutation = gql`
+  mutation(
+    $firstName: String!
+    $lastName: String!
+    $jobTitle: String!
+    $phoneNumber: String!
+    $email: String!
+    $password: String!
+    $role: String!
+    $communityName: String!
+  ) {
+    registerUserWithNewCommunity(
+      input: {
+        firstName: $firstName
+        lastName: $lastName
+        jobTitle: $jobTitle
+        phoneNumber: $phoneNumber
+        email: $email
+        password: $password
+        role: $role
+        communityName: $communityName
+      }
+    ) {
+      user {
+        id
+      }
+    }
+  }
+`;
+
+export default compose(
+  graphql(addUserMutation, {
+    name: 'addUserMutation',
+  }),
+  graphql(addUserWithNewCommunityMutation, {
+    name: 'addUserWithNewCommunityMutation'
+  })
+)(AddUserPage);

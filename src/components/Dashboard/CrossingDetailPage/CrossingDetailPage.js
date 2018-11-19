@@ -58,7 +58,7 @@ const CrossingByIdQuery = gql`
 `;
 
 const allCommunitiesQuery = gql`
-  query {
+  query allCommunities {
     allCommunities {
       nodes {
         id

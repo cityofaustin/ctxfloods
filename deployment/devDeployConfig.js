@@ -26,5 +26,9 @@ module.exports = {
   "390-push-notify": {
     deploy: true,
     backend: "390-push-notify"
+  },
+  "402-community": {
+    deploy: true,
+    backend: "402-community"
   }
 };

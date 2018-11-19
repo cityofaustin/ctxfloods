@@ -33,6 +33,47 @@ type AddCrossingToCommunityPayload {
   ): CrossingsEdge
 }
 
+# All input for the `addCrossingWithNewCommunity` mutation.
+input AddCrossingWithNewCommunityInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+  crossingName: String
+  humanAddress: String
+  longitude: BigFloat
+  latitude: BigFloat
+  communityName: String
+  description: String
+  legacyId: Int
+  wazeStreetId: Int
+}
+
+# The output of our `addCrossingWithNewCommunity` mutation.
+type AddCrossingWithNewCommunityPayload {
+  # The exact same `clientMutationId` that was provided in the mutation input,
+  # unchanged and unused. May be used by a client to track mutations.
+  clientMutationId: String
+  crossing: Crossing
+
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
+  # Reads a single `StatusUpdate` that is related to this `Crossing`.
+  statusUpdateByLatestStatusUpdateId: StatusUpdate
+
+  # Reads a single `Status` that is related to this `Crossing`.
+  statusByLatestStatusId: Status
+
+  # Reads a single `WazeStreet` that is related to this `Crossing`.
+  wazeStreetByWazeStreetId: WazeStreet
+
+  # An edge for our `Crossing`. May be used by Relay 1.
+  crossingEdge(
+    # The method to use when ordering `Crossing`.
+    orderBy: [CrossingsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CrossingsEdge
+}
+
 # All input for the `authenticate` mutation.
 input AuthenticateInput {
   # An arbitrary string value with no semantic meaning. Will be included in the
@@ -184,9 +225,11 @@ type Community implements Node {
   # The primary unique identifier for the community.
   id: Int!
 
-  # The abbreviation for the community.
+  # The name of the community.
   name: String!
-  abbreviation: String!
+
+  # The abbreviation for the community.
+  abbreviation: String
 
   # The viewport of the community.
   viewportgeojson: String
@@ -722,6 +765,12 @@ type Mutation {
     input: AddCrossingToCommunityInput!
   ): AddCrossingToCommunityPayload
 
+  # Adds a new crossing to a new community.
+  addCrossingWithNewCommunity(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: AddCrossingWithNewCommunityInput!
+  ): AddCrossingWithNewCommunityPayload
+
   # Creates a JWT token that will securely identify a user and give them certain permissions.
   authenticate(
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -841,6 +890,12 @@ type Mutation {
     # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     input: RegisterUserInput!
   ): RegisterUserPayload
+
+  # Adds a new user to new community.
+  registerUserWithNewCommunity(
+    # The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    input: RegisterUserWithNewCommunityInput!
+  ): RegisterUserWithNewCommunityPayload
 
   # Removes a crossing from the database.
   removeCrossing(
@@ -1593,6 +1648,41 @@ input RegisterUserInput {
 
 # The output of our `registerUser` mutation.
 type RegisterUserPayload {
+  # The exact same `clientMutationId` that was provided in the mutation input,
+  # unchanged and unused. May be used by a client to track mutations.
+  clientMutationId: String
+  user: User
+
+  # Our root query field type. Allows us to run any query from our mutation payload.
+  query: Query
+
+  # Reads a single `Community` that is related to this `User`.
+  communityByCommunityId: Community
+
+  # An edge for our `User`. May be used by Relay 1.
+  userEdge(
+    # The method to use when ordering `User`.
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): UsersEdge
+}
+
+# All input for the `registerUserWithNewCommunity` mutation.
+input RegisterUserWithNewCommunityInput {
+  # An arbitrary string value with no semantic meaning. Will be included in the
+  # payload verbatim. May be used to track mutations by the client.
+  clientMutationId: String
+  firstName: String
+  lastName: String
+  jobTitle: String
+  phoneNumber: String
+  email: String
+  password: String
+  role: String
+  communityName: String
+}
+
+# The output of our `registerUserWithNewCommunity` mutation.
+type RegisterUserWithNewCommunityPayload {
   # The exact same `clientMutationId` that was provided in the mutation input,
   # unchanged and unused. May be used by a client to track mutations.
   clientMutationId: String

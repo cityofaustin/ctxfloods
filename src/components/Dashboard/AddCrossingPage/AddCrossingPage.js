@@ -59,7 +59,7 @@ class AddCrossingPage extends Component {
 }
 
 const allCommunities = gql`
-  query {
+  query allCommunities {
     allCommunities {
       nodes {
         id
