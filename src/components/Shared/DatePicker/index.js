@@ -94,18 +94,3 @@ export default class DatePicker extends Component {
     )
   }
 }
-
-// <span className="flatpickr-input-button" title="toggle" data-toggle>
-//   {!indefiniteClosure && reopenDate && <a>{reopenDate}</a>}
-// </span>
-
-// {isExpired ? (
-//   <span>
-//     <input className='invisible-input-box' type='text' data-input />
-//     <a className='expired-reopen-date' data-toggle>
-//       {reopenDate}
-//     </a>
-//   </span>
-// ) : (
-//   <input className='flatpickr-input-box' type="text" data-input />
-// )}
