@@ -42,7 +42,7 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
       const history = this.props.data.allStatusUpdates.edges;
 
       const headers = crossingId
-        ? [['Date & Time', 'Status', 'Reason', 'Open Date', 'Indefinite Closure', 'Notes']]
+        ? [['Date & Time', 'Status', 'Reason', 'Open Date', 'Closed Indefinitely', 'Notes']]
         : [
             [
               'Crossing Name',
@@ -51,7 +51,7 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
               'Status',
               'Reason',
               'Open Date',
-              'Indefinite Closure',
+              'Closed Indefinitely',
               'Notes',
             ],
           ];

@@ -5,9 +5,9 @@
 
   [branch-name]: {
       deploy: Boolean (indicate whether to deploy or not),
-      backend: Service Endpoint for backend you want to point to.
+      backend: Branch name of the backend you want to point to.
+               writeDevBackend.js will find the Service Endpoint for backend you want to point to.
                Defaults to dev.
-               Can be found in AWS Cloud Formation Stack Outputs.
   }
 **/
 
@@ -17,10 +17,14 @@ module.exports = {
   },
   "392-duration": {
     deploy: true,
-    backend: "https://4tihkup6g2.execute-api.us-east-1.amazonaws.com/dev"
+    backend: "392-duration"
   },
   "379-graphile": {
     deploy: true,
-    backend: "https://zow834puu5.execute-api.us-east-1.amazonaws.com/dev"
+    backend: "379-graphile"
+  },
+  "390-push-notify": {
+    deploy: true,
+    backend: "390-push-notify"
   }
 };

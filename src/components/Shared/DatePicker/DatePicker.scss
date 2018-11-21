@@ -1,11 +1,5 @@
 @import "../Form/Dropdown/Dropdown.scss";
 
-.flatpickr-extra {
-  font-size: 1em;
-  width: 80px;
-  text-align: center;
-}
-
 .duration-container {
   @extend .DropdownFacade;
   padding: 2px;
@@ -15,4 +9,37 @@
 
 .duration-table {
   border-spacing: 0px 0px;
+}
+
+.flatpickr-input-button {
+  cursor: pointer;
+  padding-left: 5px;
+}
+
+.flatpickr-input-box {
+  font-size: 1em;
+  width: 80px;
+  text-align: center;
+}
+
+.table-spacing {
+  width: 10px;
+}
+
+.expired-reopen-date {
+  color: red;
+  cursor: pointer;
+}
+
+.eliminated {
+  display: none;
+}
+
+.hidden-input-box {
+  width: 0;
+  border: 0;
+  padding: 0;
+  height: 25px;
+  box-sizing: border-box;
+  visibility: hidden;
 }
