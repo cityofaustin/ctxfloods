@@ -13,14 +13,13 @@ class AddCrossingMap extends Component {
   };
 
   render() {
-    const { crossingCoordinates, crossingMoved } = this.props;
-
+    const { lat, lng, crossingMoved } = this.props;
     return (
       <Map
         className="CrossingStaticMap"
         // eslint-disable-next-line
         style="mapbox://styles/croweatx/cjeynr3z01k492so57s8lo34o"
-        center={crossingCoordinates}
+        center={[lng, lat]}
         onStyleLoad={this.onStyleLoad}
       >
         <Layer
@@ -32,7 +31,7 @@ class AddCrossingMap extends Component {
           }}
         >
           <Feature
-            coordinates={crossingCoordinates}
+            coordinates={[lng, lat]}
             draggable={true}
             onDragEnd={crossingMoved}
           />

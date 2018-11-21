@@ -7,6 +7,7 @@
     "apollo-client": "2.2.5",
     "apollo-link-error": "^1.1.1",
     "apollo-link-http": "1.5.2",
+    "big.js": "^5.2.2",
     "aws-sdk": "^2.361.0",
     "classnames": "^2.2.5",
     "flatpickr": "^4.5.2",
