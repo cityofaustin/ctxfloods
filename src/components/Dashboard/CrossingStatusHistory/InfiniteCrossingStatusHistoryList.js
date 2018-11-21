@@ -36,7 +36,7 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component {
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (listRef) {
       this.refreshList();
       this.clearMeasurerCache();

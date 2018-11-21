@@ -37,6 +37,80 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
           </div>
         </div>
         <div
+          className="CrossingDetails__lat-lng-group"
+        >
+          <div
+            className="CrossingDetails__lat-lng-container"
+          >
+            <label
+              className="Shared__label"
+              htmlFor="Latitude"
+            >
+              Latitude*
+            </label>
+            <input
+              className="Shared__text-input Shared__text-input--disabled"
+              disabled={true}
+              onChange={[Function]}
+              style={
+                Object {
+                  "width": "100%",
+                }
+              }
+              type="text"
+              value="30.267"
+            />
+          </div>
+          <div
+            className="space_5"
+          />
+          <div
+            className="CrossingDetails__lat-lng-container"
+          >
+            <label
+              className="Shared__label"
+              htmlFor="Longitude"
+            >
+              Longitude*
+            </label>
+            <input
+              className="Shared__text-input Shared__text-input--disabled"
+              disabled={true}
+              onChange={[Function]}
+              style={
+                Object {
+                  "width": "100%",
+                }
+              }
+              type="text"
+              value="-97.768"
+            />
+          </div>
+          <div
+            className="EditUser__buttons hidden"
+            style={
+              Object {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <button
+              className="Shared__button EditUser__cancel-button Shared__button--secondary"
+              disabled={false}
+              onClick={[Function]}
+            >
+              Cancel
+            </button>
+            <button
+              className="Shared__button EditUser__next-button Shared__button--primary"
+              disabled={false}
+              onClick={[Function]}
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+        <div
           className="CrossingDetails__field-group"
         >
           <label
@@ -86,21 +160,6 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
       <div
         className="CrossingDetails__aside"
       >
-        <div
-          className="CrossingDetails__field-group"
-        >
-          <label
-            className="Shared__label"
-          >
-            GPS
-          </label>
-          <input
-            className="Shared__text-input Shared__text-input--disabled"
-            disabled={true}
-            type="text"
-            value="30°16'1.200\\"N 97°46'4.800\\"W"
-          />
-        </div>
         <div
           className="CrossingDetails__field-group"
         >
