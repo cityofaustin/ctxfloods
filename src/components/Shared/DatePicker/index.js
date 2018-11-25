@@ -52,13 +52,13 @@ export default class DatePicker extends Component {
                     });
                   }}
                 >
-                  <a className={`expired-reopen-date ${!isExpired && 'eliminated'}`} data-toggle>
+                  <span className={`expired-reopen-date ${!isExpired && 'eliminated'}`} data-toggle>
                     {reopenDate}
-                  </a>
+                  </span>
                   <input className={`flatpickr-input-box ${isExpired && 'hidden-input-box'}`} type="text" data-input />
-                  <a className="flatpickr-input-button" title="toggle" data-toggle>
+                  <span className="flatpickr-input-button" title="toggle" data-toggle>
                     <Emoji symbol="📅" label="calendar"/>
-                  </a>
+                  </span>
                 </Flatpickr>
               </td>
             </tr>

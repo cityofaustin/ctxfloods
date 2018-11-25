@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import LinkButton from 'components/LinkButton';
+import LinkButton from 'components/Shared/LinkButton';
 import TableSearch from 'components/Dashboard/Table/TableSearch';
 import UserList from 'components/Dashboard/ManageUsersPage/UserList';
 import 'components/Dashboard/ManageUsersPage/ManageUsers.css';
@@ -23,7 +23,7 @@ class ManageUsers extends Component {
         <div className="flexcontainer">
           <h1 className="ManageUsers__h1">Manage Users</h1>
           <div className="ManageUsers__right-aligned-element">
-            <LinkButton url="/dashboard/users/add" text="Add New" />
+            <LinkButton url="/dashboard/users/add" text="Add User" />
           </div>
         </div>
         <div className="flexcontainer">
