@@ -33,7 +33,7 @@ class CrossingMapSidebar extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // If we're unselecting a crossing, stop trying to show the history
     if (this.props.selectedCrossingId && !nextProps.selectedCrossingId) {
       this.setState({

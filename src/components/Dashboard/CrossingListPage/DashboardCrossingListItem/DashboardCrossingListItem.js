@@ -51,7 +51,7 @@ class DashboardCrossingListItem extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { restoreDirtyState, crossing } = this.props;
     if (restoreDirtyState) {
       const savedState = restoreDirtyState(crossing.id);

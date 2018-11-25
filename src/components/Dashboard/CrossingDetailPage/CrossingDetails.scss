@@ -72,3 +72,22 @@
 .CrossingDetails__archived-icon {
   margin-right: 1rem;
 }
+
+.space_5 {
+  width: 5%;
+  display: inline-block;
+}
+
+.CrossingDetails__lat-lng-container {
+  width: 47.5%;
+  display: inline-block;
+}
+
+.CrossingDetails__lat-lng-group {
+  @extend .CrossingDetails__field-group;
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}

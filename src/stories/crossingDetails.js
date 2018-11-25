@@ -8,6 +8,8 @@ const crossing = {
   description: 'E of Intersection w/ Clifford',
   humanAddress: '605 Spurlock Valley \u00b7 West Lake Hills, TX 78746',
   geojson: '{"type":"Point","coordinates":[-97.768,30.267]}',
+  lat: "30.267",
+  lng: "-97.768",
   humanCoordinates: '30°16\'1.200"N 97°46\'4.800"W',
   active: true,
   communityCrossingsByCrossingId: {

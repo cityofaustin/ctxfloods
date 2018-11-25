@@ -21,6 +21,15 @@ class CrossingDetailPage extends Component {
     }
 
     const crossing = this.props.CrossingByIdQuery.crossingById;
+    const coordinates = JSON.parse(crossing.geojson).coordinates;
+    const crossingForCrossingDetails = {
+      name: crossing.name,
+      description: crossing.description,
+      humanAddress: crossing.humanAddress,
+      id: crossing.id,
+      lat: coordinates[1],
+      lng: coordinates[0],
+    }
     const allCommunities = this.props.AllCommunitiesQuery.allCommunities.nodes;
     const crossingCommunities = crossing.communities.nodes;
     const history = this.props.StatusHistoryQuery.allStatusUpdates.nodes;
@@ -31,7 +40,7 @@ class CrossingDetailPage extends Component {
         <div className="CrossingDetails__container">
           <CrossingStaticMap crossing={crossing} />
           <CrossingDetails
-            crossing={crossing}
+            crossing={crossingForCrossingDetails}
             crossingCommunities={crossingCommunities}
             allCommunities={allCommunities}
             currentUser={currentUser}
