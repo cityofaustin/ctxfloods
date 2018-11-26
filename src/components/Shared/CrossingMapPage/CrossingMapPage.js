@@ -41,9 +41,8 @@ class CrossingMapPage extends Component {
     super(props);
 
     // If we have a current user, we're on the dashboard, we should get their viewport
-    const viewportgeojson = this.props.currentUser
-      ? this.props.currentUser.communityByCommunityId.viewportgeojson
-      : `{"type":"Polygon","coordinates":[[[-98.086914,30.148464],[-98.086914,30.433285],[-97.615974,30.433285],[-97.615974,30.148464],[-98.086914,30.148464]]]}`;
+    const viewportgeojson = (this.props.currentUser && this.props.currentUser.communityByCommunityId.viewportgeojson) ||
+      `{"type":"Polygon","coordinates":[[[-98.086914,30.148464],[-98.086914,30.433285],[-97.615974,30.433285],[-97.615974,30.148464],[-98.086914,30.148464]]]}`;
 
     const viewportAndCenter = this.getViewportAndCenter(viewportgeojson);
 
