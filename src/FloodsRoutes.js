@@ -199,6 +199,7 @@ class FloodsRoutes extends Component {
           component={CrossingStatusHistoryPage}
           authenticated={auth.isAuthenticated()}
           authorized={auth.roleAuthorized([
+            'floods_community_editor',
             'floods_community_admin',
             'floods_super_admin',
           ])}
