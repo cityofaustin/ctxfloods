@@ -27,7 +27,7 @@ class CrossingStatusHistory extends Component {
   };
 
   render() {
-    const { showNames, crossingId } = this.props;
+    const { showNames, crossingId, maxRows } = this.props;
 
     return (
       <ContainerQuery query={containerQuery}>
@@ -48,12 +48,11 @@ class CrossingStatusHistory extends Component {
                 <CrossingStatusHistorySpreadsheetLink crossingId={crossingId} />
               </div>
             </div>
-            <div className="CrossingStatusHistory__list-wrapper">
-              <InfiniteCrossingStatusHistoryPaginationContainer
-                crossingId={crossingId}
-                showNames={showNames}
-              />
-            </div>
+            <InfiniteCrossingStatusHistoryPaginationContainer
+              crossingId={crossingId}
+              showNames={showNames}
+              maxRows={maxRows}
+            />
           </div>
         )}
       </ContainerQuery>

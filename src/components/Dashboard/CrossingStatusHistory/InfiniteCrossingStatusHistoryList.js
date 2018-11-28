@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { graphql } from 'react-apollo';
 import {
   InfiniteLoader,
   AutoSizer,
@@ -8,18 +9,72 @@ import {
   CellMeasurerCache,
 } from 'react-virtualized';
 
+import StatusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
 import CrossingStatusHistoryItem from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistoryItem';
 import 'components/Dashboard/CrossingListPage/CrossingListPage.css';
 
 let virtualizingList = [];
+// The linter can't figure out how we're using this ref so I'm just gonna...
+// eslint-disable-next-line
 let listRef;
+
+const batchCount = 100;
 
 const cache = new CellMeasurerCache({
   defaultHeight: 400,
   fixedWidth: true,
 });
 
-export default class InfiniteCrossingStatusHistoryList extends React.Component {
+const graphqlConfig = {
+  options: ownProps => {
+    return {
+      variables: {
+        communityId: ownProps.communityId,
+        crossingId: ownProps.crossingId,
+        dateLowerBound: ownProps.dateLowerBound,
+        dateUpperBound: ownProps.dateUpperBound,
+        idUpperBound: null,
+        rowLimit: batchCount
+      }
+    }
+  },
+  props: ({ ownProps, data }) => {
+    const { loading, getStatusUpdateHistory, fetchMore } = data;
+    const loadMoreRows = () => {
+      const lastId = getStatusUpdateHistory.edges[getStatusUpdateHistory.edges.length-1].node.statusUpdateId;
+      return fetchMore({
+        variables: {
+          communityId: ownProps.communityId,
+          crossingId: ownProps.crossingId,
+          dateLowerBound: ownProps.dateLowerBound,
+          dateUpperBound: ownProps.dateUpperBound,
+          idUpperBound: lastId,
+          rowLimit: batchCount
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          const newEdges = fetchMoreResult.getStatusUpdateHistory.edges;
+          if (!previousResult.getStatusUpdateHistory) {
+            return;
+          }
+          return {
+            getStatusUpdateHistory: {
+              __typename: "StatusUpdateHistoriesConnection",
+              edges: [...previousResult.getStatusUpdateHistory.edges, ...newEdges],
+            },
+          };
+        },
+      });
+    }
+
+    return {
+      loading,
+      getStatusUpdateHistory,
+      loadMoreRows
+    }
+  }
+}
+
+class InfiniteCrossingStatusHistoryList extends React.Component {
   static propTypes = {
     showNames: PropTypes.bool,
   };
@@ -36,29 +91,6 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component {
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (listRef) {
-      this.refreshList();
-      this.clearMeasurerCache();
-    }
-  }
-
-  componentDidMount() {
-    if (listRef) {
-      this.refreshList();
-      this.clearMeasurerCache();
-    }
-  }
-
-  clearMeasurerCache() {
-    cache.clearAll();
-    listRef.recomputeRowHeights();
-  }
-
-  refreshList() {
-    listRef.forceUpdateGrid();
-  }
-
   _isRowLoaded({ index }) {
     return !!virtualizingList[index];
   }
@@ -73,6 +105,10 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component {
       return <div key={key}>Loading.....</div>;
     }
 
+    // Otherwise we sometimes get this TypeError: Cannot assign to read only property 'left' of object '#<Object>'
+    const modifiedStyle = Object.assign({}, style);
+    modifiedStyle.left = "50%";
+
     return (
       <CellMeasurer
         cache={cache}
@@ -83,16 +119,18 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component {
       >
         {({ measure }) => (
           <div
-            className="CrossingStatusHistoryItemMeasureContainer"
-            style={style}
+            className="CrossingStatusHistory__list-wrapper"
+            style={modifiedStyle}
           >
-            <CrossingStatusHistoryItem
-              measure={measure}
-              key={key}
-              update={statusUpdate}
-              showNames={showNames}
-              cqParams={cqParams}
-            />
+            <div style={{position: "relative", left: "-50%"}}>
+              <CrossingStatusHistoryItem
+                measure={measure}
+                key={key}
+                update={statusUpdate}
+                showNames={showNames}
+                cqParams={cqParams}
+              />
+            </div>
           </div>
         )}
       </CellMeasurer>
@@ -104,21 +142,22 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component {
   }
 
   render() {
-    const { loadMoreRows, allStatusUpdates } = this.props;
+    const { loadMoreRows, getStatusUpdateHistory } = this.props;
 
-    if (!allStatusUpdates) {
+    if (!getStatusUpdateHistory) {
       return <div>Loading</div>;
     }
 
-    virtualizingList = allStatusUpdates.edges;
+    virtualizingList = getStatusUpdateHistory.edges;
+    const rowCount = this.props.maxRows || virtualizingList.length;
 
     return (
       <div style={{ height: 'calc(100vh - 140px)' }}>
         <InfiniteLoader
           isRowLoaded={this._isRowLoaded}
           loadMoreRows={loadMoreRows}
-          rowCount={allStatusUpdates.totalCount}
-          threshold={10}
+          rowCount={rowCount}
+          threshold={20}
         >
           {({ onRowsRendered, registerChild }) => (
             <AutoSizer>
@@ -131,7 +170,7 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component {
                   rowHeight={cache.rowHeight}
                   width={width}
                   onRowsRendered={onRowsRendered}
-                  rowCount={allStatusUpdates.totalCount}
+                  rowCount={rowCount}
                   rowRenderer={this._rowRenderer}
                 />
               )}
@@ -142,3 +181,5 @@ export default class InfiniteCrossingStatusHistoryList extends React.Component {
     );
   }
 }
+
+export default graphql(StatusHistoryQuery, graphqlConfig)(InfiniteCrossingStatusHistoryList);

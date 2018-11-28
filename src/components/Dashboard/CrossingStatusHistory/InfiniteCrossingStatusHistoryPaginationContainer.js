@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'react-apollo';
 import { ContainerQuery } from 'react-container-query';
 import classnames from 'classnames';
 
-import statusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
 import InfiniteCrossingStatusHistoryList from 'components/Dashboard/CrossingStatusHistory/InfiniteCrossingStatusHistoryList';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 
 import 'react-virtualized/styles.css';
-
-// The linter can't figure out how we're using this ref so I'm just gonna...
-// eslint-disable-next-line
-let infiniteStatusHistoryListRef;
 
 const containerQuery = {
   'CrossingStatusHistory--lg': {
@@ -20,51 +14,6 @@ const containerQuery = {
   },
   fullsize: { minWidth: 768 },
   smallsize: { maxWidth: 767 },
-};
-
-const configObject = {
-  options: props => {
-    const variables = props.crossingId ? { crossingId: props.crossingId } : {};
-
-    return {
-      variables: variables,
-    };
-  },
-  force: true,
-  props: ({ ownProps, data }) => {
-    const { loading, allStatusUpdates, fetchMore } = data;
-    const loadMoreRows = () => {
-      return fetchMore({
-        variables: {
-          pageCursor: allStatusUpdates.pageInfo.endCursor,
-        },
-        updateQuery: (previousResult, { fetchMoreResult }) => {
-          const totalCount = fetchMoreResult.allStatusUpdates.totalCount;
-          const newEdges = fetchMoreResult.allStatusUpdates.edges;
-          const pageInfo = fetchMoreResult.allStatusUpdates.pageInfo;
-
-          if (!previousResult.allStatusUpdates) {
-            return;
-          }
-
-          return {
-            allStatusUpdates: {
-              __typename: 'StatusUpdatesConnection',
-              totalCount,
-              edges: [...previousResult.allStatusUpdates.edges, ...newEdges],
-              pageInfo,
-            },
-          };
-        },
-      });
-    };
-
-    return {
-      loading,
-      allStatusUpdates,
-      loadMoreRows,
-    };
-  },
 };
 
 export class InfiniteCrossingStatusHistoryPaginationContainer extends Component {
@@ -77,12 +26,6 @@ export class InfiniteCrossingStatusHistoryPaginationContainer extends Component 
   };
 
   render() {
-    const { loading, allStatusUpdates, loadMoreRows, showNames } = this.props;
-
-    if (loading) {
-      return <div>Loading</div>;
-    }
-
     return (
       <ContainerQuery query={containerQuery}>
         {params => {
@@ -91,10 +34,6 @@ export class InfiniteCrossingStatusHistoryPaginationContainer extends Component 
             <div>
               <InfiniteCrossingStatusHistoryList
                 {...this.props}
-                ref={ref => (infiniteStatusHistoryListRef = ref)}
-                loadMoreRows={loadMoreRows}
-                allStatusUpdates={allStatusUpdates}
-                showNames={showNames}
                 cqClassName={cqClassName}
                 cqParams={params}
               />
@@ -106,6 +45,4 @@ export class InfiniteCrossingStatusHistoryPaginationContainer extends Component 
   }
 }
 
-export default graphql(statusHistoryQuery, configObject)(
-  InfiniteCrossingStatusHistoryPaginationContainer,
-);
+export default InfiniteCrossingStatusHistoryPaginationContainer;

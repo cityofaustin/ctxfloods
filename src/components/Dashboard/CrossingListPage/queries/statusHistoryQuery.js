@@ -1,42 +1,39 @@
 import gql from 'graphql-tag';
 
 const statusHistoryQuery = gql`
-  query crossingHistory($crossingId: Int) {
-    allStatusUpdates(
-      condition: { crossingId: $crossingId }
-      orderBy: CREATED_AT_DESC
-    ) {
-      totalCount
-      pageInfo {
-        startCursor
-        endCursor
-        hasNextPage
-        hasPreviousPage
-      }
+  query getStatusUpdateHistory(
+    $crossingId: Int
+    $communityId: Int
+    $dateLowerBound: Datetime
+    $dateUpperBound: Datetime
+    $idUpperBound: Int
+    $rowLimit: Int
+  ) {
+    getStatusUpdateHistory(
+      crossingId: $crossingId
+      communityId: $communityId
+      dateLowerBound: $dateLowerBound
+      dateUpperBound: $dateUpperBound
+      idUpperBound: $idUpperBound
+      rowLimit: $rowLimit
+    ){
       edges {
-        cursor
         node {
-          userByCreatorId {
-            id
-            lastName
-            firstName
-          }
-          statusByStatusId {
-            id
-            name
-          }
-          statusReasonByStatusReasonId {
-            name
-          }
-          reopenDate
-          indefiniteClosure
-          createdAt
-          notes
-          crossingId
-          crossingByCrossingId {
-            name
-            humanAddress
-          }
+          statusUpdateId,
+          userId,
+          userLastName,
+          userFirstName,
+          statusId,
+          statusName,
+          statusReasonName,
+          reopenDate,
+          indefiniteClosure,
+          createdAt,
+          notes,
+          crossingId,
+          crossingName,
+          crossingHumanAddress,
+          communityIds
         }
       }
     }

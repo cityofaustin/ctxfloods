@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import CrossingStaticMap from 'components/Shared/Map/CrossingStaticMap';
 import CrossingDetails from 'components/Dashboard/CrossingDetailPage/CrossingDetails';
 import CrossingStatusHistory from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistory';
-import statusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
+import StatusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetailPage.css';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
@@ -32,7 +32,7 @@ class CrossingDetailPage extends Component {
     }
     const allCommunities = this.props.AllCommunitiesQuery.allCommunities.nodes;
     const crossingCommunities = crossing.communities.nodes;
-    const history = this.props.StatusHistoryQuery.allStatusUpdates.nodes;
+    const history = this.props.StatusHistoryQuery.getStatusUpdateHistory.nodes;
     const { currentUser } = this.props;
 
     return (
@@ -86,7 +86,7 @@ export default compose(
       },
     }),
   }),
-  graphql(statusHistoryQuery, {
+  graphql(StatusHistoryQuery, {
     name: 'StatusHistoryQuery',
     options: ownProps => ({
       variables: {
