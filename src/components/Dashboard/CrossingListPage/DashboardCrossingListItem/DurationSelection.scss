@@ -1,0 +1,16 @@
+@import "components/Shared/Form/Dropdown/Dropdown.scss";
+
+.duration-container {
+  @extend .DropdownFacade;
+  padding: 2px;
+  padding-left: 10px;
+  height: 55px;
+}
+
+.duration-table {
+  border-spacing: 0px 0px;
+}
+
+.table-spacing {
+  width: 10px;
+}

@@ -15,11 +15,8 @@
   background: #efefef;
 }
 
-.CrossingStatusHistory_header-background {
-  background: $color-primary;
-}
-
 .CrossingStatusHistory__section-header {
+  background: $color-primary;
   @include section-header;
   display: flex;
   max-width: 1100px;
@@ -27,6 +24,62 @@
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 1px;
+}
+
+.CrossingStatusHistory__section-header-filter {
+  // @include section-header;
+  display: flex;
+  max-width: 1100px;
+  margin: auto;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.HistoryFilter {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+}
+
+.HistoryFilter-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1px 0px;
+}
+
+.HistoryFilter-community-row {
+  display: inline-block;
+  padding: 1px 0px;
+}
+
+.HistoryFilter-community-row .Dropdown {
+  width: 100%;
+}
+
+.HistoryFilter-row .flatpickr,
+.HistoryFilter-row .clear-filter-icon {
+  display: inline;
+}
+
+.CrossingStatusHistoryFilterToggle {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  flex: 2;
+}
+
+.filter-table {
+  border-spacing: 0px 0px;
+}
+
+.filter-table-spacing {
+  width: 10px;
+}
+
+.clear-filter-icon {
+  cursor: pointer;
 }
 
 .CrossingStatusHistoryItem {
@@ -117,10 +170,6 @@
   font-size: 1.5rem;
 }
 
-.CrossingStatusHistory__section-header {
-
-}
-
 .CrossingStatusHistory__section-header--title {
   flex: 1;
   display: flex;
@@ -145,4 +194,8 @@
 
 .CrossingStatusHistory__download-download-link {
   color: #7affaf;
+}
+
+.invisible {
+  display: none;
 }

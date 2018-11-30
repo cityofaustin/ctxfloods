@@ -5,6 +5,7 @@ import CrossingStaticMap from 'components/Shared/Map/CrossingStaticMap';
 import CrossingDetails from 'components/Dashboard/CrossingDetailPage/CrossingDetails';
 import CrossingStatusHistory from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistory';
 import StatusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
+import AllCommunitiesQuery from 'components/Shared/queries/AllCommunitiesQuery';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetailPage.css';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
@@ -66,17 +67,6 @@ const CrossingByIdQuery = gql`
   ${crossingFragment}
 `;
 
-const allCommunitiesQuery = gql`
-  query allCommunities {
-    allCommunities {
-      nodes {
-        id
-        name
-      }
-    }
-  }
-`;
-
 export default compose(
   graphql(CrossingByIdQuery, {
     name: 'CrossingByIdQuery',
@@ -94,7 +84,7 @@ export default compose(
       },
     }),
   }),
-  graphql(allCommunitiesQuery, {
+  graphql(AllCommunitiesQuery, {
     name: 'AllCommunitiesQuery',
   }),
 )(CrossingDetailPage);

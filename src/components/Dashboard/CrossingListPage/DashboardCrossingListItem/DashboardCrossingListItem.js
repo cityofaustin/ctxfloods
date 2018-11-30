@@ -13,7 +13,7 @@ import CrossingCommunityList from 'components/Shared/CrossingListItem/CrossingCo
 import StatusToggle from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/StatusToggle';
 import DashboardCrossingListItemControl from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItemControl';
 import Dropdown from 'components/Shared/Form/Dropdown';
-import DatePicker from 'components/Shared/DatePicker';
+import DurationSelection from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DurationSelection';
 import SingleOptionDropdown from'components/Shared/Form/Dropdown/SingleOptionDropdown';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
@@ -626,7 +626,7 @@ class DashboardCrossingListItem extends React.Component {
               label="Duration"
               isRequired={this.isDirty()}
             >
-              <DatePicker
+              <DurationSelection
                 reopenDate={this.state.selectedReopenDate}
                 indefiniteClosure={this.state.selectedIndefiniteClosure}
                 onChange={this.durationChanged}
