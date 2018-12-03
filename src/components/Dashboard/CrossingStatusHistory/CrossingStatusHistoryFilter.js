@@ -15,12 +15,12 @@ class HistoryFilter extends Component {
     super(props);
 
     this.state = {
-      selectedCommunityId: props.selectedCommunityId,
+      communityId: props.communityId,
       dateLowerBound: props.dateLowerBound,
       dateLowerBoundKey: new Date().toISOString(),
       dateUpperBound: props.dateUpperBound,
       dateUpperBoundKey: new Date().toISOString(),
-      inclusiveEndDate: props.inclusiveEndDate,
+      inclusiveEndDate: props.inclusiveEndDate
     }
   }
 
@@ -50,13 +50,13 @@ class HistoryFilter extends Component {
     this.setState({inclusiveEndDate: value});
   }
 
-  selectedCommunityChanged = (e) => {
-    this.setState({selectedCommunityId: e.target.value});
+  communityIdChanged = (e) => {
+    this.setState({communityId: Number(e.target.value)});
   }
 
   onSubmit = () => {
     this.props.applyFilter({
-      selectedCommunityId: this.state.selectedCommunityId,
+      communityId: this.state.communityId,
       dateLowerBound: this.state.dateLowerBound,
       dateUpperBound: this.state.dateUpperBound,
       inclusiveEndDate: this.state.inclusiveEndDate
@@ -66,7 +66,7 @@ class HistoryFilter extends Component {
   onCancel = () => {
     this.setState((state, props) => {
       return {
-        selectedCommunityId: props.selectedCommunityId,
+        communityId: props.communityId,
         dateLowerBound: props.dateLowerBound,
         dateUpperBound: props.dateUpperBound,
         inclusiveEndDate: props.inclusiveEndDate
@@ -76,7 +76,7 @@ class HistoryFilter extends Component {
 
   render() {
     const {
-      selectedCommunityId,
+      communityId,
       dateLowerBound,
       dateLowerBoundKey,
       dateUpperBound,
@@ -93,26 +93,24 @@ class HistoryFilter extends Component {
     allCommunities.unshift({id: ALL_COMMUNITIES_INDEX, name: ALL_COMMUNITIES_NAME})
 
     const isDirty = (
-      (selectedCommunityId !== this.props.selectedCommunityId) ||
+      (communityId !== this.props.communityId) ||
       (dateLowerBound !== this.props.dateLowerBound) ||
       (dateUpperBound !== this.props.dateUpperBound) ||
       (inclusiveEndDate !== this.props.inclusiveEndDate)
     )
     return (
       <div className="HistoryFilter">
-        {(selectedCommunityId !== null) && (
-          <div className="HistoryFilter-community-row">
-            <div>
-              Community:
-            </div>
-            <Dropdown
-              options={allCommunities}
-              selected={selectedCommunityId}
-              onChange={this.selectedCommunityChanged}
-              disabled={!this.props.canSelectCommunity}
-            />
+        <div className="HistoryFilter-community-row">
+          <div>
+            Community:
           </div>
-        )}
+          <Dropdown
+            options={allCommunities}
+            selected={communityId}
+            onChange={this.communityIdChanged}
+            disabled={!this.props.canSelectCommunity}
+          />
+        </div>
         <div className="HistoryFilter-row">
           <div>
             Start Date:

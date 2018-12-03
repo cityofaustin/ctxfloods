@@ -17,7 +17,10 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
   static propTypes = {
     data: PropTypes.object,
     onClose: PropTypes.func.isRequired,
-    crossingId: PropTypes.number.isRequired,
+    crossingId: PropTypes.number,
+    communityId: PropTypes.number,
+    dateLowerBound: PropTypes.string,
+    dateUpperBound: PropTypes.string,
   };
 
   constructor(...args) {
@@ -77,7 +80,7 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
             reopenDate,
             indefiniteClosure,
             notes,
-            communityIds
+            communityIds.join(', ')
           ];
         }),
       );
@@ -91,7 +94,6 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
     const { loading } = !this.props.data || this.props.data.loading;
 
     const rowCount = size(get(this, 'props.data.getStatusUpdateHistory.edges', []));
-
     return (
       <Modal
         title="Crossing History CSV"

@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { ContainerQuery } from 'react-container-query';
 import FontAwesome from 'react-fontawesome';
+import moment from 'moment';
 
+import { dateToString } from 'components/../services/dateHelpers';
 import { ALL_COMMUNITIES_INDEX } from 'constants/AppConstants';
 import auth from 'services/gqlAuth';
 import PlusMinusIcon from 'components/Shared/Icons/PlusMinusIcon';
@@ -25,22 +27,27 @@ class CrossingStatusHistory extends Component {
   constructor(props) {
     super(props);
 
-    let selectedCommunityId = null;
+    let communityId = null;
     if (props.currentUser) {
       if (auth.roleAuthorized(['floods_super_admin'])) {
-        selectedCommunityId = ALL_COMMUNITIES_INDEX;
+        communityId = ALL_COMMUNITIES_INDEX;
       } else {
-        selectedCommunityId = props.currentUser.communityId;
+        communityId = props.currentUser.communityId;
       }
     }
 
     this.state = {
       showFilter: false,
-      selectedCommunityId,
+      communityId,
       dateLowerBound: null,
       dateUpperBound: null,
       inclusiveEndDate: false,
+      receivedAllStatusUpdates: false // Bool, Have all statusUpdates for a filter been fetched from db?
     }
+  }
+
+  setReceivedAlStatuslUpdates = () => {
+    this.setState({receivedAllStatusUpdates: true});
   }
 
   toggleFilterDropdown = () => {
@@ -52,7 +59,8 @@ class CrossingStatusHistory extends Component {
   applyFilter = (values) => {
     this.setState({
       ...values,
-      showFilter: false
+      showFilter: false,
+      receivedAllStatusUpdates: false,
     });
   }
 
@@ -67,16 +75,28 @@ class CrossingStatusHistory extends Component {
 
   render() {
     const {
-      selectedCommunityId,
+      communityId,
       dateLowerBound,
       dateUpperBound,
       inclusiveEndDate,
+      receivedAllStatusUpdates,
     } = this.state;
     const { showNames, crossingId, maxRows } = this.props;
     const canSelectCommunity = auth.roleAuthorized(['floods_super_admin']);
 
     // set communityId query variable to "null" if user selected "All Communities" in filter
-    const queryCommunityId = (selectedCommunityId === ALL_COMMUNITIES_INDEX) ? null : selectedCommunityId;
+    const queryCommunityId = (communityId === ALL_COMMUNITIES_INDEX) ? null : communityId;
+
+    let queryDateUpperBound;
+    if (dateUpperBound) {
+      if (inclusiveEndDate) {
+        queryDateUpperBound = dateToString(moment(dateUpperBound).add(1,'d'));
+      } else {
+        queryDateUpperBound = dateUpperBound;
+      }
+    } else {
+      queryDateUpperBound = null;
+    }
 
     return (
       <ContainerQuery query={containerQuery}>
@@ -102,6 +122,9 @@ class CrossingStatusHistory extends Component {
               </div>
               <CrossingStatusHistorySpreadsheetLink
                 crossingId={crossingId}
+                communityId={queryCommunityId}
+                dateLowerBound={dateLowerBound}
+                dateUpperBound={queryDateUpperBound}
               />
             </div>
             <div className={classnames('CrossingStatusHistory__section-header-filter', {
@@ -110,7 +133,7 @@ class CrossingStatusHistory extends Component {
               <div className="CrossingListSpacer" />
               <CrossingStatusHistoryFilter
                 canSelectCommunity={canSelectCommunity}
-                selectedCommunityId={selectedCommunityId}
+                communityId={communityId}
                 dateLowerBound={dateLowerBound}
                 dateUpperBound={dateUpperBound}
                 inclusiveEndDate={inclusiveEndDate}
@@ -122,9 +145,11 @@ class CrossingStatusHistory extends Component {
               communityId={queryCommunityId}
               crossingId={crossingId}
               dateLowerBound={dateLowerBound}
-              dateUpperBound={dateUpperBound}
+              dateUpperBound={queryDateUpperBound}
               showNames={showNames}
               maxRows={maxRows}
+              receivedAllStatusUpdates={receivedAllStatusUpdates}
+              setReceivedAllUpdates={this.setReceivedAllUpdates}
             />
           </div>
         )}
