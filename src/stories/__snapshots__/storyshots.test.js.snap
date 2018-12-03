@@ -371,7 +371,7 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
         >
           Filter
           <div
-            className="CrossingListToggle__icon"
+            className="CrossingListHeader-icon"
           >
             <span
               aria-hidden={true}
@@ -401,7 +401,7 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
         >
           Last Updated
           <div
-            className="CrossingListToggle__icon"
+            className="CrossingListHeader-icon"
           >
             <span
               aria-hidden={true}
@@ -496,7 +496,6 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
               className="FilterCheckbox__children"
             >
               Open 
-              (6)
             </div>
           </label>
           <label
@@ -514,7 +513,6 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
             >
               Caution
                
-              (6)
             </div>
           </label>
           <label
@@ -532,7 +530,6 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
             >
               Closed
                
-              (6)
             </div>
           </label>
           <label
@@ -550,7 +547,6 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
             >
               Long-Term Closure
                
-              (6)
             </div>
           </label>
         </div>
@@ -567,7 +563,7 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
         >
           Filter
           <div
-            className="CrossingListToggle__icon"
+            className="CrossingListHeader-icon"
           >
             <span
               aria-hidden={true}
@@ -597,7 +593,7 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
         >
           Last Updated
           <div
-            className="CrossingListToggle__icon"
+            className="CrossingListHeader-icon"
           >
             <span
               aria-hidden={true}
@@ -785,10 +781,10 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
           >
             <select
               className="Dropdown__select"
-              defaultValue={1}
               id=""
               name=""
               onChange={[Function]}
+              value={1}
             >
               <option
                 value={1}
@@ -994,10 +990,10 @@ exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
           >
             <select
               className="Dropdown__select"
-              defaultValue={1}
               id=""
               name=""
               onChange={[Function]}
+              value={1}
             >
               <option
                 value={1}
@@ -1216,10 +1212,10 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
           >
             <select
               className="Dropdown__select"
-              defaultValue={1}
               id=""
               name=""
               onChange={[Function]}
+              value={1}
             >
               <option
                 value={1}
@@ -1425,10 +1421,10 @@ exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
           >
             <select
               className="Dropdown__select"
-              defaultValue={1}
               id=""
               name=""
               onChange={[Function]}
+              value={1}
             >
               <option
                 value={1}
@@ -1650,10 +1646,10 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
             >
               <select
                 className="Dropdown__select"
-                defaultValue={1}
                 id=""
                 name=""
                 onChange={[Function]}
+                value={1}
               >
                 <option
                   value={1}
@@ -2221,10 +2217,10 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
             >
               <select
                 className="Dropdown__select"
-                defaultValue={1}
                 id=""
                 name=""
                 onChange={[Function]}
+                value={1}
               >
                 <option
                   value={1}

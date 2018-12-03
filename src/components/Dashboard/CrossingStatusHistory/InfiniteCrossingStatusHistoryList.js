@@ -13,12 +13,7 @@ import StatusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/st
 import CrossingStatusHistoryItem from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistoryItem';
 import 'components/Dashboard/CrossingListPage/CrossingListPage.css';
 
-let virtualizingList = [];
-// The linter can't figure out how we're using this ref so I'm just gonna...
-// eslint-disable-next-line
-let listRef;
-
-const batchCount = 100;
+const batchSize = 30;
 
 const cache = new CellMeasurerCache({
   defaultHeight: 400,
@@ -34,7 +29,7 @@ const graphqlConfig = {
         dateLowerBound: ownProps.dateLowerBound,
         dateUpperBound: ownProps.dateUpperBound,
         idUpperBound: null,
-        rowLimit: batchCount
+        rowLimit: batchSize
       }
     }
   },
@@ -44,22 +39,15 @@ const graphqlConfig = {
       const lastId = getStatusUpdateHistory.edges[getStatusUpdateHistory.edges.length-1].node.statusUpdateId;
       return fetchMore({
         variables: {
-          communityId: ownProps.communityId,
-          crossingId: ownProps.crossingId,
-          dateLowerBound: ownProps.dateLowerBound,
-          dateUpperBound: ownProps.dateUpperBound,
           idUpperBound: lastId,
-          rowLimit: batchCount
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           const newEdges = fetchMoreResult.getStatusUpdateHistory.edges;
-          if (!previousResult.getStatusUpdateHistory) {
-            return;
-          }
+          if (!fetchMoreResult) return previousResult
           return {
             getStatusUpdateHistory: {
               __typename: "StatusUpdateHistoriesConnection",
-              edges: [...previousResult.getStatusUpdateHistory.edges, ...newEdges],
+              edges: [...previousResult.getStatusUpdateHistory.edges, ...newEdges]
             },
           };
         },
@@ -86,21 +74,45 @@ class InfiniteCrossingStatusHistoryList extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      receivedAllUpdates: false
+    }
+
+    this.loadingMore = false;
+    this.virtualizingList = [];
+    this._handleLoadMoreRows = this._handleLoadMoreRows.bind(this);
     this._isRowLoaded = this._isRowLoaded.bind(this);
     this._rowRenderer = this._rowRenderer.bind(this);
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
   }
 
+  _handleLoadMoreRows() {
+    if (!this.loadingMore) {
+      this.loadingMore = true;
+      return this.props.loadMoreRows()
+      .then((result) => {
+        if (!result.data.getStatusUpdateHistory) {
+          debugger;
+        }
+        if (!result.data.getStatusUpdateHistory.edges.length) {
+          this.setState({receivedAllUpdates: true})
+        }
+        this.loadingMore = false;
+        return result;
+      })
+    }
+  }
+
   _isRowLoaded({ index }) {
-    return !!virtualizingList[index];
+    return !!this.virtualizingList[index];
   }
 
   _rowRenderer({ key, index, style, parent }) {
     const { showNames, cqParams } = this.props;
     let statusUpdate;
 
-    if (index < virtualizingList.length) {
-      statusUpdate = virtualizingList[index].node;
+    if (index < this.virtualizingList.length) {
+      statusUpdate = this.virtualizingList[index].node;
     } else {
       return <div key={key}>Loading.....</div>;
     }
@@ -142,28 +154,32 @@ class InfiniteCrossingStatusHistoryList extends React.Component {
   }
 
   render() {
-    const { loadMoreRows, getStatusUpdateHistory } = this.props;
-
+    const { maxRows, getStatusUpdateHistory } = this.props;
     if (!getStatusUpdateHistory) {
       return <div>Loading</div>;
     }
 
-    virtualizingList = getStatusUpdateHistory.edges;
-    const rowCount = this.props.maxRows || virtualizingList.length;
+    this.virtualizingList = getStatusUpdateHistory.edges;
+    let rowCount;
+    if ((this.virtualizingList.length < batchSize) || this.state.receivedAllUpdates || !maxRows) {
+      rowCount = this.virtualizingList.length
+    } else {
+      rowCount = maxRows
+    }
 
     return (
       <div style={{ height: 'calc(100vh - 140px)' }}>
         <InfiniteLoader
           isRowLoaded={this._isRowLoaded}
-          loadMoreRows={loadMoreRows}
+          loadMoreRows={this._handleLoadMoreRows}
           rowCount={rowCount}
-          threshold={20}
+          threshold={10}
         >
           {({ onRowsRendered, registerChild }) => (
             <AutoSizer>
               {({ height, width }) => (
                 <List
-                  ref={ref => (registerChild = listRef = ref)}
+                  ref={ref => (registerChild = ref)}
                   className="List"
                   height={height}
                   deferredMeasurementCache={cache}

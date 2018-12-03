@@ -75,6 +75,9 @@ class CrossingStatusHistory extends Component {
     const { showNames, crossingId, maxRows } = this.props;
     const canSelectCommunity = auth.roleAuthorized(['floods_super_admin']);
 
+    // set communityId query variable to "null" if user selected "All Communities" in filter
+    const queryCommunityId = (selectedCommunityId === ALL_COMMUNITIES_INDEX) ? null : selectedCommunityId;
+
     return (
       <ContainerQuery query={containerQuery}>
         {params => (
@@ -116,7 +119,10 @@ class CrossingStatusHistory extends Component {
               <div className="CrossingListSpacer" />
             </div>
             <InfiniteCrossingStatusHistoryPaginationContainer
+              communityId={queryCommunityId}
               crossingId={crossingId}
+              dateLowerBound={dateLowerBound}
+              dateUpperBound={dateUpperBound}
               showNames={showNames}
               maxRows={maxRows}
             />
