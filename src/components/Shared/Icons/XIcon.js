@@ -6,7 +6,7 @@ import 'components/Shared/Icons/icon.css';
 export default function XIcon() {
   return (
     <div className="icon x-icon">
-      <FontAwesome name="times-circle" ariaLabel="Show" />
+      <FontAwesome name="times" ariaLabel="Show" />
     </div>
   );
 }
