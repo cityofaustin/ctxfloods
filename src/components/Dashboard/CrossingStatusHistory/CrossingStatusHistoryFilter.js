@@ -100,17 +100,19 @@ class HistoryFilter extends Component {
     )
     return (
       <div className="HistoryFilter">
-        <div className="HistoryFilter-community-row">
-          <div>
-            Community:
+        {!this.props.crossingId && (
+          <div className="HistoryFilter-community-row">
+            <div>
+              Community:
+            </div>
+            <Dropdown
+              options={allCommunities}
+              selected={communityId}
+              onChange={this.communityIdChanged}
+              disabled={!this.props.canSelectCommunity}
+            />
           </div>
-          <Dropdown
-            options={allCommunities}
-            selected={communityId}
-            onChange={this.communityIdChanged}
-            disabled={!this.props.canSelectCommunity}
-          />
-        </div>
+        )}
         <div className="HistoryFilter-row">
           <div>
             Start Date:

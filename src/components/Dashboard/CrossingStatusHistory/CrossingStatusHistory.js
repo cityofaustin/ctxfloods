@@ -133,6 +133,7 @@ class CrossingStatusHistory extends Component {
               <div className="CrossingListSpacer" />
               <CrossingStatusHistoryFilter
                 canSelectCommunity={canSelectCommunity}
+                crossingId={crossingId}
                 communityId={communityId}
                 dateLowerBound={dateLowerBound}
                 dateUpperBound={dateUpperBound}
