@@ -9,7 +9,7 @@ export default function FloodSafetyPage() {
       <p>
         Austin lies in the heart of Flash Flood Alley, and it is critical that
         you be alert to the dangers of flooding both in your home and on the
-        road.
+        road. Visit <a href="http://atxfloodsafety.com">atxfloodsafety.com</a> to learn more.
       </p>
 
       <h2>Save yourself!</h2>
@@ -53,9 +53,7 @@ export default function FloodSafetyPage() {
 
       <ul>
         <li>
-          Check
-          <a href="http://www.atxfloods.com/">ATXfloods.com</a>
-           for known, flooded roads.
+          Check <a href="http://www.atxfloods.com/">ATXfloods.com</a> for known, flooded roads.
         </li>
 
         <li>Avoid low water crossings.</li>
@@ -70,11 +68,7 @@ export default function FloodSafetyPage() {
       </ul>
 
       <p>
-        There’s more information on our
-        <a href="http://www.austintexas.gov/content/1653/FAQ/2766">
-          Frequently Asked Questions
-        </a>
-         page.
+        There’s more information on our <a href="http://www.austintexas.gov/content/1653/FAQ/2766"> Frequently Asked Questions</a> page.
       </p>
     </ContentPage>
   );
