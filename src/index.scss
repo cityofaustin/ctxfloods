@@ -29,9 +29,11 @@ body {
 
 .FloodsApp {
   margin: 0 auto;
-  height: calc(100% - 1px);
+  height: 100%; //previously calc(100% - 1px)
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+$gray-background: #fff;

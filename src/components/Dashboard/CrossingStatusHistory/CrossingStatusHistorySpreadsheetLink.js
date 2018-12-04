@@ -7,6 +7,9 @@ import CrossingStatusHistorySpreadsheetModal from './CrossingStatusHistorySpread
 export default class CrossingStatusHistorySpreadsheetLink extends Component {
   static propTypes = {
     crossingId: PropTypes.number,
+    communityId: PropTypes.number,
+    dateLowerBound: PropTypes.string,
+    dateUpperBound: PropTypes.string,
   };
 
   constructor(...args) {
@@ -18,6 +21,8 @@ export default class CrossingStatusHistorySpreadsheetLink extends Component {
   }
 
   render() {
+    const { crossingId, communityId, dateLowerBound, dateUpperBound } = this.props;
+
     return (
       <React.Fragment>
         <div
@@ -40,7 +45,10 @@ export default class CrossingStatusHistorySpreadsheetLink extends Component {
         </div>
         {this.state.isOpen && (
           <CrossingStatusHistorySpreadsheetModal
-            crossingId={this.props.crossingId}
+            crossingId={crossingId}
+            communityId={communityId}
+            dateLowerBound={dateLowerBound}
+            dateUpperBound={dateUpperBound}
             onClose={() =>
               this.setState({
                 isOpen: false,

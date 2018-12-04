@@ -30,5 +30,9 @@ module.exports = {
   "402-community": {
     deploy: true,
     backend: "402-community"
+  },
+  "382-history": {
+    deploy: true,
+    backend: "sandbox-1"
   }
 };

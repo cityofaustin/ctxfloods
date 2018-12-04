@@ -1,16 +1,5 @@
 @import "../Form/Dropdown/Dropdown.scss";
 
-.duration-container {
-  @extend .DropdownFacade;
-  padding: 2px;
-  padding-left: 10px;
-  height: 55px;
-}
-
-.duration-table {
-  border-spacing: 0px 0px;
-}
-
 .flatpickr-input-button {
   cursor: pointer;
   padding-left: 5px;
@@ -20,10 +9,6 @@
   font-size: 1em;
   width: 80px;
   text-align: center;
-}
-
-.table-spacing {
-  width: 10px;
 }
 
 .expired-reopen-date {
