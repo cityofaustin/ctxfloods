@@ -5,7 +5,7 @@ import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
 import { withRouter } from 'react-router';
 import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
 
-import { MapboxAccessToken } from 'constants/MapboxConstants';
+import { MAPBOX_STYLE, MapboxAccessToken } from 'constants/MapboxConstants';
 
 import 'components/Shared/Map/CrossingMap.css';
 
@@ -28,6 +28,7 @@ class CrossingMap extends React.Component {
     super(props, ...args);
 
     this.state = {
+      selectedCameraId: null,
       selectedCrossingId: -1, // Mapbox filters don't support null values
       selectedCrossing: null,
       selectedCrossingCoordinates: null,
@@ -195,7 +196,7 @@ class CrossingMap extends React.Component {
 
   onMapClick = e => {
     const { map } = this.state;
-    const { showOpen, showClosed, showCaution, showLongterm } = this.props;
+    const { showOpen, showClosed, showCaution, showLongterm, showCameras } = this.props;
 
     const width = 10;
     const height = 10;
@@ -204,6 +205,7 @@ class CrossingMap extends React.Component {
     if (showClosed) layersToQuery.push('closedCrossings');
     if (showCaution) layersToQuery.push('cautionCrossings');
     if (showLongterm) layersToQuery.push('longtermCrossings');
+    if (showCameras) layersToQuery.push('allCameras');
 
     const features = map.queryRenderedFeatures(
       [
@@ -212,6 +214,10 @@ class CrossingMap extends React.Component {
       ],
       { layers: layersToQuery },
     );
+
+    if (features && features[0] && features[0].layer.id === 'allCameras') {
+      console.log("You clicked a thing!", features[0])
+    }
 
     if (features && features[0] && features[0].properties.crossingId) {
       this.onCrossingClick(features[0]);
@@ -316,14 +322,23 @@ class CrossingMap extends React.Component {
       closedCrossings,
       cautionCrossings,
       longtermCrossings,
+      showCameras,
+      allCameras,
       onDash,
     } = this.props;
+
+    let {
+      selectedCameraId
+    } = this.state;
+
+    // mapbox expressions can't compare null values
+    if (null == selectedCameraId) selectedCameraId = -1;
 
     return (
       <Map
         onStyleLoad={this.onMapboxStyleLoad}
         // eslint-disable-next-line
-        style="mapbox://styles/croweatx/cjeynr3z01k492so57s8lo34o"
+        style={MAPBOX_STYLE}
         containerStyle={{
           height: this.props.mapHeight,
           width: this.props.mapWidth,
@@ -602,6 +617,32 @@ class CrossingMap extends React.Component {
             layout={{ 'icon-image': 'marker-15' }}
           >
             <Feature coordinates={this.state.selectedLocationCoordinates} />
+          </Layer>
+        )}
+        {showCameras && (
+          <Layer
+            type="symbol"
+            id="allCameras"
+            layout={{
+              'icon-image': `attraction-15`,
+              'icon-allow-overlap': true,
+            }}
+            filter={['!=', 'cameraId', selectedCameraId]}
+          >
+            {allCameras &&
+              allCameras.map((camera, i) => {
+                return (
+                  <Feature
+                    key={i}
+                    coordinates={JSON.parse(camera.geojson).coordinates}
+                    properties={{
+                      cameraId: camera.id,
+                      geojson: camera.geojson,
+                      cameraName: camera.name,
+                    }}
+                  />
+                );
+              })}
           </Layer>
         )}
       </Map>

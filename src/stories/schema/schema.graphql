@@ -1,3 +1,30 @@
+"""All input for the `addCameraImage` mutation."""
+input AddCameraImageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  cameraId: Int
+  base64Image: String
+  uploadedAt: Datetime
+}
+
+"""The output of our `addCameraImage` mutation."""
+type AddCameraImagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  integer: Int
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+}
+
 """All input for the `addCrossingToCommunity` mutation."""
 input AddCrossingToCommunityInput {
   """
@@ -116,6 +143,203 @@ type AuthenticatePayload {
 A floating point number that requires more precision than IEEE 754 binary 64
 """
 scalar BigFloat
+
+"""A camera location on a map"""
+type Camera implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+
+  """The primary unique identifier for the camera."""
+  id: Int!
+
+  """Where the camera data is from (beholder or atd)"""
+  source: String!
+
+  """Primary key of camera in original source"""
+  sourceId: String!
+
+  """Human-readable location name of the camera"""
+  name: String!
+
+  """The GeoJSON coordinates of the camera."""
+  geojson: String!
+
+  """Reads and enables pagination through a set of `CameraImage`."""
+  cameraImagesByCameraId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CameraImage`."""
+    orderBy: [CameraImagesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CameraImageCondition
+  ): CameraImagesConnection!
+}
+
+"""
+A condition to be used against `Camera` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input CameraCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: Int
+
+  """Checks for equality with the object’s `source` field."""
+  source: String
+
+  """Checks for equality with the object’s `sourceId` field."""
+  sourceId: String
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `geojson` field."""
+  geojson: String
+}
+
+"""An image taken by a camera"""
+type CameraImage implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+
+  """The primary unique identifier for the image."""
+  id: Int!
+
+  """The id of the camera that took the image."""
+  cameraId: Int!
+
+  """The base64 encoded image."""
+  base64Image: String
+
+  """When image was taken (beholder) or loaded into ctxfloods (atd)"""
+  uploadedAt: Datetime
+
+  """Reads a single `Camera` that is related to this `CameraImage`."""
+  cameraByCameraId: Camera
+}
+
+"""
+A condition to be used against `CameraImage` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input CameraImageCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: Int
+
+  """Checks for equality with the object’s `cameraId` field."""
+  cameraId: Int
+
+  """Checks for equality with the object’s `base64Image` field."""
+  base64Image: String
+
+  """Checks for equality with the object’s `uploadedAt` field."""
+  uploadedAt: Datetime
+}
+
+"""A connection to a list of `CameraImage` values."""
+type CameraImagesConnection {
+  """A list of `CameraImage` objects."""
+  nodes: [CameraImage]!
+
+  """
+  A list of edges which contains the `CameraImage` and cursor to aid in pagination.
+  """
+  edges: [CameraImagesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `CameraImage` you could get from the connection."""
+  totalCount: Int
+}
+
+"""A `CameraImage` edge in the connection."""
+type CameraImagesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CameraImage` at the end of the edge."""
+  node: CameraImage
+}
+
+"""Methods to use when ordering `CameraImage`."""
+enum CameraImagesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CAMERA_ID_ASC
+  CAMERA_ID_DESC
+  BASE64_IMAGE_ASC
+  BASE64_IMAGE_DESC
+  UPLOADED_AT_ASC
+  UPLOADED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""A connection to a list of `Camera` values."""
+type CamerasConnection {
+  """A list of `Camera` objects."""
+  nodes: [Camera]!
+
+  """
+  A list of edges which contains the `Camera` and cursor to aid in pagination.
+  """
+  edges: [CamerasEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Camera` you could get from the connection."""
+  totalCount: Int
+}
+
+"""A `Camera` edge in the connection."""
+type CamerasEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Camera` at the end of the edge."""
+  node: Camera
+}
+
+"""Methods to use when ordering `Camera`."""
+enum CamerasOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  SOURCE_ASC
+  SOURCE_DESC
+  SOURCE_ID_ASC
+  SOURCE_ID_DESC
+  NAME_ASC
+  NAME_DESC
+  GEOJSON_ASC
+  GEOJSON_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
 
 """All input for the `changeCommunityName` mutation."""
 input ChangeCommunityNameInput {
@@ -900,6 +1124,16 @@ scalar JwtToken
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
+  """
+  Adds an image for a camera and ensures that only a mamximum of 5 images remain stored.
+  """
+  addCameraImage(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: AddCameraImageInput!
+  ): AddCameraImagePayload
+
   """Adds a crossing to a community."""
   addCrossingToCommunity(
     """
@@ -1634,6 +1868,64 @@ type Query implements Node {
     nodeId: ID!
   ): Node
 
+  """Reads and enables pagination through a set of `Camera`."""
+  allCameras(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Camera`."""
+    orderBy: [CamerasOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CameraCondition
+  ): CamerasConnection
+
+  """Reads and enables pagination through a set of `CameraImage`."""
+  allCameraImages(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CameraImage`."""
+    orderBy: [CameraImagesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CameraImageCondition
+  ): CameraImagesConnection
+
   """Reads and enables pagination through a set of `Community`."""
   allCommunities(
     """Only read the first `n` values of the set."""
@@ -1923,6 +2215,8 @@ type Query implements Node {
     """
     condition: WazeStreetCondition
   ): WazeStreetsConnection
+  cameraById(id: Int!): Camera
+  cameraImageById(id: Int!): CameraImage
   communityById(id: Int!): Community
   crossingById(id: Int!): Crossing
   incidentReportById(id: Int!): IncidentReport
@@ -2066,6 +2360,20 @@ type Query implements Node {
     """Read all values in the set after (below) this cursor."""
     after: Cursor
   ): WazeFeedIncidentsConnection!
+
+  """Reads a single `Camera` using its globally unique `ID`."""
+  camera(
+    """The globally unique `ID` to be used in selecting a single `Camera`."""
+    nodeId: ID!
+  ): Camera
+
+  """Reads a single `CameraImage` using its globally unique `ID`."""
+  cameraImage(
+    """
+    The globally unique `ID` to be used in selecting a single `CameraImage`.
+    """
+    nodeId: ID!
+  ): CameraImage
 
   """Reads a single `Community` using its globally unique `ID`."""
   community(

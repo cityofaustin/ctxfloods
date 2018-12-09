@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from 'react-mapbox-gl';
 
-import { MapboxAccessToken } from 'constants/MapboxConstants';
+import { MAPBOX_STYLE, MapboxAccessToken } from 'constants/MapboxConstants';
 
 const Map = ReactMapboxGl({
   accessToken: MapboxAccessToken,
@@ -25,7 +25,7 @@ export default class IncidentLocationMap extends Component {
       <Map
         className="IncidentLocationMap"
         // eslint-disable-next-line
-        style="mapbox://styles/croweatx/cjeynr3z01k492so57s8lo34o"
+        style={MAPBOX_STYLE}
         center={coordinates}
         zoom={[10]}
         onStyleLoad={this.onStyleLoad}

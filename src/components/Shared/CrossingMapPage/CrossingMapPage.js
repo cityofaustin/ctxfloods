@@ -13,6 +13,7 @@ import FilterCheckbox from 'components/Shared/FilterCheckbox';
 import 'components/Shared/CrossingMapPage/CrossingMapPage.css';
 import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
+import allCamerasQuery from 'components/Shared/Map/queries/allCamerasQuery';
 import communityFragment from 'components/Shared/Map/queries/communityFragment';
 
 const containerQuery = {
@@ -32,7 +33,9 @@ const getIsLoading = props => {
     !props.longtermCrossings ||
     props.longtermCrossings.loading ||
     !props.allCommunities ||
-    props.allCommunities.loading
+    props.allCommunities.loading ||
+    !props.allCameras ||
+    props.allCameras.loading
   );
 };
 
@@ -251,6 +254,9 @@ class CrossingMapPage extends Component {
     const longtermCrossings = !isLoading
       ? this.props.longtermCrossings.searchCrossings.nodes
       : null;
+    const allCameras = !isLoading
+      ? this.props.allCameras.allCameras.nodes
+      : null;
 
     const onDash = this.props.match.url.includes('dashboard')
 
@@ -377,6 +383,9 @@ class CrossingMapPage extends Component {
                       !this.props.match.params.selectedCommunityId &&
                       !this.props.match.params.selectedCrossingId
                     }
+                    allCameras={allCameras}
+                    selectedCameraId={null}
+                    showCameras={true}
                     onDash={onDash}
                   />
                 </div>
@@ -472,4 +481,7 @@ export default compose(
   graphql(allCommunities, {
     name: 'allCommunities',
   }),
+  graphql(allCamerasQuery, {
+    name: 'allCameras'
+  })
 )(CrossingMapPage);
