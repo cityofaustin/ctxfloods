@@ -39,22 +39,13 @@ class InfiniteCrossingStatusHistoryList extends React.Component {
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
   }
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    return {
-      communityId: prevProps.communityId,
-      crossingId: prevProps.crossingId,
-      dateLowerBound: prevProps.dateLowerBound,
-      dateUpperBound: prevProps.dateUpperBound,
-    }
-  }
-
-  componentDidUpdate(snapshot) {
+  componentDidUpdate(prevProps) {
     // Scroll to top of list when applying new filter
     if (this.infiniteLoaderRef && (
-      snapshot.communityId !== this.props.communityId ||
-      snapshot.crossingId !== this.props.crossingId ||
-      snapshot.dateLowerBound !== this.props.dateLowerBound ||
-      snapshot.dateUpperBound !== this.props.dateUpperBound
+      prevProps.communityId !== this.props.communityId ||
+      prevProps.crossingId !== this.props.crossingId ||
+      prevProps.dateLowerBound !== this.props.dateLowerBound ||
+      prevProps.dateUpperBound !== this.props.dateUpperBound
     )) {
       this.infiniteLoaderRef.scrollToRow(0);
     }

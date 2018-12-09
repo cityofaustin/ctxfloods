@@ -15,6 +15,7 @@ import { LARGE_ITEM_MIN_WIDTH } from 'constants/containerQueryConstants';
 import allCrossings from 'components/Shared/Map/queries/allCrossingsQuery';
 import allCamerasQuery from 'components/Shared/Map/queries/allCamerasQuery';
 import communityFragment from 'components/Shared/Map/queries/communityFragment';
+import * as selectors from 'components/Shared/CrossingMapPage/selectors';
 
 const containerQuery = {
   fullsize: {
@@ -22,25 +23,9 @@ const containerQuery = {
   },
 };
 
-const getIsLoading = props => {
-  return (
-    !props.openCrossings ||
-    props.openCrossings.loading ||
-    !props.closedCrossings ||
-    props.closedCrossings.loading ||
-    !props.cautionCrossings ||
-    props.cautionCrossings.loading ||
-    !props.longtermCrossings ||
-    props.longtermCrossings.loading ||
-    !props.allCommunities ||
-    props.allCommunities.loading ||
-    !props.allCameras ||
-    props.allCameras.loading
-  );
-};
-
 class CrossingMapPage extends Component {
   constructor(props) {
+    console.log("CrossingMapPage constructing")
     super(props);
 
     // If we have a current user, we're on the dashboard, we should get their viewport
@@ -51,11 +36,12 @@ class CrossingMapPage extends Component {
 
     this.state = {
       selectedCrossingId: null,
+      selectedCameraId: null,
       selectedCrossingStatus: null,
       fullscreen: false,
       searchQuery: '',
       formattedSearchQuery: '%%',
-      showOpen: this.props.match.url.includes('dashboard'),
+      showOpen: this.props.onDash,
       showClosed: true,
       showCaution: true,
       showLongterm: true,
@@ -69,7 +55,8 @@ class CrossingMapPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const didLoad = !getIsLoading(this.props) && getIsLoading(prevProps);
+    console.log("Hey component updated")
+    const didLoad = selectors.getIsLoading(this.props) && selectors.getIsLoading(prevProps);
     const didSelectedCommunityChange =
       this.props.match.params.selectedCommunityId !==
       prevProps.match.params.selectedCommunityId;
@@ -78,11 +65,26 @@ class CrossingMapPage extends Component {
       this.props.match.params.selectedCrossingId !==
       prevProps.match.params.selectedCrossingId;
 
+    if (didSelectedCrossingChange) {
+      console.log("And the selectedCrossingChanged!")
+    }
+
+    const didSelectedCameraChange =
+      this.props.match.params.selectedCameraId !==
+      prevProps.match.params.selectedCameraId;
+
     if (didSelectedCrossingChange && this.state.mapLoaded) {
       this.selectCrossing(
         this.props.match.params.selectedCrossingId &&
           Number(this.props.match.params.selectedCrossingId),
       );
+    }
+
+    if (didSelectedCameraChange && this.state.mapLoaded) {
+      this.selectCamera(
+        this.props.match.params.selectedCameraId &&
+        Number(this.props.match.params.selectedCameraId)
+      )
     }
 
     if (didLoad || didSelectedCommunityChange) {
@@ -176,6 +178,17 @@ class CrossingMapPage extends Component {
     );
   };
 
+  selectCamera = (cameraId) => {
+    this.setState(
+      {
+        selectedCameraId: cameraId
+      },
+      () => {
+        this.triggerMapResize()
+      }
+    )
+  }
+
   toggleFullscreen = () => {
     this.setState({ fullscreen: !this.state.fullscreen });
   };
@@ -223,42 +236,27 @@ class CrossingMapPage extends Component {
       formattedSearchQuery,
       selectedLocationCoordinates,
       selectedCommunity,
+      selectedCameraId
     } = this.state;
-    const { currentUser } = this.props;
+    const { currentUser, onDash } = this.props;
 
-    const isLoading = getIsLoading(this.props);
+    const isLoading = selectors.getIsLoading(this.props);
 
-    if (
-      !isLoading &&
-      (this.props.openCrossings.searchCrossings == null ||
-        this.props.closedCrossings.searchCrossings == null ||
-        this.props.cautionCrossings.searchCrossings == null ||
-        this.props.longtermCrossings.searchCrossings == null)
-    ) {
+    if (selectors.isLoadedWithErrors(this.props)) {
       // TODO: add error logging
       return <div>Error Loading</div>;
     }
 
-    const allCommunities = !isLoading
-      ? this.props.allCommunities.allCommunities.nodes
-      : null;
-    const openCrossings = !isLoading
-      ? this.props.openCrossings.searchCrossings.nodes
-      : null;
-    const closedCrossings = !isLoading
-      ? this.props.closedCrossings.searchCrossings.nodes
-      : null;
-    const cautionCrossings = !isLoading
-      ? this.props.cautionCrossings.searchCrossings.nodes
-      : null;
-    const longtermCrossings = !isLoading
-      ? this.props.longtermCrossings.searchCrossings.nodes
-      : null;
-    const allCameras = !isLoading
-      ? this.props.allCameras.allCameras.nodes
-      : null;
+    const allCommunities = selectors.getAllCommunities(this.props);
+    const openCrossings = selectors.getOpenCrossings(this.props);
+    const closedCrossings = selectors.getClosedCrossings(this.props);
+    const cautionCrossings = selectors.getCautionCrossings(this.props);
+    const longtermCrossings = selectors.getLongtermCrossings(this.props);
+    const allCameras = selectors.getAllCameras(this.props);
+    const selectedCrossing = selectors.getSelectedCrossing(this.props);
 
-    const onDash = this.props.match.url.includes('dashboard')
+    console.log("open Crossings", this.props.openCrossings)
+    console.log("allCameras", this.props.allCameras)
 
     return (
       <ContainerQuery query={containerQuery}>
@@ -273,7 +271,6 @@ class CrossingMapPage extends Component {
                   <React.Fragment>
                     <CrossingMapSearchBar
                       selectedCrossingId={selectedCrossingId}
-                      selectCrossing={this.selectCrossing}
                       searchQuery={searchQuery}
                       searchQueryUpdated={this.searchQueryUpdated}
                       toggleSearchFocus={this.toggleSearchFocus}
@@ -328,7 +325,6 @@ class CrossingMapPage extends Component {
                     <CrossingMapSidebar
                       selectedCrossingId={selectedCrossingId}
                       currentUser={currentUser}
-                      selectCrossing={this.selectCrossing}
                       searchQuery={searchQuery}
                       searchQueryUpdated={this.searchQueryUpdated}
                       showOpen={this.state.showOpen}
@@ -361,8 +357,7 @@ class CrossingMapPage extends Component {
                     setCenter={this.setCenter}
                     selectedLocationCoordinates={selectedLocationCoordinates}
                     selectedCrossingId={selectedCrossingId}
-                    selectedCrossingStatus={selectedCrossingStatus}
-                    selectCrossing={this.selectCrossing}
+                    selectedCrossing={selectedCrossing}
                     currentUser={currentUser}
                     searchQuery={formattedSearchQuery}
                     showOpen={this.state.showOpen}
@@ -381,10 +376,12 @@ class CrossingMapPage extends Component {
                     setMapLoaded={this.setMapLoaded}
                     autoGeoLocate={
                       !this.props.match.params.selectedCommunityId &&
-                      !this.props.match.params.selectedCrossingId
+                      !this.props.match.params.selectedCrossingId &&
+                      !this.props.match.params.selectedCameraId
                     }
                     allCameras={allCameras}
-                    selectedCameraId={null}
+                    selectedCameraId={selectedCameraId}
+                    selectedCamera={null}
                     showCameras={true}
                     onDash={onDash}
                   />

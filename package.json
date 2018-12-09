@@ -42,7 +42,8 @@
     "react-modal": "^3.3.2",
     "react-onclickoutside": "^6.7.1",
     "react-router-dom": "^4.1.1",
-    "react-virtualized": "9.18.5"
+    "react-virtualized": "9.18.5",
+    "reselect": "^4.0.0"
   },
   "devDependencies": {
     "@storybook/addon-storyshots": "3.3.15",

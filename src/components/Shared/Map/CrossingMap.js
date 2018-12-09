@@ -28,11 +28,12 @@ class CrossingMap extends React.Component {
     super(props, ...args);
 
     this.state = {
-      selectedCameraId: null,
-      selectedCrossingId: -1, // Mapbox filters don't support null values
-      selectedCrossing: null,
-      selectedCrossingCoordinates: null,
-      selectedLocationCoordinates: null,
+      // selectedCameraId: null,
+      // selectedCamera: null,
+      // selectedCrossingId: null,
+      // selectedCrossing: null,
+      // selectedCrossingCoordinates: null,
+      // selectedLocationCoordinates: null,
       firstLoadComplete: false,
       showDetailsOnMobile: false,
       cachedHeights: {},
@@ -45,7 +46,10 @@ class CrossingMap extends React.Component {
     // If we've selected a crossing
     if (nextProps.selectedCrossingId !== this.props.selectedCrossingId) {
       if (nextProps.selectedCrossingId) {
-        this.setState({ selectedCrossingId: nextProps.selectedCrossingId });
+        this.setState({
+          selectedCrossingId: nextProps.selectedCrossingId ,
+          selectedCameraId: null
+        });
         const crossing =
           this.props.openCrossings.find(
             c => c.id === nextProps.selectedCrossingId,
@@ -61,7 +65,7 @@ class CrossingMap extends React.Component {
           );
         this.selectCrossing(crossing);
       } else {
-        this.setState({ selectedCrossingId: -1 });
+        this.setState({ selectedCrossingId: null });
         this.setState({ selectedCrossing: null });
       }
     }
@@ -106,13 +110,15 @@ class CrossingMap extends React.Component {
   }
 
   onMapboxStyleLoad = map => {
-    this.setState({ map: map });
+    this.map = map;
     this.addZoomControl(map);
     this.addGeoLocateControl(map);
     this.addCrossingClickHandlers(map);
 
     // update the map page center on map move
-    map.on('moveend', this.setCenter);
+    map.on('moveend', ()=>{
+      this.props.setCenter(map.getCenter());
+    });
 
     // disable map rotation using right click + drag
     map.dragRotate.disable();
@@ -156,17 +162,9 @@ class CrossingMap extends React.Component {
     map.on('click', this.onMapClick);
   }
 
-  setCenter = () => {
-    const { map } = this.state;
-    const center = map.getCenter();
-
-    this.props.setCenter(center);
-  };
-
   flyTo = point => {
-    const { map } = this.state;
-    if (map) {
-      map.flyTo({
+    if (this.map) {
+      this.map.flyTo({
         center: point,
       });
     }
@@ -190,12 +188,28 @@ class CrossingMap extends React.Component {
     this.flyTo(coordinates);
   };
 
+  selectCamera = camera => {
+    const coordinates = JSON.parse(camera.geojson).coordinates;
+
+    this.setState({
+      selectedCameraCoordinates: coordinates,
+      selectedCamera: camera,
+      showDetailsOnMobile: false,
+    });
+    this.flyTo(coordinates);
+  }
+
   onCrossingClick = crossing => {
     this.props.history.push(`${this.props.onDash ? '/dashboard' : ''}/map/crossing/${crossing.properties.crossingId}`);
   };
 
+  onCameraClick = camera => {
+    console.log('great job you clicked a camera')
+    this.props.history.push(`${this.props.onDash ? '/dashboard' : ''}/map/camera/${camera.properties.cameraId}`);
+  }
+
   onMapClick = e => {
-    const { map } = this.state;
+    const map = this.map;
     const { showOpen, showClosed, showCaution, showLongterm, showCameras } = this.props;
 
     const width = 10;
@@ -215,14 +229,13 @@ class CrossingMap extends React.Component {
       { layers: layersToQuery },
     );
 
-    if (features && features[0] && features[0].layer.id === 'allCameras') {
-      console.log("You clicked a thing!", features[0])
-    }
-
-    if (features && features[0] && features[0].properties.crossingId) {
+    if (features && features[0] && (features[0].layer.id === 'allCameras')) {
+      console.log("You clicked a camera!", features[0])
+      this.onCameraClick(features[0]);
+    } else if (features && features[0] && features[0].properties.crossingId) {
       this.onCrossingClick(features[0]);
     } else {
-      this.setState({ selectedCrossingId: -1 });
+      this.setState({ selectedCrossingId: null });
       this.setState({ selectedCrossing: null });
       this.setState({ selectedCrossingCoordinates: null });
       this.setState({ showDetailsOnMobile: false });
@@ -243,8 +256,8 @@ class CrossingMap extends React.Component {
   };
 
   resizeMap = () => {
-    if (this.state.map) {
-      this.state.map.resize();
+    if (this.map) {
+      this.map.resize();
     }
   };
 
@@ -252,7 +265,8 @@ class CrossingMap extends React.Component {
     // Let's hack this together so it makes some kinda sense
     // and we can figure out how much to offset the map
     // for the details popup
-    const { map, cachedHeights } = this.state;
+    const { cachedHeights } = this.state;
+    const map = this.map;
 
     // First, let's get the size of the map in pixels
     const mapHeightInPixels = map.getContainer().offsetHeight;
@@ -309,9 +323,6 @@ class CrossingMap extends React.Component {
   };
 
   render() {
-    const { firstLoadComplete } = this.state;
-    if (!firstLoadComplete) return null;
-
     const {
       showOpen,
       showClosed,
@@ -327,11 +338,27 @@ class CrossingMap extends React.Component {
       onDash,
     } = this.props;
 
-    let {
-      selectedCameraId
-    } = this.state;
+    console.log("map rendering")
+    const isLoading =
+      !openCrossings ||
+      !closedCrossings ||
+      !cautionCrossings ||
+      !longtermCrossings;
+    const { firstLoadComplete } = this.state;
+    if (!firstLoadComplete) {
+      if (!isLoading) {
+        this.setState({firstLoadComplete: true});
+      } else {
+        return null
+      }
+    }
 
+    let {
+      selectedCrossingId,
+      selectedCameraId,
+    } = this.state;
     // mapbox expressions can't compare null values
+    if (null == selectedCrossingId) selectedCrossingId = -1;
     if (null == selectedCameraId) selectedCameraId = -1;
 
     return (
@@ -356,10 +383,7 @@ class CrossingMap extends React.Component {
               'icon-image': `marker-open-${this.state.iconSize}`,
               'icon-allow-overlap': true,
             }}
-            filter={[
-              'all',
-              ['!=', 'crossingId', this.state.selectedCrossingId],
-            ]}
+            filter={['!=', 'crossingId', selectedCrossingId]}
           >
             {openCrossings &&
               openCrossings.map((crossing, i) => {
@@ -388,10 +412,7 @@ class CrossingMap extends React.Component {
               'icon-image': `marker-long-term-${this.state.iconSize}`,
               'icon-allow-overlap': true,
             }}
-            filter={[
-              'all',
-              ['!=', 'crossingId', this.state.selectedCrossingId],
-            ]}
+            filter={['!=', 'crossingId', selectedCrossingId]}
           >
             {longtermCrossings &&
               longtermCrossings.map((crossing, i) => {
@@ -420,10 +441,7 @@ class CrossingMap extends React.Component {
               'icon-image': `marker-caution-${this.state.iconSize}`,
               'icon-allow-overlap': true,
             }}
-            filter={[
-              'all',
-              ['!=', 'crossingId', this.state.selectedCrossingId],
-            ]}
+            filter={['!=', 'crossingId', selectedCrossingId]}
           >
             {cautionCrossings &&
               cautionCrossings.map((crossing, i) => {
@@ -452,10 +470,7 @@ class CrossingMap extends React.Component {
               'icon-image': `marker-closed-${this.state.iconSize}`,
               'icon-allow-overlap': true,
             }}
-            filter={[
-              'all',
-              ['!=', 'crossingId', this.state.selectedCrossingId],
-            ]}
+            filter={['!=', 'crossingId', selectedCrossingId]}
           >
             {closedCrossings &&
               closedCrossings.map((crossing, i) => {

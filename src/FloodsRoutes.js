@@ -83,6 +83,11 @@ class FloodsRoutes extends Component {
             path="/map/crossing/:selectedCrossingId"
             component={CrossingMapPage}
           />
+          <Route
+            exact
+            path="/map/camera/:selectedCameraId"
+            component={CrossingMapPage}
+          />
           <Route path="/map" component={CrossingMapPage} />
         </Switch>
 
@@ -103,6 +108,7 @@ class FloodsRoutes extends Component {
               'floods_super_admin',
             ])}
             currentUser={currentUser}
+            onDash={true}
           />
           <PrivateRoute
             exact
@@ -115,6 +121,20 @@ class FloodsRoutes extends Component {
               'floods_super_admin',
             ])}
             currentUser={currentUser}
+            onDash={true}
+          />
+          <PrivateRoute
+            exact
+            path="/dashboard/map/camera/:selectedCameraId"
+            component={CrossingMapPage}
+            authenticated={auth.isAuthenticated()}
+            authorized={auth.roleAuthorized([
+              'floods_community_editor',
+              'floods_community_admin',
+              'floods_super_admin',
+            ])}
+            currentUser={currentUser}
+            onDash={true}
           />
           <PrivateRoute
             exact
@@ -127,6 +147,7 @@ class FloodsRoutes extends Component {
               'floods_super_admin',
             ])}
             currentUser={currentUser}
+            onDash={true}
           />
         </Switch>
 

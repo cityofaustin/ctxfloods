@@ -174,7 +174,6 @@ class CrossingMapSearchBar extends Component {
   };
 
   clearSearch = () => {
-    this.props.selectCrossing(null, null);
     this.setState({ typedValue: '', selectedValue: null });
     this.props.history.push(`${this.dashPrepend()}/map`);
   };
