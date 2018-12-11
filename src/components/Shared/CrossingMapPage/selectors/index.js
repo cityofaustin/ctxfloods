@@ -1,14 +1,30 @@
 import { createSelector } from 'reselect';
 
+const exists = x => {
+  return (x !== null && x !== undefined)
+}
+
 const getOpenCrossingsResult = props => props.openCrossings;
 const getClosedCrossingsResult = props => props.closedCrossings;
 const getCautionCrossingsResult = props => props.cautionCrossings;
 const getLongtermCrossingsResult = props => props.longtermCrossings;
 const getAllCommunitiesResult = props => props.allCommunities;
 const getAllCamerasResult = props => props.allCameras;
-const getSelectedCrossingId = props => props.selectedCrossingId;
 
-export const getIsLoading = createSelector(
+export const getSelectedCrossingId = props => {
+  let selectedCrossingId = props.match.params.selectedCrossingId;
+  return exists(selectedCrossingId) ? Number(selectedCrossingId) : null;
+}
+export const getSelectedCommunityId = props => {
+  let selectedCommunityId = props.match.params.selectedCommunityId;
+  return exists(selectedCommunityId) ? Number(selectedCommunityId) : null;
+}
+export const getSelectedCameraId = props => {
+  let selectedCameraId = props.match.params.selectedCameraId;
+  return exists(selectedCameraId) ? Number(selectedCameraId) : null;
+}
+
+export const isDataLoaded = createSelector(
   [
     getOpenCrossingsResult,
     getClosedCrossingsResult,
@@ -25,7 +41,7 @@ export const getIsLoading = createSelector(
     allCommunities,
     allCameras,
   ) => {
-    return (
+    return !(
       !openCrossings || openCrossings.loading ||
       !closedCrossings || closedCrossings.loading ||
       !cautionCrossings || cautionCrossings.loading ||
@@ -38,20 +54,20 @@ export const getIsLoading = createSelector(
 
 export const isLoadedWithErrors = createSelector(
   [
-    getIsLoading,
+    isDataLoaded,
     getOpenCrossingsResult,
     getClosedCrossingsResult,
     getCautionCrossingsResult,
     getLongtermCrossingsResult,
   ],
   (
-    isLoading,
+    isDataLoaded,
     openCrossings,
     closedCrossings,
     cautionCrossings,
     longtermCrossings
   ) => {
-    return !isLoading && (
+    return isDataLoaded && (
       openCrossings.searchCrossings == null ||
       closedCrossings.searchCrossings == null ||
       cautionCrossings.searchCrossings == null ||
@@ -61,54 +77,54 @@ export const isLoadedWithErrors = createSelector(
 )
 
 export const getOpenCrossings = createSelector(
-  [getIsLoading, getOpenCrossingsResult],
-  (isLoading, openCrossingsResult) => {
-    return !isLoading
+  [isDataLoaded, getOpenCrossingsResult],
+  (isDataLoaded, openCrossingsResult) => {
+    return isDataLoaded
       ? openCrossingsResult.searchCrossings.nodes
       : null;
   }
 )
 
 export const getCautionCrossings = createSelector(
-  [getIsLoading, getCautionCrossingsResult],
-  (isLoading, cautionCrossingsResult) => {
-    return !isLoading
+  [isDataLoaded, getCautionCrossingsResult],
+  (isDataLoaded, cautionCrossingsResult) => {
+    return isDataLoaded
       ? cautionCrossingsResult.searchCrossings.nodes
       : null;
   }
 )
 
 export const getClosedCrossings = createSelector(
-  [getIsLoading, getClosedCrossingsResult],
-  (isLoading, closedCrossingsResult) => {
-    return !isLoading
+  [isDataLoaded, getClosedCrossingsResult],
+  (isDataLoaded, closedCrossingsResult) => {
+    return isDataLoaded
       ? closedCrossingsResult.searchCrossings.nodes
       : null;
   }
 )
 
 export const getLongtermCrossings = createSelector(
-  [getIsLoading, getLongtermCrossingsResult],
-  (isLoading, longtermCrossingsResult) => {
-    return !isLoading
+  [isDataLoaded, getLongtermCrossingsResult],
+  (isDataLoaded, longtermCrossingsResult) => {
+    return isDataLoaded
       ? longtermCrossingsResult.searchCrossings.nodes
       : null;
   }
 )
 
 export const getAllCommunities = createSelector(
-  [getIsLoading, getAllCommunitiesResult],
-  (isLoading, allCommunitiesResult) => {
-    return !isLoading
+  [isDataLoaded, getAllCommunitiesResult],
+  (isDataLoaded, allCommunitiesResult) => {
+    return isDataLoaded
       ? allCommunitiesResult.allCommunities.nodes
       : null
   }
 )
 
 export const getAllCameras = createSelector(
-  [getIsLoading, getAllCamerasResult],
-  (isLoading, getAllCamerasResult) => {
-    return !isLoading
+  [isDataLoaded, getAllCamerasResult],
+  (isDataLoaded, getAllCamerasResult) => {
+    return isDataLoaded
       ? getAllCamerasResult.allCameras.nodes
       : null
   }
@@ -117,7 +133,7 @@ export const getAllCameras = createSelector(
 export const getSelectedCrossing = createSelector(
   [
     getSelectedCrossingId,
-    getIsLoading,
+    isDataLoaded,
     getOpenCrossings,
     getClosedCrossings,
     getCautionCrossings,
@@ -125,15 +141,15 @@ export const getSelectedCrossing = createSelector(
   ],
   (
     selectedCrossingId,
-    isLoading,
+    isDataLoaded,
     openCrossings,
     closedCrossings,
     cautionCrossings,
     longtermCrossings,
   ) => {
-    if (!selectedCrossingId || isLoading) return null;
+    if (!selectedCrossingId || !isDataLoaded) return null;
 
-    const crossing = openCrossings.find(
+    let crossing = openCrossings.find(
       c => c.id === selectedCrossingId,
     ) ||
     closedCrossings.find(
@@ -145,6 +161,41 @@ export const getSelectedCrossing = createSelector(
     longtermCrossings.find(
       c => c.id === selectedCrossingId,
     );
-    return crossing;
+    if (crossing) {
+      // TypeError: Cannot add property coordinates, object is not extensible
+      crossing = Object.assign({}, crossing);
+      crossing.coordinates = JSON.parse(crossing.geojson).coordinates;
+    }
+    return crossing || null;
+  }
+)
+
+export const getSelectedCommunity = createSelector(
+  [
+    getSelectedCommunityId,
+    isDataLoaded,
+    getAllCommunities
+  ],
+  (selectedCommunityId, isDataLoaded, allCommunities) => {
+    if (!allCommunities || !isDataLoaded) return null;
+    return allCommunities.find(c => c.id === selectedCommunityId) || null
+  }
+)
+
+export const getSelectedCamera = createSelector(
+  [
+    getSelectedCameraId,
+    isDataLoaded,
+    getAllCameras,
+  ],
+  (selectedCameraId, isDataLoaded, allCameras) => {
+    if (!allCameras || !isDataLoaded) return null;
+    let camera = allCameras.find(c => c.id === selectedCameraId);
+    if (camera) {
+      // TypeError: Cannot add property coordinates, object is not extensible
+      camera = Object.assign({}, camera);
+      camera.coordinates = JSON.parse(camera.geojson).coordinates;
+    }
+    return camera || null;
   }
 )

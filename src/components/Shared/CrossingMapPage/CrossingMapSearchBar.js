@@ -106,7 +106,12 @@ class CrossingMapSearchBar extends Component {
     } else if (suggestion.location) {
       const lng = suggestion.location[1];
       const lat = suggestion.location[0];
-      this.props.setSelectedLocationCoordinates([lng, lat]);
+      this.props.setSelectedFeature({
+        type: "Misc",
+        data: {
+          coordinates: [lng, lat]
+        }
+      });
     }
 
     // Unfocus the search bar

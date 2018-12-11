@@ -150,7 +150,7 @@ class CrossingMapSidebar extends Component {
       allCommunities,
       selectedCrossingName,
       center,
-      setSelectedLocationCoordinates,
+      setSelectedFeature,
       onDash
     } = this.props;
 
@@ -173,7 +173,7 @@ class CrossingMapSidebar extends Component {
                 searchQueryUpdated={searchQueryUpdated}
                 selectedCrossingName={selectedCrossingName}
                 center={center}
-                setSelectedLocationCoordinates={setSelectedLocationCoordinates}
+                setSelectedFeature={setSelectedFeature}
                 toggleSearchFocus={this.toggleSearchFocus}
                 communities={allCommunities}
                 communityId={
