@@ -37,6 +37,80 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
           </div>
         </div>
         <div
+          className="CrossingDetails__lat-lng-group"
+        >
+          <div
+            className="CrossingDetails__lat-lng-container"
+          >
+            <label
+              className="Shared__label"
+              htmlFor="Latitude"
+            >
+              Latitude*
+            </label>
+            <input
+              className="Shared__text-input Shared__text-input--disabled"
+              disabled={true}
+              onChange={[Function]}
+              style={
+                Object {
+                  "width": "100%",
+                }
+              }
+              type="text"
+              value="30.267"
+            />
+          </div>
+          <div
+            className="space_5"
+          />
+          <div
+            className="CrossingDetails__lat-lng-container"
+          >
+            <label
+              className="Shared__label"
+              htmlFor="Longitude"
+            >
+              Longitude*
+            </label>
+            <input
+              className="Shared__text-input Shared__text-input--disabled"
+              disabled={true}
+              onChange={[Function]}
+              style={
+                Object {
+                  "width": "100%",
+                }
+              }
+              type="text"
+              value="-97.768"
+            />
+          </div>
+          <div
+            className="EditUser__buttons hidden"
+            style={
+              Object {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <button
+              className="Shared__button EditUser__cancel-button Shared__button--secondary"
+              disabled={false}
+              onClick={[Function]}
+            >
+              Cancel
+            </button>
+            <button
+              className="Shared__button EditUser__next-button Shared__button--primary"
+              disabled={false}
+              onClick={[Function]}
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+        <div
           className="CrossingDetails__field-group"
         >
           <label
@@ -92,29 +166,12 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
           <label
             className="Shared__label"
           >
-            GPS
-          </label>
-          <input
-            className="Shared__text-input Shared__text-input--disabled"
-            disabled={true}
-            onChange={undefined}
-            type="text"
-            value="30°16'1.200\\"N 97°46'4.800\\"W"
-          />
-        </div>
-        <div
-          className="CrossingDetails__field-group"
-        >
-          <label
-            className="Shared__label"
-          >
             ID#
           </label>
            
           <input
             className="Shared__text-input Shared__text-input--disabled"
             disabled={true}
-            onChange={undefined}
             type="text"
             value={1}
           />
@@ -198,10 +255,8 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
       >
         <input
           className="CrossingListSearchInput"
-          onChange={undefined}
           placeholder="Search your crossings"
           type="text"
-          value={undefined}
         />
         <div
           className="CrossingListSearchButton"
@@ -240,9 +295,7 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
           >
             <input
               alt="Disabled"
-              aria-checked={undefined}
               className="FilterCheckbox__button"
-              onClick={undefined}
               role="checkbox"
               src="checkbox-disabled.svg"
               type="image"
@@ -258,9 +311,7 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
           >
             <input
               alt="Disabled"
-              aria-checked={undefined}
               className="FilterCheckbox__button"
-              onClick={undefined}
               role="checkbox"
               src="checkbox-disabled.svg"
               type="image"
@@ -277,9 +328,7 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
           >
             <input
               alt="Disabled"
-              aria-checked={undefined}
               className="FilterCheckbox__button"
-              onClick={undefined}
               role="checkbox"
               src="checkbox-disabled.svg"
               type="image"
@@ -296,9 +345,7 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
           >
             <input
               alt="Disabled"
-              aria-checked={undefined}
               className="FilterCheckbox__button"
-              onClick={undefined}
               role="checkbox"
               src="checkbox-disabled.svg"
               type="image"
@@ -324,7 +371,7 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
         >
           Filter
           <div
-            className="CrossingListToggle__icon"
+            className="CrossingListHeader-icon"
           >
             <span
               aria-hidden={true}
@@ -351,11 +398,10 @@ exports[`Storyshots Crossing List Header Large Width 1`] = `
         </div>
         <div
           className="CrossingListSortToggle"
-          onClick={undefined}
         >
           Last Updated
           <div
-            className="CrossingListToggle__icon"
+            className="CrossingListHeader-icon"
           >
             <span
               aria-hidden={true}
@@ -401,10 +447,8 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
       >
         <input
           className="CrossingListSearchInput"
-          onChange={undefined}
           placeholder="Search your crossings"
           type="text"
-          value={undefined}
         />
         <div
           className="CrossingListSearchButton"
@@ -443,9 +487,7 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
           >
             <input
               alt="Disabled"
-              aria-checked={undefined}
               className="FilterCheckbox__button"
-              onClick={undefined}
               role="checkbox"
               src="checkbox-disabled.svg"
               type="image"
@@ -454,7 +496,6 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
               className="FilterCheckbox__children"
             >
               Open 
-              (6)
             </div>
           </label>
           <label
@@ -462,9 +503,7 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
           >
             <input
               alt="Disabled"
-              aria-checked={undefined}
               className="FilterCheckbox__button"
-              onClick={undefined}
               role="checkbox"
               src="checkbox-disabled.svg"
               type="image"
@@ -474,7 +513,6 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
             >
               Caution
                
-              (6)
             </div>
           </label>
           <label
@@ -482,9 +520,7 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
           >
             <input
               alt="Disabled"
-              aria-checked={undefined}
               className="FilterCheckbox__button"
-              onClick={undefined}
               role="checkbox"
               src="checkbox-disabled.svg"
               type="image"
@@ -494,7 +530,6 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
             >
               Closed
                
-              (6)
             </div>
           </label>
           <label
@@ -502,9 +537,7 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
           >
             <input
               alt="Disabled"
-              aria-checked={undefined}
               className="FilterCheckbox__button"
-              onClick={undefined}
               role="checkbox"
               src="checkbox-disabled.svg"
               type="image"
@@ -514,7 +547,6 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
             >
               Long-Term Closure
                
-              (6)
             </div>
           </label>
         </div>
@@ -531,7 +563,7 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
         >
           Filter
           <div
-            className="CrossingListToggle__icon"
+            className="CrossingListHeader-icon"
           >
             <span
               aria-hidden={true}
@@ -558,11 +590,10 @@ exports[`Storyshots Crossing List Header Small Width 1`] = `
         </div>
         <div
           className="CrossingListSortToggle"
-          onClick={undefined}
         >
           Last Updated
           <div
-            className="CrossingListToggle__icon"
+            className="CrossingListHeader-icon"
           >
             <span
               aria-hidden={true}
@@ -750,11 +781,10 @@ exports[`Storyshots Crossing List Item Caution 1`] = `
           >
             <select
               className="Dropdown__select"
-              defaultValue={1}
-              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
+              value={1}
             >
               <option
                 value={1}
@@ -960,11 +990,10 @@ exports[`Storyshots Crossing List Item Caution Dirty 1`] = `
           >
             <select
               className="Dropdown__select"
-              defaultValue={1}
-              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
+              value={1}
             >
               <option
                 value={1}
@@ -1183,11 +1212,10 @@ exports[`Storyshots Crossing List Item Closed 1`] = `
           >
             <select
               className="Dropdown__select"
-              defaultValue={1}
-              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
+              value={1}
             >
               <option
                 value={1}
@@ -1393,11 +1421,10 @@ exports[`Storyshots Crossing List Item Closed Dirty 1`] = `
           >
             <select
               className="Dropdown__select"
-              defaultValue={1}
-              disabled={undefined}
               id=""
               name=""
               onChange={[Function]}
+              value={1}
             >
               <option
                 value={1}
@@ -1619,11 +1646,10 @@ exports[`Storyshots Crossing List Item Large Width 1`] = `
             >
               <select
                 className="Dropdown__select"
-                defaultValue={1}
-                disabled={undefined}
                 id=""
                 name=""
                 onChange={[Function]}
+                value={1}
               >
                 <option
                   value={1}
@@ -2191,11 +2217,10 @@ exports[`Storyshots Crossing List Item Small Width 1`] = `
             >
               <select
                 className="Dropdown__select"
-                defaultValue={1}
-                disabled={undefined}
                 id=""
                 name=""
                 onChange={[Function]}
+                value={1}
               >
                 <option
                   value={1}

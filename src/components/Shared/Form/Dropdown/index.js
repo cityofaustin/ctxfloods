@@ -3,7 +3,7 @@ import 'components/Shared/Form/Dropdown/Dropdown.css';
 
 class Dropdown extends Component {
   render() {
-    const { selected, options, disabled } = this.props;
+    const { onChange, selected, options, disabled } = this.props;
 
     return (
       <div className="Dropdown">
@@ -11,8 +11,8 @@ class Dropdown extends Component {
           className="Dropdown__select"
           name=""
           id=""
-          onChange={this.props.onChange}
-          defaultValue={selected}
+          onChange={onChange}
+          value={selected}
           disabled={disabled}
         >
           {options.map(opt => (

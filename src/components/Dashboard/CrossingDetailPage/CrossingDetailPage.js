@@ -4,7 +4,8 @@ import gql from 'graphql-tag';
 import CrossingStaticMap from 'components/Shared/Map/CrossingStaticMap';
 import CrossingDetails from 'components/Dashboard/CrossingDetailPage/CrossingDetails';
 import CrossingStatusHistory from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistory';
-import statusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
+import StatusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
+import AllCommunitiesQuery from 'components/Shared/queries/AllCommunitiesQuery';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetailPage.css';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
 
@@ -21,9 +22,18 @@ class CrossingDetailPage extends Component {
     }
 
     const crossing = this.props.CrossingByIdQuery.crossingById;
+    const coordinates = JSON.parse(crossing.geojson).coordinates;
+    const crossingForCrossingDetails = {
+      name: crossing.name,
+      description: crossing.description,
+      humanAddress: crossing.humanAddress,
+      id: crossing.id,
+      lat: coordinates[1],
+      lng: coordinates[0],
+    }
     const allCommunities = this.props.AllCommunitiesQuery.allCommunities.nodes;
     const crossingCommunities = crossing.communities.nodes;
-    const history = this.props.StatusHistoryQuery.allStatusUpdates.nodes;
+    const history = this.props.StatusHistoryQuery.getStatusUpdateHistory.nodes;
     const { currentUser } = this.props;
 
     return (
@@ -31,7 +41,7 @@ class CrossingDetailPage extends Component {
         <div className="CrossingDetails__container">
           <CrossingStaticMap crossing={crossing} />
           <CrossingDetails
-            crossing={crossing}
+            crossing={crossingForCrossingDetails}
             crossingCommunities={crossingCommunities}
             allCommunities={allCommunities}
             currentUser={currentUser}
@@ -57,17 +67,6 @@ const CrossingByIdQuery = gql`
   ${crossingFragment}
 `;
 
-const allCommunitiesQuery = gql`
-  query {
-    allCommunities {
-      nodes {
-        id
-        name
-      }
-    }
-  }
-`;
-
 export default compose(
   graphql(CrossingByIdQuery, {
     name: 'CrossingByIdQuery',
@@ -77,7 +76,7 @@ export default compose(
       },
     }),
   }),
-  graphql(statusHistoryQuery, {
+  graphql(StatusHistoryQuery, {
     name: 'StatusHistoryQuery',
     options: ownProps => ({
       variables: {
@@ -85,7 +84,7 @@ export default compose(
       },
     }),
   }),
-  graphql(allCommunitiesQuery, {
+  graphql(AllCommunitiesQuery, {
     name: 'AllCommunitiesQuery',
   }),
 )(CrossingDetailPage);

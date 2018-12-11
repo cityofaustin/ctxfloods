@@ -13,7 +13,7 @@ import CrossingCommunityList from 'components/Shared/CrossingListItem/CrossingCo
 import StatusToggle from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/StatusToggle';
 import DashboardCrossingListItemControl from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DashboardCrossingListItemControl';
 import Dropdown from 'components/Shared/Form/Dropdown';
-import DatePicker from 'components/Shared/DatePicker';
+import DurationSelection from 'components/Dashboard/CrossingListPage/DashboardCrossingListItem/DurationSelection';
 import SingleOptionDropdown from'components/Shared/Form/Dropdown/SingleOptionDropdown';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
@@ -51,7 +51,7 @@ class DashboardCrossingListItem extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { restoreDirtyState, crossing } = this.props;
     if (restoreDirtyState) {
       const savedState = restoreDirtyState(crossing.id);
@@ -169,10 +169,12 @@ class DashboardCrossingListItem extends React.Component {
 
   updateMap(store, updatedCrossing) {
     // Update the selected crossing
-    this.props.selectCrossing(
-      updatedCrossing.id,
-      updatedCrossing.latestStatusId,
-    );
+    if (this.props.listOrMap === 'map') {
+      this.props.selectCrossing(
+        updatedCrossing.id,
+        updatedCrossing.latestStatusId,
+      );
+    }
 
     // Get all the query variable combinations we have cached
     const queryVariables = Object.keys(store.data.data)
@@ -345,8 +347,10 @@ class DashboardCrossingListItem extends React.Component {
           });
 
           // If we're in a list view, fix the sort order
+          // Map queries must also be updated, even if change took place on list page.
           if (this.props.listOrMap === 'list') {
             this.fixSort(store, updatedCrossing);
+            this.updateMap(store, updatedCrossing);
           }
 
           // If we're on the map, update the map queries
@@ -622,7 +626,7 @@ class DashboardCrossingListItem extends React.Component {
               label="Duration"
               isRequired={this.isDirty()}
             >
-              <DatePicker
+              <DurationSelection
                 reopenDate={this.state.selectedReopenDate}
                 indefiniteClosure={this.state.selectedIndefiniteClosure}
                 onChange={this.durationChanged}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
 import classnames from 'classnames';
 
 import { displayedInputs } from 'constants/StatusConstants';
@@ -80,20 +79,19 @@ class CrossingStatusHistoryItem extends Component {
 
   render() {
     const { update, showNames, measure, cqParams } = this.props;
-    const user = get(update, 'userByCreatorId', {});
-    const statusId = get(update, 'statusByStatusId.id', '--');
-    const status = get(update, 'statusByStatusId.name', '--');
-    const reason = get(
-      update,
-      'statusReasonByStatusReasonId.name',
-      'Unconfirmed',
-    );
-    const reopenDate = get(update, 'reopenDate', '--');
-    const indefiniteClosure = get(update, 'indefiniteClosure', '--');
-    const createdAt = get(update, 'createdAt', '--');
-    const crossingId = get(update, 'crossingId');
-    const crossingName = get(update, 'crossingByCrossingId.name');
-    const notes = update.notes ? update.notes : '--';
+    const {
+      userFirstName,
+      userLastName,
+      statusId,
+      statusName,
+      statusReasonName,
+      reopenDate,
+      indefiniteClosure,
+      createdAt,
+      crossingId,
+      crossingName,
+      notes
+    } = update;
     const shouldDisplay = displayedInputs[statusId];
 
     return (
@@ -121,12 +119,12 @@ class CrossingStatusHistoryItem extends Component {
             <div className="CrossingStatusHistoryItem__details">
               <div className="CrossingStatusHistoryItem__status-and-author">
                 <span className="CrossingStatusHistoryItem__subdetails-title">
-                  {status}
+                  {statusName}
                 </span>
                 <div className="CrossingStatusHistoryItem__author">
                   <span>by </span>
                   <span className="CrossingStatusHistoryItem__author-name">
-                    {user.firstName.substring(0, 1) + '. ' + user.lastName}
+                    {userFirstName.substring(0, 1) + '. ' + userLastName}
                   </span>
                 </div>
               </div>
@@ -135,7 +133,7 @@ class CrossingStatusHistoryItem extends Component {
                   shouldDisplayReason={shouldDisplay.reason}
                   shouldDisplayDuration={shouldDisplay.duration}
                   shouldDisplayNotes={shouldDisplay.notes}
-                  reason={reason}
+                  reason={statusReasonName}
                   reopenDate={reopenDate}
                   indefiniteClosure={indefiniteClosure}
                   notes={notes}
@@ -162,7 +160,7 @@ class CrossingStatusHistoryItem extends Component {
                   shouldDisplayReason={shouldDisplay.reason}
                   shouldDisplayDuration={shouldDisplay.duration}
                   shouldDisplayNotes={shouldDisplay.notes}
-                  reason={reason}
+                  reason={statusReasonName}
                   reopenDate={reopenDate}
                   notes={notes}
                 />

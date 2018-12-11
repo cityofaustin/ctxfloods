@@ -9,6 +9,7 @@ import { logError } from 'services/logger';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
 import TextInput from 'components/Shared/Form/TextInput';
+import LatLngInput from 'components/Dashboard/CrossingDetailPage/LatLngInput';
 import InputDescription from 'components/Shared/Form/InputDescription';
 import Label from 'components/Shared/Form/Label';
 
@@ -41,6 +42,8 @@ class CrossingDetails extends Component {
         dropdownCommunities.length > 0 ? dropdownCommunities[0].id : null,
       redirectToNewCrossingId: null,
       dropdownCommunities: dropdownCommunities,
+      lat: crossing.lat || '',
+      lng: crossing.ln || '',
     };
   }
 
@@ -190,8 +193,7 @@ class CrossingDetails extends Component {
       );
     }
 
-    const { crossing, crossingCommunities, addMode, currentUser } = this.props;
-
+    const { crossing, crossingCommunities, addMode, currentUser, latLngInputChanged, latLngInputKey, minLat, maxLat, minLng, maxLng } = this.props;
     return (
       <div className="CrossingDetails">
         {!crossing.active &&
@@ -219,6 +221,14 @@ class CrossingDetails extends Component {
                 5th Ave) or waypoints (5th Ave. Denny’s)
               </InputDescription>
             </div>
+            <LatLngInput
+              addMode={addMode}
+              latLngInputChanged={latLngInputChanged}
+              key={latLngInputKey}
+              lat={crossing.lat} lng={crossing.lng}
+              minLat={minLat} maxLat={maxLat}
+              minLng={minLng} maxLng={maxLng}
+            />
             <div className="CrossingDetails__field-group">
               <Label htmlFor="streetAddress">Street Address*</Label>
               <TextInput
@@ -246,12 +256,6 @@ class CrossingDetails extends Component {
             </div>
           </div>
           <div className="CrossingDetails__aside">
-            {!addMode && (
-              <div className="CrossingDetails__field-group">
-                <Label>GPS</Label>
-                <TextInput isDisabled value={crossing.humanCoordinates} />
-              </div>
-            )}
             {!addMode && (
               <div className="CrossingDetails__field-group">
                 <Label>ID#</Label> <TextInput isDisabled value={crossing.id} />
@@ -363,8 +367,8 @@ const addCrossingMutation = gql`
     $humanAddress: String!
     $description: String!
     $communityId: Int!
-    $longitude: Float!
-    $latitude: Float!
+    $longitude: BigFloat!
+    $latitude: BigFloat!
   ) {
     newCrossing(
       input: {

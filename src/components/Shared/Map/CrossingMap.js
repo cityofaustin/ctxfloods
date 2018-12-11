@@ -40,7 +40,7 @@ class CrossingMap extends React.Component {
     props.registerMapResizeCallback(this.resizeMap);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // If we've selected a crossing
     if (nextProps.selectedCrossingId !== this.props.selectedCrossingId) {
       if (nextProps.selectedCrossingId) {

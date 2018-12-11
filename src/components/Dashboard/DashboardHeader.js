@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import auth from 'services/gqlAuth';
 
 import Header from 'components/Shared/Header';
 import TopBar from 'components/Shared/TopBar';
@@ -31,15 +32,17 @@ export default function DashboardHeader({ location, currentUser, ...props }) {
         >
           <Link to="/dashboard/map">Crossings Map</Link>
         </li>
-        <li
-          className={
-            location.pathname.endsWith('crossings/add')
-              ? 'Header__tab--active'
-              : 'Header__tab'
-          }
-        >
-          <Link to="/dashboard/crossings/add">Add Crossing</Link>
-        </li>
+        {['floods_community_admin','floods_super_admin'].includes(auth.getRole()) &&
+          <li
+            className={
+              location.pathname.endsWith('crossings/add')
+                ? 'Header__tab--active'
+                : 'Header__tab'
+            }
+          >
+            <Link to="/dashboard/crossings/add">Add Crossing</Link>
+          </li>
+        }
         <li
           className={
             location.pathname.endsWith('crossings/history')

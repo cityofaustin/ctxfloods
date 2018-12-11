@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Dropdown from 'components/Shared/Form/Dropdown';
 import 'components/Dashboard/ManageUsersPage/EditUser.css';
 import EditUserControl from 'components/Dashboard/ManageUsersPage/EditUserControl';
+import EditUserCommunityControl from 'components/Dashboard/ManageUsersPage/EditUserCommunityControl';
 
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
 import ButtonPrimary from 'components/Shared/Button/ButtonPrimary';
@@ -17,6 +17,7 @@ class EditUser extends Component {
     if (userToEdit) {
       this.state = {
         newUser: false,
+        newCommunity: false,
         email: userToEdit.emailAddress,
         firstName: userToEdit.firstName,
         lastName: userToEdit.lastName,
@@ -27,11 +28,13 @@ class EditUser extends Component {
     } else {
       this.state = {
         newUser: true,
+        newCommunity: false,
+        newCommunityName: '',
         email: '',
         firstName: '',
         lastName: '',
         role: 'floods_community_editor',
-        communityId: props.currentUser.communityId,
+        communityId: (props.currentUser.role === 'floods_super_admin' ? '9001' : props.currentUser.communityId),
         jobTitle: '',
         phoneNumber: '',
       };
@@ -54,9 +57,17 @@ class EditUser extends Component {
     this.setState({ role: e.target.value });
   };
 
-  communityChanged = e => {
+  toggleNewCommunity = e => {
+    this.setState({ newCommunity: JSON.parse(e.target.value) });
+  };
+
+  communityIdChanged = e => {
     this.setState({ communityId: e.target.value });
   };
+
+  newCommunityNameChanged = e => {
+    this.setState({ newCommunityName: e.target.value });
+  }
 
   jobTitleChanged = e => {
     this.setState({ jobTitle: e.target.value });
@@ -67,28 +78,36 @@ class EditUser extends Component {
   };
 
   submitUser = () => {
-    const { onSubmit } = this.props;
     const {
       email,
       firstName,
       lastName,
       role,
+      newCommunity,
       communityId,
+      newCommunityName,
       jobTitle,
       phoneNumber,
     } = this.state;
 
-    const user = {
+    let onSubmit, params = {
       email: email,
       firstName: firstName,
       lastName: lastName,
       role: role,
-      communityId: communityId,
       jobTitle: jobTitle,
-      phoneNumber: phoneNumber,
-    };
+      phoneNumber: phoneNumber
+    }
 
-    onSubmit(user);
+    if (newCommunity) {
+      onSubmit = this.props.addUserWithNewCommunity;
+      params.communityName = newCommunityName;
+    } else {
+      onSubmit = this.props.onSubmit;
+      params.communityId = communityId;
+    }
+
+    onSubmit(params);
   };
 
   render() {
@@ -110,11 +129,13 @@ class EditUser extends Component {
       firstName,
       lastName,
       role,
+      newCommunity,
       communityId,
+      newCommunityName,
       jobTitle,
       phoneNumber,
     } = this.state;
-    const readyToSubmit = firstName && lastName && email;
+    const readyToSubmit = firstName && lastName && email && (!newCommunity || (newCommunity && newCommunityName));
 
     return (
       <div className="EditUser">
@@ -189,11 +210,15 @@ class EditUser extends Component {
           )}
         {this.props.currentUser.role === 'floods_super_admin' && (
           <EditUserControl label="Community" isRequired={newUser}>
-            <Dropdown
-              options={communities}
-              selected={communityId}
-              onChange={this.communityChanged}
-              disabled={!newUser}
+            <EditUserCommunityControl
+              newCommunity={newCommunity}
+              newUser={newUser}
+              communities={communities}
+              communityId={communityId}
+              newCommunityName={newCommunityName}
+              toggleNewCommunity={this.toggleNewCommunity}
+              communityIdChanged={this.communityIdChanged}
+              newCommunityNameChanged={this.newCommunityNameChanged}
             />
           </EditUserControl>
         )}
@@ -234,7 +259,7 @@ class EditUser extends Component {
 }
 
 const allCommunities = gql`
-  query {
+  query allCommunities {
     allCommunities {
       nodes {
         id

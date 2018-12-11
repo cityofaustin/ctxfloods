@@ -4,31 +4,9 @@ import classNames from 'classnames';
 
 import CrossingListFilter from 'components/Dashboard/CrossingListPage/CrossingListHeader/CrossingListFilter';
 
+import CaretIcon from 'components/Shared/Icons/CaretIcon';
+import PlusMinusIcon from 'components/Shared/Icons/PlusMinusIcon';
 import 'components/Dashboard/CrossingListPage/CrossingListHeader/CrossingListHeader.css';
-
-function CaretIcon({ isEnabled }) {
-  return (
-    <div className="CrossingListToggle__icon">
-      {isEnabled ? (
-        <FontAwesome name="caret-up" ariaLabel="Ascending" />
-      ) : (
-        <FontAwesome name="caret-down" ariaLabel="Descending" />
-      )}
-    </div>
-  );
-}
-
-function PlusMinusIcon({ isEnabled }) {
-  return (
-    <div className="CrossingListToggle__icon">
-      {isEnabled ? (
-        <FontAwesome name="minus" ariaLabel="Hide" />
-      ) : (
-        <FontAwesome name="plus" ariaLabel="Show" />
-      )}
-    </div>
-  );
-}
 
 export default class CrossingListHeader extends Component {
   constructor(props) {
