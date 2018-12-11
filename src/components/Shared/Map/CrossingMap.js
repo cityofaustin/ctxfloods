@@ -1,23 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as MapboxGl from 'mapbox-gl';
-import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
+import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import { withRouter } from 'react-router';
 
-import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
+import SelectedFeatureContainer from 'components/Shared/CrossingMapPage/SelectedFeatureContainer';
 import { MAPBOX_STYLE, MapboxAccessToken } from 'constants/MapboxConstants';
 import 'components/Shared/Map/CrossingMap.css';
-
 
 const Map = ReactMapboxGl({
   accessToken: MapboxAccessToken,
   attributionControl: false,
 });
-
-const STATUS_OPEN = 1;
-const STATUS_CLOSED = 2;
-const STATUS_CAUTION = 3;
-const STATUS_LONGTERM = 4;
 
 class CrossingMap extends React.Component {
   static propTypes = {
@@ -233,13 +227,13 @@ class CrossingMap extends React.Component {
       showClosed,
       showCaution,
       showLongterm,
-      center,
       openCrossings,
       closedCrossings,
       cautionCrossings,
       longtermCrossings,
       showCameras,
       allCameras,
+      center,
       onDash,
       selectedFeature,
     } = this.props;
@@ -249,23 +243,38 @@ class CrossingMap extends React.Component {
     // mapbox expressions can't compare null values
     let selectedCrossingId = -1;
     let selectedCameraId = -1;
-    let selectedCrossing = null;
-    let selectedCamera = null;
-    let selectedMiscLocation = null;
 
     if (selectedFeature) {
       if (selectedFeature.type === "Crossing") {
-        selectedCrossing = selectedFeature.data;
         selectedCrossingId = selectedFeature.data.id;
       } else if (selectedFeature.type === "Camera") {
-        selectedCamera = selectedFeature.data;
         selectedCameraId = selectedFeature.data.id;
-      } else if (selectedFeature.type === "Misc") {
-        selectedMiscLocation = selectedFeature.data;
       }
     }
 
-    console.log("What is my selectedCrossing?", selectedCrossing)
+    const crossingSettings = [
+      {
+        condition: showOpen,
+        layerId: "openCrossings",
+        iconImage: `marker-open-${this.state.iconSize}`,
+        crossings: openCrossings,
+      }, {
+        condition: showClosed,
+        layerId: "closedCrossings",
+        iconImage: `marker-closed-${this.state.iconSize}`,
+        crossings: closedCrossings,
+      }, {
+        condition: showCaution,
+        layerId: "cautionCrossings",
+        iconImage: `marker-caution-${this.state.iconSize}`,
+        crossings: cautionCrossings,
+      }, {
+        condition: showLongterm,
+        layerId: "longtermCrossings",
+        iconImage: `marker-long-term-${this.state.iconSize}`,
+        crossings: longtermCrossings
+      }
+    ]
 
     return (
       <Map
@@ -281,18 +290,19 @@ class CrossingMap extends React.Component {
         center={center}
         onZoom={this.onZoom}
       >
-        {showOpen && (
-          <Layer
-            type="symbol"
-            id="openCrossings"
-            layout={{
-              'icon-image': `marker-open-${this.state.iconSize}`,
-              'icon-allow-overlap': true,
-            }}
-            filter={['!=', 'crossingId', selectedCrossingId]}
-          >
-            {openCrossings &&
-              openCrossings.map((crossing, i) => {
+        {crossingSettings.map(settings=>{
+          return settings.condition && (
+            <Layer
+              type="symbol"
+              key={settings.layerId}
+              id={settings.layerId}
+              layout={{
+                'icon-image': settings.iconImage,
+                'icon-allow-overlap': true,
+              }}
+              filter={['!=', 'crossingId', selectedCrossingId]}
+            >
+              {settings.crossings && settings.crossings.map((crossing, i) => {
                 return (
                   <Feature
                     key={i}
@@ -308,235 +318,9 @@ class CrossingMap extends React.Component {
                   />
                 );
               })}
-          </Layer>
-        )}
-        {showLongterm && (
-          <Layer
-            type="symbol"
-            id="longtermCrossings"
-            layout={{
-              'icon-image': `marker-long-term-${this.state.iconSize}`,
-              'icon-allow-overlap': true,
-            }}
-            filter={['!=', 'crossingId', selectedCrossingId]}
-          >
-            {longtermCrossings &&
-              longtermCrossings.map((crossing, i) => {
-                return (
-                  <Feature
-                    key={i}
-                    coordinates={JSON.parse(crossing.geojson).coordinates}
-                    properties={{
-                      latestStatusId: crossing.latestStatusId,
-                      crossingId: crossing.id,
-                      geojson: crossing.geojson,
-                      latestStatusCreatedAt: crossing.latestStatusCreatedAt,
-                      crossingName: crossing.name,
-                      communityIds: crossing.communityIds,
-                    }}
-                  />
-                );
-              })}
-          </Layer>
-        )}
-        {showCaution && (
-          <Layer
-            type="symbol"
-            id="cautionCrossings"
-            layout={{
-              'icon-image': `marker-caution-${this.state.iconSize}`,
-              'icon-allow-overlap': true,
-            }}
-            filter={['!=', 'crossingId', selectedCrossingId]}
-          >
-            {cautionCrossings &&
-              cautionCrossings.map((crossing, i) => {
-                return (
-                  <Feature
-                    key={i}
-                    coordinates={JSON.parse(crossing.geojson).coordinates}
-                    properties={{
-                      latestStatusId: crossing.latestStatusId,
-                      crossingId: crossing.id,
-                      geojson: crossing.geojson,
-                      latestStatusCreatedAt: crossing.latestStatusCreatedAt,
-                      crossingName: crossing.name,
-                      communityIds: crossing.communityIds,
-                    }}
-                  />
-                );
-              })}
-          </Layer>
-        )}
-        {showClosed && (
-          <Layer
-            type="symbol"
-            id="closedCrossings"
-            layout={{
-              'icon-image': `marker-closed-${this.state.iconSize}`,
-              'icon-allow-overlap': true,
-            }}
-            filter={['!=', 'crossingId', selectedCrossingId]}
-          >
-            {closedCrossings &&
-              closedCrossings.map((crossing, i) => {
-                return (
-                  <Feature
-                    key={i}
-                    coordinates={JSON.parse(crossing.geojson).coordinates}
-                    properties={{
-                      latestStatusId: crossing.latestStatusId,
-                      crossingId: crossing.id,
-                      geojson: crossing.geojson,
-                      latestStatusCreatedAt: crossing.latestStatusCreatedAt,
-                      crossingName: crossing.name,
-                      communityIds: crossing.communityIds,
-                    }}
-                  />
-                );
-              })}
-          </Layer>
-        )}
-        <Layer
-          type="symbol"
-          id="selectedLongtermCrossing"
-          layout={{
-            'icon-image': `marker-long-term-${this.state.iconSize}`,
-            'icon-allow-overlap': true,
-          }}
-        >
-          {selectedCrossing && selectedCrossing.latestStatusId === STATUS_LONGTERM ? (
-            <Feature
-              key={1}
-              coordinates={
-                JSON.parse(selectedCrossing.geojson).coordinates
-              }
-              properties={{
-                latestStatusId: selectedCrossing.latestStatusId,
-                crossingId: selectedCrossing.crossingId,
-                geojson: selectedCrossing.geojson,
-              }}
-            />
-          ) : null}
-        </Layer>
-        <Layer
-          type="symbol"
-          id="selectedCautionCrossing"
-          layout={{
-            'icon-image': `marker-caution-${this.state.iconSize}`,
-            'icon-allow-overlap': true,
-          }}
-        >
-          {selectedCrossing && selectedCrossing.latestStatusId === STATUS_CAUTION ? (
-            <Feature
-              key={1}
-              coordinates={
-                JSON.parse(selectedCrossing.geojson).coordinates
-              }
-              properties={{
-                latestStatusId: selectedCrossing.latestStatusId,
-                crossingId: selectedCrossing.crossingId,
-                geojson: selectedCrossing.geojson,
-              }}
-            />
-          ) : null}
-        </Layer>
-        <Layer
-          type="symbol"
-          id="selectedClosedCrossing"
-          layout={{
-            'icon-image': `marker-closed-${this.state.iconSize}`,
-            'icon-allow-overlap': true,
-          }}
-        >
-          {selectedCrossing && selectedCrossing.latestStatusId === STATUS_CLOSED ? (
-            <Feature
-              key={1}
-              coordinates={
-                JSON.parse(selectedCrossing.geojson).coordinates
-              }
-              properties={{
-                latestStatusId: selectedCrossing.latestStatusId,
-                crossingId: selectedCrossing.crossingId,
-                geojson: selectedCrossing.geojson,
-              }}
-            />
-          ) : null}
-        </Layer>
-        <Layer
-          type="symbol"
-          id="selectedOpenCrossing"
-          layout={{
-            'icon-image': `marker-open-${this.state.iconSize}`,
-            'icon-allow-overlap': true,
-          }}
-        >
-          {selectedCrossing && selectedCrossing.latestStatusId === STATUS_OPEN ? (
-            <Feature
-              key={1}
-              coordinates={
-                JSON.parse(selectedCrossing.geojson).coordinates
-              }
-              properties={{
-                latestStatusId: selectedCrossing.latestStatusId,
-                crossingId: selectedCrossing.crossingId,
-                geojson: selectedCrossing.geojson,
-              }}
-            />
-          ) : null}
-        </Layer>
-        {selectedCrossing && (
-          <Popup
-            coordinates={
-              selectedCrossing.coordinates
-            }
-            anchor="bottom"
-          >
-            <div>
-              {selectedCrossing.name}
-              {(
-                this.props.mobile &&
-                !this.state.showDetailsOnMobile &&
-                selectedCrossing.latestStatusId === STATUS_OPEN
-              ) && (
-                <button onClick={() => this.setShowDetailsOnMobile()}>
-                  Details
-                </button>
-              )}
-              {this.state.showDetailsOnMobile && (
-                <SelectedCrossingContainer
-                  crossingId={selectedCrossing.id}
-                  isMobileDetails={true}
-                  onDash={onDash}
-                  setHeight={(
-                    crossingId,
-                    statusReasonId,
-                    reopenDate,
-                    indefiniteClosure,
-                    notes,
-                  ) =>
-                    this.setDetailsHeight(
-                      crossingId,
-                      statusReasonId,
-                      reopenDate,
-                      indefiniteClosure,
-                      notes,
-                    )
-                  }
-                />
-              )}
-            </div>
-          </Popup>
-        )}
-        {selectedMiscLocation && (
-          <Layer
-            type="symbol"
-            id="marker"
-            layout={{ 'icon-image': 'marker-15' }}
-          >
-            <Feature coordinates={selectedMiscLocation.coordinates} />
-          </Layer>
-        )}
+            </Layer>
+          )
+        })}
         {showCameras && (
           <Layer
             type="symbol"
@@ -563,6 +347,14 @@ class CrossingMap extends React.Component {
               })}
           </Layer>
         )}
+        <SelectedFeatureContainer
+          selectedFeature={selectedFeature}
+          iconSize={this.state.iconSize}
+          mobile={this.props.mobile}
+          showDetailsOnMobile={this.state.showDetailsOnMobile}
+          setShowDetailsOnMobile={this.setShowDetailsOnMobile}
+          onDash={onDash}
+        />
       </Map>
     );
   }
