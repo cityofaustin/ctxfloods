@@ -72,7 +72,7 @@ export default class CrossingMapPage extends Component {
         })
         // Handle Camera Change
       } else if (selectedCameraId && (
-        selectedCameraId !== prevProps.match.params.selectedCameraId
+        selectedCameraId != prevProps.match.params.selectedCameraId
       )) {
         const selectedCamera = selectors.getSelectedCamera(this.props);
         this.setState({
