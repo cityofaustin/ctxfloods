@@ -15,6 +15,7 @@ export default function SelectedFeatureContainer(props){
   } = props;
 
   let featureProperties, featureCoordinates, layerId, iconImage, popupComponent;
+  // iconImages are taken from mapbox
 
   if (selectedFeature) {
     if (selectedFeature.type === "Crossing") {
@@ -87,7 +88,7 @@ export default function SelectedFeatureContainer(props){
     } else if (selectedFeature.type === "Camera") {
       const selectedCamera = selectedFeature.data;
       layerId = 'selectedCamera';
-      iconImage = 'attraction-15'
+      iconImage = `camera-${iconSize}`;
       featureCoordinates = selectedCamera.coordinates;
       featureProperties = {
         cameraId: selectedCamera.id,
@@ -97,7 +98,7 @@ export default function SelectedFeatureContainer(props){
     } else if (selectedFeature.type === "Misc") {
       const selectedMiscLocation = selectedFeature.data;
       layerId = 'selectedMiscLocation';
-      iconImage = 'marker-15'
+      iconImage = 'selected-location-marker'
       featureCoordinates = selectedMiscLocation.coordinates;
       featureProperties = {};
     }

@@ -376,7 +376,7 @@ export default class CrossingMapPage extends Component {
                     center={center}
                     showCameras={true}
                     isDataLoaded={isDataLoaded}
-                    setSelectedFeature={setSelectedFeature}
+                    setSelectedFeature={this.setSelectedFeature}
                     onDash={onDash}
                   />
                 </div>

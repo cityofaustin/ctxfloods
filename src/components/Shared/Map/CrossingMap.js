@@ -125,14 +125,16 @@ class CrossingMap extends React.Component {
       { layers: layersToQuery },
     );
 
-    // Handle Camera Clicks
-    if (features && features[0] && (features[0].layer.id === 'allCameras')) {
-      console.log("You clicked a camera!", features[0])
-      this.props.history.push(`${this.props.onDash ? '/dashboard' : ''}/map/camera/${features[0].properties.cameraId}`);
-    // Handle Crossing Clicks
-    } else if (features && features[0] && features[0].properties.crossingId) {
-      this.props.history.push(`${this.props.onDash ? '/dashboard' : ''}/map/crossing/${features[0].properties.crossingId}`);
-    // Handle Clicks on Nothing
+    const feature = features && features[0];
+    if (feature) {
+      // Handle Camera Clicks
+      if (feature.layer.id === 'allCameras') {
+        this.props.history.push(`${this.props.onDash ? '/dashboard' : ''}/map/camera/${features[0].properties.cameraId}`);
+      // Handle Crossing Clicks
+      } else if (feature.properties.crossingId) {
+        this.props.history.push(`${this.props.onDash ? '/dashboard' : ''}/map/crossing/${features[0].properties.crossingId}`);
+      // Handle Misc Location Clicks
+      }
     } else if (this.props.selectedFeature) {
       if (
         this.props.selectedFeature.type === "Crossing" ||
@@ -140,7 +142,7 @@ class CrossingMap extends React.Component {
       ) {
         this.props.history.push(`${this.props.onDash ? '/dashboard' : ''}/map/`)
       } else if (this.props.selectedFeature.type === 'Misc') {
-        this.setSelectedFeature(null);
+        this.props.setSelectedFeature(null);
       }
     }
   };
@@ -326,7 +328,7 @@ class CrossingMap extends React.Component {
             type="symbol"
             id="allCameras"
             layout={{
-              'icon-image': `attraction-15`,
+              'icon-image': `camera-${this.state.iconSize}`,
               'icon-allow-overlap': true,
             }}
             filter={['!=', 'cameraId', selectedCameraId]}
