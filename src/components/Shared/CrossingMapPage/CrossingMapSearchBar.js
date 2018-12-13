@@ -199,7 +199,7 @@ class CrossingMapSearchBar extends Component {
   };
 
   render() {
-    const { selectedCrossingId, communityId } = this.props;
+    const { cameraOrCrossingSelected, communityId } = this.props;
 
     const {
       typedValue,
@@ -238,7 +238,7 @@ class CrossingMapSearchBar extends Component {
           updateSuggestions={this.updateCrossingSuggestions}
         />
         <div className="CrossingMapSearchBar__text-entry">
-          {selectedCrossingId &&
+          {cameraOrCrossingSelected &&
             !this.props.mobile && (
               <div
                 className="CrossingMapSearchBar__close-selection"
@@ -247,7 +247,7 @@ class CrossingMapSearchBar extends Component {
                 <FontAwesome name="window-close" size="2x" />
               </div>
             )}
-          {(!selectedCrossingId || this.props.mobile) && (
+          {(!cameraOrCrossingSelected || this.props.mobile) && (
             <Autosuggest
               ref={autosuggest => {
                 if (autosuggest !== null) {

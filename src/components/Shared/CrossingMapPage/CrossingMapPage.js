@@ -19,15 +19,59 @@ const containerQuery = {
   },
 };
 
+const getViewportAndCenter = (viewportgeojson=
+  `{"type":"Polygon","coordinates":[[[-98.086914,30.148464],[-98.086914,30.433285],[-97.615974,30.433285],[-97.615974,30.148464],[-98.086914,30.148464]]]}`
+) => {
+  const envelope = JSON.parse(viewportgeojson);
+  let viewport, center;
+
+  if (envelope.type === 'Point') {
+    viewport = [
+      [
+        envelope.coordinates[0] - 0.1,
+        envelope.coordinates[1] - 0.1
+      ],
+      [
+        envelope.coordinates[0] + 0.1,
+        envelope.coordinates[1] + 0.1
+      ]
+    ];
+
+    center = {
+      lng: envelope.coordinates[0],
+      lat: envelope.coordinates[1]
+    }
+  } else {
+    viewport = [
+      [
+        Math.min(...envelope.coordinates[0].map(arr => arr[0])) - 0.1,
+        Math.min(...envelope.coordinates[0].map(arr => arr[1])) - 0.1,
+      ],
+      [
+        Math.max(...envelope.coordinates[0].map(arr => arr[0])) + 0.1,
+        Math.max(...envelope.coordinates[0].map(arr => arr[1])) + 0.1,
+      ],
+    ];
+
+    center = {
+      lng: (viewport[0][0] + viewport[1][0]) / 2,
+      lat: (viewport[0][1] + viewport[1][1]) / 2,
+    };
+  }
+
+  return {
+    viewport: viewport,
+    center: center,
+  }
+};
+
 export default class CrossingMapPage extends Component {
   constructor(props) {
     super(props);
 
     // If we have a current user, we're on the dashboard, we should get their viewport
-    const viewportgeojson = (this.props.currentUser && this.props.currentUser.communityByCommunityId.viewportgeojson) ||
-      `{"type":"Polygon","coordinates":[[[-98.086914,30.148464],[-98.086914,30.433285],[-97.615974,30.433285],[-97.615974,30.148464],[-98.086914,30.148464]]]}`;
-
-    const viewportAndCenter = this.getViewportAndCenter(viewportgeojson);
+    const viewportgeojson = (this.props.currentUser && this.props.currentUser.communityByCommunityId.viewportgeojson);
+    const viewportAndCenter = getViewportAndCenter(viewportgeojson);
 
     this.state = {
       fullscreen: false,
@@ -45,22 +89,34 @@ export default class CrossingMapPage extends Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.state.mapLoaded && this.props.isDataLoaded) {
-      const selectedCrossingId = selectors.getSelectedCrossingId(this.props);
-      const selectedCameraId = selectors.getSelectedCameraId(this.props);
+  // Better than using componentDidUpdate because it doesn't trigger an extra re-render.
+  // However, as a static method, it can't access "this" context
+  static getDerivedStateFromProps(props, state) {
+    if (state.mapLoaded && props.isDataLoaded) {
+      const selectedCrossingId = selectors.getSelectedCrossingId(props);
+      const selectedCameraId = selectors.getSelectedCameraId(props);
+      const selectedCommunityId = selectors.getSelectedCommunityId(props);
+      let prevSelectedCrossingId, prevSelectedCameraId, prevSelectedCommunityId;
+      const prevSelectedFeature = state.selectedFeature;
+      if (prevSelectedFeature) {
+        if (prevSelectedFeature.type === "Crossing") {
+          prevSelectedCrossingId = prevSelectedFeature.data.id;
+        } else if (prevSelectedFeature.type === "Camera") {
+          prevSelectedCameraId = prevSelectedFeature.data.id;
+        } else if (prevSelectedFeature.type === "Community") {
+          prevSelectedCommunityId = prevSelectedFeature.data.id;
+        }
+      }
 
-      // Clear out selectedFeature state when props change
-      if (
-        _.isEmpty(this.props.match.params) && !_.isEmpty(prevProps.match.params)
-      ) {
-        this.setState({selectedFeature: null});
-        // Handle Crossing Change
-      } else if (selectedCrossingId && (
-        selectedCrossingId != prevProps.match.params.selectedCrossingId
-      )) {
-        const selectedCrossing = selectors.getSelectedCrossing(this.props);
-        this.setState({
+      // Handle Emptying of Params
+      if (_.isEmpty(props.match.params) && prevSelectedFeature) {
+        return {
+          selectedFeature: null
+        }
+      // Handle New Crossing param
+      } else if (selectedCrossingId && (selectedCrossingId !== prevSelectedCrossingId)) {
+        const selectedCrossing = selectors.getSelectedCrossing(props);
+        return {
           selectedFeature: {
             type: "Crossing",
             data: selectedCrossing
@@ -69,13 +125,11 @@ export default class CrossingMapPage extends Component {
             lng: selectedCrossing.coordinates[0],
             lat: selectedCrossing.coordinates[1]
           }
-        })
-        // Handle Camera Change
-      } else if (selectedCameraId && (
-        selectedCameraId != prevProps.match.params.selectedCameraId
-      )) {
-        const selectedCamera = selectors.getSelectedCamera(this.props);
-        this.setState({
+        }
+      // Handle new Camera param
+      } else if (selectedCameraId && (selectedCameraId !== prevSelectedCameraId)) {
+        const selectedCamera = selectors.getSelectedCamera(props);
+        return {
           selectedFeature: {
             type: "Camera",
             data: selectedCamera
@@ -84,23 +138,23 @@ export default class CrossingMapPage extends Component {
             lng: selectedCamera.coordinates[0],
             lat: selectedCamera.coordinates[1]
           }
-        })
-      }
-    // Handle Community Change
-    } else if (
-      (selectors.getSelectedCommunityId(this.props) != prevProps.match.params.selectedCommunityId)
-    ) {
-      const selectedCommunity = selectors.getSelectedCommunity(this.props);
-      if (selectedCommunity && selectedCommunity.viewportgeojson) {
-        const viewportAndCenter = this.getViewportAndCenter(
+        }
+      // Handle new Community param
+      } else if (selectedCommunityId && (selectedCommunityId !== prevSelectedCommunityId)) {
+        const selectedCommunity = selectors.getSelectedCommunity(props)
+        const viewportAndCenter = getViewportAndCenter(
           selectedCommunity.viewportgeojson,
         );
-        this.setState({
+        return {
+          selectedFeature: {
+            type: "Community",
+            data: selectedCommunity
+          },
           viewport: viewportAndCenter.viewport,
           center: viewportAndCenter.center,
-        });
-      }
-    }
+        }
+      } else return null
+    } else return null
   }
 
   registerMapResizeCallback = cb => {
@@ -111,50 +165,6 @@ export default class CrossingMapPage extends Component {
     if (this.mapResizeCallback) {
       this.mapResizeCallback();
     }
-  };
-
-  getViewportAndCenter = viewportgeojson => {
-    const envelope = JSON.parse(viewportgeojson);
-    let viewport, center;
-
-    if (envelope.type === 'Point') {
-      viewport = [
-        [
-          envelope.coordinates[0] - 0.1,
-          envelope.coordinates[1] - 0.1
-        ],
-        [
-          envelope.coordinates[0] + 0.1,
-          envelope.coordinates[1] + 0.1
-        ]
-      ];
-
-      center = {
-        lng: envelope.coordinates[0],
-        lat: envelope.coordinates[1]
-      }
-    } else {
-      viewport = [
-        [
-          Math.min(...envelope.coordinates[0].map(arr => arr[0])) - 0.1,
-          Math.min(...envelope.coordinates[0].map(arr => arr[1])) - 0.1,
-        ],
-        [
-          Math.max(...envelope.coordinates[0].map(arr => arr[0])) + 0.1,
-          Math.max(...envelope.coordinates[0].map(arr => arr[1])) + 0.1,
-        ],
-      ];
-
-      center = {
-        lng: (viewport[0][0] + viewport[1][0]) / 2,
-        lat: (viewport[0][1] + viewport[1][1]) / 2,
-      };
-    }
-
-    return {
-      viewport: viewport,
-      center: center,
-    };
   };
 
   toggleFullscreen = () => {
@@ -257,6 +267,7 @@ export default class CrossingMapPage extends Component {
     const selectedCommunityId = selectors.getSelectedCommunityId(this.props);
     const selectedCrossingId = selectors.getSelectedCrossingId(this.props);
     const selectedCameraId = selectors.getSelectedCameraId(this.props);
+    const cameraOrCrossingSelected = !!selectedCrossingId || !!selectedCameraId;
 
     return (
       <ContainerQuery query={containerQuery}>
@@ -270,7 +281,7 @@ export default class CrossingMapPage extends Component {
                 {!params.fullsize && (
                   <React.Fragment>
                     <CrossingMapSearchBar
-                      selectedCrossingId={selectedCrossingId}
+                      cameraOrCrossingSelected={cameraOrCrossingSelected}
                       searchQuery={searchQuery}
                       searchQueryUpdated={this.searchQueryUpdated}
                       toggleSearchFocus={this.toggleSearchFocus}
@@ -322,6 +333,7 @@ export default class CrossingMapPage extends Component {
                     </div>
                     <CrossingMapSidebar
                       selectedCrossingId={selectedCrossingId}
+                      selectedFeature={selectedFeature}
                       currentUser={currentUser}
                       searchQuery={searchQuery}
                       searchQueryUpdated={this.searchQueryUpdated}

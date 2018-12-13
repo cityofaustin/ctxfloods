@@ -4,7 +4,7 @@ const allCameras = gql`
   query {
     getAllCamerasWithLatestPhoto {
     	nodes {
-        cameraId
+        id
         source
         name
         geojson

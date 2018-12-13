@@ -121,7 +121,9 @@ class CrossingMap extends React.Component {
     } else if (this.props.selectedFeature) {
       if (
         this.props.selectedFeature.type === "Crossing" ||
-        this.props.selectedFeature.type === "Camera"
+        this.props.selectedFeature.type === "Camera" ||
+        this.props.selectedFeature.type === "Community"
+        // Don't make redundant history push for 'Misc' type
       ) {
         this.props.history.push(`${this.props.onDash ? '/dashboard' : ''}/map/`)
       } else if (this.props.selectedFeature.type === 'Misc') {
@@ -228,7 +230,7 @@ class CrossingMap extends React.Component {
       if (selectedFeature.type === "Crossing") {
         selectedCrossingId = selectedFeature.data.id;
       } else if (selectedFeature.type === "Camera") {
-        selectedCameraId = selectedFeature.data.cameraId;
+        selectedCameraId = selectedFeature.data.id;
       }
     }
 
@@ -318,7 +320,7 @@ class CrossingMap extends React.Component {
                     key={i}
                     coordinates={JSON.parse(camera.geojson).coordinates}
                     properties={{
-                      cameraId: camera.cameraId,
+                      cameraId: camera.id,
                       geojson: camera.geojson,
                       cameraName: camera.name,
                     }}

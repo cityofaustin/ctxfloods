@@ -343,7 +343,7 @@ enum CamerasOrderBy {
 }
 
 type CameraWithLatestPhoto {
-  cameraId: Int
+  id: Int
   source: String
   name: String
   geojson: String
