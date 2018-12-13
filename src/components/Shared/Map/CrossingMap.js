@@ -22,7 +22,6 @@ class CrossingMap extends React.Component {
     super(props, ...args);
 
     this.state = {
-      firstLoadComplete: false,
       showDetailsOnMobile: false,
       cachedHeights: {},
     };
@@ -31,14 +30,6 @@ class CrossingMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // This is a slightly strange litle fix here, we used to check loading in render, and not render the map until it loaded
-    // that worked well for a single query, but led to the map disappearing on search. I then updated it to hide the crossing
-    // layers instead of hiding the whole map on load, but this led to the map not correctly filling the containing div. By checking
-    // that it has fully loaded before rendering the first time this problem can be avoided.
-    if (!this.state.firstLoadComplete && this.props.isDataLoaded) {
-      this.setState({firstLoadComplete: true});
-    }
-
     // Unset showDetailsOnMobile
     if (this.state.showDetailsOnMobile && (
       this.props.selectedFeature !== prevProps.selectedFeature
@@ -211,8 +202,6 @@ class CrossingMap extends React.Component {
   };
 
   render() {
-    if (!this.state.firstLoadComplete) return null;
-
     const {
       showOpen,
       showClosed,
