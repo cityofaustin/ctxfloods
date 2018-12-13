@@ -145,7 +145,6 @@ class CrossingMapSidebar extends Component {
       searchQuery,
       searchQueryUpdated,
       selectedCrossingId,
-      selectCrossing,
       currentUser,
       allCommunities,
       selectedCrossingName,
@@ -168,7 +167,6 @@ class CrossingMapSidebar extends Component {
             >
               <CrossingMapSearchBar
                 selectedCrossingId={selectedCrossingId}
-                selectCrossing={selectCrossing}
                 searchQuery={searchQuery}
                 searchQueryUpdated={searchQueryUpdated}
                 selectedCrossingName={selectedCrossingName}
@@ -189,8 +187,8 @@ class CrossingMapSidebar extends Component {
                   <SelectedCrossingContainer
                     crossingId={selectedCrossingId}
                     currentUser={currentUser}
-                    selectCrossing={selectCrossing}
                     allCommunities={allCommunities}
+                    setSelectedFeature={setSelectedFeature}
                     onDash={onDash}
                   />
                 )}
