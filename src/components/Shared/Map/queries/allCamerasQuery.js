@@ -8,7 +8,7 @@ const allCameras = gql`
         source
         name
         geojson
-        url
+        latestPhotoUrl
         uploadedAt
       }
     }

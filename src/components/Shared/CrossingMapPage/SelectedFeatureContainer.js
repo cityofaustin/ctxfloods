@@ -11,6 +11,7 @@ export default function SelectedFeatureContainer(props){
     mobile,
     showDetailsOnMobile,
     setShowDetailsOnMobile,
+    setDetailsHeight,
     onDash,
   } = props;
 
@@ -54,7 +55,7 @@ export default function SelectedFeatureContainer(props){
           <div>
             {selectedCrossing.name}
             {(mobile && !showDetailsOnMobile &&
-              selectedCrossing.latestStatusId === statusConstants.OPEN
+              selectedCrossing.latestStatusId !== statusConstants.OPEN
             ) && (
               <button onClick={() => setShowDetailsOnMobile()}>
                 Details
@@ -72,7 +73,7 @@ export default function SelectedFeatureContainer(props){
                   indefiniteClosure,
                   notes,
                 ) =>
-                  this.setDetailsHeight(
+                  setDetailsHeight(
                     crossingId,
                     statusReasonId,
                     reopenDate,
@@ -95,12 +96,41 @@ export default function SelectedFeatureContainer(props){
         geojson: selectedCamera.geojson,
         cameraName: selectedCamera.name,
       }
+      popupComponent = (
+        <Popup
+          coordinates={featureCoordinates}
+          anchor="bottom"
+        >
+          <div>
+            {selectedCamera.name}
+            {mobile && (
+              <div className="MobileDetails__container">
+                <img
+                  alt=""
+                  style={{ width: '200px' }}
+                  src={selectedCamera.latestPhotoUrl}
+                />
+              </div>
+            )}
+          </div>
+        </Popup>
+      );
     } else if (selectedFeature.type === "Misc") {
       const selectedMiscLocation = selectedFeature.data;
       layerId = 'selectedMiscLocation';
       iconImage = 'selected-location-marker'
       featureCoordinates = selectedMiscLocation.coordinates;
       featureProperties = {};
+      popupComponent = (
+        <Popup
+          coordinates={featureCoordinates}
+          anchor="bottom"
+        >
+          <div>
+            {selectedMiscLocation.name}
+          </div>
+        </Popup>
+      );
     }
   } else {
     return null

@@ -96,14 +96,6 @@ class CrossingMap extends React.Component {
     }
   }
 
-  flyTo = point => {
-    if (this.map) {
-      this.map.flyTo({
-        center: point,
-      });
-    }
-  };
-
   onMapClick = e => {
     const map = this.map;
     const { showOpen, showClosed, showCaution, showLongterm, showCameras } = this.props;
@@ -203,13 +195,10 @@ class CrossingMap extends React.Component {
     // height of the map in lat
     const offset = mapHeightInLat * relativePopupSize / 2;
 
-    // And then apply it to the coordinates
-    const coordinates = [
-      JSON.parse(this.state.selectedCrossing.geojson).coordinates[0],
-      JSON.parse(this.state.selectedCrossing.geojson).coordinates[1] + offset,
-    ];
-
-    this.flyTo(coordinates);
+    this.props.setCenter({
+      lng: this.props.selectedFeature.data.coordinates[0],
+      lat: this.props.selectedFeature.data.coordinates[1] + offset,
+    })
   };
 
   setShowDetailsOnMobile = () => {
@@ -354,6 +343,7 @@ class CrossingMap extends React.Component {
           iconSize={this.state.iconSize}
           mobile={this.props.mobile}
           showDetailsOnMobile={this.state.showDetailsOnMobile}
+          setDetailsHeight={this.setDetailsHeight}
           setShowDetailsOnMobile={this.setShowDetailsOnMobile}
           onDash={onDash}
         />

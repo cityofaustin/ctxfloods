@@ -244,7 +244,6 @@ export default class CrossingMapPage extends Component {
     const {
       currentUser,
       onDash,
-      setSelectedFeature,
      } = this.props;
 
     const allCommunities = selectors.getAllCommunities(this.props);

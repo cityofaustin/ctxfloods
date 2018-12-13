@@ -109,7 +109,8 @@ class CrossingMapSearchBar extends Component {
       this.props.setSelectedFeature({
         type: "Misc",
         data: {
-          coordinates: [lng, lat]
+          coordinates: [lng, lat],
+          name: suggestion.name
         }
       });
     }
