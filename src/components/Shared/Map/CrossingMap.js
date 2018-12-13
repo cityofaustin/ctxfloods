@@ -250,7 +250,7 @@ class CrossingMap extends React.Component {
       if (selectedFeature.type === "Crossing") {
         selectedCrossingId = selectedFeature.data.id;
       } else if (selectedFeature.type === "Camera") {
-        selectedCameraId = selectedFeature.data.id;
+        selectedCameraId = selectedFeature.data.cameraId;
       }
     }
 
@@ -340,7 +340,7 @@ class CrossingMap extends React.Component {
                     key={i}
                     coordinates={JSON.parse(camera.geojson).coordinates}
                     properties={{
-                      cameraId: camera.id,
+                      cameraId: camera.cameraId,
                       geojson: camera.geojson,
                       cameraName: camera.name,
                     }}

@@ -2,12 +2,14 @@ import gql from 'graphql-tag';
 
 const allCameras = gql`
   query {
-    allCameras{
-      nodes {
-        id
-        sourceId
+    getAllCamerasWithLatestPhoto {
+    	nodes {
+        cameraId
+        source
         name
         geojson
+        url
+        uploadedAt
       }
     }
   }

@@ -7,7 +7,7 @@ input AddCameraImageInput {
   """
   clientMutationId: String
   cameraId: Int
-  base64Image: String
+  url: String
   uploadedAt: Datetime
 }
 
@@ -230,8 +230,8 @@ type CameraImage implements Node {
   """The id of the camera that took the image."""
   cameraId: Int!
 
-  """The base64 encoded image."""
-  base64Image: String
+  """The original url to the hosted camera image."""
+  url: String
 
   """When image was taken (beholder) or loaded into ctxfloods (atd)"""
   uploadedAt: Datetime
@@ -251,8 +251,8 @@ input CameraImageCondition {
   """Checks for equality with the object’s 'cameraId' field."""
   cameraId: Int
 
-  """Checks for equality with the object’s 'base64Image' field."""
-  base64Image: String
+  """Checks for equality with the object’s 'url' field."""
+  url: String
 
   """Checks for equality with the object’s 'uploadedAt' field."""
   uploadedAt: Datetime
@@ -291,8 +291,8 @@ enum CameraImagesOrderBy {
   ID_DESC
   CAMERA_ID_ASC
   CAMERA_ID_DESC
-  BASE64_IMAGE_ASC
-  BASE64_IMAGE_DESC
+  URL_ASC
+  URL_DESC
   UPLOADED_AT_ASC
   UPLOADED_AT_DESC
   PRIMARY_KEY_ASC
@@ -340,6 +340,43 @@ enum CamerasOrderBy {
   GEOJSON_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+type CameraWithLatestPhoto {
+  cameraId: Int
+  source: String
+  name: String
+  geojson: String
+  latestPhotoUrl: String
+  uploadedAt: Datetime
+}
+
+"""A connection to a list of 'CameraWithLatestPhoto' values."""
+type CameraWithLatestPhotosConnection {
+  """A list of 'CameraWithLatestPhoto' objects."""
+  nodes: [CameraWithLatestPhoto]!
+
+  """
+  A list of edges which contains the 'CameraWithLatestPhoto' and cursor to aid in pagination.
+  """
+  edges: [CameraWithLatestPhotosEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* 'CameraWithLatestPhoto' you could get from the connection.
+  """
+  totalCount: Int
+}
+
+"""A 'CameraWithLatestPhoto' edge in the connection."""
+type CameraWithLatestPhotosEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The 'CameraWithLatestPhoto' at the end of the edge."""
+  node: CameraWithLatestPhoto
 }
 
 """All input for the 'changeCommunityName' mutation."""
@@ -2254,6 +2291,27 @@ type Query implements Node {
     """Read all values in the set after (below) this cursor."""
     after: Cursor
   ): UsersConnection!
+
+  """Retrieve all cameras with their latest photo"""
+  getAllCamerasWithLatestPhoto(
+    """Only read the first 'n' values of the set."""
+    first: Int
+
+    """Only read the last 'n' values of the set."""
+    last: Int
+
+    """
+    Skip the first 'n' values from our 'after' cursor, an alternative to cursor
+    based pagination. May not be used with 'last'.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+  ): CameraWithLatestPhotosConnection!
 
   """
   Gets status updates for all crossings, a single crossing, or all crossings in a community. Can filter by date range.

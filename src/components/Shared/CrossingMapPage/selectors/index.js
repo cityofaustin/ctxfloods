@@ -125,7 +125,7 @@ export const getAllCameras = createSelector(
   [isDataLoaded, getAllCamerasResult],
   (isDataLoaded, getAllCamerasResult) => {
     return isDataLoaded
-      ? getAllCamerasResult.allCameras.nodes
+      ? getAllCamerasResult.getAllCamerasWithLatestPhoto.nodes
       : null
   }
 )
@@ -190,7 +190,7 @@ export const getSelectedCamera = createSelector(
   ],
   (selectedCameraId, isDataLoaded, allCameras) => {
     if (!allCameras || !isDataLoaded) return null;
-    let camera = allCameras.find(c => c.id === selectedCameraId);
+    let camera = allCameras.find(c => c.cameraId === selectedCameraId);
     if (camera) {
       // TypeError: Cannot add property coordinates, object is not extensible
       camera = Object.assign({}, camera);
