@@ -34,5 +34,9 @@ module.exports = {
   "382-history": {
     deploy: true,
     backend: "sandbox-1"
+  },
+  "195-camera": {
+    deploy: true,
+    backend: "sandbox-2"
   }
 };
