@@ -52,6 +52,15 @@ export default function DashboardHeader({ location, currentUser, ...props }) {
             <Link to="/dashboard/crossings/add">Add Crossing</Link>
           </li>
         }
+        <li
+          className={
+            location.pathname.endsWith('new')
+              ? 'Header__tab--active'
+              : 'Header__tab'
+          }
+        >
+          <Link to="/dashboard/new">What's New</Link>
+        </li>
         {(currentUser.role === 'floods_community_admin' ||
           currentUser.role === 'floods_super_admin') && (
           <li

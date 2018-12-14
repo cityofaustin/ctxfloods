@@ -22,6 +22,7 @@ import ResetPasswordPage from 'components/Dashboard/ResetPasswordPage/ResetPassw
 import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
 import AboutPage from 'components/Shared/AboutPage';
 import FloodSafetyPage from 'components/Shared/FloodSafetyPage';
+import WhatsNew from 'components/Shared/WhatsNew';
 import ReportIncidentPage from 'components/Shared/ReportIncidentPage';
 
 class FloodsRoutes extends Component {
@@ -95,6 +96,19 @@ class FloodsRoutes extends Component {
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/flood-safety" component={FloodSafetyPage} />
         <Route exact path="/report-incident" component={ReportIncidentPage} />
+        <PrivateRoute
+          exact
+          path="/dashboard/new"
+          component={WhatsNew}
+          authenticated={auth.isAuthenticated()}
+          authorized={auth.roleAuthorized([
+            'floods_community_editor',
+            'floods_community_admin',
+            'floods_super_admin',
+          ])}
+          currentUser={currentUser}
+          onDash={true}
+        />
 
         <Switch>
           <PrivateRoute
