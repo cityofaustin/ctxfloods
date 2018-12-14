@@ -5,7 +5,6 @@ import Date from 'components/Shared/DateTime/Date';
 import Hour from 'components/Shared/DateTime/Hour';
 
 export default function CameraListItem(props) {
-  console.log('Some camera stuff', props)
   const {camera} = props;
   return (
     <div className="PublicCrossingListItem">

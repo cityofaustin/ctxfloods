@@ -220,8 +220,6 @@ class CrossingMap extends React.Component {
       selectedFeature,
     } = this.props;
 
-    console.log("What is selectedFeature?", selectedFeature)
-
     // mapbox expressions can't compare null values
     let selectedCrossingId = -1;
     let selectedCameraId = -1;

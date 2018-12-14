@@ -37,6 +37,6 @@ module.exports = {
   },
   "195-camera": {
     deploy: true,
-    backend: "sandbox-2"
+    backend: "195-camera"
   }
 };
