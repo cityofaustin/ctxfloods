@@ -106,7 +106,7 @@ export default function SelectedFeatureContainer(props){
             {mobile && (
               <div className="MobileDetails__container">
                 <img
-                  alt=""
+                  alt={selectedCamera.name}
                   style={{ width: '200px' }}
                   src={selectedCamera.latestPhotoUrl}
                 />
