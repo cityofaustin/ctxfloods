@@ -96,6 +96,15 @@ class PublicCrossingListItem extends React.Component {
               {crossing.statusUpdateByLatestStatusUpdateId.notes}
             </DetailsItem>
           )}
+          {crossing.statusUpdateByLatestStatusUpdateId.image && (
+            <img
+              alt=""
+              style={{ width: '300px' }}
+              src={`data:image/png;base64, ${
+                crossing.statusUpdateByLatestStatusUpdateId.image
+              }`}
+            />
+          )}
         </div>
       </div>
     );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 
 import StatusIcon from 'components/Shared/StatusIcon';
-import { MapboxAccessToken } from 'constants/MapboxConstants';
+import { MAPBOX_STYLE, MapboxAccessToken } from 'constants/MapboxConstants';
 
 const Map = ReactMapboxGl({
   accessToken: MapboxAccessToken,
@@ -24,7 +24,7 @@ class CrossingStaticMap extends Component {
         className="CrossingStaticMap"
         center={coordinates}
         // eslint-disable-next-line
-        style="mapbox://styles/croweatx/cjeynr3z01k492so57s8lo34o"
+        style={MAPBOX_STYLE}
         onStyleLoad={this.onStyleLoad}
       >
         <Marker coordinates={coordinates} anchor="bottom">

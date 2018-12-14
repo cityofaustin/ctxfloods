@@ -6,6 +6,7 @@ import geolib from 'geolib';
 import _ from 'lodash';
 
 import SelectedCrossingContainer from 'components/Shared/CrossingMapPage/SelectedCrossingContainer';
+import CameraListItem from 'components/Public/CameraListItem/CameraListItem.js';
 import CrossingMapSearchBar from 'components/Shared/CrossingMapPage/CrossingMapSearchBar';
 import CrossingSidebarNearbyCrossingItem from 'components/Shared/CrossingMapPage/CrossingSidebarNearbyCrossingItem';
 import FilterCheckbox from 'components/Shared/FilterCheckbox';
@@ -144,15 +145,24 @@ class CrossingMapSidebar extends Component {
       showLongterm,
       searchQuery,
       searchQueryUpdated,
-      selectedCrossingId,
-      selectCrossing,
+      selectedFeature,
       currentUser,
       allCommunities,
       selectedCrossingName,
       center,
-      setSelectedLocationCoordinates,
+      setSelectedFeature,
       onDash
     } = this.props;
+
+    let selectedCrossingId, selectedCameraId;
+    if (selectedFeature) {
+      if (selectedFeature.type === "Crossing") {
+        selectedCrossingId = selectedFeature.data.id;
+      } else if (selectedFeature.type === "Camera") {
+        selectedCameraId = selectedFeature.data.id;
+      }
+    }
+    const cameraOrCrossingSelected = !!selectedCrossingId || !!selectedCameraId;
 
     const { nearbyCrossings } = this.state;
 
@@ -167,13 +177,12 @@ class CrossingMapSidebar extends Component {
               })}
             >
               <CrossingMapSearchBar
-                selectedCrossingId={selectedCrossingId}
-                selectCrossing={selectCrossing}
+                cameraOrCrossingSelected={cameraOrCrossingSelected}
                 searchQuery={searchQuery}
                 searchQueryUpdated={searchQueryUpdated}
                 selectedCrossingName={selectedCrossingName}
                 center={center}
-                setSelectedLocationCoordinates={setSelectedLocationCoordinates}
+                setSelectedFeature={setSelectedFeature}
                 toggleSearchFocus={this.toggleSearchFocus}
                 communities={allCommunities}
                 communityId={
@@ -183,19 +192,26 @@ class CrossingMapSidebar extends Component {
                 }
                 onDash={onDash}
               />
-
               {!searchFocused &&
                 selectedCrossingId && (
                   <SelectedCrossingContainer
                     crossingId={selectedCrossingId}
                     currentUser={currentUser}
-                    selectCrossing={selectCrossing}
                     allCommunities={allCommunities}
+                    setSelectedFeature={setSelectedFeature}
                     onDash={onDash}
                   />
-                )}
+                )
+              }
               {!searchFocused &&
-                !selectedCrossingId && (
+                selectedCameraId && (
+                  <CameraListItem
+                    camera={selectedFeature.data}
+                  />
+                )
+              }
+              {!searchFocused &&
+                !cameraOrCrossingSelected && (
                   <div>
                     <div className="CrossingMapPage_sidebar-filter-sort-toggle-container">
                       <div
@@ -258,7 +274,7 @@ class CrossingMapSidebar extends Component {
                   </div>
                 )}
               {!searchFocused &&
-                selectedCrossingId && (
+                cameraOrCrossingSelected && (
                   <div className="CrossingMapPage_sidebar-nearby-history-toggle">
                     <div
                       className={classnames(
@@ -271,17 +287,19 @@ class CrossingMapSidebar extends Component {
                     >
                       <FontAwesome name="map-marker" /> Nearby
                     </div>
-                    <div
-                      className={classnames(
-                        'CrossingMapPage_sidebar-history-tab',
-                        {
-                          selected: this.state.showHistory,
-                        },
-                      )}
-                      onClick={() => this.toggleNearbyHistory('history')}
-                    >
-                      <FontAwesome name="history" /> History
-                    </div>
+                    {selectedCrossingId && (
+                      <div
+                        className={classnames(
+                          'CrossingMapPage_sidebar-history-tab',
+                          {
+                            selected: this.state.showHistory,
+                          },
+                        )}
+                        onClick={() => this.toggleNearbyHistory('history')}
+                      >
+                        <FontAwesome name="history" /> History
+                      </div>
+                    )}
                   </div>
                 )}
             </div>

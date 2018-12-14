@@ -16,6 +16,15 @@ export default function DashboardHeader({ location, currentUser, ...props }) {
       <Header title="Dashboard" location={location}>
         <li
           className={
+            location.pathname.includes('/map')
+              ? 'Header__tab--active'
+              : 'Header__tab'
+          }
+        >
+          <Link to="/dashboard/map">Crossings Map</Link>
+        </li>
+        <li
+          className={
             location.pathname.endsWith('crossings/list')
               ? 'Header__tab--active'
               : 'Header__tab'
@@ -25,12 +34,12 @@ export default function DashboardHeader({ location, currentUser, ...props }) {
         </li>
         <li
           className={
-            location.pathname.includes('/map')
+            location.pathname.endsWith('crossings/history')
               ? 'Header__tab--active'
               : 'Header__tab'
           }
         >
-          <Link to="/dashboard/map">Crossings Map</Link>
+          <Link to="/dashboard/crossings/history">History</Link>
         </li>
         {['floods_community_admin','floods_super_admin'].includes(auth.getRole()) &&
           <li
@@ -43,15 +52,6 @@ export default function DashboardHeader({ location, currentUser, ...props }) {
             <Link to="/dashboard/crossings/add">Add Crossing</Link>
           </li>
         }
-        <li
-          className={
-            location.pathname.endsWith('crossings/history')
-              ? 'Header__tab--active'
-              : 'Header__tab'
-          }
-        >
-          <Link to="/dashboard/crossings/history">History</Link>
-        </li>
         {(currentUser.role === 'floods_community_admin' ||
           currentUser.role === 'floods_super_admin') && (
           <li
