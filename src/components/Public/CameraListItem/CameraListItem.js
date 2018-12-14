@@ -30,13 +30,15 @@ export default function CameraListItem(props) {
           </div>
         </div>
       </div>
-      <div style={{ textAlign: 'center', paddingBottom: '2rem' }}>
-        <img
-          alt={camera.name}
-          style={{ width: '400px' }}
-          src={camera.latestPhotoUrl}
-        />
-      </div>
+      {camera.latestPhotoUrl ? (
+        <div style={{ textAlign: 'center', paddingBottom: '2rem' }}>
+          <img
+            alt={camera.name}
+            style={{ width: '400px' }}
+            src={camera.latestPhotoUrl}
+          />
+        </div>
+      ) : <div style={{padding: '2rem'}}> Unable to connect to camera, please check back later. </div> }
     </div>
   )
 }
