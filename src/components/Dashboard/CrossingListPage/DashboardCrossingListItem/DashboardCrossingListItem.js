@@ -168,14 +168,6 @@ class DashboardCrossingListItem extends React.Component {
   }
 
   updateMap(store, updatedCrossing) {
-    // Update the selected crossing
-    if (this.props.listOrMap === 'map') {
-      this.props.selectCrossing(
-        updatedCrossing.id,
-        updatedCrossing.latestStatusId,
-      );
-    }
-
     // Get all the query variable combinations we have cached
     const queryVariables = Object.keys(store.data.data)
       .filter(query => query.includes('searchCrossings') && query.endsWith(')'))
@@ -196,6 +188,21 @@ class DashboardCrossingListItem extends React.Component {
       };
 
       this.doAMapFix(store, updatedCrossing, qvars);
+    }
+
+    if (this.props.listOrMap === 'map') {
+      this.props.setSelectedFeature({
+        type: "Crossing",
+        data: {
+          communityIds: updatedCrossing.communityIds,
+          coordinates: JSON.parse(updatedCrossing.geojson).coordinates,
+          geojson: updatedCrossing.geojson,
+          id: updatedCrossing.id,
+          latestStatusCreatedAt: updatedCrossing.latestStatusCreatedAt,
+          latestStatusId: updatedCrossing.latestStatusId,
+          name: updatedCrossing.name,
+        }
+      })
     }
   }
 

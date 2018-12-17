@@ -106,7 +106,13 @@ class CrossingMapSearchBar extends Component {
     } else if (suggestion.location) {
       const lng = suggestion.location[1];
       const lat = suggestion.location[0];
-      this.props.setSelectedLocationCoordinates([lng, lat]);
+      this.props.setSelectedFeature({
+        type: "Misc",
+        data: {
+          coordinates: [lng, lat],
+          name: suggestion.name
+        }
+      });
     }
 
     // Unfocus the search bar
@@ -174,7 +180,6 @@ class CrossingMapSearchBar extends Component {
   };
 
   clearSearch = () => {
-    this.props.selectCrossing(null, null);
     this.setState({ typedValue: '', selectedValue: null });
     this.props.history.push(`${this.dashPrepend()}/map`);
   };
@@ -194,7 +199,7 @@ class CrossingMapSearchBar extends Component {
   };
 
   render() {
-    const { selectedCrossingId, communityId } = this.props;
+    const { cameraOrCrossingSelected, communityId } = this.props;
 
     const {
       typedValue,
@@ -233,7 +238,7 @@ class CrossingMapSearchBar extends Component {
           updateSuggestions={this.updateCrossingSuggestions}
         />
         <div className="CrossingMapSearchBar__text-entry">
-          {selectedCrossingId &&
+          {cameraOrCrossingSelected &&
             !this.props.mobile && (
               <div
                 className="CrossingMapSearchBar__close-selection"
@@ -242,7 +247,7 @@ class CrossingMapSearchBar extends Component {
                 <FontAwesome name="window-close" size="2x" />
               </div>
             )}
-          {(!selectedCrossingId || this.props.mobile) && (
+          {(!cameraOrCrossingSelected || this.props.mobile) && (
             <Autosuggest
               ref={autosuggest => {
                 if (autosuggest !== null) {

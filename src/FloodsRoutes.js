@@ -12,7 +12,7 @@ import ManageUsers from 'components/Dashboard/ManageUsersPage/ManageUsers';
 import LoginPage from 'components/Dashboard/LoginPage/LoginPage';
 import AddUserPage from 'components/Dashboard/ManageUsersPage/AddUserPage';
 import EditUserPage from 'components/Dashboard/ManageUsersPage/EditUserPage';
-import CrossingMapPage from 'components/Shared/CrossingMapPage/CrossingMapPage';
+import CrossingMapPageContainer from 'components/Shared/CrossingMapPage/CrossingMapPageContainer'
 import CrossingListPage from 'components/Dashboard/CrossingListPage/CrossingListPage';
 import CrossingDetailPage from 'components/Dashboard/CrossingDetailPage/CrossingDetailPage';
 import AddCrossingPage from 'components/Dashboard/AddCrossingPage/AddCrossingPage';
@@ -22,6 +22,7 @@ import ResetPasswordPage from 'components/Dashboard/ResetPasswordPage/ResetPassw
 import OpenDataPage from 'components/Shared/OpenDataPage/OpenDataPage';
 import AboutPage from 'components/Shared/AboutPage';
 import FloodSafetyPage from 'components/Shared/FloodSafetyPage';
+import WhatsNew from 'components/Shared/WhatsNew';
 import ReportIncidentPage from 'components/Shared/ReportIncidentPage';
 
 class FloodsRoutes extends Component {
@@ -76,26 +77,44 @@ class FloodsRoutes extends Component {
           <Route
             exact
             path="/map/community/:selectedCommunityId"
-            component={CrossingMapPage}
+            component={CrossingMapPageContainer}
           />
           <Route
             exact
             path="/map/crossing/:selectedCrossingId"
-            component={CrossingMapPage}
+            component={CrossingMapPageContainer}
           />
-          <Route path="/map" component={CrossingMapPage} />
+          <Route
+            exact
+            path="/map/camera/:selectedCameraId"
+            component={CrossingMapPageContainer}
+          />
+          <Route path="/map" component={CrossingMapPageContainer} />
         </Switch>
 
         <Route exact path="/data" component={OpenDataPage} />
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/flood-safety" component={FloodSafetyPage} />
         <Route exact path="/report-incident" component={ReportIncidentPage} />
+        <PrivateRoute
+          exact
+          path="/dashboard/new"
+          component={WhatsNew}
+          authenticated={auth.isAuthenticated()}
+          authorized={auth.roleAuthorized([
+            'floods_community_editor',
+            'floods_community_admin',
+            'floods_super_admin',
+          ])}
+          currentUser={currentUser}
+          onDash={true}
+        />
 
         <Switch>
           <PrivateRoute
             exact
             path="/dashboard/map/community/:selectedCommunityId"
-            component={CrossingMapPage}
+            component={CrossingMapPageContainer}
             authenticated={auth.isAuthenticated()}
             authorized={auth.roleAuthorized([
               'floods_community_editor',
@@ -103,11 +122,12 @@ class FloodsRoutes extends Component {
               'floods_super_admin',
             ])}
             currentUser={currentUser}
+            onDash={true}
           />
           <PrivateRoute
             exact
             path="/dashboard/map/crossing/:selectedCrossingId"
-            component={CrossingMapPage}
+            component={CrossingMapPageContainer}
             authenticated={auth.isAuthenticated()}
             authorized={auth.roleAuthorized([
               'floods_community_editor',
@@ -115,11 +135,25 @@ class FloodsRoutes extends Component {
               'floods_super_admin',
             ])}
             currentUser={currentUser}
+            onDash={true}
+          />
+          <PrivateRoute
+            exact
+            path="/dashboard/map/camera/:selectedCameraId"
+            component={CrossingMapPageContainer}
+            authenticated={auth.isAuthenticated()}
+            authorized={auth.roleAuthorized([
+              'floods_community_editor',
+              'floods_community_admin',
+              'floods_super_admin',
+            ])}
+            currentUser={currentUser}
+            onDash={true}
           />
           <PrivateRoute
             exact
             path="/dashboard/map"
-            component={CrossingMapPage}
+            component={CrossingMapPageContainer}
             authenticated={auth.isAuthenticated()}
             authorized={auth.roleAuthorized([
               'floods_community_editor',
@@ -127,6 +161,7 @@ class FloodsRoutes extends Component {
               'floods_super_admin',
             ])}
             currentUser={currentUser}
+            onDash={true}
           />
         </Switch>
 

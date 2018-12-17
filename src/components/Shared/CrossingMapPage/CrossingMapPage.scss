@@ -34,13 +34,14 @@
   position: absolute;
   z-index: 1;
   text-align: right;
-  width: 100%;
+  top: 10px;
+  right: 10px;
 }
 
 .CrossingMapPage__fullscreen-toggle {
   background: white;
   padding: 4px;
-  margin: 7px;
+  cursor: pointer;
 }
 
 .CrossingMapPage__page-container {
