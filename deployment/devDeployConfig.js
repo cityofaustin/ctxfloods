@@ -38,5 +38,8 @@ module.exports = {
   "195-camera": {
     deploy: true,
     backend: "195-camera"
+  },
+  "430-geojson": {
+    deploy: true
   }
 };
