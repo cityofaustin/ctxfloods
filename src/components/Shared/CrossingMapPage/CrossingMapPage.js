@@ -19,9 +19,10 @@ const containerQuery = {
   },
 };
 
-const getViewportAndCenter = (viewportgeojson=
-  `{"type":"Polygon","coordinates":[[[-98.086914,30.148464],[-98.086914,30.433285],[-97.615974,30.433285],[-97.615974,30.148464],[-98.086914,30.148464]]]}`
-) => {
+const getViewportAndCenter = (viewportgeojson) => {
+  if (!viewportgeojson) {
+    viewportgeojson = `{"type":"Polygon","coordinates":[[[-98.086914,30.148464],[-98.086914,30.433285],[-97.615974,30.433285],[-97.615974,30.148464],[-98.086914,30.148464]]]}`
+  }
   const envelope = JSON.parse(viewportgeojson);
   let viewport, center;
 
