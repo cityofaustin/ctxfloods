@@ -41,5 +41,9 @@ module.exports = {
   },
   "430-geojson": {
     deploy: true
+  },
+  "427-superadmin": {
+    deploy: true,
+    backend: '427-superadmin'
   }
 };

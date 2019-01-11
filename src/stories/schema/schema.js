@@ -2556,6 +2556,7 @@ input RegisterUserInput {
   email: String!
   password: String!
   role: String!
+  immutable: Boolean
 }
 
 """The output of our 'registerUser' mutation."""
@@ -3414,6 +3415,11 @@ type User implements Node {
   phoneNumber: String
   active: Boolean
 
+  """
+  Indicate that user cannot be deleted. Used for administrative functions.
+  """
+  immutable: Boolean
+
   """Reads a single 'Community' that is related to this 'User'."""
   communityByCommunityId: Community
 
@@ -3506,6 +3512,9 @@ input UserCondition {
 
   """Checks for equality with the object’s 'active' field."""
   active: Boolean
+
+  """Checks for equality with the object’s 'immutable' field."""
+  immutable: Boolean
 }
 
 """A connection to a list of 'User' values."""
@@ -3555,6 +3564,8 @@ enum UsersOrderBy {
   PHONE_NUMBER_DESC
   ACTIVE_ASC
   ACTIVE_DESC
+  IMMUTABLE_ASC
+  IMMUTABLE_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
