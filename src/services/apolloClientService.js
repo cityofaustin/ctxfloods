@@ -15,9 +15,9 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) 
   // TODO: make an error page for displaying all errors
   if (graphQLErrors) {
     graphQLErrors.forEach((err) => {
-      if (err.name === "JsonWebTokenError") {
+      if ((err.name === "JsonWebTokenError") || (err.message === "invalid signature")) {
         localStorage.removeItem('jwt_user_token');
-        window.location.reload(); // Refreshing page will redirect unauthenticated user to the login page.
+        window.location.reload();
       } else {
         logError(`[GraphQL error]: Message: ${err.message}`)
       }
