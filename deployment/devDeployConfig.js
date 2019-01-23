@@ -45,5 +45,9 @@ module.exports = {
   "427-superadmin": {
     deploy: true,
     backend: '427-superadmin'
+  },
+  "444-postgraphile": {
+    deploy: true,
+    backend: '444-postgraphile'
   }
 };
