@@ -129,3 +129,7 @@
   background: #009ff2;
   color: white;
 }
+
+.CrossingMapPage_sidebar-crossing-status-history .ReactVirtualized__Grid {
+  overflow: unset !important; // Fix strange scrolling behavior for history on sidebar
+}
