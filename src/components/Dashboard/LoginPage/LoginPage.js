@@ -16,6 +16,7 @@ class LoginPage extends Component {
     redirectToReferrer: false,
     email: '',
     password: '',
+    errorHappened: false
   };
 
   handleEmailChange = e => {
@@ -36,11 +37,14 @@ class LoginPage extends Component {
         variables: { email: email, password: password },
       })
       .then(({ data }) => {
+        this.setState({errorHappened: false});
         localStorage.setItem('jwt_user_token', data.authenticate.jwtToken);
         this.props.onLogin();
       })
       .catch(error => {
+        console.log('oh no error')
         logError(error);
+        this.setState({errorHappened: true});
       });
   };
 
@@ -65,6 +69,11 @@ class LoginPage extends Component {
             <input type="submit" className="LoginPage__submit" />
           </form>
         </div>
+        {this.state.errorHappened && (
+          <div className="LoginPage__error-text">
+          Authentication Failed
+          </div>
+        )}
         <Link to="/dashboard/forgot_password">Forgot Password?</Link>
       </div>
     );

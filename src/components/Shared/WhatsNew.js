@@ -24,6 +24,12 @@ export default function WhatsNew() {
       </a>.
       </p>
 
+      <h2>01/25/2019</h2>
+      <ul>
+        {newFeature(440, "Add message if login is invalid")}
+        {newFeature(389, "Fix case sensitive email logins")}
+      </ul>
+
       <h2>12/14/2018</h2>
       <ul>
         {newFeature(195, "Cameras added to Crossing Map")}
