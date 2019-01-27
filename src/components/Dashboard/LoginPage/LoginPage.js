@@ -42,7 +42,6 @@ class LoginPage extends Component {
         this.props.onLogin();
       })
       .catch(error => {
-        console.log('oh no error')
         logError(error);
         this.setState({errorHappened: true});
       });
