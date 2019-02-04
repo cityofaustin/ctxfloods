@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import CrossingStaticMap from 'components/Shared/Map/CrossingStaticMap';
 import CrossingDetails from 'components/Dashboard/CrossingDetailPage/CrossingDetails';
 import CrossingStatusHistory from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistory';
-import StatusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
 import AllCommunitiesQuery from 'components/Shared/queries/AllCommunitiesQuery';
 import 'components/Dashboard/CrossingDetailPage/CrossingDetailPage.css';
 import crossingFragment from 'components/Dashboard/CrossingListPage/queries/crossingFragment';
@@ -13,9 +12,7 @@ class CrossingDetailPage extends Component {
   render() {
     const isLoading =
       !this.props.CrossingByIdQuery ||
-      this.props.CrossingByIdQuery.loading ||
-      !this.props.StatusHistoryQuery ||
-      this.props.StatusHistoryQuery.loading;
+      this.props.CrossingByIdQuery.loading
 
     if (isLoading) {
       return <div>Loading</div>;
@@ -33,7 +30,6 @@ class CrossingDetailPage extends Component {
     }
     const allCommunities = this.props.AllCommunitiesQuery.allCommunities.nodes;
     const crossingCommunities = crossing.communities.nodes;
-    const history = this.props.StatusHistoryQuery.getStatusUpdateHistory.nodes;
     const { currentUser } = this.props;
 
     return (
@@ -48,7 +44,7 @@ class CrossingDetailPage extends Component {
             addMode={false}
           />
         </div>
-        <CrossingStatusHistory crossingId={crossing.id} history={history} />
+        <CrossingStatusHistory crossingId={crossing.id}/>
       </div>
     );
   }
@@ -70,14 +66,6 @@ const CrossingByIdQuery = gql`
 export default compose(
   graphql(CrossingByIdQuery, {
     name: 'CrossingByIdQuery',
-    options: ownProps => ({
-      variables: {
-        crossingId: Number(ownProps.match.params.id),
-      },
-    }),
-  }),
-  graphql(StatusHistoryQuery, {
-    name: 'StatusHistoryQuery',
     options: ownProps => ({
       variables: {
         crossingId: Number(ownProps.match.params.id),

@@ -53,7 +53,8 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
           'Open Date',
           'Closed Indefinitely',
           'Notes',
-          'Community Ids'
+          'Coordinates',
+          'Community'
         ],
       ];
 
@@ -68,7 +69,8 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
             reopenDate,
             indefiniteClosure,
             notes,
-            communityIds
+            geojson,
+            communities,
           } = update.node;
 
           return [
@@ -80,7 +82,8 @@ class CrossingStatusHistorySpreadsheetModal extends Component {
             reopenDate,
             indefiniteClosure,
             notes,
-            communityIds.join(', ')
+            JSON.parse(geojson).coordinates,
+            communities.join(', ')
           ];
         }),
       );

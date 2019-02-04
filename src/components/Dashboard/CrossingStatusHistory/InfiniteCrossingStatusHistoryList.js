@@ -57,7 +57,7 @@ class InfiniteCrossingStatusHistoryList extends React.Component {
       return this.props.loadMoreRows()
       .then((result) => {
         if (!result.data.getStatusUpdateHistory.edges.length) {
-          this.props.setReceivedAlStatuslUpdates();
+          this.props.setReceivedAllStatusUpdates();
         }
         this.loadingMore = false;
         return result;
