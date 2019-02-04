@@ -72,7 +72,7 @@ export default compose(
     name: 'CrossingByIdQuery',
     options: ownProps => ({
       variables: {
-        crossingId: ownProps.match.params.id,
+        crossingId: Number(ownProps.match.params.id),
       },
     }),
   }),
@@ -80,7 +80,7 @@ export default compose(
     name: 'StatusHistoryQuery',
     options: ownProps => ({
       variables: {
-        crossingId: ownProps.match.params.id,
+        crossingId: Number(ownProps.match.params.id),
       },
     }),
   }),
