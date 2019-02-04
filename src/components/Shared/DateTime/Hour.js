@@ -1,5 +1,6 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
+const timezone = moment.tz.guess();
 
 export default function Hour({ date }) {
-  return moment(date).format('h:mm A');
+  return moment(date).tz(timezone).format('h:mm A');
 }

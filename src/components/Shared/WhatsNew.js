@@ -24,6 +24,14 @@ export default function WhatsNew() {
       </a>.
       </p>
 
+      <h2>02/04/2019</h2>
+      <ul>
+        {newFeature(444, "Improve data fetching speed")}
+        {newFeature(438, "Add lat/lng to History CSV")}
+        {newFeature(439, "Add community names to History CSV")}
+        {newFeature(437, "Change dates and times to CT")}
+      </ul>
+
       <h2>01/25/2019</h2>
       <ul>
         {newFeature(440, "Add message if login is invalid")}

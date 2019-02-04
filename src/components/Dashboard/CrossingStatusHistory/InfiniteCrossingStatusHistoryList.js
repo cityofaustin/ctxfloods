@@ -9,6 +9,7 @@ import {
   CellMeasurerCache,
 } from 'react-virtualized';
 
+import { dateToTimestampWithTimezone } from 'components/../services/dateHelpers';
 import StatusHistoryQuery from 'components/Dashboard/CrossingListPage/queries/statusHistoryQuery';
 import CrossingStatusHistoryItem from 'components/Dashboard/CrossingStatusHistory/CrossingStatusHistoryItem';
 import 'components/Dashboard/CrossingListPage/CrossingListPage.css';
@@ -167,8 +168,8 @@ export default graphql(StatusHistoryQuery, {
       variables: {
         communityId: ownProps.communityId,
         crossingId: ownProps.crossingId,
-        dateLowerBound: ownProps.dateLowerBound,
-        dateUpperBound: ownProps.dateUpperBound,
+        dateLowerBound: dateToTimestampWithTimezone(ownProps.dateLowerBound),
+        dateUpperBound: dateToTimestampWithTimezone(ownProps.dateUpperBound),
         idUpperBound: null,
         rowLimit: batchSize
       }
