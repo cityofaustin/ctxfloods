@@ -6,6 +6,7 @@ import { CSVLink } from 'react-csv';
 import FontAwesome from 'react-fontawesome';
 
 import { logError } from 'services/logger';
+import { dateToTimestampWithTimezone } from 'services/dateHelpers';
 import Modal from 'components/Shared/Modal';
 import ModalErrorMessage from 'components/Shared/Modal/ModalErrorMessage';
 import ButtonSecondary from 'components/Shared/Button/ButtonSecondary';
@@ -144,8 +145,8 @@ export default graphql(StatusHistoryQuery, {
     variables: {
       communityId: ownProps.communityId,
       crossingId: ownProps.crossingId,
-      dateLowerBound: ownProps.dateLowerBound,
-      dateUpperBound: ownProps.dateUpperBound,
+      dateLowerBound: dateToTimestampWithTimezone(ownProps.dateLowerBound),
+      dateUpperBound: dateToTimestampWithTimezone(ownProps.dateUpperBound),
       idUpperBound: null,
       rowLimit: null
     }
