@@ -24,7 +24,7 @@ class EditUserPage extends Component {
     this.props
       .editUserMutation({
         variables: {
-          userId: this.props.match.params.id,
+          userId: Number(this.props.match.params.id),
           firstName: user.firstName,
           lastName: user.lastName,
           jobTitle: user.jobTitle,

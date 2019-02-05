@@ -102,7 +102,7 @@ export default compose(
   graphql(crossingQuery, {
     options: ownProps => ({
       variables: {
-        crossingId: ownProps.crossingId,
+        crossingId: Number(ownProps.crossingId),
       },
     }),
   }),

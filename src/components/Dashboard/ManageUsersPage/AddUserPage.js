@@ -48,7 +48,7 @@ class AddUserPage extends Component {
       variables.communityName = params.communityName;
     } else {
       mutation = this.props.addUserMutation;
-      variables.communityId = params.communityId;
+      variables.communityId = Number(params.communityId);
     }
 
     mutation({

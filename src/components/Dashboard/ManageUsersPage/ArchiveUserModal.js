@@ -44,7 +44,7 @@ class ArchiveUserModal extends Component {
     this.props
       .reactivateUserMutation({
         variables: {
-          userId: this.props.user.id,
+          userId: Number(this.props.user.id),
         },
         update: (store, { data: { reactivateUser } }) => {
           const reactivatedUser = reactivateUser.user;
@@ -98,7 +98,7 @@ class ArchiveUserModal extends Component {
     this.props
       .deactivateUserMutation({
         variables: {
-          userId: this.props.user.id,
+          userId: Number(this.props.user.id),
         },
         update: (store, { data: { deactivateUser } }) => {
           const deactivatedUser = deactivateUser.user;

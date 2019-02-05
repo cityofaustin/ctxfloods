@@ -35,7 +35,7 @@ class DeleteCrossingButton extends Component {
     this.props
       .deleteCrossingMutation({
         variables: {
-          crossingId: this.props.crossingId,
+          crossingId: Number(this.props.crossingId),
         },
         update: (store, { data: { removeCrossing } }) => {
           const deletedCrossing = removeCrossing.crossing;

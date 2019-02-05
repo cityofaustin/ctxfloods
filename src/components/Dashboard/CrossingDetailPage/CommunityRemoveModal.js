@@ -35,8 +35,8 @@ class CommunityRemoveModal extends Component {
     this.props
       .removeCrossingFromCommunityMutation({
         variables: {
-          crossingId: this.props.crossing.id,
-          communityId: this.props.community.id,
+          crossingId: Number(this.props.crossing.id),
+          communityId: Number(this.props.community.id),
         },
         update: (store, { data: { removeCrossingFromCommunity } }) => {
           const updatedCrossing = removeCrossingFromCommunity.crossing;
