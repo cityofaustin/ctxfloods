@@ -279,7 +279,10 @@ class CrossingDetails extends Component {
                 { !this.props.addMode &&
                   !this.state.addCommunity &&
                   this.state.dropdownCommunities.length > 0 &&
-                  currentUser.role !== 'floods_community_editor' && (
+                  (
+                    (currentUser.role === 'floods_super_admin') ||
+                    (currentUser.role === 'floods_community_admin')
+                  ) && (
                     <CommunityTagAddButton onClick={this.addCommunityClicked} />
                   )}
               </div>
@@ -314,7 +317,10 @@ class CrossingDetails extends Component {
               Cancel
             </ButtonSecondary>
             {crossing.active &&
-              currentUser.role !== 'floods_community_editor' &&
+              (
+                (currentUser.role === 'floods_super_admin') ||
+                (currentUser.role === 'floods_community_admin')
+              ) &&
               crossingCommunities.length === 1 && (
                 <div className="CrossingDetails__buttons">
                   <DeleteCrossingButton crossingId={crossing.id} />

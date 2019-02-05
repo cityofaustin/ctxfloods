@@ -59,12 +59,11 @@ class DeleteCrossingButton extends Component {
   render() {
     return (
       <div>
-        <button
-          className="button button--plaintext color-highlight"
+        <ButtonSecondary
           onClick={this.showDeleteModal}
         >
           Delete Crossing
-        </button>
+        </ButtonSecondary>
         <Modal
           title="Delete Crossing"
           isOpen={this.state.isModalOpen}

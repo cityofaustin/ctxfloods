@@ -27,6 +27,7 @@ class CrossingDetailPage extends Component {
       id: crossing.id,
       lat: coordinates[1],
       lng: coordinates[0],
+      active: crossing.active,
     }
     const allCommunities = this.props.AllCommunitiesQuery.allCommunities.nodes;
     const crossingCommunities = crossing.communities.nodes;
