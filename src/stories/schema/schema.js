@@ -3329,7 +3329,8 @@ type StatusUpdateHistory {
   crossingId: Int
   crossingName: String
   crossingHumanAddress: String
-  communityIds: [Int]
+  geojson: String
+  communities: [String]
 }
 
 """A connection to a list of 'StatusUpdate' values."""

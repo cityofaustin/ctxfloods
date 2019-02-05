@@ -46,7 +46,7 @@ class CrossingStatusHistory extends Component {
     }
   }
 
-  setReceivedAlStatuslUpdates = () => {
+  setReceivedAllStatusUpdates = () => {
     this.setState({receivedAllStatusUpdates: true});
   }
 
@@ -150,7 +150,7 @@ class CrossingStatusHistory extends Component {
               showNames={showNames}
               maxRows={maxRows}
               receivedAllStatusUpdates={receivedAllStatusUpdates}
-              setReceivedAllUpdates={this.setReceivedAllUpdates}
+              setReceivedAllStatusUpdates={this.setReceivedAllStatusUpdates}
             />
           </div>
         )}

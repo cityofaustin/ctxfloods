@@ -33,7 +33,8 @@ const statusHistoryQuery = gql`
           crossingId,
           crossingName,
           crossingHumanAddress,
-          communityIds
+          geojson,
+          communities
         }
       }
     }

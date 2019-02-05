@@ -21,8 +21,6 @@ import CommunityTag from './CommunityTag';
 import CommunityTagAddButton from './CommunityTagAddButton';
 import DeleteCrossingButton from './DeleteCrossingButton';
 
-import CameraEditButton from './CameraEditButton';
-
 import 'components/Dashboard/CrossingDetailPage/CrossingDetails.css';
 
 class CrossingDetails extends Component {
@@ -260,13 +258,6 @@ class CrossingDetails extends Component {
               <div className="CrossingDetails__field-group">
                 <Label>ID#</Label> <TextInput isDisabled value={crossing.id} />
               </div>
-            )}
-            {!addMode && (
-              <CameraEditButton
-                crossingId={crossing.id}
-                cameraType={crossing.cameraType}
-                cameraId={crossing.cameraId}
-              />
             )}
             <div className="CrossingDetails__communities">
               <Label>{!addMode ? "Communities" : "Community"}</Label>
