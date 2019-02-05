@@ -75,7 +75,7 @@ class CrossingDetails extends Component {
           name: this.state.name,
           humanAddress: this.state.humanAddress,
           description: this.state.description,
-          communityId: this.props.currentUser.communityId,
+          communityId: Number(this.props.currentUser.communityId),
           longitude: this.props.crossing.lng,
           latitude: this.props.crossing.lat,
         },
@@ -94,8 +94,8 @@ class CrossingDetails extends Component {
     this.props
       .addCrossingToCommunityMutation({
         variables: {
-          crossingId: this.props.crossing.id,
-          communityId: this.state.selectedCommunityId,
+          crossingId: Number(this.props.crossing.id),
+          communityId: Number(this.state.selectedCommunityId),
         },
         update: (store, { data: { addCrossingToCommunity } }) => {
           const updatedCrossing = addCrossingToCommunity.crossing;

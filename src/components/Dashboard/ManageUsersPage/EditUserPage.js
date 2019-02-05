@@ -133,7 +133,7 @@ export default compose(
     name: 'UserByIdQuery',
     options: ownProps => ({
       variables: {
-        userId: ownProps.match.params.id,
+        userId: Number(ownProps.match.params.id),
       },
     }),
   }),
