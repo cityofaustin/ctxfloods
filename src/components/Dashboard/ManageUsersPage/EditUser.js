@@ -143,6 +143,7 @@ class EditUser extends Component {
           <input
             className="EditUser__control-text-box"
             type="email"
+            autoComplete="new-password"
             value={email}
             onChange={this.emailChanged}
             disabled={!newUser}
@@ -153,6 +154,7 @@ class EditUser extends Component {
             <input
               className="EditUser__control-text-box"
               type="text"
+              autoComplete="new-password"
               value={firstName}
               onChange={this.firstNameChanged}
             />
@@ -161,6 +163,7 @@ class EditUser extends Component {
             <input
               className="EditUser__control-text-box"
               type="text"
+              autoComplete="new-password"
               value={lastName}
               onChange={this.lastNameChanged}
             />
