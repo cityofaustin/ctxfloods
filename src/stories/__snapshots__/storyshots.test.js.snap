@@ -220,7 +220,8 @@ exports[`Storyshots Crossing Details Small Width 1`] = `
       >
         <div>
           <button
-            className="button button--plaintext color-highlight"
+            className="Shared__button Shared__button--secondary"
+            disabled={false}
             onClick={[Function]}
           >
             Delete Crossing
