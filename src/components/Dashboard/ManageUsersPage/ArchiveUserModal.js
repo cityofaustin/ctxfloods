@@ -44,7 +44,7 @@ class ArchiveUserModal extends Component {
     this.props
       .reactivateUserMutation({
         variables: {
-          userId: this.props.user.id,
+          userId: Number(this.props.user.id),
         },
         update: (store, { data: { reactivateUser } }) => {
           const reactivatedUser = reactivateUser.user;
@@ -68,7 +68,7 @@ class ArchiveUserModal extends Component {
   sendEmail = user => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/email/reset`, {
       method: 'POST',
-      body: JSON.stringify({ email: user.emailAddress }),
+      body: JSON.stringify({ email: user.emailAddress, newUser: true }),
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
@@ -98,7 +98,7 @@ class ArchiveUserModal extends Component {
     this.props
       .deactivateUserMutation({
         variables: {
-          userId: this.props.user.id,
+          userId: Number(this.props.user.id),
         },
         update: (store, { data: { deactivateUser } }) => {
           const deactivatedUser = deactivateUser.user;

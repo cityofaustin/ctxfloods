@@ -2398,6 +2398,9 @@ type Query implements Node {
     after: Cursor
   ): UsersConnection!
 
+  """Stable operation to test expiration of jwt_token."""
+  testJwtToken: Boolean
+
   """Reads and enables pagination through a set of `WazeFeedIncident`."""
   wazeFeed(
     """Only read the first `n` values of the set."""
