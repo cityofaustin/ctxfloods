@@ -1,12 +1,12 @@
 import decode from 'jwt-decode';
-import { isTokenExpired } from './jwtHelper';
+import { isTokenValid } from './jwtHelper';
 
 const auth = {
   isAuthenticated() {
     try {
       var token = localStorage.getItem('jwt_user_token');
       if (token === null || token === 'null') return false;
-      return !isTokenExpired(token);
+      return isTokenValid(token);
     } catch (e) {
       return false;
     }
@@ -16,7 +16,7 @@ const auth = {
     try {
       var token = localStorage.getItem('jwt_user_token');
       if (token === null || token === 'null') return null;
-      return isTokenExpired(token) ? false : decode(token).role;
+      return isTokenValid(token) ? decode(token).role : false;
     } catch (e) {
       return null;
     }

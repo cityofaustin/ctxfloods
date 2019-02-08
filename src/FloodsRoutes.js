@@ -55,7 +55,7 @@ class FloodsRoutes extends Component {
             component={ForgotPasswordPage}
           />
           <Route
-            path="/dashboard/reset_password/:resetterJwt"
+            path="/dashboard/reset_password"
             render={props => (
               <ResetPasswordPage onLogin={this.onLogin} {...props} />
             )}

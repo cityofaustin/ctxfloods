@@ -1,6 +1,7 @@
-.ForgotPasswordPage {
+.AuthPage {
   height: 100%;
   background: midnightblue;
+  text-align: center;
   input {
     width: 100%;
     font-size: 2rem;
@@ -9,7 +10,7 @@
     padding-bottom: 0.4em;
     padding-left: 0.4em;
   }
-  h1 {
+  h1, p {
     color: white;
     text-align: center;
     padding-left: 0.5em;
@@ -20,25 +21,46 @@
     padding-left: 3%;
     padding-right: 3%;
   }
+  a {
+    font-size: 1.5rem;
+    color: white;
+  }
 }
 
-.ForgotPasswordPage__waiting {
+.Auth__form-controls {
+  width: fit-content;
+  margin: 20px auto;
+}
+
+.Auth__submit {
+  background-color: deepskyblue;
+}
+
+.Auth__error-text {
+  color: red;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.Auth__waiting {
   display: block !important;
   color: white;
   text-align: center;
 }
 
-.ForgotPasswordPage__form-controls {
-  width: fit-content;
-  margin: 20px auto;
-}
-
-.ForgotPasswordPage__submit {
-  background-color: deepskyblue;
-}
-
-.ForgotPasswordPage__error-text {
-  color: red;
-  text-align: center;
+.button-link {
+  color: white;
   font-size: 1.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.button-link:hover,
+.button-link:focus {
+  text-decoration: none;
 }

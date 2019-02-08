@@ -77,7 +77,7 @@ class AddUserPage extends Component {
   sendEmail = user => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/email/reset`, {
       method: 'POST',
-      body: JSON.stringify({ email: user.email }),
+      body: JSON.stringify({ email: user.email, newUser: true }),
       headers: new Headers({
         'Content-Type': 'application/json',
       }),

@@ -68,7 +68,7 @@ class ArchiveUserModal extends Component {
   sendEmail = user => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/email/reset`, {
       method: 'POST',
-      body: JSON.stringify({ email: user.emailAddress }),
+      body: JSON.stringify({ email: user.emailAddress, newUser: true }),
       headers: new Headers({
         'Content-Type': 'application/json',
       }),

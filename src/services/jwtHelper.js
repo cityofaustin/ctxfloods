@@ -1,28 +1,28 @@
 import decode from 'jwt-decode';
-import { logError } from './logger';
+import moment from 'moment';
 
-export function getTokenExpirationDate(token) {
-  const decoded = decode(token);
-  if (!decoded.exp) {
-    return null;
+// Check if token is a real token and not expired.
+export function isTokenValid(token) {
+  let decoded;
+  try {
+    decoded = decode(token);
+  } catch(err) {
+    return false
   }
-  const date = new Date(0); // The 0 here is the key, which sets the date to the epoch
-  date.setUTCSeconds(decoded.exp);
-  return date;
+  if (decoded.exp) {
+    // Check if token has expired
+    return (decoded.exp > moment().format('X'));
+  } else {
+    return true
+  }
 }
 
-export function isTokenExpired(token) {
-  let date;
+// Check if token is a valid token
+export function isTokenReal(token) {
   try {
-    date = getTokenExpirationDate(token);
-  } catch(e) {
-    logError(e);
-    localStorage.removeItem('jwt_user_token');
-    window.location.reload();
+    decode(token);
+    return true
+  } catch(err) {
+    return false
   }
-  const offsetSeconds = 0;
-  if (date === null) {
-    return false;
-  }
-  return !(date.valueOf() > new Date().valueOf() + offsetSeconds * 1000);
 }
