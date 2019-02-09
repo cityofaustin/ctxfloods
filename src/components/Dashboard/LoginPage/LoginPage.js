@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 
 import { logError } from 'services/logger';
-import 'components/Dashboard/LoginPage/LoginPage.css';
+import 'scss/auth.css';
 
 class LoginPage extends Component {
   static propTypes = {
@@ -49,9 +49,14 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className="LoginPage">
-        <div className="LoginPage__form-controls">
+      <div className="AuthPage">
+        <div className="Auth__form-controls">
           <h1> Log in to the CTXfloods Dashboard </h1>
+          {this.state.errorHappened && (
+            <div className="Auth__error-text">
+            Authentication Failed
+            </div>
+          )}
           <form onSubmit={this.handleSubmit}>
             <input
               type="email"
@@ -65,14 +70,9 @@ class LoginPage extends Component {
               placeholder="Password"
               onChange={this.handlePasswordChange}
             />
-            <input type="submit" className="LoginPage__submit" />
+            <input type="submit" className="Auth__submit" />
           </form>
         </div>
-        {this.state.errorHappened && (
-          <div className="LoginPage__error-text">
-          Authentication Failed
-          </div>
-        )}
         <Link to="/dashboard/forgot_password">Forgot Password?</Link>
       </div>
     );

@@ -5,7 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { onError } from "apollo-link-error";
 import { logError } from './logger';
 
-import { isTokenExpired } from './jwtHelper';
+import { isTokenValid } from './jwtHelper';
 
 const httpLink = createHttpLink({
   uri: `${process.env.REACT_APP_BACKEND_URL}/graphql`,
@@ -29,12 +29,17 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) 
 const jwtMiddleware = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem('jwt_user_token');
 
-  if (token !== null && token !== 'null' && !isTokenExpired(token)) {
-    operation.setContext({
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
+  if (token !== null && token !== 'null') {
+    if (!isTokenValid(token)) {
+      localStorage.removeItem('jwt_user_token');
+      window.location.reload();
+    } else {
+      operation.setContext({
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+    }
   }
 
   return forward(operation);

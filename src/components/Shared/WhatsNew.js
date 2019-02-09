@@ -24,6 +24,13 @@ export default function WhatsNew() {
       </a>.
       </p>
 
+      <h2>02/08/2019</h2>
+      <ul>
+        {newFeature(386, "Fix password reset process")}
+        {newFeature(441, "Fix autofill bug")}
+        {newFeature(464, "Add ability to delete crossings")}
+      </ul>
+
       <h2>02/04/2019</h2>
       <ul>
         {newFeature(444, "Improve data fetching speed")}

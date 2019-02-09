@@ -35,7 +35,7 @@ class DeleteCrossingButton extends Component {
     this.props
       .deleteCrossingMutation({
         variables: {
-          crossingId: this.props.crossingId,
+          crossingId: Number(this.props.crossingId),
         },
         update: (store, { data: { removeCrossing } }) => {
           const deletedCrossing = removeCrossing.crossing;
@@ -59,12 +59,11 @@ class DeleteCrossingButton extends Component {
   render() {
     return (
       <div>
-        <button
-          className="button button--plaintext color-highlight"
+        <ButtonSecondary
           onClick={this.showDeleteModal}
         >
           Delete Crossing
-        </button>
+        </ButtonSecondary>
         <Modal
           title="Delete Crossing"
           isOpen={this.state.isModalOpen}

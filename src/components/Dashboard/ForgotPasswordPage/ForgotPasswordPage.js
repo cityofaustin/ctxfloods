@@ -3,7 +3,7 @@ import FontAwesome from 'react-fontawesome';
 
 import { logError } from 'services/logger';
 
-import 'components/Dashboard/ForgotPasswordPage/ForgotPasswordPage.css';
+import 'scss/auth.css';
 
 class ForgotPasswordPage extends Component {
   state = {
@@ -22,7 +22,7 @@ class ForgotPasswordPage extends Component {
     e.preventDefault();
     fetch(`${process.env.REACT_APP_BACKEND_URL}/email/reset`, {
       method: 'POST',
-      body: JSON.stringify({ email: this.state.email }),
+      body: JSON.stringify({ email: this.state.email, newUser: false }),
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
@@ -54,15 +54,14 @@ class ForgotPasswordPage extends Component {
 
   render() {
     const { emailSentSuccessfully, waiting, errorHappened } = this.state;
-
     return (
-      <div className="ForgotPasswordPage">
+      <div className="AuthPage">
         {!emailSentSuccessfully &&
           !waiting && (
-            <div className="ForgotPasswordPage__form-controls">
+            <div className="Auth__form-controls">
               <h1> Reset your password </h1>
               {errorHappened && (
-                <div className="ForgotPasswordPage__error-text">
+                <div className="Auth__error-text">
                   {' '}
                   Failed to send password reset email{' '}
                 </div>
@@ -76,7 +75,7 @@ class ForgotPasswordPage extends Component {
                 />
                 <input
                   type="submit"
-                  className="ForgotPasswordPage__submit"
+                  className="Auth__submit"
                   value="Send Reset Email"
                 />
               </form>
@@ -86,10 +85,15 @@ class ForgotPasswordPage extends Component {
           <FontAwesome
             name="spinner"
             size="4x"
-            className="ForgotPasswordPage__waiting fa-spin"
+            className="Auth__waiting fa-spin"
           />
         )}
-        {emailSentSuccessfully && <h1> Email Sent! </h1>}
+        {emailSentSuccessfully && (
+          <div className="Auth__form-controls">
+            <h1> Email Sent! </h1>
+            <p>You have 30 minutes to reset your password before your email's link expires.</p>
+          </div>
+        )}
       </div>
     );
   }
