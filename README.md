@@ -65,4 +65,4 @@ If `deploy: true` is set without a specified backend, your frontend will point t
 
    This password is set as `PG_SUPER_ADMIN_PW` in `/deployment/vars/local` in ctxfloods-**backend**.
 
-+ If you have made changes to the backend, regenerate the frontend's graphql schema file by running `yarn get-schema`
++ If you added a new postgres migration file to the backend, regenerate the frontend's graphql schema file by running `yarn get-schema`
