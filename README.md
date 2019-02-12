@@ -68,5 +68,5 @@ It would be possible to deploy ctxfloods without continuous integration by runni
    * Password: texasfloods
 
    This password is set as `PG_SUPER_ADMIN_PW` in `/deployment/vars/local` in ctxfloods-**backend**.
-+ Every route that is prefixed by `/dashboard` is a route that requires authentication. To get to the login page, manually enter the URL address `localhost:3000/dashboard/map`. After authentication succeeds, you will be redirected to the authenticated `/map` page. To log off (i.e. remove you jwt_user_token from local storage), click "Sign out" in the upper right hand corner of the header and manually enter `localhost:3000/map`.
++ Every route that is prefixed by `/dashboard` is a route that requires authentication. To get to the login page, manually enter the URL address `localhost:3000/dashboard/map`. After authentication succeeds, you will be redirected to the authenticated `/dashboard/map` page. To log off (i.e. remove you jwt_user_token from local storage), click "Sign out" in the upper right hand corner of the header and manually enter `localhost:3000/map`.
 + If you added a new postgres migration file to the backend, regenerate the frontend's graphql schema file by running `yarn get-schema`
