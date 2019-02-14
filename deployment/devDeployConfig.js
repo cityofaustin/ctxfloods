@@ -45,5 +45,9 @@ module.exports = {
   "427-superadmin": {
     deploy: true,
     backend: '427-superadmin'
+  },
+  "test-restore": {
+    deploy: true,
+    backend: "test-restore"
   }
 };
