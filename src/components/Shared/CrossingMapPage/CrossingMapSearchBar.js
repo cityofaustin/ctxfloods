@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import Autosuggest from 'react-autosuggest';
 import { withRouter } from 'react-router';
 
+import { logError } from 'services/logger';
 import CrossingMapSearchCrossingSuggestions from 'components/Shared/CrossingMapPage/CrossingMapSearchCrossingSuggestions';
 import 'components/Shared/CrossingMapPage/CrossingMapSearchBar.css';
 import { statusNames, statusIcons } from 'constants/StatusConstants';
@@ -132,9 +133,7 @@ class CrossingMapSearchBar extends Component {
       )
         .then(response => {
           if (response.status !== 200) {
-            console.log(
-              'Looks like there was a problem. Status Code: ' + response.status,
-            );
+            logError('places.api.here.com fetch Error: ' + response.status);
             this.setState({ geocodeSuggestions: [] });
             return;
           }
@@ -152,7 +151,7 @@ class CrossingMapSearchBar extends Component {
           });
         })
         .catch(err => {
-          console.log('Fetch Error :-S', err);
+          logError('places.api.here.com fetch Error', err);
           this.setState({ geocodeSuggestions: [] });
         });
     } else {
